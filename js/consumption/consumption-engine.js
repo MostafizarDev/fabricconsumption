@@ -63,7 +63,7 @@ function enhanceKnit(){
  addMethodBar("page-knit",[{id:"basic",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-calculator"></use></svg> Basic / Body Block'},{id:"marker",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-marker"></use></svg> Marker'},{id:"panel",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-panels"></use></svg> Panel'}],"");
  const checks=page.querySelector(".check-row");
  if(checks&&!document.getElementById("ck-sleeve")){
-   const label=document.createElement("label");label.className="fc-component-toggle";label.innerHTML='<input type="checkbox" id="ck-sleeve" checked> 🧤 Sleeve';checks.insertBefore(label,checks.children[1]||null);
+   const label=document.createElement("label");label.className="fc-component-toggle";label.innerHTML='<input type="checkbox" id="ck-sleeve" checked><svg class="fc-icon" aria-hidden="true"><use href="#i-cuff"></use></svg> Sleeve';checks.insertBefore(label,checks.children[1]||null);
    document.getElementById("ck-sleeve").addEventListener("change",()=>{toggleSleeve();calcKnitGarments()});
  }
  addShrinkToBasic("page-knit",".calc-grid",{shrink:"kg-shrink",width:"kg-width"});
@@ -94,11 +94,11 @@ function basicKnitData(){
  if(body&&bl>0&&hc>0&&gsm>0&&qty>0)bodyPc=((bl+sl)*hc*2*gsm)/div*(1+pct(shrink));
  const components=[];
  const add=(key,label,pc)=>{if(pc>0)components.push({key,label,pc})};
- add("body","👕 Body",bodyPc);
- if(document.getElementById("ck-collar")?.checked)add("collar","🧣 Collar",total("kg-cl","kg-cla")*total("kg-cw","kg-cwa")*val("kg-cgsm")/div*(1+pct(shrink)));
- if(document.getElementById("ck-cuff")?.checked)add("cuff","🧤 Cuff",total("kg-cul","kg-cula")*total("kg-cuw","kg-cuwa")*2*val("kg-cugsm")/div*(1+pct(shrink)));
- if(document.getElementById("ck-pocket")?.checked)add("pocket","🪡 Pocket",total("kg-pl","kg-pla")*total("kg-pw","kg-pwa")*Math.max(1,val("kg-pqty"))*val("kg-pgsm")/div*(1+pct(shrink)));
- if(document.getElementById("ck-halfmoon")?.checked)add("halfmoon","🌙 Half-moon",total("kg-hml","kg-hmla")*total("kg-hmw","kg-hmwa")*val("kg-hmgsm")/div*(1+pct(shrink)));
+ add("body","Body",bodyPc);
+ if(document.getElementById("ck-collar")?.checked)add("collar","Collar",total("kg-cl","kg-cla")*total("kg-cw","kg-cwa")*val("kg-cgsm")/div*(1+pct(shrink)));
+ if(document.getElementById("ck-cuff")?.checked)add("cuff","Cuff",total("kg-cul","kg-cula")*total("kg-cuw","kg-cuwa")*2*val("kg-cugsm")/div*(1+pct(shrink)));
+ if(document.getElementById("ck-pocket")?.checked)add("pocket","Pocket",total("kg-pl","kg-pla")*total("kg-pw","kg-pwa")*Math.max(1,val("kg-pqty"))*val("kg-pgsm")/div*(1+pct(shrink)));
+ if(document.getElementById("ck-halfmoon")?.checked)add("halfmoon","Half-moon",total("kg-hml","kg-hmla")*total("kg-hmw","kg-hmwa")*val("kg-hmgsm")/div*(1+pct(shrink)));
  const netPc=components.reduce((s,x)=>s+x.pc,0),netDz=netPc*12,afterDz=netDz*(1+pct(waste)),totalKg=afterDz/12*qty;
  return {unit,qty,netPc,netDz,afterDz,totalKg,components};
 }
