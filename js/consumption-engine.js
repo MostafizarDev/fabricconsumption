@@ -87,7 +87,7 @@ function addPanelRow(tbodyId,name,l,w,q,gsm){
 }
 function basicKnitData(){
  const unit=S.knitUnit||"cm",div=C[unit],qty=val("kg-qty"),waste=val("kg-waste"),shrink=val("kg-shrink");
- const body=val("ck-body")?1:0, sleeve=document.getElementById("ck-sleeve")?.checked!==false;
+ const body=document.getElementById("ck-body")?.checked!==false, sleeve=document.getElementById("ck-sleeve")?.checked!==false;
  const bl=total("kg-bl","kg-bla")*(1+pct(shrink)),sl=sleeve?total("kg-sl","kg-sla")*(1+pct(shrink)):0,hc=total("kg-hc","kg-hca")*(1+pct(shrink)),gsm=val("kg-bgsm");
  let bodyPc=0;
  if(body&&bl>0&&hc>0&&gsm>0&&qty>0)bodyPc=((bl+sl)*hc*2*gsm)/div;
@@ -154,7 +154,7 @@ window.calcKnitPant=function(){
  const IL=total("kp-il","kp-ila"),CFR=total("kp-cfr","kp-cfra"),WBW=total("kp-wbw","kp-wbwa"),HTC=total("kp-htc","kp-htca"),gsm=val("kp-gsm"),w=val("kp-waste"),s=val("kp-shrink");
  const shrink=(1+pct(s));const net=(IL+CFR+WBW)*HTC*4*gsm*12/div*Math.pow(shrink,2),after=net*(1+pct(w));
  setv("kp-r-dz",gsm>0?f(after,3)+" kg/dz":"—");setv("kp-r-pcs",gsm>0?f(after/12,4)+" kg":"—");
- updatePantTotals();
+ updatePantTotalsOnly();
  return {net,after};
 };
 function calcPantMarker(){
@@ -203,6 +203,7 @@ function calcWovenPanel(){
  setv("wv-panel-result",f(dz,3)+" yd/dz");const d=document.getElementById("wv-panel-result-detail");if(d)d.innerHTML='<div class="fc-summary-badge">PATTERN AREA</div><div class="fc-result-row"><span>Estimated / pc</span><strong>'+f(yd,3)+' yd</strong></div><div class="fc-result-row"><span>Per dozen</span><strong>'+f(dz,3)+' yd</strong></div><div class="fc-result-row"><span>Total order</span><strong>'+f(total,2)+' yd</strong></div>';
  return {baseM,perM,yd,dz,total};
 }
+function updatePantTotalsOnly(){ const pairs=[["kp-il","kp-ila","kp-ilt"],["kp-cfr","kp-cfra","kp-cfrt"],["kp-wbw","kp-wbwa","kp-wbwt"],["kp-htc","kp-htca","kp-htct"]]; pairs.forEach(p=>{const e=document.getElementById(p[2]);if(e)e.innerText=(val(p[0])+val(p[1])).toFixed(1)+" "+(S.pantUnit||"cm")}); }
 function addExtraInputs(){
  const knit= document.getElementById("page-knit");if(knit&&!document.getElementById("kg-shrink")){}
  const pant=document.getElementById("page-knitpant");if(pant&&!document.getElementById("kp-shrink")){}
@@ -210,8 +211,12 @@ function addExtraInputs(){
    const row=html("div",{class:"field-row fc-basic-extra"});row.innerHTML=input("ws-waste","Wastage %","e.g., 3")+input("ws-shrink","Shrinkage %","e.g., 0");const target=woven.querySelector(".calc-grid");if(target)target.insertAdjacentElement("afterend",row);
  }
 }
+function setupUnits(){
+  window.setKnitUnit=function(unit){ if(unit!=="cm"&&unit!=="inch")return; S.knitUnit=unit; document.querySelectorAll("#page-knit .unit-label").forEach(e=>e.textContent="("+unit+")"); document.querySelectorAll("#page-knit .unit-bar .u-btn").forEach(b=>b.classList.toggle("active",b.dataset.unit===unit)); calcKnitGarments(); };
+  window.setPantUnit=function(unit){ if(unit!=="cm"&&unit!=="inch")return; S.pantUnit=unit; document.querySelectorAll("#page-knitpant .unit-label").forEach(e=>e.textContent="("+unit+")"); document.querySelectorAll("#page-knitpant .unit-bar .u-btn").forEach(b=>b.classList.toggle("active",b.dataset.unit===unit)); updatePantTotalsOnly(); calcKnitPant(); };
+}
 function setup(){
- enhanceKnit();enhancePant();enhanceWoven();addExtraInputs();toggleSleeve();
+ setupUnits(); enhanceKnit();enhancePant();enhanceWoven();addExtraInputs();toggleSleeve();
  ["page-knit","page-knitpant","page-woven"].forEach(id=>{
    const p=document.getElementById(id);if(p)p.addEventListener("input",()=>{if(id==="page-knit")calcKnitGarments();else if(id==="page-knitpant")calcKnitPant();else calcWoven()});
  });
