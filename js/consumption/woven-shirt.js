@@ -63,7 +63,7 @@ function downloadWovenReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>👔 Woven Shirt Consumption Report</h1>
+            <h1>Woven Shirt Consumption Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -79,7 +79,7 @@ function downloadWovenReport() {
                 <tr><th>Component</th><th>Measurement (cm)</th><th>With Allowance</th><th>Consumption (yds/dz)</th></tr>
             </thead>
             <tbody>
-                <tr><td>👕 Body</td>
+                <tr><td>Body</td>
                     <td>Length: ${v('ws-bl')}, Chest: ${v('ws-hc')}</td>
                     <td>${BL} cm × ${HC} cm</td>
                     <td>${bodyDz}</td>
@@ -93,7 +93,7 @@ function downloadWovenReport() {
         </table>
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-            <strong>📐 Input Summary:</strong><br>
+            <strong>Input Summary:</strong><br>
             Fabric Width: ${FW} inches | Unit: CM<br>
             <strong>Formula (Body):</strong> (BL) × (HC) × 2 × 12 / (FW × 36 × 2.54)<br>
             <strong>Formula (Sleeve):</strong> (SL) × (AH) × 2 × 2 × 12 / (FW × 36 × 2.54)
