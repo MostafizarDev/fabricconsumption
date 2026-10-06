@@ -530,10 +530,11 @@ function initPremiumIcons() {
                 collarSvg.setAttribute('aria-hidden', 'true');
                 collarSvg.classList.add('fc-svg-icon', 'fc-collar-icon');
                 collarSvg.innerHTML = `
-                    <path d="M4 8.5 8.5 6 12 9l3.5-3L20 8.5v11H4v-11Z"></path>
-                    <path d="M8.5 6 12 12l3.5-6"></path>
-                    <path d="M9.2 12 12 14.5l2.8-2.5"></path>
-                    <path d="M12 14.5V19"></path>
+                    <path d="M5.2 7.2C6.2 4.2 9.3 3 12 3s5.8 1.2 6.8 4.2"></path>
+                    <path d="M5.2 7.2 2.8 12.8c-.5 1.2-.2 2.5.7 3.4l5.9 5.2 3.1-6.2"></path>
+                    <path d="M18.8 7.2 21.2 12.8c.5 1.2.2 2.5-.7 3.4l-5.9 5.2-3.1-6.2"></path>
+                    <path d="M5.2 7.2 12 12.8l6.8-5.6"></path>
+                    <path d="M10.1 15.2h3.8l1.1 2.4h-6l1.1-2.4Z"></path>
                 `;
                 collarSvg.setAttribute('fill', 'none');
                 collarSvg.setAttribute('stroke', 'currentColor');
