@@ -80,3 +80,7 @@ body.fc-searching .page.fc-search-hit{display:block!important}
   .panel{padding:15px!important}
   .r-card.main .r-value{font-size:30px!important}
 }
+
+html[data-theme="dark"] .footer{color:var(--fc-muted)!important;border-color:var(--fc-border)!important}
+html[data-theme="dark"] .badge-blue{background:rgba(59,130,246,.16);color:#93c5fd}
+html[data-theme="dark"] .badge-green{background:rgba(16,185,129,.14);color:#86efac}
