@@ -84,7 +84,7 @@ function downloadWovenReport() {
                     <td>${BL} cm × ${HC} cm</td>
                     <td>${bodyDz}</td>
                 </tr>
-                <tr><td>🧤 Sleeve</td>
+                <tr><td>Sleeve</td>
                     <td>Length: ${v('ws-sl')}, Armhole: ${v('ws-ah')}</td>
                     <td>${SL} cm × ${AH} cm</td>
                     <td>${sleeveDz}</td>
