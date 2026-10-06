@@ -82,7 +82,7 @@ function addBookingRow() {
         <td><input class="inp-plain" id="bs-pcs-${bookingRows}" value="10" style="width:50px"></td>
         <td><input class="inp-plain" id="bs-cwp-${bookingRows}" value="6" style="width:50px"></td>
         <td class="bs-result-${bookingRows}" style="color:#0ea5e9; font-weight:700; text-align:center">—</td>
-        <td><button onclick="deleteBookingRow(this)" style="background:#ef4444; color:white; border:none; border-radius:4px; padding:4px 8px; cursor:pointer">✖</button></td>
+        <td><button onclick="deleteBookingRow(this)" style="background:#ef4444; color:white; border:none; border-radius:4px; padding:4px 8px; cursor:pointer">Remove</button></td>
     `;
     tbody.appendChild(newRow);
     
