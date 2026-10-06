@@ -21,7 +21,7 @@ function loadMyFormulas() {
     if (formulas.length === 0) {
         list.innerHTML = `
             <div style="text-align: center; padding: 30px; color: #94a3b8; background: #f8fafc; border-radius: 10px;">
-                📭 No saved formulas yet.<br>
+                No saved formulas yet.<br>
                 <span style="font-size: 12px;">Add your first formula using the form above!</span>
             </div>
         `;
@@ -35,7 +35,7 @@ function loadMyFormulas() {
             <div style="flex: 1;">
                 <div class="mf-name">
                     <span style="background: #0ea5e9; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; margin-right: 8px;">#${i + 1}</span>
-                    📘 ${escapeHtml(f.name)}
+                    ${escapeHtml(f.name)}
                 </div>
                 <div class="mf-formula">${escapeHtml(f.formula)}</div>
                 <div style="font-size: 10px; color: #94a3b8; margin-top: 6px;">
@@ -57,7 +57,7 @@ function saveMyFormula() {
     const formula = formulaInput?.value.trim();
     
     if (!name || !formula) {
-        showToast('⚠️ Please enter both formula name and description.', 'error');
+        showToast('Please enter both formula name and description.', 'error');
         return;
     }
     
@@ -69,7 +69,7 @@ function saveMyFormula() {
     // Check for duplicate name
     const duplicate = formulas.find(f => f.name.toLowerCase() === name.toLowerCase());
     if (duplicate) {
-        if (!confirm(`⚠️ A formula named "${name}" already exists.\nDo you want to save it anyway?`)) {
+        if (!confirm(`A formula named "${name}" already exists.\nDo you want to save it anyway?`)) {
             return;
         }
     }
@@ -87,7 +87,7 @@ function saveMyFormula() {
     if (formulaInput) formulaInput.value = '';
     
     loadMyFormulas();
-    showToast('✅ Formula saved successfully!', 'success');
+    showToast('Included Formula saved successfully!', 'success');
 }
 
 // Delete a formula by index
@@ -99,21 +99,21 @@ function deleteFormula(index) {
     
     if (index >= 0 && index < formulas.length) {
         const formulaName = formulas[index].name;
-        if (confirm(`🗑️ Are you sure you want to delete "${formulaName}"?`)) {
+        if (confirm(`Are you sure you want to delete "${formulaName}"?`)) {
             formulas.splice(index, 1);
             localStorage.setItem('fc_formulas', JSON.stringify(formulas));
             loadMyFormulas();
-            showToast(`🗑️ Deleted formula: "${formulaName}"`, 'success');
+            showToast(`Deleted formula: "${formulaName}"`, 'success');
         }
     }
 }
 
 // Delete all formulas
 function deleteAllFormulas() {
-    if (confirm('⚠️ Are you sure you want to delete ALL saved formulas? This action cannot be undone!')) {
+    if (confirm('Are you sure you want to delete ALL saved formulas? This action cannot be undone!')) {
         localStorage.removeItem('fc_formulas');
         loadMyFormulas();
-        showToast('🗑️ All formulas deleted!', 'success');
+        showToast('All formulas deleted!', 'success');
     }
 }
 
@@ -137,7 +137,7 @@ function exportFormulas() {
     link.download = `my_formulas_${new Date().toISOString().slice(0, 19)}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    showToast('📥 Formulas exported successfully!', 'success');
+    showToast('Formulas exported successfully!', 'success');
 }
 
 // Import formulas from JSON file
@@ -162,9 +162,9 @@ function importFormulas(event) {
             localStorage.setItem('fc_formulas', JSON.stringify(mergedFormulas));
             
             loadMyFormulas();
-            showToast(`📥 Imported ${importedFormulas.length} formulas!`, 'success');
+            showToast(`Imported ${importedFormulas.length} formulas!`, 'success');
         } catch(err) {
-            showToast('❌ Invalid file format!', 'error');
+            showToast('Not included Invalid file format!', 'error');
         }
     };
     reader.readAsText(file);
