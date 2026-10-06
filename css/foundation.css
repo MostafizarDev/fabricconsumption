@@ -1,0 +1,82 @@
+/* FabricConsumption — Phase 01 Foundation
+   UI system only. Existing calculator classes remain compatible.
+*/
+:root{
+  --fc-bg:#f5f7fb;--fc-surface:#fff;--fc-surface-2:#f8fafc;--fc-border:#e2e8f0;
+  --fc-text:#0f172a;--fc-muted:#64748b;--fc-brand:#0ea5e9;--fc-brand-2:#2563eb;
+  --fc-sidebar:#0b1220;--fc-sidebar-2:#111827;--fc-sidebar-text:#cbd5e1;
+  --fc-success:#059669;--fc-warning:#d97706;--fc-danger:#dc2626;
+  --fc-radius:14px;--fc-shadow:0 8px 30px rgba(15,23,42,.07);
+}
+html[data-theme="dark"]{
+  --fc-bg:#070b12;--fc-surface:#0f172a;--fc-surface-2:#111827;--fc-border:#243244;
+  --fc-text:#e5edf7;--fc-muted:#94a3b8;--fc-sidebar:#050912;--fc-sidebar-2:#0b1220;
+}
+html,body{background:var(--fc-bg)!important;color:var(--fc-text)!important}
+body{min-height:100vh;overflow-x:hidden}
+body.fc-ready{padding-left:260px}
+header{height:68px!important;left:260px!important;right:0!important;width:auto!important;background:rgba(255,255,255,.86)!important;color:var(--fc-text)!important;border-bottom:1px solid var(--fc-border);box-shadow:0 1px 10px rgba(15,23,42,.05)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:0 24px!important}
+html[data-theme="dark"] header{background:rgba(7,11,18,.86)!important}
+header .logo-name{background:none!important;-webkit-text-fill-color:initial!important;color:var(--fc-text)!important;font-family:Inter,sans-serif!important;font-size:18px!important;letter-spacing:-.4px!important}
+header .logo-sub{color:var(--fc-muted)!important;letter-spacing:1.2px!important}
+header .logo-icon{background:linear-gradient(135deg,var(--fc-brand),var(--fc-brand-2))!important;border-radius:12px!important;box-shadow:0 6px 16px rgba(14,165,233,.2)}
+.header-url{color:var(--fc-muted)!important}
+.tab-bar{position:fixed!important;left:0;top:0;bottom:0;width:260px!important;height:100vh!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:4px!important;padding:88px 12px 18px!important;background:var(--fc-sidebar)!important;border-right:1px solid rgba(148,163,184,.12);z-index:120!important;box-shadow:8px 0 30px rgba(2,6,23,.14)!important}
+.tab-bar:before{content:"FABRICCONSUMPTION\A Garment Technical Toolkit";white-space:pre;display:block;color:#f8fafc;font-weight:800;font-size:15px;line-height:1.5;padding:0 12px 16px;border-bottom:1px solid rgba(148,163,184,.14);margin-bottom:10px}
+.fc-nav-group{margin:10px 0 3px;padding:0 12px;color:#64748b;font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+.tab-btn{width:100%!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important;min-height:42px!important;padding:10px 12px!important;border:1px solid transparent!important;border-radius:10px!important;background:transparent!important;color:var(--fc-sidebar-text)!important;font-size:13px!important;font-weight:600!important;cursor:pointer!important;transition:.18s ease!important}
+.tab-btn:hover{background:rgba(148,163,184,.09)!important;color:#fff!important;transform:none!important}
+.tab-btn.active{background:linear-gradient(90deg,rgba(14,165,233,.18),rgba(37,99,235,.12))!important;color:#fff!important;border-color:rgba(14,165,233,.28)!important;box-shadow:inset 3px 0 0 var(--fc-brand)}
+main{max-width:none!important;width:100%!important;padding:96px 28px 72px!important;margin:0!important}
+.page{max-width:1240px!important;margin:0 auto!important}
+.page-title{font-size:28px!important;font-weight:800!important;letter-spacing:-.7px!important;color:var(--fc-text)!important}
+.page-desc{color:var(--fc-muted)!important}
+.panel,.r-card,.add-formula-form,.formula-note,.unit-bar,.input-note{background:var(--fc-surface)!important;color:var(--fc-text)!important;border-color:var(--fc-border)!important;box-shadow:var(--fc-shadow)!important}
+.panel{border-radius:var(--fc-radius)!important}
+.panel-title,.opt-title,.fn-title{color:var(--fc-text)!important}
+input,textarea,select,.inp-plain,.inp-a,.conv-inp,.sr-input{background:var(--fc-surface-2)!important;color:var(--fc-text)!important;border-color:var(--fc-border)!important;border-radius:9px!important}
+input:focus,textarea:focus,select:focus{outline:none!important;border-color:var(--fc-brand)!important;box-shadow:0 0 0 3px rgba(14,165,233,.12)!important}
+input.fc-invalid,textarea.fc-invalid,select.fc-invalid{border-color:var(--fc-danger)!important;box-shadow:0 0 0 3px rgba(220,38,38,.1)!important}
+.calc-btn{border-radius:10px!important;background:linear-gradient(135deg,var(--fc-brand),var(--fc-brand-2))!important;box-shadow:0 7px 18px rgba(37,99,235,.18)!important;transition:.18s ease!important}
+.calc-btn:hover{transform:translateY(-1px)!important;box-shadow:0 10px 22px rgba(37,99,235,.24)!important}
+.r-card.main{border:1px solid rgba(14,165,233,.25)!important;background:linear-gradient(145deg,var(--fc-surface),rgba(14,165,233,.04))!important}
+.r-value{color:var(--fc-brand)!important}
+.r-row{border-color:var(--fc-border)!important;color:var(--fc-text)!important}
+.formula-note{border-left:3px solid var(--fc-brand)!important}
+.fc-top-search{position:absolute;left:50%;transform:translateX(-50%);width:min(440px,42vw);height:40px}
+.fc-top-search input{width:100%;height:40px;padding:0 42px 0 40px;border-radius:11px!important;border:1px solid var(--fc-border)!important}
+.fc-search-icon{position:absolute;left:14px;top:10px;color:var(--fc-muted);font-size:16px}
+.fc-search-count{position:absolute;right:12px;top:11px;color:var(--fc-muted);font-size:10px}
+.fc-header-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.fc-icon-btn{width:38px;height:38px;border:1px solid var(--fc-border);background:var(--fc-surface);color:var(--fc-text);border-radius:10px;cursor:pointer;font-size:16px}
+.fc-menu-btn{display:none}
+.fc-empty-search{display:none!important}
+.fc-nav-hidden{display:none!important}
+body.fc-searching .page{display:none!important}
+body.fc-searching .page.fc-search-hit{display:block!important}
+.fc-mobile-overlay{display:none}
+@media(max-width:980px){
+  body.fc-ready{padding-left:0}
+  header{left:0!important}
+  .tab-bar{transform:translateX(-102%);transition:transform .22s ease;box-shadow:18px 0 45px rgba(2,6,23,.3)}
+  body.fc-nav-open .tab-bar{transform:translateX(0)}
+  .fc-menu-btn{display:block!important}
+  .fc-top-search{left:52%;width:min(390px,45vw)}
+  main{padding:94px 18px 64px!important}
+  .fc-mobile-overlay{display:block;position:fixed;inset:0;background:rgba(2,6,23,.45);z-index:110;opacity:0;pointer-events:none;transition:.2s}
+  body.fc-nav-open .fc-mobile-overlay{opacity:1;pointer-events:auto}
+}
+@media(max-width:700px){
+  header{padding:0 12px!important;gap:8px!important}
+  header .logo-name{font-size:15px!important}
+  header .logo-sub{display:none!important}
+  header .header-url{display:none!important}
+  .fc-top-search{position:fixed;top:76px;left:12px;right:12px;transform:none;width:auto;z-index:100}
+  main{padding:130px 12px 54px!important}
+  .page-title{font-size:23px!important}
+  .calc-grid{grid-template-columns:1fr!important}
+  .field-row{grid-template-columns:1fr!important}
+  .result-panel{position:static!important}
+  .panel{padding:15px!important}
+  .r-card.main .r-value{font-size:30px!important}
+}
