@@ -93,9 +93,8 @@
     document.body.classList.toggle("fc-searching",!!q);
     let hits=0;
     pages.forEach(page=>{
-      const title=(page.querySelector(".page-title")?.textContent||"").toLowerCase();
-      const desc=(page.querySelector(".page-desc")?.textContent||"").toLowerCase();
-      const match=!q || title.includes(q)||desc.includes(q);
+      const searchable=(page.innerText||"").toLowerCase();
+      const match=!q || searchable.includes(q);
       page.classList.toggle("fc-search-hit",match);
       const btn=document.querySelector('.tab-btn[data-page="'+page.id.replace("page-","")+'"]');
       if(btn) btn.classList.toggle("fc-nav-hidden",!!q&&!match);
