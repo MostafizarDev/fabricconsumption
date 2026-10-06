@@ -32,6 +32,9 @@ function initApp() {
     
     // Setup unit toggle buttons
     setupUnitButtons();
+
+    // Replace UI emoji symbols with consistent premium SVG icons
+    initPremiumIcons();
 }
 
 // Run all calculations on page load
@@ -427,6 +430,184 @@ function setupSizeRatioListeners() {
             input.addEventListener('input', function() {
                 if (typeof updateSizeRatio === 'function') updateSizeRatio();
             });
+        }
+    });
+}
+
+
+// ========== PREMIUM SVG ICON SYSTEM ==========
+// Uses Lucide SVG icons with one consistent stroke style.
+// Emoji icons in the UI are replaced automatically by semantic SVG icons.
+function initPremiumIcons() {
+    if (!window.lucide || typeof window.lucide.createIcons !== 'function') {
+        return;
+    }
+
+    const iconMap = {
+        '🧵': 'spool',
+        '👕': 'shirt',
+        '👔': 'shirt',
+        '👖': 'shirt',
+        '🧣': 'shirt',
+        '🧤': 'hand',
+        '🪡': 'component',
+        '🌙': 'moon',
+        '📋': 'clipboard-list',
+        '💰': 'circle-dollar-sign',
+        '💵': 'badge-dollar-sign',
+        '🔱': 'split',
+        '📐': 'ruler-dimension-line',
+        '🔄': 'arrow-left-right',
+        '📚': 'library',
+        '📏': 'ruler',
+        '📊': 'chart-bar',
+        '⚖️': 'weight',
+        '🌡️': 'thermometer',
+        '📦': 'package',
+        '🔘': 'circle-dot',
+        '⚙️': 'settings',
+        '⚠️': 'triangle-alert',
+        '🟡': 'circle',
+        '📄': 'file-text',
+        '🎯': 'target',
+        '✅': 'check',
+        '❌': 'x',
+        '➕': 'circle-plus',
+        '📈': 'chart-line',
+        '📝': 'notebook-pen',
+        '📖': 'book-open',
+        '🔧': 'wrench',
+        '🛠️': 'tool-case',
+        '📎': 'paperclip',
+        '🔍': 'search',
+        '🔎': 'search',
+        '💡': 'lightbulb',
+        '🚀': 'rocket'
+    };
+
+    const emojiPattern = /🧵|👕|👔|👖|🧣|🧤|🪡|🌙|📋|💰|💵|🔱|📐|🔄|📚|📏|📊|⚖️|🌡️|📦|🔘|⚙️|⚠️|🟡|📄|🎯|✅|❌|➕|📈|📝|📖|🔧|🛠️|📎|🔍|🔎|💡|🚀/gu;
+
+    const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode(node) {
+                const parent = node.parentElement;
+                if (!parent) return NodeFilter.FILTER_REJECT;
+
+                const tag = parent.tagName;
+                if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(tag)) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                emojiPattern.lastIndex = 0;
+                return emojiPattern.test(node.nodeValue)
+                    ? NodeFilter.FILTER_ACCEPT
+                    : NodeFilter.FILTER_REJECT;
+            }
+        }
+    );
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach(node => {
+        const fragment = document.createDocumentFragment();
+        const text = node.nodeValue;
+        let lastIndex = 0;
+        let match;
+
+        emojiPattern.lastIndex = 0;
+
+        while ((match = emojiPattern.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+                fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+            }
+
+            const icon = document.createElement('i');
+            icon.setAttribute('data-lucide', iconMap[match[0]]);
+            icon.setAttribute('aria-hidden', 'true');
+            icon.className = 'fc-svg-icon';
+            fragment.appendChild(icon);
+
+            lastIndex = match.index + match[0].length;
+        }
+
+        if (lastIndex < text.length) {
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+
+        node.parentNode.replaceChild(fragment, node);
+    });
+
+    if (!document.getElementById('fc-premium-icon-style')) {
+        const style = document.createElement('style');
+        style.id = 'fc-premium-icon-style';
+        style.textContent = `
+            .fc-svg-icon {
+                width: 1em;
+                height: 1em;
+                min-width: 1em;
+                display: inline-block;
+                vertical-align: -0.16em;
+                stroke-width: 2;
+                color: currentColor;
+                margin-right: 0.18em;
+            }
+
+            .tab-btn .fc-svg-icon {
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                vertical-align: -0.18em;
+                margin-right: 4px;
+            }
+
+            .page-title > .fc-svg-icon {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+                vertical-align: -0.2em;
+                margin-right: 5px;
+                stroke-width: 1.9;
+            }
+
+            .panel-title > .fc-svg-icon,
+            .opt-title > .fc-svg-icon,
+            .fn-title > .fc-svg-icon {
+                width: 18px;
+                height: 18px;
+                min-width: 18px;
+                stroke-width: 1.9;
+            }
+
+            .check-row .fc-svg-icon {
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                vertical-align: -0.18em;
+            }
+
+            .calc-btn .fc-svg-icon {
+                width: 16px;
+                height: 16px;
+                min-width: 16px;
+            }
+
+            .r-row .fc-svg-icon {
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                vertical-align: -0.17em;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    window.lucide.createIcons({
+        attrs: {
+            'stroke-width': 2,
+            'stroke': 'currentColor'
         }
     });
 }
