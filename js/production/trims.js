@@ -55,7 +55,7 @@ function downloadThreadReport() {
         </table>
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-            <strong>📐 Formula:</strong><br>
+            <strong>Formula:</strong><br>
             Thread (m) = Seam Length × Layers × SPI × Thread Per Stitch ÷ 39.37<br>
             = ${seamLength} × ${layers} × ${spi} × ${tps} ÷ 39.37<br>
             = <strong>${perPc.toFixed(1)} m/pc</strong> | <strong>${perDz.toFixed(1)} m/dz</strong>
@@ -88,7 +88,7 @@ function downloadButtonReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>🔘 Button Consumption Report</h1>
+            <h1>Button Consumption Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -107,7 +107,7 @@ function downloadButtonReport() {
         </table>
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-            <strong>📐 Formula:</strong><br>
+            <strong>Formula:</strong><br>
             Buttons/Dz = Buttons/Pc × 12 × (1 + Extra%/100)<br>
             = ${buttonsPerPc} × 12 × ${(1 + extraPercent/100).toFixed(2)}<br>
             = <strong>${Math.ceil(perDz)} pcs/dz</strong>
@@ -144,7 +144,7 @@ function downloadInterliningReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>🧵 Interlining Consumption Report</h1>
+            <h1>Interlining Consumption Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -165,7 +165,7 @@ function downloadInterliningReport() {
         </table>
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-            <strong>📐 Formula:</strong><br>
+            <strong>Formula:</strong><br>
             Area (m²) = (Length × Width × Qty) ÷ 10,000<br>
             = (${length} × ${width} × ${qtyPerPc}) ÷ 10,000<br>
             = <strong>${areaPerPc.toFixed(4)} m²/pc</strong> | <strong>${areaPerDz.toFixed(3)} m²/dz</strong>
