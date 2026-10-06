@@ -51,18 +51,18 @@ function showPage(pageId, btn) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
     });
-    
+
     // Show selected page
     const targetPage = document.getElementById('page-' + pageId);
     if (targetPage) targetPage.classList.add('active');
-    
+
     // Update active tab button
     document.querySelectorAll('.tab-btn').forEach(button => {
         button.classList.remove('active');
     });
-    
+
     if (btn) btn.classList.add('active');
-    
+
     // Recalculate based on page
     if (pageId === 'knit' && typeof calcKnitGarments === 'function') {
         setTimeout(() => calcKnitGarments(), 50);
@@ -95,8 +95,38 @@ function showPage(pageId, btn) {
 
 // ========== PDF GENERATOR ==========
 function generatePDF(title, contentHtml) {
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
+    // Use a hidden iframe instead of window.open().
+    // This avoids Chrome popup-blocking issues and the
+    // "Cannot read properties of null (reading 'document')" error.
+    const existingFrame = document.getElementById('pdf-print-frame');
+    if (existingFrame) existingFrame.remove();
+
+    const printFrame = document.createElement('iframe');
+    printFrame.id = 'pdf-print-frame';
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '1px';
+    printFrame.style.height = '1px';
+    printFrame.style.border = '0';
+    printFrame.style.opacity = '0';
+    printFrame.style.pointerEvents = 'none';
+
+    document.body.appendChild(printFrame);
+
+    const printWindow = printFrame.contentWindow;
+    const printDocument = printFrame.contentDocument || printWindow.document;
+
+    if (!printWindow || !printDocument) {
+        printFrame.remove();
+        if (typeof showToast === 'function') {
+            showToast('PDF preview could not be opened.', 'error');
+        }
+        return;
+    }
+
+    printDocument.open();
+    printDocument.write(`
         <!DOCTYPE html>
         <html>
         <head>
@@ -105,7 +135,7 @@ function generatePDF(title, contentHtml) {
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { font-family: 'Inter', sans-serif; padding: 30px; max-width: 800px; margin: 0 auto; }
+                body { font-family: 'Inter', sans-serif; padding: 30px; max-width: 1100px; margin: 0 auto; }
                 h1 { color: #0f172a; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px; margin-bottom: 20px; }
                 h2 { color: #1e293b; font-size: 18px; margin: 20px 0 10px 0; }
                 h3 { color: #475569; font-size: 14px; margin: 15px 0 8px 0; }
@@ -120,7 +150,7 @@ function generatePDF(title, contentHtml) {
                 .box-value { font-size: 32px; font-weight: 800; }
                 .highlight { color: #0ea5e9; }
                 @media print {
-                    body { padding: 0; }
+                    body { padding: 0; max-width: none; }
                     .no-print { display: none; }
                 }
             </style>
@@ -130,16 +160,48 @@ function generatePDF(title, contentHtml) {
             <div class="footer">
                 © 2026 Mostafizar Rahman | TG: @mostafizarfiz
             </div>
-            <script>
-                window.onload = function() { 
-                    window.print(); 
-                    setTimeout(function() { window.close(); }, 1000);
-                };
-            <\/script>
         </body>
         </html>
     `);
-    printWindow.document.close();
+    printDocument.close();
+
+    const cleanup = () => {
+        setTimeout(() => {
+            if (printFrame.parentNode) printFrame.remove();
+        }, 1500);
+    };
+
+    printFrame.onload = function() {
+        setTimeout(() => {
+            try {
+                printWindow.focus();
+                printWindow.print();
+                cleanup();
+            } catch (error) {
+                console.error('PDF print error:', error);
+                if (typeof showToast === 'function') {
+                    showToast('PDF print failed. Please try again.', 'error');
+                }
+                cleanup();
+            }
+        }, 300);
+    };
+
+    // Some browsers do not fire iframe.onload after document.write(),
+    // so use a safe fallback check.
+    setTimeout(() => {
+        if (document.getElementById('pdf-print-frame')) {
+            try {
+                if (printDocument.readyState === 'complete' || printDocument.readyState === 'interactive') {
+                    printWindow.focus();
+                    printWindow.print();
+                    cleanup();
+                }
+            } catch (error) {
+                console.error('PDF fallback print error:', error);
+            }
+        }
+    }, 700);
 }
 
 // ========== TOAST NOTIFICATION ==========
@@ -166,18 +228,18 @@ function showToast(message, type = 'info') {
         `;
         document.body.appendChild(toast);
     }
-    
+
     const colors = {
         success: '#10b981',
         error: '#ef4444',
         info: '#0ea5e9',
         warning: '#f59e0b'
     };
-    
+
     toast.style.backgroundColor = colors[type] || '#1e293b';
     toast.textContent = message;
     toast.style.opacity = '1';
-    
+
     setTimeout(() => {
         toast.style.opacity = '0';
     }, 3000);
