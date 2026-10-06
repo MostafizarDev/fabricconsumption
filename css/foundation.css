@@ -79,11 +79,16 @@ body.fc-searching .page.fc-search-hit{display:block!important}
   header .header-url{display:none!important}
   .fc-top-search{order:4;flex:1 0 100%;width:100%;margin:0;height:38px}
   .fc-header-actions{margin-left:0}
-  .tab-bar{top:0!important;position:sticky!important}
+  .tab-bar{top:104px!important;position:sticky!important}
   .tab-btn{padding:10px 12px!important;font-size:11px!important}
   main{padding:16px 12px 48px!important}
   .page-title{font-size:22px!important}
   .calc-grid{grid-template-columns:1fr!important}
+  .field-row{flex-direction:column!important;gap:8px!important}
+  .check-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px!important}
+  .check-row label{min-height:36px}
+  .calc-btn,.pdf-btn{min-height:44px!important}
+  .u-btn,.fc-method-btn{min-height:40px!important}
   .fc-advanced-grid{grid-template-columns:1fr!important}
   .fc-method-bar{position:sticky;top:0;z-index:50}
   .fc-method-fields{grid-template-columns:1fr!important}
