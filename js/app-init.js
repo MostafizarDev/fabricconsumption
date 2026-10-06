@@ -448,7 +448,7 @@ function initPremiumIcons() {
         '👕': 'shirt',
         '👔': 'shirt',
         '👖': 'shirt',
-        '🧣': 'scissors',
+        '🧣': 'shirt',
         '🧤': 'hand',
         '🪡': 'pocket-knife',
         '🌙': 'moon',
@@ -524,7 +524,22 @@ function initPremiumIcons() {
                 fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
             }
 
-            if (match[0] === '🪡') {
+            if (match[0] === '🧣') {
+                const collarSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                collarSvg.setAttribute('viewBox', '0 0 24 24');
+                collarSvg.setAttribute('aria-hidden', 'true');
+                collarSvg.classList.add('fc-svg-icon', 'fc-collar-icon');
+                collarSvg.innerHTML = `
+                    <path d="M5 5l5 3 2-2 2 2 5-3-1.5 7-5.5 4-5.5-4L5 5Z"></path>
+                    <path d="M10 8l2 5 2-5"></path>
+                `;
+                collarSvg.setAttribute('fill', 'none');
+                collarSvg.setAttribute('stroke', 'currentColor');
+                collarSvg.setAttribute('stroke-width', '2');
+                collarSvg.setAttribute('stroke-linecap', 'round');
+                collarSvg.setAttribute('stroke-linejoin', 'round');
+                fragment.appendChild(collarSvg);
+            } else if (match[0] === '🪡') {
                 const pocketSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                 pocketSvg.setAttribute('viewBox', '0 0 24 24');
                 pocketSvg.setAttribute('aria-hidden', 'true');
