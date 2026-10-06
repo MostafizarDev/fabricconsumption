@@ -33,7 +33,7 @@ function downloadThreadReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>🪡 Thread Consumption Report</h1>
+            <h1>Thread Consumption Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
