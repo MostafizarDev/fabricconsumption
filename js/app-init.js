@@ -530,12 +530,14 @@ function initPremiumIcons() {
                 collarSvg.setAttribute('aria-hidden', 'true');
                 collarSvg.classList.add('fc-svg-icon', 'fc-collar-icon');
                 collarSvg.innerHTML = `
-                    <path d="M5 5.5 9.5 8 12 6l2.5 2L19 5.5l-1.5 7-5.5 4.5-5.5-4.5L5 5.5Z"></path>
-                    <path d="M9.5 8 12 13l2.5-5"></path>
+                    <path d="M4 8.5 8.5 6 12 9l3.5-3L20 8.5v11H4v-11Z"></path>
+                    <path d="M8.5 6 12 12l3.5-6"></path>
+                    <path d="M9.2 12 12 14.5l2.8-2.5"></path>
+                    <path d="M12 14.5V19"></path>
                 `;
                 collarSvg.setAttribute('fill', 'none');
                 collarSvg.setAttribute('stroke', 'currentColor');
-                collarSvg.setAttribute('stroke-width', '2');
+                collarSvg.setAttribute('stroke-width', '1.9');
                 collarSvg.setAttribute('stroke-linecap', 'round');
                 collarSvg.setAttribute('stroke-linejoin', 'round');
                 fragment.appendChild(collarSvg);
