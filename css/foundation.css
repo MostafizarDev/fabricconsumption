@@ -100,6 +100,7 @@ html[data-theme="dark"] .inp-allow:focus{background:#453915!important;border-col
   color:#765b00!important;background:#fff9df!important;display:flex!important;align-items:center!important;
   font-size:11px!important;font-weight:600!important;
 }
+.input-note::before{content:"";width:10px;height:10px;flex:0 0 10px;margin-right:8px;border-radius:2px;background:#efc247;border:1px solid #d3a72b;box-shadow:0 0 0 2px rgba(239,194,71,.14)}
 html[data-theme="dark"] .input-note{background:#30280f!important;border-color:#6b571f!important;border-left-color:#d8aa2e!important;color:#f0d57d!important}
 .r-card.main,.fc-result-main{
   background:#142944!important;color:#fff!important;border:1px solid #23436a!important;box-shadow:var(--fc-shadow)!important;
