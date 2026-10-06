@@ -531,10 +531,6 @@ function initPremiumIcons() {
                 pocketSvg.classList.add('fc-svg-icon', 'fc-pocket-icon');
                 pocketSvg.innerHTML = `
                     <path d="M5 4.5h14v12.2l-4.2 4.2H9.2L5 16.7V4.5Z"></path>
-                    <path d="M5 7.2h14"></path>
-                    <path d="M7.5 10.1v1.2M7.5 13.2v1.2M16.5 10.1v1.2M16.5 13.2v1.2"></path>
-                    <path d="M9.5 18.2h1.1M13.4 18.2h1.1"></path>
-                    <path d="M7.5 16.1l.8.8M16.5 16.1l-.8.8"></path>
                 `;
                 pocketSvg.setAttribute('fill', 'none');
                 pocketSvg.setAttribute('stroke', 'currentColor');
