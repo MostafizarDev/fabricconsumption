@@ -391,7 +391,7 @@ function downloadKnitReport() {
             
             <!-- Header -->
             <div style="text-align: center; margin-bottom: 25px;">
-                <div style="font-size: 32px; margin-bottom: 5px;">🧵</div>
+                <div style="font-size: 32px; margin-bottom: 5px;">Fabric Consumption</div>
                 <div style="font-size: 22px; font-weight: 800; color: #0f172a; letter-spacing: 1px;">FABRICS CONSUMPTION REPORT</div>
                 <div style="font-size: 12px; color: #64748b;">Garment Calculator Suite</div>
             </div>
@@ -406,7 +406,7 @@ function downloadKnitReport() {
             
             <!-- Order Information -->
             <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px; overflow: hidden;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📋 ORDER INFORMATION</div>
+                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">ORDER INFORMATION</div>
                 <div style="padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 20px;">
                     <div><span style="color: #64748b;">Buyer Name:</span> _______________</div>
                     <div><span style="color: #64748b;">Style No.:</span> _______________</div>
@@ -417,7 +417,7 @@ function downloadKnitReport() {
             
             <!-- Component Wise Table -->
             <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px; overflow-x: auto;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📊 COMPONENT WISE CONSUMPTION</div>
+                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">COMPONENT WISE CONSUMPTION</div>
                 <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                     <thead>
                         <tr style="background: #f1f5f9;">
@@ -440,7 +440,7 @@ function downloadKnitReport() {
             
             <!-- Consumption Summary -->
             <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📈 CONSUMPTION SUMMARY</div>
+                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">CONSUMPTION SUMMARY</div>
                 <div style="padding: 16px;">
                     <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
                         <div>
@@ -452,7 +452,7 @@ function downloadKnitReport() {
                             <div style="font-size: 18px; font-weight: 500;">${totalAfter}</div>
                         </div>
                         <div style="border-left: 2px solid #e2e8f0; padding-left: 20px;">
-                            <div style="color: #10b981;">🎯 GRAND TOTAL</div>
+                            <div style="color: #10b981;">GRAND TOTAL</div>
                             <div style="font-size: 24px; font-weight: 800; color: #10b981;">${totalAfter}</div>
                             <div style="font-size: 12px;">${totalKg} (for ${qty} pcs)</div>
                         </div>
