@@ -41,7 +41,7 @@
     if(!header.querySelector(".fc-top-search")){
       const wrap=document.createElement("div");
       wrap.className="fc-top-search";
-      wrap.innerHTML='<span class="fc-search-icon"><svg class="fc-icon" aria-hidden="true"><use href="#i-search"></use></svg></span><input id="fc-tool-search" type="search" autocomplete="off" placeholder="'+FC.config.searchPlaceholder+'"><span class="fc-search-count"></span>';
+      wrap.innerHTML='<span class="fc-search-icon">⌕</span><input id="fc-tool-search" type="search" autocomplete="off" placeholder="'+FC.config.searchPlaceholder+'"><span class="fc-search-count"></span>';
       header.appendChild(wrap);
       wrap.querySelector("input").addEventListener("input",runSearch);
     }
@@ -73,9 +73,7 @@
   }
   function updateThemeButton(){
     const b=document.getElementById("fc-theme-toggle");
-    const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.content=document.documentElement.dataset.theme==="dark"?"#0b1220":"#ffffff";
-    if(b) b.innerHTML=document.documentElement.dataset.theme==="dark"?'<svg class="fc-icon" aria-hidden="true"><use href="#i-sun"></use></svg> Light':'<svg class="fc-icon" aria-hidden="true"><use href="#i-moon"></use></svg> Dark';
+    if(b) b.textContent=document.documentElement.dataset.theme==="dark"?"☀ Light":"☾ Dark";
   }
 
   function runSearch(e){
