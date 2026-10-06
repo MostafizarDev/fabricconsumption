@@ -41,7 +41,7 @@ function downloadKnitPriceReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>💰 Knit Fabric Price Report</h1>
+            <h1>Knit Fabric Price Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -64,7 +64,7 @@ function downloadKnitPriceReport() {
         </table>
         
         <div style="margin-top:20px; padding:12px; background:#f8fafc; border-radius:8px">
-            <strong>📐 Formula:</strong><br>
+            <strong>Formula:</strong><br>
             Fabric Length = (Weight × 1000) ÷ (GSM × Width)<br>
             = (${weight} × 1000) ÷ (${gsm} × ${width})<br>
             = <strong>${fabricLength.toFixed(2)} meters</strong><br><br>
