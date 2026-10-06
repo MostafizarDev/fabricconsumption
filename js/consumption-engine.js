@@ -211,9 +211,32 @@ function addExtraInputs(){
    const row=html("div",{class:"field-row fc-basic-extra"});row.innerHTML=input("ws-waste","Wastage %","e.g., 3")+input("ws-shrink","Shrinkage %","e.g., 0");const target=woven.querySelector(".calc-grid");if(target)target.insertAdjacentElement("afterend",row);
  }
 }
+function convertFields(ids,from,to){
+  if(from===to)return;
+  const factor=from==="cm"&&to==="inch"?1/2.54:2.54;
+  ids.forEach(id=>{const e=document.getElementById(id);if(!e||e.value==="")return;const x=Number(e.value);if(Number.isFinite(x))e.value=(x*factor).toFixed(2)});
+}
 function setupUnits(){
-  window.setKnitUnit=function(unit){ if(unit!=="cm"&&unit!=="inch")return; S.knitUnit=unit; document.querySelectorAll("#page-knit .unit-label").forEach(e=>e.textContent="("+unit+")"); document.querySelectorAll("#page-knit .unit-bar .u-btn").forEach(b=>b.classList.toggle("active",b.dataset.unit===unit)); calcKnitGarments(); };
-  window.setPantUnit=function(unit){ if(unit!=="cm"&&unit!=="inch")return; S.pantUnit=unit; document.querySelectorAll("#page-knitpant .unit-label").forEach(e=>e.textContent="("+unit+")"); document.querySelectorAll("#page-knitpant .unit-bar .u-btn").forEach(b=>b.classList.toggle("active",b.dataset.unit===unit)); updatePantTotalsOnly(); calcKnitPant(); };
+  const knitIds=["kg-bl","kg-bla","kg-sl","kg-sla","kg-hc","kg-hca","kg-cl","kg-cla","kg-cw","kg-cwa","kg-cul","kg-cula","kg-cuw","kg-cuwa","kg-pl","kg-pla","kg-pw","kg-pwa","kg-hml","kg-hmla","kg-hmw","kg-hmwa","kg-width"];
+  const pantIds=["kp-il","kp-ila","kp-cfr","kp-cfra","kp-wbw","kp-wbwa","kp-htc","kp-htca","kp-width"];
+  window.setKnitUnit=function(unit){
+    if(unit!=="cm"&&unit!=="inch")return;
+    const from=S.knitUnit||"cm"; convertFields(knitIds,from,unit); S.knitUnit=unit;
+    document.querySelectorAll("#page-knit .unit-label").forEach(e=>e.textContent="("+unit+")");
+    document.querySelectorAll("#page-knit .unit-bar .u-btn").forEach(b=>b.classList.toggle("active",b.dataset.unit===unit));
+    updateKnitTotalsSafe(); calcKnitGarments();
+  };
+  window.setPantUnit=function(unit){
+    if(unit!=="cm"&&unit!=="inch")return;
+    const from=S.pantUnit||"cm"; convertFields(pantIds,from,unit); S.pantUnit=unit;
+    document.querySelectorAll("#page-knitpant .unit-label").forEach(e=>e.textContent="("+unit+")");
+    document.querySelectorAll("#page-knitpant .unit-bar .u-btn").forEach(b=>b.classList.toggle("active",b.dataset.unit===unit));
+    updatePantTotalsOnly(); calcKnitPant();
+  };
+}
+function updateKnitTotalsSafe(){
+ const pairs=[["kg-bl","kg-bla","kg-blt"],["kg-sl","kg-sla","kg-slt"],["kg-hc","kg-hca","kg-hct"],["kg-cl","kg-cla","kg-clt"],["kg-cw","kg-cwa","kg-cwt"],["kg-cul","kg-cula","kg-cul-t"],["kg-cuw","kg-cuwa","kg-cuw-t"],["kg-pl","kg-pla","kg-pl-t"],["kg-pw","kg-pwa","kg-pw-t"],["kg-hml","kg-hmla","kg-hml-t"],["kg-hmw","kg-hmwa","kg-hmw-t"]];
+ pairs.forEach(p=>{const e=document.getElementById(p[2]);if(e)e.innerText=(val(p[0])+val(p[1])).toFixed(1)+" "+(S.knitUnit||"cm")});
 }
 function setup(){
  setupUnits(); enhanceKnit();enhancePant();enhanceWoven();addExtraInputs();toggleSleeve();
