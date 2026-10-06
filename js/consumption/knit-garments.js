@@ -309,7 +309,7 @@ function downloadKnitReport() {
     // Body row
     componentRows += `<tr>
         <td style="padding: 8px; border: 1px solid #e2e8f0;">1</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">👕 Body</td>
+        <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">Body</td>
         <td style="padding: 8px; border: 1px solid #e2e8f0;">Front + Back</td>
         <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${BL}</td>
         <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${HC}</td>
@@ -323,7 +323,7 @@ function downloadKnitReport() {
     if (showCollar) {
         componentRows += `<tr>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">2</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🧣 Collar</td>
+            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">Collar</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">Rib</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CL}</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CW}</td>
@@ -338,7 +338,7 @@ function downloadKnitReport() {
     if (showCuff) {
         componentRows += `<tr>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">3</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🧤 Cuff</td>
+            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">Cuff</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">Rib</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CuL}</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CuW}</td>
@@ -353,7 +353,7 @@ function downloadKnitReport() {
     if (showPocket) {
         componentRows += `<tr>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">4</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🪡 Pocket</td>
+            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">Pocket</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">Body Fabric</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
@@ -368,7 +368,7 @@ function downloadKnitReport() {
     if (showHalfmoon) {
         componentRows += `<tr>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">5</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🌙 Half-moon</td>
+            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">Half-moon</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0;">Body Fabric</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
             <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
@@ -381,10 +381,10 @@ function downloadKnitReport() {
     
     // Build options text
     let selectedOptions = '';
-    selectedOptions += showCollar ? '✅ Collar  ' : '❌ Collar  ';
-    selectedOptions += showCuff ? '| ✅ Cuff  ' : '| ❌ Cuff  ';
-    selectedOptions += showPocket ? '| ✅ Pocket  ' : '| ❌ Pocket  ';
-    selectedOptions += showHalfmoon ? '| ✅ Half-moon' : '| ❌ Half-moon';
+    selectedOptions += showCollar ? 'Included Collar  ' : 'Not included Collar  ';
+    selectedOptions += showCuff ? '| Included Cuff  ' : '| Not included Cuff  ';
+    selectedOptions += showPocket ? '| Included Pocket  ' : '| Not included Pocket  ';
+    selectedOptions += showHalfmoon ? '| Included Half-moon' : '| Not included Half-moon';
     
     const reportHtml = `
         <div style="font-family: 'Inter', Arial, sans-serif; max-width: 1100px; margin: 0 auto; padding: 20px;">
@@ -465,21 +465,21 @@ function downloadKnitReport() {
             
             <!-- Selected Components -->
             <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">✅ SELECTED COMPONENTS</div>
+                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">Included SELECTED COMPONENTS</div>
                 <div style="padding: 12px 16px;">
                     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div>👕 Body: Included</div>
-                        <div>🧣 Collar: ${showCollar ? '✅ Included' : '❌ Not Included'}</div>
-                        <div>🧤 Cuff: ${showCuff ? '✅ Included' : '❌ Not Included'}</div>
-                        <div>🪡 Pocket: ${showPocket ? '✅ Included' : '❌ Not Included'}</div>
-                        <div>🌙 Half-moon: ${showHalfmoon ? '✅ Included' : '❌ Not Included'}</div>
+                        <div>Body: Included</div>
+                        <div>Collar: ${showCollar ? 'Included Included' : 'Not included Not Included'}</div>
+                        <div>Cuff: ${showCuff ? 'Included Included' : 'Not included Not Included'}</div>
+                        <div>Pocket: ${showPocket ? 'Included Included' : 'Not included Not Included'}</div>
+                        <div>Half-moon: ${showHalfmoon ? 'Included Included' : 'Not included Not Included'}</div>
                     </div>
                 </div>
             </div>
             
             <!-- Formula -->
             <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📐 FORMULA USED</div>
+                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">FORMULA USED</div>
                 <div style="padding: 12px 16px; font-family: monospace; font-size: 12px;">
                     Fabric Consumption (kg) = (Length × Width × Ply × Qty × GSM) ÷ 10,000,000<br>
                     Where: Length, Width = in cm | Qty = Total pieces in Dozen (12 pcs) | GSM = Gram per Square Meter
@@ -488,7 +488,7 @@ function downloadKnitReport() {
             
             <!-- Important Notes -->
             <div style="background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #f59e0b; color: white; padding: 8px 16px; font-weight: 600;">⚠️ IMPORTANT NOTES</div>
+                <div style="background: #f59e0b; color: white; padding: 8px 16px; font-weight: 600;">IMPORTANT NOTES</div>
                 <div style="padding: 12px 16px; font-size: 11px; color: #64748b;">
                     • This report is computer generated, no signature required.<br>
                     • All measurements are in CM unless specified otherwise.<br>
