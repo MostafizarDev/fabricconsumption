@@ -73,6 +73,8 @@
   }
   function updateThemeButton(){
     const b=document.getElementById("fc-theme-toggle");
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.content=document.documentElement.dataset.theme==="dark"?"#0b1220":"#ffffff";
     if(b) b.innerHTML=document.documentElement.dataset.theme==="dark"?'<svg class="fc-icon" aria-hidden="true"><use href="#i-sun"></use></svg> Light':'<svg class="fc-icon" aria-hidden="true"><use href="#i-moon"></use></svg> Dark';
   }
 
