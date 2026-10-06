@@ -68,9 +68,9 @@ function enhanceKnit(){
  addShrinkToBasic("page-knit",".calc-grid",{shrink:"kg-shrink",width:"kg-width"});
  const body=page.querySelector(".calc-grid");
  if(body)body.classList.add("fc-basic-content");
- const markerFields='<div class="fc-method-fields">'+input("kn-m-length","Marker Length (inch)","e.g., 72")+input("kn-m-width","Usable Marker Width (inch)","e.g., 72")+input("kn-m-pcs","Garments in Marker","e.g., 10")+input("kn-m-gsm","GSM","e.g., 180")+input("kn-m-waste","Cutting / Marker Wastage %","e.g., 5")+input("kn-m-shrink","Shrinkage %","e.g., 0")+'</div><div class="fc-info">Marker method uses marker length ÷ garments in marker, then converts the marker area to kg using width × GSM. Use cuttable/usable width, not the full roll width. citeturn0search0turn0search3</div>';
+ const markerFields='<div class="fc-method-fields">'+input("kn-m-length","Marker Length (inch)","e.g., 72")+input("kn-m-width","Usable Marker Width (inch)","e.g., 72")+input("kn-m-pcs","Garments in Marker","e.g., 10")+input("kn-m-gsm","GSM","e.g., 180")+input("kn-m-waste","Cutting / Marker Wastage %","e.g., 5")+input("kn-m-shrink","Shrinkage %","e.g., 0")+'</div><div class="fc-info">Marker method uses marker length ÷ garments in marker, then converts the marker area to kg using width × GSM. Use cuttable/usable width, not the full roll width.</div>';
  addAdvanced("page-knit","marker","Marker-based Knit Consumption","Use an actual marker when available. This is the production-oriented method; Basic remains the quick body-block estimate.",markerFields,"kn-marker-result");
- let rows='<table class="fc-panel-table"><thead><tr><th>Panel</th><th>Length</th><th>Width</th><th>Qty</th><th>GSM</th><th></th></tr></thead><tbody id="kn-panel-body"></tbody></table><button type="button" class="fc-add-row" id="kn-add-panel">＋ Add panel</button><div class="fc-method-fields" style="margin-top:12px">'+input("kn-panel-waste","Wastage %","e.g., 5")+input("kn-panel-shrink","Shrinkage %","e.g., 0")+'</div><div class="fc-info">Panel method treats each cut panel as a bounding rectangle including seam/hem allowance. Each panel may have its own GSM, which is useful for body fabric vs rib/contrast components. citeturn1search0turn1search1</div>';
+ let rows='<table class="fc-panel-table"><thead><tr><th>Panel</th><th>Length</th><th>Width</th><th>Qty</th><th>GSM</th><th></th></tr></thead><tbody id="kn-panel-body"></tbody></table><button type="button" class="fc-add-row" id="kn-add-panel">＋ Add panel</button><div class="fc-method-fields" style="margin-top:12px">'+input("kn-panel-waste","Wastage %","e.g., 5")+input("kn-panel-shrink","Shrinkage %","e.g., 0")+'</div><div class="fc-info">Panel method treats each cut panel as a bounding rectangle including seam/hem allowance. Each panel may have its own GSM, which is useful for body fabric vs rib/contrast components.</div>';
  addAdvanced("page-knit","panel","Panel-based Knit Consumption","Add the actual cut panels. The engine sums panel area and converts it to fabric weight.",rows,"kn-panel-result");
  addPanelRow("kn-panel-body","Front",74,54,1,180);
  addPanelRow("kn-panel-body","Back",74,54,1,180);
@@ -88,16 +88,16 @@ function addPanelRow(tbodyId,name,l,w,q,gsm){
 function basicKnitData(){
  const unit=S.knitUnit||"cm",div=C[unit],qty=val("kg-qty"),waste=val("kg-waste"),shrink=val("kg-shrink");
  const body=document.getElementById("ck-body")?.checked!==false, sleeve=document.getElementById("ck-sleeve")?.checked!==false;
- const bl=total("kg-bl","kg-bla")*(1+pct(shrink)),sl=sleeve?total("kg-sl","kg-sla")*(1+pct(shrink)):0,hc=total("kg-hc","kg-hca")*(1+pct(shrink)),gsm=val("kg-bgsm");
+ const bl=total("kg-bl","kg-bla"),sl=sleeve?total("kg-sl","kg-sla"):0,hc=total("kg-hc","kg-hca"),gsm=val("kg-bgsm");
  let bodyPc=0;
- if(body&&bl>0&&hc>0&&gsm>0&&qty>0)bodyPc=((bl+sl)*hc*2*gsm)/div;
+ if(body&&bl>0&&hc>0&&gsm>0&&qty>0)bodyPc=((bl+sl)*hc*2*gsm)/div*(1+pct(shrink));
  const components=[];
  const add=(key,label,pc)=>{if(pc>0)components.push({key,label,pc})};
  add("body","👕 Body",bodyPc);
- if(document.getElementById("ck-collar")?.checked)add("collar","🧣 Collar",(total("kg-cl","kg-cla")*(1+pct(shrink)))*(total("kg-cw","kg-cwa")*(1+pct(shrink)))*val("kg-cgsm")/div);
- if(document.getElementById("ck-cuff")?.checked)add("cuff","🧤 Cuff",(total("kg-cul","kg-cula")*(1+pct(shrink)))*(total("kg-cuw","kg-cuwa")*(1+pct(shrink)))*2*val("kg-cugsm")/div);
- if(document.getElementById("ck-pocket")?.checked)add("pocket","🪡 Pocket",(total("kg-pl","kg-pla")*(1+pct(shrink)))*(total("kg-pw","kg-pwa")*(1+pct(shrink)))*Math.max(1,val("kg-pqty"))*val("kg-pgsm")/div);
- if(document.getElementById("ck-halfmoon")?.checked)add("halfmoon","🌙 Half-moon",(total("kg-hml","kg-hmla")*(1+pct(shrink)))*(total("kg-hmw","kg-hmwa")*(1+pct(shrink)))*val("kg-hmgsm")/div);
+ if(document.getElementById("ck-collar")?.checked)add("collar","🧣 Collar",total("kg-cl","kg-cla")*total("kg-cw","kg-cwa")*val("kg-cgsm")/div*(1+pct(shrink)));
+ if(document.getElementById("ck-cuff")?.checked)add("cuff","🧤 Cuff",total("kg-cul","kg-cula")*total("kg-cuw","kg-cuwa")*2*val("kg-cugsm")/div*(1+pct(shrink)));
+ if(document.getElementById("ck-pocket")?.checked)add("pocket","🪡 Pocket",total("kg-pl","kg-pla")*total("kg-pw","kg-pwa")*Math.max(1,val("kg-pqty"))*val("kg-pgsm")/div*(1+pct(shrink)));
+ if(document.getElementById("ck-halfmoon")?.checked)add("halfmoon","🌙 Half-moon",total("kg-hml","kg-hmla")*total("kg-hmw","kg-hmwa")*val("kg-hmgsm")/div*(1+pct(shrink)));
  const netPc=components.reduce((s,x)=>s+x.pc,0),netDz=netPc*12,afterDz=netDz*(1+pct(waste)),totalKg=afterDz/12*qty;
  return {unit,qty,netPc,netDz,afterDz,totalKg,components};
 }
@@ -127,10 +127,10 @@ function calcKnitMarker(){
 }
 function calcKnitPanel(){
  const rows=[...(document.querySelectorAll("#kn-panel-body tr"))],w=val("kn-panel-waste"),s=val("kn-panel-shrink");
- let area=0;rows.forEach(tr=>{area+=valEl(tr,"l")*valEl(tr,"w")*valEl(tr,"q")*(1+pct(s))**2});
+ let area=0;rows.forEach(tr=>{area+=valEl(tr,"l")*valEl(tr,"w")*valEl(tr,"q")});
  const gsmWeighted=rows.reduce((sum,tr)=>sum+(valEl(tr,"l")*valEl(tr,"w")*valEl(tr,"q")*(1+pct(s))**2*valEl(tr,"gsm")),0);
  if(!(area>0&&gsmWeighted>0)){setv("kn-panel-result","—");return}
- const netKgPc=gsmWeighted/10000/1000,afterPc=netKgPc*(1+pct(w)),dz=afterPc*12,total=afterPc*val("kg-qty");
+ const netKgPc=gsmWeighted/10000/1000,afterPc=netKgPc*(1+pct(s))*(1+pct(w)),dz=afterPc*12,total=afterPc*val("kg-qty");
  setv("kn-panel-result",f(dz,3)+" kg/dz");
  const d=document.getElementById("kn-panel-result-detail");if(d)d.innerHTML='<div class="fc-summary-badge">PANEL METHOD</div><div class="fc-result-row"><span>Net area / pc</span><strong>'+f(area/10000,4)+' m²</strong></div><div class="fc-result-row"><span>Net / pc</span><strong>'+f(netKgPc,4)+' kg</strong></div><div class="fc-result-row"><span>After wastage / pc</span><strong>'+f(afterPc,4)+' kg</strong></div><div class="fc-result-row"><span>Total order</span><strong>'+f(total,3)+' kg</strong></div>';
  return {area,netKgPc,afterPc,dz,total};
@@ -142,9 +142,9 @@ function enhancePant(){
  const page=document.getElementById("page-knitpant"),basic=page?.querySelector(".calc-grid");if(basic)basic.classList.add("fc-basic-content");
  addShrinkToBasic("page-knitpant",".calc-grid",{shrink:"kp-shrink",width:"kp-width"});
  const mf='<div class="fc-method-fields">'+input("kp-m-length","Marker Length (inch)","e.g., 60")+input("kp-m-width","Usable Width (inch)","e.g., 72")+input("kp-m-pcs","Garments in Marker","e.g., 10")+input("kp-m-gsm","GSM","e.g., 240")+input("kp-m-waste","Wastage %","e.g., 5")+input("kp-m-shrink","Shrinkage %","e.g., 0")+'</div>';
- addAdvanced("page-knitpant","marker","Marker-based Pant Consumption","Use the actual pant marker when available.",mf,"kp-marker-result");
+ addAdvanced("page-knitpant","marker","Marker-based Pant Consumption","Use the actual pant marker when available. Shrinkage is treated as a separate allowance factor.",mf,"kp-marker-result");
  const pf='<div class="fc-method-fields">'+input("kp-parea","Total Panel Area / garment (cm²)","e.g., 8000")+input("kp-pgsm","GSM","e.g., 240")+input("kp-pwaste","Wastage %","e.g., 5")+input("kp-pshrink","Shrinkage %","e.g., 0")+input("kp-pqty","Order Quantity (pcs)","e.g., 1200")+input("kp-pwidth","Usable Width (cm, reference)","e.g., 180")+'</div><div class="fc-info">Panel mode accepts the total cut-panel area per garment. Include seam/hem allowances in that area. This keeps the method auditable without pretending a CAD shape is a rectangle.</div>';
- addAdvanced("page-knitpant","panel","Panel-area Pant Consumption","Useful when you have total pattern/panel area but no marker yet.",pf,"kp-panel-result");
+ addAdvanced("page-knitpant","panel","Panel-area Pant Consumption","Useful when you have total pattern/panel area but no marker yet. Shrinkage is treated as an allowance factor; confirm directional shrinkage from test data.",pf,"kp-panel-result");
 }
 window.calcKnitPant=function(){
  const method=document.getElementById("page-knitpant")?.dataset.fcMethod||"basic";
@@ -152,7 +152,7 @@ window.calcKnitPant=function(){
  if(method==="panel")return calcPantPanel();
  const div=(S.pantUnit||"cm")==="inch"?1550000:10000000;
  const IL=total("kp-il","kp-ila"),CFR=total("kp-cfr","kp-cfra"),WBW=total("kp-wbw","kp-wbwa"),HTC=total("kp-htc","kp-htca"),gsm=val("kp-gsm"),w=val("kp-waste"),s=val("kp-shrink");
- const shrink=(1+pct(s));const net=(IL+CFR+WBW)*HTC*4*gsm*12/div*Math.pow(shrink,2),after=net*(1+pct(w));
+ const net=(IL+CFR+WBW)*HTC*4*gsm*12/div*(1+pct(s)),after=net*(1+pct(w));
  setv("kp-r-dz",gsm>0?f(after,3)+" kg/dz":"—");setv("kp-r-pcs",gsm>0?f(after/12,4)+" kg":"—");
  updatePantTotalsOnly();
  return {net,after};
@@ -160,21 +160,21 @@ window.calcKnitPant=function(){
 function calcPantMarker(){
  const L=val("kp-m-length"),W=val("kp-m-width"),pcs=val("kp-m-pcs"),gsm=val("kp-m-gsm"),w=val("kp-m-waste"),s=val("kp-m-shrink");
  if(!(L>0&&W>0&&pcs>0&&gsm>0)){setv("kp-marker-result","—");return}
- const netPc=L*(1+pct(s))*W*(1+pct(s))*gsm/(1550000*pcs),after=netPc*(1+pct(w)),dz=after*12,total=after*val("kp-qty");
+ const netPc=L*W*gsm/(1550000*pcs)*(1+pct(s)),after=netPc*(1+pct(w)),dz=after*12,total=after*val("kp-qty");
  setv("kp-marker-result",f(dz,3)+" kg/dz");const d=document.getElementById("kp-marker-result-detail");if(d)d.innerHTML='<div class="fc-summary-badge">MARKER METHOD</div><div class="fc-result-row"><span>Net / pc</span><strong>'+f(netPc,4)+' kg</strong></div><div class="fc-result-row"><span>After allowance / pc</span><strong>'+f(after,4)+' kg</strong></div><div class="fc-result-row"><span>Total order</span><strong>'+f(total,3)+' kg</strong></div>';
  return {netPc,after,dz,total};
 }
 function calcPantPanel(){
  const area=val("kp-parea"),gsm=val("kp-pgsm"),w=val("kp-pwaste"),s=val("kp-pshrink"),qty=val("kp-pqty");
  if(!(area>0&&gsm>0)){setv("kp-panel-result","—");return}
- const netPc=area*Math.pow(1+pct(s),2)*gsm/10000000,after=netPc*(1+pct(w)),dz=after*12,total=after*qty;
+ const netPc=area*gsm/10000000*(1+pct(s))*(1+pct(w)),dz=after*12,total=after*qty;
  setv("kp-panel-result",f(dz,3)+" kg/dz");const d=document.getElementById("kp-panel-result-detail");if(d)d.innerHTML='<div class="fc-summary-badge">PANEL METHOD</div><div class="fc-result-row"><span>Net / pc</span><strong>'+f(netPc,4)+' kg</strong></div><div class="fc-result-row"><span>After wastage / pc</span><strong>'+f(after,4)+' kg</strong></div><div class="fc-result-row"><span>Total order</span><strong>'+f(total,3)+' kg</strong></div>';
  return {netPc,after,dz,total};
 }
 function enhanceWoven(){
  addMethodBar("page-woven",[{id:"basic",label:"Basic Estimate"},{id:"marker",label:"Marker"},{id:"panel",label:"Pattern Area"}],"Basic preserves the existing body/sleeve estimate.");
  const page=document.getElementById("page-woven"),basic=page?.querySelector(".calc-grid");if(basic)basic.classList.add("fc-basic-content");
- const mf='<div class="fc-method-fields">'+input("wv-m-length","Marker Length (m)","e.g., 6.2")+input("wv-m-pcs","Garments in Marker","e.g., 4")+input("wv-m-allow","End Loss / Allowance %","e.g., 3")+input("wv-m-shrink","Shrinkage %","e.g., 0")+input("wv-m-qty","Order Quantity (pcs)","e.g., 1200")+'</div><div class="fc-info">Marker method: marker length ÷ garments in marker, then allowances. The usable/cuttable width remains a critical production input; the actual marker should be confirmed at the received width. citeturn0search0turn1search3</div>';
+ const mf='<div class="fc-method-fields">'+input("wv-m-length","Marker Length (m)","e.g., 6.2")+input("wv-m-pcs","Garments in Marker","e.g., 4")+input("wv-m-allow","End Loss / Allowance %","e.g., 3")+input("wv-m-shrink","Shrinkage %","e.g., 0")+input("wv-m-qty","Order Quantity (pcs)","e.g., 1200")+'</div><div class="fc-info">Marker method: marker length ÷ garments in marker, then allowances. The usable/cuttable width remains a critical production input; the actual marker should be confirmed at the received width.</div>';
  addAdvanced("page-woven","marker","Marker-based Woven Consumption","Use this when a CAD marker exists.",mf,"wv-marker-result");
  const pf='<div class="fc-method-fields">'+input("wv-p-area","Pattern Area / garment (cm²)","e.g., 12000")+input("wv-p-width","Usable Width (cm)","e.g., 150")+input("wv-p-eff","Marker Efficiency %","e.g., 85")+input("wv-p-allow","Allowance %","e.g., 3")+input("wv-p-shrink","Shrinkage %","e.g., 0")+input("wv-p-qty","Order Quantity (pcs)","e.g., 1200")+'</div><div class="fc-info">Pattern-area mode is an estimate before a final marker. It divides pattern area by cuttable width and expected marker efficiency, then applies allowance.</div>';
  addAdvanced("page-woven","panel","Pattern-area Woven Consumption","Useful before the final CAD marker is available.",pf,"wv-panel-result");
@@ -184,8 +184,8 @@ window.calcWoven=function(){
  if(method==="marker")return calcWovenMarker();
  if(method==="panel")return calcWovenPanel();
  const FW=val("ws-fw");if(!FW){setv("ws-r-total","—");setv("ws-r-body","—");setv("ws-r-sleeve","—");return}
- const s=val("ws-shrink"),shrink=1+pct(s),BL=(val("ws-bl")+val("ws-bla"))*shrink,HC=(val("ws-hc")+val("ws-hca"))*shrink,SL=(val("ws-sl")+val("ws-sla"))*shrink,AH=(val("ws-ah")+val("ws-aha"))*shrink;
- const div=FW*36*2.54,body=BL*HC*2*12/div,sleeve=SL*AH*2*2*12/div,total=body+sleeve,w=val("ws-waste"),after=total*(1+pct(w));
+ const s=val("ws-shrink"),BL=val("ws-bl")+val("ws-bla"),HC=val("ws-hc")+val("ws-hca"),SL=val("ws-sl")+val("ws-sla"),AH=val("ws-ah")+val("ws-aha");
+ const div=FW*36*2.54,body=BL*HC*2*12/div,sleeve=SL*AH*2*2*12/div,total=body+sleeve,w=val("ws-waste"),after=total*(1+pct(s))*(1+pct(w));
  setv("ws-r-body",f(body,3)+" yds");setv("ws-r-sleeve",f(sleeve,3)+" yds");setv("ws-r-total",f(after,3)+" yds/dz");setv("ws-r-pc",f(after/12,3)+" yds");
  return {body,sleeve,total,after};
 };
@@ -199,7 +199,7 @@ function calcWovenMarker(){
 function calcWovenPanel(){
  const area=val("wv-p-area"),width=val("wv-p-width"),eff=val("wv-p-eff"),allow=val("wv-p-allow"),shrink=val("wv-p-shrink"),qty=val("wv-p-qty");
  if(!(area>0&&width>0&&eff>0)){setv("wv-panel-result","—");return}
- const baseM=(area*Math.pow(1+pct(shrink),2)/(width*(eff/100)))/100,perM=baseM*(1+pct(allow)),yd=perM*1.0936132983,dz=yd*12,total=yd*qty;
+ const baseM=(area/(width*(eff/100)))/100,perM=baseM*(1+pct(shrink))*(1+pct(allow)),yd=perM*1.0936132983,dz=yd*12,total=yd*qty;
  setv("wv-panel-result",f(dz,3)+" yd/dz");const d=document.getElementById("wv-panel-result-detail");if(d)d.innerHTML='<div class="fc-summary-badge">PATTERN AREA</div><div class="fc-result-row"><span>Estimated / pc</span><strong>'+f(yd,3)+' yd</strong></div><div class="fc-result-row"><span>Per dozen</span><strong>'+f(dz,3)+' yd</strong></div><div class="fc-result-row"><span>Total order</span><strong>'+f(total,2)+' yd</strong></div>';
  return {baseM,perM,yd,dz,total};
 }
