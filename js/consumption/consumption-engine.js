@@ -18,7 +18,7 @@ function html(tag,attrs,children=""){const e=document.createElement(tag);Object.
 function addMethodBar(pageId, methods, note){
  const page=document.getElementById(pageId); if(!page||page.querySelector(".fc-method-bar"))return;
  const bar=html("div",{class:"fc-method-bar"});
- bar.innerHTML='<span class="fc-method-label">Method</span>'+methods.map((m,i)=>'<button type="button" class="fc-method-btn '+(i===0?"active":"")+'" data-fc-method="'+m.id+'">'+m.label+'</button>').join("")+'<span class="fc-method-note">'+note+"</span>";
+ bar.innerHTML='<span class="fc-method-label">Method</span>'+methods.map((m,i)=>'<button type="button" class="fc-method-btn '+(i===0?"active":"")'" data-fc-method="'+m.id+'">'+m.label+'</button>').join("")+(note?'<span class="fc-method-note">'+note+"</span>":"");
  const anchor=page.querySelector(".unit-bar"); if(anchor)anchor.insertAdjacentElement("afterend",bar); else page.insertBefore(bar,page.firstChild);
  bar.addEventListener("click",e=>{const b=e.target.closest(".fc-method-btn");if(!b)return;selectMethod(pageId,b.dataset.fcMethod)});
 }
