@@ -26,6 +26,7 @@ function selectMethod(pageId,method){
  const page=document.getElementById(pageId); if(!page)return;
  page.querySelectorAll(".fc-method-btn").forEach(b=>b.classList.toggle("active",b.dataset.fcMethod===method));
  page.dataset.fcMethod=method;
+ const note=page.querySelector(".input-note"); if(note) note.style.display=method==="basic"?"":"none";
  const basic=page.querySelector(".fc-basic-content");
  const adv=page.querySelectorAll(".fc-advanced");
  if(basic)basic.style.display=method==="basic"?"":"none";
@@ -59,7 +60,7 @@ function toggleSleeve(){
 }
 function enhanceKnit(){
  const page=document.getElementById("page-knit"); if(!page)return;
- addMethodBar("page-knit",[{id:"basic",label:"Basic / Body Block"},{id:"marker",label:"Marker"},{id:"panel",label:"Panel"}],"Basic preserves your existing Excel-style formula.");
+ addMethodBar("page-knit",[{id:"basic",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-calculator"></use></svg> Basic / Body Block'},{id:"marker",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-marker"></use></svg> Marker'},{id:"panel",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-panels"></use></svg> Panel'}],"");
  const checks=page.querySelector(".check-row");
  if(checks&&!document.getElementById("ck-sleeve")){
    const label=document.createElement("label");label.className="fc-component-toggle";label.innerHTML='<input type="checkbox" id="ck-sleeve" checked> 🧤 Sleeve';checks.insertBefore(label,checks.children[1]||null);
@@ -138,7 +139,7 @@ function calcKnitPanel(){
 function valEl(tr,key){const e=tr.querySelector('[data-kp="'+key+'"]');return Number(e?.value)||0}
 
 function enhancePant(){
- addMethodBar("page-knitpant",[{id:"basic",label:"Basic"},{id:"marker",label:"Marker"},{id:"panel",label:"Panel"}],"Basic keeps the current Excel-style pant calculation.");
+ addMethodBar("page-knitpant",[{id:"basic",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-calculator"></use></svg> Basic'},{id:"marker",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-marker"></use></svg> Marker'},{id:"panel",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-panels"></use></svg> Panel'}],"");
  const page=document.getElementById("page-knitpant"),basic=page?.querySelector(".calc-grid");if(basic)basic.classList.add("fc-basic-content");
  addShrinkToBasic("page-knitpant",".calc-grid",{shrink:"kp-shrink",width:"kp-width"});
  const mf='<div class="fc-method-fields">'+input("kp-m-length","Marker Length (inch)","e.g., 60")+input("kp-m-width","Usable Width (inch)","e.g., 72")+input("kp-m-pcs","Garments in Marker","e.g., 10")+input("kp-m-gsm","GSM","e.g., 240")+input("kp-m-waste","Wastage %","e.g., 5")+input("kp-m-shrink","Shrinkage %","e.g., 0")+'</div>';
@@ -172,7 +173,7 @@ function calcPantPanel(){
  return {netPc,after,dz,total};
 }
 function enhanceWoven(){
- addMethodBar("page-woven",[{id:"basic",label:"Basic Estimate"},{id:"marker",label:"Marker"},{id:"panel",label:"Pattern Area"}],"Basic preserves the existing body/sleeve estimate.");
+ addMethodBar("page-woven",[{id:"basic",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-calculator"></use></svg> Basic Estimate'},{id:"marker",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-marker"></use></svg> Marker'},{id:"panel",label:'<svg class="fc-icon" aria-hidden="true"><use href="#i-panels"></use></svg> Pattern Area'}],"");
  const page=document.getElementById("page-woven"),basic=page?.querySelector(".calc-grid");if(basic)basic.classList.add("fc-basic-content");
  const mf='<div class="fc-method-fields">'+input("wv-m-length","Marker Length (m)","e.g., 6.2")+input("wv-m-pcs","Garments in Marker","e.g., 4")+input("wv-m-allow","End Loss / Allowance %","e.g., 3")+input("wv-m-shrink","Shrinkage %","e.g., 0")+input("wv-m-qty","Order Quantity (pcs)","e.g., 1200")+'</div><div class="fc-info">Marker method: marker length ÷ garments in marker, then allowances. The usable/cuttable width remains a critical production input; the actual marker should be confirmed at the received width.</div>';
  addAdvanced("page-woven","marker","Marker-based Woven Consumption","Use this when a CAD marker exists.",mf,"wv-marker-result");
