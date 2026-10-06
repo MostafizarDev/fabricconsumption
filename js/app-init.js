@@ -524,11 +524,31 @@ function initPremiumIcons() {
                 fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
             }
 
-            const icon = document.createElement('i');
-            icon.setAttribute('data-lucide', iconMap[match[0]]);
-            icon.setAttribute('aria-hidden', 'true');
-            icon.className = 'fc-svg-icon';
-            fragment.appendChild(icon);
+            if (match[0] === '🪡') {
+                const pocketSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                pocketSvg.setAttribute('viewBox', '0 0 24 24');
+                pocketSvg.setAttribute('aria-hidden', 'true');
+                pocketSvg.classList.add('fc-svg-icon', 'fc-pocket-icon');
+                pocketSvg.innerHTML = `
+                    <path d="M5 4.5h14v12.2l-4.2 4.2H9.2L5 16.7V4.5Z"></path>
+                    <path d="M5 7.2h14"></path>
+                    <path d="M7.5 10.1v1.2M7.5 13.2v1.2M16.5 10.1v1.2M16.5 13.2v1.2"></path>
+                    <path d="M9.5 18.2h1.1M13.4 18.2h1.1"></path>
+                    <path d="M7.5 16.1l.8.8M16.5 16.1l-.8.8"></path>
+                `;
+                pocketSvg.setAttribute('fill', 'none');
+                pocketSvg.setAttribute('stroke', 'currentColor');
+                pocketSvg.setAttribute('stroke-width', '2');
+                pocketSvg.setAttribute('stroke-linecap', 'round');
+                pocketSvg.setAttribute('stroke-linejoin', 'round');
+                fragment.appendChild(pocketSvg);
+            } else {
+                const icon = document.createElement('i');
+                icon.setAttribute('data-lucide', iconMap[match[0]]);
+                icon.setAttribute('aria-hidden', 'true');
+                icon.className = 'fc-svg-icon';
+                fragment.appendChild(icon);
+            }
 
             lastIndex = match.index + match[0].length;
         }
@@ -553,6 +573,18 @@ function initPremiumIcons() {
                 stroke-width: 2;
                 color: currentColor;
                 margin-right: 0.18em;
+            }
+
+            .fc-pocket-icon {
+                stroke-width: 2.1;
+            }
+
+            .tab-btn .fc-pocket-icon {
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                vertical-align: -0.18em;
+                margin-right: 4px;
             }
 
             .tab-btn .fc-svg-icon {
