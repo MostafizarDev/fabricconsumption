@@ -67,7 +67,7 @@ function downloadSizeRatioReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>📐 Size Ratio Report</h1>
+            <h1>Size Ratio Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -82,7 +82,7 @@ function downloadSizeRatioReport() {
         </table>
         
         <div style="margin-top:20px; padding:12px; background:#f8fafc; border-radius:8px">
-            <strong>📐 Formula:</strong><br>
+            <strong>Formula:</strong><br>
             Quantity per Size = (Total Order × Size Ratio) ÷ Sum of All Ratios
         </div>
     `;
