@@ -145,7 +145,7 @@ function downloadBookingReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>📋 Booking Sheet Report</h1>
+            <h1>Booking Sheet Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -155,10 +155,10 @@ function downloadBookingReport() {
             <div>per dozen (with ${CWP}% cutting waste)</div>
         </div>
         
-        <h3>📏 Single Marker Details</h3>
+        <h3>Single Marker Details</h3>
         <table style="width:100%">${['th','Parameter','Value','th','Marker Length',ML+'"','th','Cut Allow Length',CLA+'"','tr','th','Marker Width',MW+'"','th','Cut Allow Width',CWA+'"','tr','th','Effective Length',effL.toFixed(2)+'"','th','Effective Width',effW.toFixed(2)+'"','tr','th','GSM',GSM,'th','Pcs in Marker',PCS].map((v,i)=>i%4===0?'<tr>':'<td>'+v+'</td>').join('')}</table>
         
-        <h3>📊 Multiple Parts / Styles</h3>
+        <h3>Multiple Parts / Styles</h3>
         <table style="width:100%; border-collapse:collapse">
             <thead><tr><th>Parts</th><th>Fabric</th><th>ML</th><th>CutL</th><th>MW</th><th>CutW</th><th>GSM</th><th>Pcs</th><th>Cut%</th><th>Cons/Dz</th></tr></thead>
             <tbody>${multipleRowsHtml}</tbody>
