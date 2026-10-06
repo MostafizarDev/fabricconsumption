@@ -111,7 +111,7 @@ function downloadKnitPantReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>👖 Knit Pant Consumption Report</h1>
+            <h1>Knit Pant Consumption Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -135,7 +135,7 @@ function downloadKnitPantReport() {
         </table>
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-            <strong>📐 Input Summary:</strong><br>
+            <strong>Input Summary:</strong><br>
             Unit: ${pantUnit.toUpperCase()} | GSM: ${GSM} | Wastage: ${waste}%<br>
             <strong>Formula:</strong> (IL + CFR + WBW) × HTC × 4 × GSM × 12 / ${pantUnit === 'inch' ? '15,50,000' : '1,00,00,000'} + ${waste}% wastage
         </div>
