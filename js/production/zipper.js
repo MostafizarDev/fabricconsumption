@@ -41,7 +41,7 @@ function downloadZipperReport() {
     
     const reportHtml = `
         <div class="header">
-            <h1>🔱 Zipper Length Report</h1>
+            <h1>Zipper Length Report</h1>
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
@@ -64,7 +64,7 @@ function downloadZipperReport() {
         </table>
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-            <strong>📐 Formula:</strong><br>
+            <strong>Formula:</strong><br>
             Zipper Length = (Body Length + High Neck - Front Neck Drop) × (1 - Shrinkage/100)<br>
             = (${BL} + ${HN} - ${FND}) × (1 - ${SHR}/100)<br>
             = ${(BL + HN - FND).toFixed(1)} × ${(1 - SHR/100).toFixed(2)}<br>
@@ -72,7 +72,7 @@ function downloadZipperReport() {
         </div>
         
         <div style="margin-top: 16px; padding: 10px; background: #dbeafe; border-radius: 8px;">
-            <strong>💡 Recommendation:</strong><br>
+            <strong>Recommendation:</strong><br>
             Use zipper size: <strong>${Math.ceil(zipperLength)} cm</strong> or <strong>${(Math.ceil(zipperLength) / 2.54).toFixed(1)} inch</strong>
         </div>
     `;
