@@ -42,7 +42,7 @@ function loadMyFormulas() {
                     Saved: ${f.date ? f.date : new Date().toLocaleDateString()}
                 </div>
             </div>
-            <button class="mf-del" onclick="deleteFormula(${i})" title="Delete formula">🗑️</button>
+            <button class="mf-del" onclick="deleteFormula(${i})" title="Delete formula">Delete</button>
         `;
         list.appendChild(card);
     });
@@ -125,7 +125,7 @@ function exportFormulas() {
     } catch(e) {}
     
     if (formulas.length === 0) {
-        showToast('📭 No formulas to export!', 'error');
+        showToast('No formulas to export!', 'error');
         return;
     }
     
