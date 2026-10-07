@@ -1142,7 +1142,6 @@ body.dark-mode .theme-toggle {
 .formula-code-inner {
   display: inline-block;
   width: max-content;
-  min-width: 100%;
 }
 
 .formula-numerator,
