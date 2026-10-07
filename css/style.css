@@ -939,14 +939,14 @@ body.dark-mode .theme-toggle {
   }
 }
 
-/* ========== BRAND LOGO ========== */
+/* ========== PREMIUM BRAND LOGO ========== */
 .logo {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  width: 286px;
+  width: 292px;
   height: 52px;
-  flex: 0 0 286px;
+  flex: 0 0 292px;
   text-decoration: none;
   overflow: hidden;
 }
@@ -955,44 +955,47 @@ body.dark-mode .theme-toggle {
   width: 42px;
   height: 42px;
   flex: 0 0 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   border-radius: 11px;
-  background: #0b1220;
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  background: linear-gradient(145deg, #111d33, #07101f);
+  border: 1px solid rgba(56, 189, 248, .28);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, .14), inset 0 0 0 1px rgba(255,255,255,.035);
 }
 
 .logo-mark svg {
-  width: 31px;
-  height: 31px;
+  width: 34px;
+  height: 34px;
   overflow: visible;
 }
 
-.logo-mark path {
-  vector-effect: non-scaling-stroke;
+.fabric-roll {
+  fill: url(#logoBlue);
+  stroke: #7dd3fc;
+  stroke-width: 1.2;
 }
 
-.mark-fabric {
-  fill: none;
+.roll-edge {
+  fill: #0b1730;
+  stroke: #67e8f9;
+  stroke-width: 1.2;
+}
+
+.roll-core {
+  fill: #dbeafe;
   stroke: #38bdf8;
-  stroke-width: 2.4;
-  stroke-linejoin: round;
+  stroke-width: 1;
 }
 
-.mark-fold {
-  fill: none;
-  stroke: #22d3ee;
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.fabric-sheet {
+  fill: #2563eb;
+  opacity: .95;
 }
 
-.mark-measure {
+.measure-line {
   fill: none;
-  stroke: #a5f3fc;
-  stroke-width: 1.8;
+  stroke: #e0f2fe;
+  stroke-width: 1.5;
   stroke-linecap: round;
 }
 
@@ -1006,15 +1009,19 @@ body.dark-mode .theme-toggle {
   color: #f8fafc;
   font-size: 17px;
   font-weight: 800;
-  letter-spacing: -0.35px;
+  letter-spacing: -.4px;
   line-height: 1.12;
   white-space: nowrap;
+}
+
+.logo-name span {
+  color: #67e8f9;
 }
 
 .logo-sub {
   display: block;
   margin-top: 4px;
-  color: #7f93aa;
+  color: #8194ad;
   font-size: 7.5px;
   font-weight: 700;
   letter-spacing: 1.55px;
@@ -1024,31 +1031,25 @@ body.dark-mode .theme-toggle {
 
 @media (max-width: 600px) {
   .logo {
-    width: 225px;
-    flex-basis: 225px;
+    width: 228px;
+    flex-basis: 228px;
     gap: 8px;
   }
-
   .logo-mark {
     width: 37px;
     height: 37px;
     flex-basis: 37px;
     border-radius: 9px;
   }
-
   .logo-mark svg {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
   }
-
   .logo-name {
     font-size: 15px;
-    letter-spacing: -0.25px;
   }
-
   .logo-sub {
-    margin-top: 3px;
-    font-size: 6.5px;
-    letter-spacing: 1.15px;
+    font-size: 6.4px;
+    letter-spacing: 1.1px;
   }
 }
