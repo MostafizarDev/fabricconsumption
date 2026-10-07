@@ -259,275 +259,156 @@ if (document.getElementById('ck-body')?.checked) {
 // ========== Download Report ==========
 
 function downloadKnitReport() {
-    function getVal(id) {
-        const val = parseFloat(document.getElementById(id)?.value);
-        return isNaN(val) ? 0 : val;
-    }
-    
-    function getElemText(id) {
-        return document.getElementById(id)?.innerText || '—';
-    }
-    
-    // Get all values
-    const qty = getVal('kg-qty') || 0;
-    const waste = getVal('kg-waste') || 0;
-    const bGSM = getVal('kg-bgsm') || 0;
-    const knitUnit = window.knitUnit || 'cm';
-    
-    // Body measurements
+    const getVal = id => {
+        const n = parseFloat(document.getElementById(id)?.value);
+        return isNaN(n) ? 0 : n;
+    };
+    const txt = id => document.getElementById(id)?.innerText || '—';
+    const n = (v, d = 1) => Number(v || 0).toFixed(d);
+
+    const qty = getVal('kg-qty');
+    const waste = getVal('kg-waste');
+    const unit = window.knitUnit || 'cm';
+    const div = unit === 'inch' ? '1,550,000' : '10,000,000';
+
     const BL = getVal('kg-bl') + getVal('kg-bla');
     const SL = getVal('kg-sl') + getVal('kg-sla');
     const HC = getVal('kg-hc') + getVal('kg-hca');
-    
-    // Collar measurements
     const CL = getVal('kg-cl') + getVal('kg-cla');
     const CW = getVal('kg-cw') + getVal('kg-cwa');
-    const cGSM = getVal('kg-cgsm') || 0;
-    
-    // Cuff measurements
     const CuL = getVal('kg-cul') + getVal('kg-cula');
     const CuW = getVal('kg-cuw') + getVal('kg-cuwa');
-    const cuGSM = getVal('kg-cugsm') || 0;
-    
-    // Get display values
-    const bodyDisp = getElemText('kg-body-disp');
-    const collarDisp = getElemText('kg-collar-disp');
-    const cuffDisp = getElemText('kg-cuff-disp');
-    const totalBefore = getElemText('kg-total-before');
-    const totalAfter = getElemText('kg-total-after');
-    const totalKg = getElemText('kg-total-kg');
-    
-    // Check which components are selected
+    const PL = getVal('kg-pl') + getVal('kg-pla');
+    const PW = getVal('kg-pw') + getVal('kg-pwa');
+    const HML = getVal('kg-hml') + getVal('kg-hmla');
+    const HMW = getVal('kg-hmw') + getVal('kg-hmwa');
+
+    const bGSM = getVal('kg-bgsm');
+    const cGSM = getVal('kg-cgsm');
+    const cuGSM = getVal('kg-cugsm');
+    const pGSM = getVal('kg-pgsm');
+    const hmGSM = getVal('kg-hmgsm');
+    const pQty = getVal('kg-pqty') || 1;
+
+    const bodyDisp = txt('kg-body-disp');
+    const collarDisp = txt('kg-collar-disp');
+    const cuffDisp = txt('kg-cuff-disp');
+    const pocketDisp = txt('kg-pocket-disp');
+    const hmDisp = txt('kg-halfmoon-disp');
+
+    const totalBefore = txt('kg-total-before');
+    const totalAfter = txt('kg-total-after');
+    const totalKg = txt('kg-total-kg');
+    const perPc = txt('kg-per-pcs-label');
+
     const showCollar = document.getElementById('ck-collar')?.checked || false;
     const showCuff = document.getElementById('ck-cuff')?.checked || false;
     const showPocket = document.getElementById('ck-pocket')?.checked || false;
     const showHalfmoon = document.getElementById('ck-halfmoon')?.checked || false;
-    
-    // Build component rows HTML
-    let componentRows = '';
-    
-    // Body row
-    componentRows += `<tr>
-        <td style="padding: 8px; border: 1px solid #e2e8f0;">1</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">👕 Body</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0;">Front + Back</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${BL}</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${HC}</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">2</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">24</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${bGSM}</td>
-        <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${bodyDisp.split('|')[0] || '—'}</td>
-    </tr>`;
-    
-    // Collar row (if selected)
-    if (showCollar) {
-        componentRows += `<tr>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">2</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🧣 Collar</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">Rib</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CL}</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CW}</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">1</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">12</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${cGSM}</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${collarDisp.split('|')[0] || '—'}</td>
-        </tr>`;
-    }
-    
-    // Cuff row (if selected)
-    if (showCuff) {
-        componentRows += `<tr>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">3</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🧤 Cuff</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">Rib</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CuL}</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${CuW}</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">2</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">24</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${cuGSM}</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${cuffDisp.split('|')[0] || '—'}</td>
-        </tr>`;
-    }
-    
-    // Pocket row (if selected)
-    if (showPocket) {
-        componentRows += `<tr>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">4</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🪡 Pocket</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">Body Fabric</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">1</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">12</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-        </tr>`;
-    }
-    
-    // Half-moon row (if selected)
-    if (showHalfmoon) {
-        componentRows += `<tr>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">5</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 600;">🌙 Half-moon</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0;">Body Fabric</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">1</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">12</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-            <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">—</td>
-        </tr>`;
-    }
-    
-    // Build options text
-    let selectedOptions = '';
-    selectedOptions += showCollar ? '✅ Collar  ' : '❌ Collar  ';
-    selectedOptions += showCuff ? '| ✅ Cuff  ' : '| ❌ Cuff  ';
-    selectedOptions += showPocket ? '| ✅ Pocket  ' : '| ❌ Pocket  ';
-    selectedOptions += showHalfmoon ? '| ✅ Half-moon' : '| ❌ Half-moon';
-    
-    const reportHtml = `
-        <div style="font-family: 'Inter', Arial, sans-serif; max-width: 1100px; margin: 0 auto; padding: 20px;">
-            
-            <!-- Header -->
-            <div style="text-align: center; margin-bottom: 25px;">
-                <div style="font-size: 32px; margin-bottom: 5px;">🧵</div>
-                <div style="font-size: 22px; font-weight: 800; color: #0f172a; letter-spacing: 1px;">FABRICS CONSUMPTION REPORT</div>
-                <div style="font-size: 12px; color: #64748b;">Garment Calculator Suite</div>
-            </div>
-            
-            <!-- Report Info -->
-            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <div><span style="font-weight: 600;">Report ID:</span> FC-KNIT-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-001</div>
-                <div><span style="font-weight: 600;">Date:</span> ${new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})}</div>
-                <div><span style="font-weight: 600;">Time:</span> ${new Date().toLocaleTimeString()}</div>
-                <div><span style="font-weight: 600;">Unit:</span> ${knitUnit.toUpperCase()}</div>
-            </div>
-            
-            <!-- Order Information -->
-            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px; overflow: hidden;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📋 ORDER INFORMATION</div>
-                <div style="padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 20px;">
-                    <div><span style="color: #64748b;">Buyer Name:</span> _______________</div>
-                    <div><span style="color: #64748b;">Style No.:</span> _______________</div>
-                    <div><span style="color: #64748b;">Garment Type:</span> T-Shirt / Knit</div>
-                    <div><span style="color: #64748b;">Order Qty:</span> ${qty} pcs</div>
+
+    const now = new Date();
+    const reportId = 'FC-KNIT-' + now.toISOString().slice(0,10).replace(/-/g,'') + '-001';
+    const dateText = now.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+    const timeText = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+    let no = 1;
+    let rows = \`
+        <tr><td>\${no++}</td><td><strong>Body</strong><div class="muted">Front + Back</div></td><td>\${n(BL)} \${unit}</td><td>\${n(SL)} \${unit}</td><td>\${n(HC)} \${unit}</td><td>2</td><td>24</td><td>\${n(bGSM,0)}</td><td><strong>\${bodyDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+
+    if (showCollar) rows += \`
+        <tr><td>\${no++}</td><td><strong>Collar</strong><div class="muted">Rib</div></td><td>\${n(CL)} \${unit}</td><td>—</td><td>\${n(CW)} \${unit}</td><td>1</td><td>12</td><td>\${n(cGSM,0)}</td><td><strong>\${collarDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+
+    if (showCuff) rows += \`
+        <tr><td>\${no++}</td><td><strong>Cuff</strong><div class="muted">Rib × 2</div></td><td>\${n(CuL)} \${unit}</td><td>—</td><td>\${n(CuW)} \${unit}</td><td>2</td><td>24</td><td>\${n(cuGSM,0)}</td><td><strong>\${cuffDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+
+    if (showPocket) rows += \`
+        <tr><td>\${no++}</td><td><strong>Pocket</strong><div class="muted">Qty \${n(pQty,0)}</div></td><td>\${n(PL)} \${unit}</td><td>—</td><td>\${n(PW)} \${unit}</td><td>1</td><td>12</td><td>\${n(pGSM,0)}</td><td><strong>\${pocketDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+
+    if (showHalfmoon) rows += \`
+        <tr><td>\${no++}</td><td><strong>Half-moon</strong><div class="muted">Body fabric</div></td><td>\${n(HML)} \${unit}</td><td>—</td><td>\${n(HMW)} \${unit}</td><td>1</td><td>12</td><td>\${n(hmGSM,0)}</td><td><strong>\${hmDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+
+    const reportHtml = \`
+        <div class="report">
+            <div class="report-header">
+                <div>
+                    <div class="brand">FABRiCS <span>CONSUMPTiON</span></div>
+                    <div class="subtitle">GARMENT CALCULATOR SUITE</div>
+                </div>
+                <div class="report-title">
+                    <div class="eyebrow">CALCULATION REPORT</div>
+                    <h1>Knit Fabrics Consumption</h1>
+                    <div class="report-id">\${reportId}</div>
                 </div>
             </div>
-            
-            <!-- Component Wise Table -->
-            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px; overflow-x: auto;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📊 COMPONENT WISE CONSUMPTION</div>
-                <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
-                    <thead>
-                        <tr style="background: #f1f5f9;">
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">SL</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Component</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Part Detail</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Length (cm)</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Width (cm)</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Ply</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Qty/Dz</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">GSM</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Consumption (kg/dz)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${componentRows}
-                    </tbody>
+
+            <div class="meta-grid">
+                <div><span>Date</span><strong>\${dateText}</strong></div>
+                <div><span>Time</span><strong>\${timeText}</strong></div>
+                <div><span>Unit</span><strong>\${unit.toUpperCase()}</strong></div>
+                <div><span>Order Quantity</span><strong>\${qty} pcs</strong></div>
+            </div>
+
+            <section class="section">
+                <div class="section-head">ORDER INFORMATION</div>
+                <div class="info-grid">
+                    <div><span>Buyer Name</span><strong>________________________</strong></div>
+                    <div><span>Style No.</span><strong>________________________</strong></div>
+                    <div><span>Garment Type</span><strong>T-Shirt / Knit</strong></div>
+                    <div><span>Order Qty</span><strong>\${qty} pcs</strong></div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-head">COMPONENT WISE CONSUMPTION</div>
+                <table>
+                    <thead><tr>
+                        <th>SL</th><th>Component</th><th>Length</th><th>Sleeve</th><th>Width</th>
+                        <th>Ply</th><th>Qty/Dz</th><th>GSM</th><th>Consumption / Dz</th>
+                    </tr></thead>
+                    <tbody>\${rows}</tbody>
                 </table>
-            </div>
-            
-            <!-- Consumption Summary -->
-            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📈 CONSUMPTION SUMMARY</div>
-                <div style="padding: 16px;">
-                    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
-                        <div>
-                            <div style="color: #64748b;">Total Net Consumption</div>
-                            <div style="font-size: 20px; font-weight: 700;">${totalBefore}</div>
-                        </div>
-                        <div>
-                            <div style="color: #64748b;">+ Wastage (${waste}%)</div>
-                            <div style="font-size: 18px; font-weight: 500;">${totalAfter}</div>
-                        </div>
-                        <div style="border-left: 2px solid #e2e8f0; padding-left: 20px;">
-                            <div style="color: #10b981;">🎯 GRAND TOTAL</div>
-                            <div style="font-size: 24px; font-weight: 800; color: #10b981;">${totalAfter}</div>
-                            <div style="font-size: 12px;">${totalKg} (for ${qty} pcs)</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
-                        <div>Per Piece: <strong>${totalKg}/${qty} = ${(parseFloat(totalKg)/qty || 0).toFixed(4)} kg/pcs</strong></div>
-                    </div>
+            </section>
+
+            <section class="summary-grid">
+                <div class="summary-card"><span>NET CONSUMPTION</span><strong>\${totalBefore}</strong><small>kg / dozen</small></div>
+                <div class="summary-card"><span>WASTAGE</span><strong>\${waste}%</strong><small>applied to total</small></div>
+                <div class="summary-card primary"><span>GRAND TOTAL</span><strong>\${totalKg}</strong><small>for \${qty} pcs</small></div>
+                <div class="summary-card"><span>PER PIECE</span><strong>\${perPc}</strong><small>kg / piece</small></div>
+            </section>
+
+            <section class="section">
+                <div class="section-head">COMPONENT STATUS</div>
+                <div class="status-grid">
+                    <div class="status included">Body <b>Included</b></div>
+                    <div class="status \${showCollar ? 'included' : 'excluded'}">Collar <b>\${showCollar ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status \${showCuff ? 'included' : 'excluded'}">Cuff <b>\${showCuff ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status \${showPocket ? 'included' : 'excluded'}">Pocket <b>\${showPocket ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status \${showHalfmoon ? 'included' : 'excluded'}">Half-moon <b>\${showHalfmoon ? 'Included' : 'Not Included'}</b></div>
                 </div>
-            </div>
-            
-            <!-- Selected Components -->
-            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">✅ SELECTED COMPONENTS</div>
-                <div style="padding: 12px 16px;">
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div>👕 Body: Included</div>
-                        <div>🧣 Collar: ${showCollar ? '✅ Included' : '❌ Not Included'}</div>
-                        <div>🧤 Cuff: ${showCuff ? '✅ Included' : '❌ Not Included'}</div>
-                        <div>🪡 Pocket: ${showPocket ? '✅ Included' : '❌ Not Included'}</div>
-                        <div>🌙 Half-moon: ${showHalfmoon ? '✅ Included' : '❌ Not Included'}</div>
-                    </div>
+            </section>
+
+            <section class="formula">
+                <div class="section-head">FORMULA REFERENCE</div>
+                <div class="formula-text">
+                    <strong>Body:</strong> (Body Length + Sleeve Length) × ½ Chest × 2 × GSM ÷ \${div}
+                    <br>
+                    <strong>Other components:</strong> Length × Width × Ply × GSM ÷ \${div}
                 </div>
+            </section>
+
+            <div class="note"><strong>IMPORTANT:</strong> This report is computer generated. Verify measurements, GSM, quantity and wastage before bulk production.</div>
+
+            <div class="report-footer">
+                <span>Fabrics Consumption • Garment Calculator Suite</span>
+                <span>fabricconsumption.vercel.app</span>
             </div>
-            
-            <!-- Formula -->
-            <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #0f172a; color: white; padding: 10px 16px; font-weight: 600;">📐 FORMULA USED</div>
-                <div style="padding: 12px 16px; font-family: monospace; font-size: 12px;">
-                    Fabric Consumption (kg) = (Length × Width × Ply × Qty × GSM) ÷ 10,000,000<br>
-                    Where: Length, Width = in cm | Qty = Total pieces in Dozen (12 pcs) | GSM = Gram per Square Meter
-                </div>
-            </div>
-            
-            <!-- Important Notes -->
-            <div style="background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; margin-bottom: 20px;">
-                <div style="background: #f59e0b; color: white; padding: 8px 16px; font-weight: 600;">⚠️ IMPORTANT NOTES</div>
-                <div style="padding: 12px 16px; font-size: 11px; color: #64748b;">
-                    • This report is computer generated, no signature required.<br>
-                    • All measurements are in CM unless specified otherwise.<br>
-                    • Wastage is calculated on total fabric consumption.<br>
-                    • Please review and confirm before bulk production.
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="text-align: center; padding-top: 20px; margin-top: 20px; border-top: 1px solid #e2e8f0;">
-                <div style="font-size: 11px; color: #64748b;">© 2026 All Rights Reserved • Fabrics Consumption</div>
-                <div style="font-size: 10px; color: #94a3b8;">Generated By: Fabrics Consumption | Source: fabricconsumption.vercel.app</div>
-            </div>
-            
-        </div>
-    `;
-    
+        </div>\`;
+
     if (typeof generatePDF === 'function') {
-        generatePDF('Knit Garments Report', reportHtml);
+        generatePDF('Knit Fabrics Consumption Report', reportHtml);
     } else {
-        // Fallback print
         const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Knit Garments Report</title>
-                <meta charset="UTF-8">
-                <style>
-                    * { margin: 0; padding: 0; box-sizing: border-box; }
-                    body { font-family: 'Inter', Arial, sans-serif; padding: 20px; }
-                    @media print {
-                        body { padding: 0; }
-                    }
-                </style>
-            </head>
-            <body>${reportHtml}</body>
-            </html>
-        `);
+        printWindow.document.write('<!DOCTYPE html><html><head><title>Knit Fabrics Consumption Report</title></head><body>' + reportHtml + '</body></html>');
         printWindow.document.close();
         printWindow.print();
     }
