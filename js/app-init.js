@@ -33,6 +33,9 @@ function initApp() {
     // Setup unit toggle buttons
     setupUnitButtons();
 
+    // Initialize saved theme before rendering icons
+    initTheme();
+
     // Replace UI emoji symbols with consistent premium SVG icons
     initPremiumIcons();
 }
@@ -434,6 +437,44 @@ function setupSizeRatioListeners() {
     });
 }
 
+
+
+// ========== DARK / LIGHT THEME ==========
+function initTheme() {
+    const toggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('fc-theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+
+    applyTheme(isDark);
+
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            applyTheme(!document.body.classList.contains('dark-mode'));
+        });
+    }
+}
+
+function applyTheme(isDark) {
+    document.body.classList.toggle('dark-mode', isDark);
+    localStorage.setItem('fc-theme', isDark ? 'dark' : 'light');
+
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    toggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    toggle.innerHTML = '<i data-lucide="' + (isDark ? 'sun' : 'moon') + '" aria-hidden="true"></i>';
+
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons({
+            attrs: {
+                'stroke-width': 2,
+                'stroke': 'currentColor'
+            }
+        });
+    }
+}
 
 // ========== PREMIUM SVG ICON SYSTEM ==========
 // Uses Lucide SVG icons with one consistent stroke style.
