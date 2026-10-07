@@ -149,6 +149,43 @@ function generatePDF(title, contentHtml) {
                 .box { background: linear-gradient(135deg, #0f172a, #1e3a5f); color: white; padding: 20px; border-radius: 12px; text-align: center; margin: 20px 0; }
                 .box-value { font-size: 32px; font-weight: 800; }
                 .highlight { color: #0ea5e9; }
+                .report { max-width: 1080px; margin: 0 auto; color: #0f172a; }
+                .report-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding: 0 0 18px; border-bottom: 3px solid #2563eb; }
+                .brand { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; color: #0f172a; }
+                .brand span { color: #0891b2; }
+                .subtitle { margin-top: 4px; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #64748b; }
+                .report-title { text-align: right; }
+                .eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 1.8px; color: #2563eb; margin-bottom: 3px; }
+                .report-title h1 { border: 0; padding: 0; margin: 0; font-size: 22px; color: #0f172a; }
+                .report-id { margin-top: 4px; font-size: 9px; color: #64748b; font-family: monospace; }
+                .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; }
+                .meta-grid > div { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 7px; padding: 9px 11px; }
+                .meta-grid span, .info-grid span, .summary-card span { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: .8px; color: #64748b; margin-bottom: 4px; }
+                .meta-grid strong, .info-grid strong { font-size: 11px; color: #0f172a; }
+                .section { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; background: #fff; }
+                .section-head { background: #0f172a; color: #fff; padding: 8px 11px; font-size: 9px; font-weight: 700; letter-spacing: 1px; }
+                .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 13px; }
+                table { margin: 0; font-size: 9px; }
+                th, td { padding: 7px 6px; border: 1px solid #e2e8f0; }
+                th { background: #f1f5f9; color: #334155; font-size: 8px; text-transform: uppercase; letter-spacing: .3px; }
+                td { color: #1e293b; }
+                .muted { color: #64748b; font-size: 7px; margin-top: 2px; }
+                .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin: 14px 0; }
+                .summary-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; background: #fff; }
+                .summary-card strong { display: block; font-size: 18px; line-height: 1.1; color: #0f172a; }
+                .summary-card small { display: block; margin-top: 3px; font-size: 8px; color: #64748b; }
+                .summary-card.primary { background: #eff6ff; border-color: #93c5fd; }
+                .summary-card.primary strong { color: #2563eb; font-size: 21px; }
+                .status-grid { display: flex; flex-wrap: wrap; gap: 7px; padding: 11px; }
+                .status { flex: 1 1 150px; border-radius: 6px; padding: 8px 10px; font-size: 9px; border: 1px solid #e2e8f0; }
+                .status b { float: right; }
+                .status.included { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+                .status.excluded { background: #f8fafc; color: #64748b; }
+                .formula { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; }
+                .formula-text { padding: 11px; font-family: monospace; font-size: 9px; line-height: 1.7; color: #334155; }
+                .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
+                .report-footer { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #e2e8f0; margin-top: 18px; padding-top: 9px; font-size: 8px; color: #94a3b8; }
+
                 @media print {
                     body { padding: 0; max-width: none; }
                     .no-print { display: none; }
