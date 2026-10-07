@@ -312,22 +312,22 @@ function downloadKnitReport() {
     const timeText = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 
     let no = 1;
-    let rows = \`
-        <tr><td>\${no++}</td><td><strong>Body</strong><div class="muted">Front + Back</div></td><td>\${n(BL)} \${unit}</td><td>\${n(SL)} \${unit}</td><td>\${n(HC)} \${unit}</td><td>2</td><td>24</td><td>\${n(bGSM,0)}</td><td><strong>\${bodyDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+    let rows = `
+        <tr><td>${no++}</td><td><strong>Body</strong><div class="muted">Front + Back</div></td><td>${n(BL)} ${unit}</td><td>${n(SL)} ${unit}</td><td>${n(HC)} ${unit}</td><td>2</td><td>24</td><td>${n(bGSM,0)}</td><td><strong>${bodyDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
-    if (showCollar) rows += \`
-        <tr><td>\${no++}</td><td><strong>Collar</strong><div class="muted">Rib</div></td><td>\${n(CL)} \${unit}</td><td>—</td><td>\${n(CW)} \${unit}</td><td>1</td><td>12</td><td>\${n(cGSM,0)}</td><td><strong>\${collarDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+    if (showCollar) rows += `
+        <tr><td>${no++}</td><td><strong>Collar</strong><div class="muted">Rib</div></td><td>${n(CL)} ${unit}</td><td>—</td><td>${n(CW)} ${unit}</td><td>1</td><td>12</td><td>${n(cGSM,0)}</td><td><strong>${collarDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
-    if (showCuff) rows += \`
-        <tr><td>\${no++}</td><td><strong>Cuff</strong><div class="muted">Rib × 2</div></td><td>\${n(CuL)} \${unit}</td><td>—</td><td>\${n(CuW)} \${unit}</td><td>2</td><td>24</td><td>\${n(cuGSM,0)}</td><td><strong>\${cuffDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+    if (showCuff) rows += `
+        <tr><td>${no++}</td><td><strong>Cuff</strong><div class="muted">Rib × 2</div></td><td>${n(CuL)} ${unit}</td><td>—</td><td>${n(CuW)} ${unit}</td><td>2</td><td>24</td><td>${n(cuGSM,0)}</td><td><strong>${cuffDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
-    if (showPocket) rows += \`
-        <tr><td>\${no++}</td><td><strong>Pocket</strong><div class="muted">Qty \${n(pQty,0)}</div></td><td>\${n(PL)} \${unit}</td><td>—</td><td>\${n(PW)} \${unit}</td><td>1</td><td>12</td><td>\${n(pGSM,0)}</td><td><strong>\${pocketDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+    if (showPocket) rows += `
+        <tr><td>${no++}</td><td><strong>Pocket</strong><div class="muted">Qty ${n(pQty,0)}</div></td><td>${n(PL)} ${unit}</td><td>—</td><td>${n(PW)} ${unit}</td><td>1</td><td>12</td><td>${n(pGSM,0)}</td><td><strong>${pocketDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
-    if (showHalfmoon) rows += \`
-        <tr><td>\${no++}</td><td><strong>Half-moon</strong><div class="muted">Body fabric</div></td><td>\${n(HML)} \${unit}</td><td>—</td><td>\${n(HMW)} \${unit}</td><td>1</td><td>12</td><td>\${n(hmGSM,0)}</td><td><strong>\${hmDisp.split('|')[0] || '—'}</strong></td></tr>\`;
+    if (showHalfmoon) rows += `
+        <tr><td>${no++}</td><td><strong>Half-moon</strong><div class="muted">Body fabric</div></td><td>${n(HML)} ${unit}</td><td>—</td><td>${n(HMW)} ${unit}</td><td>1</td><td>12</td><td>${n(hmGSM,0)}</td><td><strong>${hmDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
-    const reportHtml = \`
+    const reportHtml = `
         <div class="report">
             <div class="report-header">
                 <div>
@@ -337,15 +337,15 @@ function downloadKnitReport() {
                 <div class="report-title">
                     <div class="eyebrow">CALCULATION REPORT</div>
                     <h1>Knit Fabrics Consumption</h1>
-                    <div class="report-id">\${reportId}</div>
+                    <div class="report-id">${reportId}</div>
                 </div>
             </div>
 
             <div class="meta-grid">
-                <div><span>Date</span><strong>\${dateText}</strong></div>
-                <div><span>Time</span><strong>\${timeText}</strong></div>
-                <div><span>Unit</span><strong>\${unit.toUpperCase()}</strong></div>
-                <div><span>Order Quantity</span><strong>\${qty} pcs</strong></div>
+                <div><span>Date</span><strong>${dateText}</strong></div>
+                <div><span>Time</span><strong>${timeText}</strong></div>
+                <div><span>Unit</span><strong>${unit.toUpperCase()}</strong></div>
+                <div><span>Order Quantity</span><strong>${qty} pcs</strong></div>
             </div>
 
             <section class="section">
@@ -354,7 +354,7 @@ function downloadKnitReport() {
                     <div><span>Buyer Name</span><strong>________________________</strong></div>
                     <div><span>Style No.</span><strong>________________________</strong></div>
                     <div><span>Garment Type</span><strong>T-Shirt / Knit</strong></div>
-                    <div><span>Order Qty</span><strong>\${qty} pcs</strong></div>
+                    <div><span>Order Qty</span><strong>${qty} pcs</strong></div>
                 </div>
             </section>
 
@@ -365,34 +365,34 @@ function downloadKnitReport() {
                         <th>SL</th><th>Component</th><th>Length</th><th>Sleeve</th><th>Width</th>
                         <th>Ply</th><th>Qty/Dz</th><th>GSM</th><th>Consumption / Dz</th>
                     </tr></thead>
-                    <tbody>\${rows}</tbody>
+                    <tbody>${rows}</tbody>
                 </table>
             </section>
 
             <section class="summary-grid">
-                <div class="summary-card"><span>NET CONSUMPTION</span><strong>\${totalBefore}</strong><small>kg / dozen</small></div>
-                <div class="summary-card"><span>WASTAGE</span><strong>\${waste}%</strong><small>applied to total</small></div>
-                <div class="summary-card primary"><span>GRAND TOTAL</span><strong>\${totalKg}</strong><small>for \${qty} pcs</small></div>
-                <div class="summary-card"><span>PER PIECE</span><strong>\${perPc}</strong><small>kg / piece</small></div>
+                <div class="summary-card"><span>NET CONSUMPTION</span><strong>${totalBefore}</strong><small>kg / dozen</small></div>
+                <div class="summary-card"><span>WASTAGE</span><strong>${waste}%</strong><small>applied to total</small></div>
+                <div class="summary-card primary"><span>GRAND TOTAL</span><strong>${totalKg}</strong><small>for ${qty} pcs</small></div>
+                <div class="summary-card"><span>PER PIECE</span><strong>${perPc}</strong><small>kg / piece</small></div>
             </section>
 
             <section class="section">
                 <div class="section-head">COMPONENT STATUS</div>
                 <div class="status-grid">
                     <div class="status included">Body <b>Included</b></div>
-                    <div class="status \${showCollar ? 'included' : 'excluded'}">Collar <b>\${showCollar ? 'Included' : 'Not Included'}</b></div>
-                    <div class="status \${showCuff ? 'included' : 'excluded'}">Cuff <b>\${showCuff ? 'Included' : 'Not Included'}</b></div>
-                    <div class="status \${showPocket ? 'included' : 'excluded'}">Pocket <b>\${showPocket ? 'Included' : 'Not Included'}</b></div>
-                    <div class="status \${showHalfmoon ? 'included' : 'excluded'}">Half-moon <b>\${showHalfmoon ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status ${showCollar ? 'included' : 'excluded'}">Collar <b>${showCollar ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status ${showCuff ? 'included' : 'excluded'}">Cuff <b>${showCuff ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status ${showPocket ? 'included' : 'excluded'}">Pocket <b>${showPocket ? 'Included' : 'Not Included'}</b></div>
+                    <div class="status ${showHalfmoon ? 'included' : 'excluded'}">Half-moon <b>${showHalfmoon ? 'Included' : 'Not Included'}</b></div>
                 </div>
             </section>
 
             <section class="formula">
                 <div class="section-head">FORMULA REFERENCE</div>
                 <div class="formula-text">
-                    <strong>Body:</strong> (Body Length + Sleeve Length) × ½ Chest × 2 × GSM ÷ \${div}
+                    <strong>Body:</strong> (Body Length + Sleeve Length) × ½ Chest × 2 × GSM ÷ ${div}
                     <br>
-                    <strong>Other components:</strong> Length × Width × Ply × GSM ÷ \${div}
+                    <strong>Other components:</strong> Length × Width × Ply × GSM ÷ ${div}
                 </div>
             </section>
 
@@ -402,7 +402,7 @@ function downloadKnitReport() {
                 <span>Fabrics Consumption • Garment Calculator Suite</span>
                 <span>fabricconsumption.vercel.app</span>
             </div>
-        </div>\`;
+        </div>`;
 
     if (typeof generatePDF === 'function') {
         generatePDF('Knit Fabrics Consumption Report', reportHtml);
