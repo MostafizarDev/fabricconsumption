@@ -1174,7 +1174,7 @@ body.dark-mode .theme-toggle {
 
 .formula-wastage {
   flex: 0 0 auto;
-  margin-left: 0;
+  margin-left: 8px;
   width: max-content;
   color: #f8fafc;
 }
