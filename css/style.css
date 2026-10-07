@@ -1056,3 +1056,17 @@ body.dark-mode .theme-toggle {
     height: 44px;
   }
 }
+
+
+@media (max-width: 600px) {
+  .fraction-formula {
+    overflow-x: auto;
+    font-size: 10px;
+    padding: 12px 10px;
+  }
+
+  .fraction-formula > div[style*="text-align: center"] {
+    white-space: nowrap;
+    font-size: 10px;
+  }
+}
