@@ -943,29 +943,19 @@ body.dark-mode .theme-toggle {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  width: 310px;
+  width: 312px;
   height: 60px;
-  flex: 0 0 310px;
+  flex: 0 0 312px;
   text-decoration: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
-.logo-mark {
-  width: 52px;
-  height: 52px;
-  flex: 0 0 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: linear-gradient(145deg, #111d33, #07101f);
-  border: none;
-  box-shadow: none;
-}
-
-.logo-mark svg {
-  width: 46px;
-  height: 46px;
+.logo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
   overflow: visible;
 }
 
@@ -1044,24 +1034,11 @@ body.dark-mode .theme-toggle {
 @media (max-width: 600px) {
   .logo {
     width: 228px;
+    height: 44px;
     flex-basis: 228px;
-    gap: 8px;
   }
-  .logo-mark {
-    width: 37px;
-    height: 37px;
-    flex-basis: 37px;
-    border-radius: 9px;
-  }
-  .logo-mark svg {
-    width: 30px;
-    height: 30px;
-  }
-  .logo-name {
-    font-size: 15px;
-  }
-  .logo-sub {
-    font-size: 6.4px;
-    letter-spacing: 1.1px;
+  .logo-image {
+    width: 228px;
+    height: 44px;
   }
 }
