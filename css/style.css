@@ -771,3 +771,161 @@ header {
     -moz-appearance: textfield;
     appearance: textfield;
 }
+
+
+/* ========== DARK / LIGHT THEME TOGGLE ========== */
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  margin-left: 4px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(56, 189, 248, 0.5);
+}
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+body.dark-mode {
+  background: #0b1120;
+  color: #e2e8f0;
+}
+
+body.dark-mode .page-desc,
+body.dark-mode .sa-label,
+body.dark-mode .panel-title,
+body.dark-mode .logo-sub {
+  color: #94a3b8;
+}
+
+body.dark-mode .header-url {
+  color: #64748b;
+}
+
+body.dark-mode .tab-bar {
+  background: #111827;
+}
+
+body.dark-mode .tab-btn {
+  color: #94a3b8;
+}
+
+body.dark-mode .tab-btn:hover {
+  color: #e2e8f0;
+}
+
+body.dark-mode .tab-btn.active {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+}
+
+body.dark-mode .panel,
+body.dark-mode .opt-panel,
+body.dark-mode .add-formula-form,
+body.dark-mode .formula-card,
+body.dark-mode .result-card,
+body.dark-mode .converter-card,
+body.dark-mode .tool-card {
+  background: #111827;
+  color: #e2e8f0;
+  border-color: #263244;
+}
+
+body.dark-mode .inp-a,
+body.dark-mode .inp-plain,
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #64748b;
+}
+
+body.dark-mode .inp-allow {
+  background: #2a2412;
+  border-color: #a16207;
+}
+
+body.dark-mode .u-btn {
+  background: #111827;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+body.dark-mode .u-btn.active {
+  background: #0ea5e9;
+  color: #fff;
+  border-color: #0ea5e9;
+}
+
+body.dark-mode .sa-tot {
+  background: #172554;
+  color: #93c5fd;
+}
+
+body.dark-mode .sa-sep,
+body.dark-mode .unit-label {
+  color: #64748b;
+}
+
+body.dark-mode .input-note {
+  background: #29200d;
+  color: #fbbf24;
+  border-color: #854d0e;
+}
+
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td {
+  border-color: #334155;
+}
+
+body.dark-mode th {
+  background: #1e293b;
+  color: #cbd5e1;
+}
+
+body.dark-mode td {
+  color: #cbd5e1;
+}
+
+body.dark-mode .footer {
+  background: #0f172a;
+  color: #64748b;
+}
+
+body.dark-mode .calc-btn {
+  box-shadow: none;
+}
+
+body.dark-mode .theme-toggle {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 600px) {
+  .header-url {
+    display: none;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+  }
+}
