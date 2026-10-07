@@ -112,7 +112,13 @@ function generatePDF(title, contentHtml) {
         return;
     }
 
-    const logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
+    let logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
+    // On the white PDF page, use the same blue gradient for FABRiCS as CONSUMPTiON.
+    // Keep the calculator icon and its internal white details unchanged.
+    logoSvg = logoSvg.replace(
+        /(<text[^>]*?)fill="#FFFFFF"([^>]*>FABRiCS<\/text>)/,
+        '$1fill="url(#blueGrad)"$2'
+    );
 
     const fullHtml = `
         <!DOCTYPE html>
@@ -139,8 +145,9 @@ function generatePDF(title, contentHtml) {
 
                 .report { max-width: 1080px; margin: 0 auto; color: #0f172a; }
                 .report-header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 0 0 18px; border-bottom: 3px solid #2563eb; }
-                .report-brand { background: #0f172a; border-radius: 10px; padding: 7px 12px; display: inline-flex; align-items: center; }
-                .report-brand svg { display: block; width: 360px; height: auto; }
+                .report-brand { display: inline-flex; align-items: center; }
+                .report-brand svg { display: block; width: 410px; height: auto; }
+                .report-header .subtitle { display: none; }
                 .brand { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; color: #0f172a; }
                 .brand span { color: #0891b2; }
                 .subtitle { margin-top: 4px; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #64748b; }
