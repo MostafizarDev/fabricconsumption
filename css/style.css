@@ -1150,15 +1150,23 @@ body.dark-mode .theme-toggle {
   box-sizing: border-box;
 }
 
-.formula-divider {
-  height: 1px;
-  background: #94a3b8;
+.formula-divider-row {
+  display: flex;
+  align-items: center;
   width: 100%;
   margin: 2px 0;
 }
 
+.formula-divider {
+  height: 1px;
+  background: #94a3b8;
+  flex: 0 0 auto;
+  width: 62ch;
+}
+
 .formula-wastage {
-  margin-left: 62ch;
+  flex: 0 0 auto;
+  margin-left: 8px;
   width: max-content;
   color: #f8fafc;
 }
