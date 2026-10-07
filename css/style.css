@@ -775,12 +775,12 @@ header {
 
 /* ========== DARK / LIGHT THEME TOGGLE ========== */
 .theme-toggle {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   margin-left: 4px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
   color: #cbd5e1;
   display: flex;
   align-items: center;
@@ -795,8 +795,9 @@ header {
   border-color: rgba(56, 189, 248, 0.5);
 }
 .theme-toggle svg {
-  width: 17px;
-  height: 17px;
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
 }
 
 body.dark-mode {
