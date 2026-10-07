@@ -256,6 +256,20 @@ if (document.getElementById('ck-body')?.checked) {
     } else if (hmRow) hmRow.style.display = 'none';
 }
 
+// ========== PDF REPORT SVG ICONS ==========
+function reportIcon(name) {
+    const icons = {
+        file: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v5h5M9 13h6M9 17h6"></path></svg>',
+        info: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path></svg>',
+        components: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="7" cy="7" r="1.5"></circle><circle cx="7" cy="12" r="1.5"></circle><circle cx="7" cy="17" r="1.5"></circle></svg>',
+        summary: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"></path></svg>',
+        status: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg>',
+        formula: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10M7 20h10M9 7l6 10M15 7l-6 10"></path></svg>',
+        warning: '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19z"></path><path d="M12 9v5M12 17h.01"></path></svg>'
+    };
+    return icons[name] || icons.file;
+}
+
 // ========== Download Report ==========
 
 function downloadKnitReport() {
@@ -349,7 +363,7 @@ function downloadKnitReport() {
             </div>
 
             <section class="section">
-                <div class="section-head">ORDER INFORMATION</div>
+                <div class="section-head">${reportIcon('info')}<span>ORDER INFORMATION</span></div>
                 <div class="info-grid">
                     <div><span>Buyer Name</span><strong>________________________</strong></div>
                     <div><span>Style No.</span><strong>________________________</strong></div>
@@ -359,7 +373,7 @@ function downloadKnitReport() {
             </section>
 
             <section class="section">
-                <div class="section-head">COMPONENT WISE CONSUMPTION</div>
+                <div class="section-head">${reportIcon('components')}<span>COMPONENT WISE CONSUMPTION</span></div>
                 <table>
                     <thead><tr>
                         <th>SL</th><th>Component</th><th>Length</th><th>Sleeve</th><th>Width</th>
@@ -370,14 +384,14 @@ function downloadKnitReport() {
             </section>
 
             <section class="summary-grid">
-                <div class="summary-card"><span>NET CONSUMPTION</span><strong>${totalBefore}</strong><small>kg / dozen</small></div>
-                <div class="summary-card"><span>WASTAGE</span><strong>${waste}%</strong><small>applied to total</small></div>
-                <div class="summary-card primary"><span>GRAND TOTAL</span><strong>${totalKg}</strong><small>for ${qty} pcs</small></div>
-                <div class="summary-card"><span>PER PIECE</span><strong>${perPc}</strong><small>kg / piece</small></div>
+                <div class="summary-card"><div class="metric-head">${reportIcon('components')}<span>NET CONSUMPTION</span></div><strong>${totalBefore}</strong><small>kg / dozen</small></div>
+                <div class="summary-card"><div class="metric-head">${reportIcon('warning')}<span>WASTAGE</span></div><strong>${waste}%</strong><small>applied to total</small></div>
+                <div class="summary-card primary"><div class="metric-head">${reportIcon('summary')}<span>GRAND TOTAL</span></div><strong>${totalKg}</strong><small>for ${qty} pcs</small></div>
+                <div class="summary-card"><div class="metric-head">${reportIcon('file')}<span>PER PIECE</span></div><strong>${perPc}</strong><small>kg / piece</small></div>
             </section>
 
             <section class="section">
-                <div class="section-head">COMPONENT STATUS</div>
+                <div class="section-head">${reportIcon('status')}<span>COMPONENT STATUS</span></div>
                 <div class="status-grid">
                     <div class="status included">Body <b>Included</b></div>
                     <div class="status ${showCollar ? 'included' : 'excluded'}">Collar <b>${showCollar ? 'Included' : 'Not Included'}</b></div>
@@ -388,7 +402,7 @@ function downloadKnitReport() {
             </section>
 
             <section class="formula">
-                <div class="section-head">FORMULA REFERENCE</div>
+                <div class="section-head">${reportIcon('formula')}<span>FORMULA REFERENCE</span></div>
                 <div class="formula-text">
                     <strong>Body:</strong> (Body Length + Sleeve Length) × ½ Chest × 2 × GSM ÷ ${div}
                     <br>
@@ -396,7 +410,7 @@ function downloadKnitReport() {
                 </div>
             </section>
 
-            <div class="note"><strong>IMPORTANT:</strong> This report is computer generated. Verify measurements, GSM, quantity and wastage before bulk production.</div>
+            <div class="note">${reportIcon('warning')}<div><strong>IMPORTANT:</strong> This report is computer generated. Verify measurements, GSM, quantity and wastage before bulk production.</div></div>
 
             <div class="report-footer">
                 <span>Fabrics Consumption • Garment Calculator Suite</span>
