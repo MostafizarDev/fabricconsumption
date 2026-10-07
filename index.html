@@ -10,12 +10,18 @@
 <body>
 
 <header>
-  <a class="logo" href="javascript:void(0);" onclick="window.location.reload();">
-    <div class="logo-icon">🧵</div>
-    <div>
+  <a class="logo" href="javascript:void(0);" onclick="window.location.reload();" aria-label="Fabrics Consumption home">
+    <span class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 44 44" role="img">
+        <path class="mark-fabric" d="M7 13.5 22 7l15 6.5v17L22 37 7 30.5z"/>
+        <path class="mark-fold" d="M7 13.5 22 20l15-6.5M22 20v17"/>
+        <path class="mark-measure" d="M12 25.5h20M15 22.5v6M20 24v4M25 22.5v6M30 24v4"/>
+      </svg>
+    </span>
+    <span class="logo-copy">
       <span class="logo-name">Fabrics Consumption</span>
-      <span class="logo-sub">Garment Calculator Suite</span>
-    </div>
+      <span class="logo-sub">GARMENT CALCULATOR SUITE</span>
+    </span>
   </a>
   <div class="header-url">fabricconsumption.vercel.app</div>
   <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
