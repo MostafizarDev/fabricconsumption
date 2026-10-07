@@ -90,6 +90,20 @@ header {
   border-bottom-color: #38bdf8;
 }
 
+
+/* ========== STICKY TOOL NAVIGATION ========== */
+.tab-bar {
+  position: sticky;
+  top: 68px;
+  z-index: 99;
+}
+
+@media (max-width: 600px) {
+  .tab-bar {
+    top: 60px;
+  }
+}
+
 /* ========== PAGES ========== */
 .page {
   display: none;
