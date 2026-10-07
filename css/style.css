@@ -1168,7 +1168,8 @@ body.dark-mode .theme-toggle {
   background: #94a3b8;
   flex: 0 0 72ch;
   width: 72ch;
-  margin-right: 2cm;
+  margin-left: 2cm;
+  margin-right: 0;
 }
 
 .formula-wastage {
