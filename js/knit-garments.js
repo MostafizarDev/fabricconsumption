@@ -123,139 +123,55 @@ function resetAllInputs() {
 function calcKnitGarments() {
     const div = knitUnit === 'inch' ? 1550000 : 10000000;
     const qty = parseFloat(document.getElementById('kg-qty')?.value) || 0;
-    const waste = parseFloat(document.getElementById('kg-waste')?.value) || 0;
-    
-    function getVal(id) {
-        const val = parseFloat(document.getElementById(id)?.value);
-        return isNaN(val) ? 0 : val;
-    }
-    
-    // BODY
-let bodyPerPc = 0, bodyDz = 0;
-if (document.getElementById('ck-body')?.checked) {
-    const BL = getVal('kg-bl') + getVal('kg-bla');
-    const SL = getVal('kg-sl') + getVal('kg-sla');
-    const HC = getVal('kg-hc') + getVal('kg-hca');
-    const bGSM = getVal('kg-bgsm') || 0;
-    
-    if (BL > 0 && SL > 0 && HC > 0 && bGSM > 0 && qty > 0) {
-        bodyPerPc = ((BL + SL) * HC * 2 * bGSM) / div;
-        bodyDz = bodyPerPc * 12;
-    }
-}
-    
-    // COLLAR
-    let collarPerPc = 0, collarDz = 0;
-    if (document.getElementById('ck-collar')?.checked) {
-        const CL = getVal('kg-cl') + getVal('kg-cla');
-        const CW = getVal('kg-cw') + getVal('kg-cwa');
-        const cGSM = getVal('kg-cgsm') || 0;
-        if (CL > 0 && CW > 0 && cGSM > 0 && qty > 0) {
-            collarPerPc = (CL * CW * cGSM) / div;
-            collarDz = collarPerPc * 12;
-        }
-    }
-    
-    // CUFF
-    let cuffPerPc = 0, cuffDz = 0;
-    if (document.getElementById('ck-cuff')?.checked) {
-        const CL = getVal('kg-cul') + getVal('kg-cula');
-        const CW = getVal('kg-cuw') + getVal('kg-cuwa');
-        const cuGSM = getVal('kg-cugsm') || 0;
-        if (CL > 0 && CW > 0 && cuGSM > 0 && qty > 0) {
-            cuffPerPc = (CL * CW * 2 * cuGSM) / div;
-            cuffDz = cuffPerPc * 12;
-        }
-    }
-    
-    // POCKET
-    let pocketPerPc = 0, pocketDz = 0;
-    if (document.getElementById('ck-pocket')?.checked) {
-        const PL = getVal('kg-pl') + getVal('kg-pla');
-        const PW = getVal('kg-pw') + getVal('kg-pwa');
-        const pQty = getVal('kg-pqty') || 1;
-        const pGSM = getVal('kg-pgsm') || 0;
-        if (PL > 0 && PW > 0 && pGSM > 0 && qty > 0) {
-            pocketPerPc = (PL * PW * pQty * pGSM) / div;
-            pocketDz = pocketPerPc * 12;
-        }
-    }
-    
-    // HALF-MOON
-    let hmPerPc = 0, hmDz = 0;
-    if (document.getElementById('ck-halfmoon')?.checked) {
-        const HL = getVal('kg-hml') + getVal('kg-hmla');
-        const HW = getVal('kg-hmw') + getVal('kg-hmwa');
-        const hmGSM = getVal('kg-hmgsm') || 0;
-        if (HL > 0 && HW > 0 && hmGSM > 0 && qty > 0) {
-            hmPerPc = (HL * HW * hmGSM) / div;
-            hmDz = hmPerPc * 12;
-        }
-    }
-    
-    const totalPerPc = bodyPerPc + collarPerPc + cuffPerPc + pocketPerPc + hmPerPc;
-    const totalDz = totalPerPc * 12;
-    const totalWithWaste = totalDz * (1 + waste / 100);
-    const totalKg = (totalWithWaste / 12) * qty;
-    
-    function fmt(n, d) {
-        return (isNaN(n) || n === 0) ? '—' : n.toFixed(d);
-    }
-    
-    const bodyRow = document.getElementById('kg-body-row');
-    const bodyDisp = document.getElementById('kg-body-disp');
+    const getVal = id => { const v = parseFloat(document.getElementById(id)?.value); return isNaN(v) ? 0 : v; };
+    const withWaste = (baseDz, wastePct) => baseDz * (1 + wastePct / 100);
 
-    if (document.getElementById('ck-body')?.checked) {
-    if (bodyRow) bodyRow.style.display = 'flex';
-    if (bodyDisp) bodyDisp.innerText = (bodyDz > 0 ? fmt(bodyDz, 3) + ' kg/dz | ' + fmt(bodyPerPc, 3) + ' kg/pcs' : '— kg/dz | — kg/pcs');
-    } else if (bodyRow) bodyRow.style.display = 'none';
-    
-    const totalBefore = document.getElementById('kg-total-before');
-    if (totalBefore) totalBefore.innerText = (totalDz > 0 ? fmt(totalDz, 3) + ' kg/dz' : '— kg/dz');
-    
-    const totalAfter = document.getElementById('kg-total-after');
-    if (totalAfter) totalAfter.innerText = (totalWithWaste > 0 ? fmt(totalWithWaste, 3) + ' kg/dz' : '— kg/dz');
-    
-    const totalKgElem = document.getElementById('kg-total-kg');
-    if (totalKgElem) totalKgElem.innerText = (totalKg > 0 ? fmt(totalKg, 3) + ' kg' : '— kg');
-    
-    const perDzLabel = document.getElementById('kg-per-dz-label');
-    if (perDzLabel) perDzLabel.innerText = (totalWithWaste > 0 ? fmt(totalWithWaste, 3) + ' kg/dz' : '— kg/dz');
-    
-    const perPcLabel = document.getElementById('kg-per-pcs-label');
-    if (perPcLabel) perPcLabel.innerText = (totalWithWaste > 0 ? fmt(totalWithWaste / 12, 3) + ' kg/pcs' : '— kg/pcs');
-    
-    // Optional rows
-    const collarRow = document.getElementById('kg-collar-row');
-    const cuffRow = document.getElementById('kg-cuff-row');
-    const pocketRow = document.getElementById('kg-pocket-row');
-    const hmRow = document.getElementById('kg-halfmoon-row');
-    const collarDispSpan = document.getElementById('kg-collar-disp');
-    const cuffDispSpan = document.getElementById('kg-cuff-disp');
-    const pocketDispSpan = document.getElementById('kg-pocket-disp');
-    const hmDispSpan = document.getElementById('kg-halfmoon-disp');
-    
-    if (document.getElementById('ck-collar')?.checked) {
-        if (collarRow) collarRow.style.display = 'flex';
-        if (collarDispSpan) collarDispSpan.innerText = (collarDz > 0 ? fmt(collarDz, 3) + ' kg/dz | ' + fmt(collarPerPc, 3) + ' kg/pcs' : '— kg/dz | — kg/pcs');
-    } else if (collarRow) collarRow.style.display = 'none';
-    
-    if (document.getElementById('ck-cuff')?.checked) {
-        if (cuffRow) cuffRow.style.display = 'flex';
-        if (cuffDispSpan) cuffDispSpan.innerText = (cuffDz > 0 ? fmt(cuffDz, 3) + ' kg/dz | ' + fmt(cuffPerPc, 3) + ' kg/pcs' : '— kg/dz | — kg/pcs');
-    } else if (cuffRow) cuffRow.style.display = 'none';
-    
-    if (document.getElementById('ck-pocket')?.checked) {
-        if (pocketRow) pocketRow.style.display = 'flex';
-        if (pocketDispSpan) pocketDispSpan.innerText = (pocketDz > 0 ? fmt(pocketDz, 3) + ' kg/dz | ' + fmt(pocketPerPc, 3) + ' kg/pcs' : '— kg/dz | — kg/pcs');
-    } else if (pocketRow) pocketRow.style.display = 'none';
-    
-    if (document.getElementById('ck-halfmoon')?.checked) {
-        if (hmRow) hmRow.style.display = 'flex';
-        if (hmDispSpan) hmDispSpan.innerText = (hmDz > 0 ? fmt(hmDz, 3) + ' kg/dz | ' + fmt(hmPerPc, 3) + ' kg/pcs' : '— kg/dz | — kg/pcs');
-    } else if (hmRow) hmRow.style.display = 'none';
-}
+    let bodyPerPc=0, bodyDz=0, bodyAfterDz=0; const bodyWaste=getVal('kg-body-waste');
+    if(document.getElementById('ck-body')?.checked){
+        const BL=getVal('kg-bl')+getVal('kg-bla'), SL=getVal('kg-sl')+getVal('kg-sla'), HC=getVal('kg-hc')+getVal('kg-hca'), gsm=getVal('kg-bgsm');
+        if(BL>0&&SL>0&&HC>0&&gsm>0&&qty>0){ bodyPerPc=((BL+SL)*HC*2*gsm)/div; bodyDz=bodyPerPc*12; bodyAfterDz=withWaste(bodyDz,bodyWaste); }
+    }
 
+    let collarPerPc=0, collarDz=0, collarAfterDz=0; const collarWaste=getVal('kg-collar-waste');
+    if(document.getElementById('ck-collar')?.checked){
+        const L=getVal('kg-cl')+getVal('kg-cla'), W=getVal('kg-cw')+getVal('kg-cwa'), gsm=getVal('kg-cgsm');
+        if(L>0&&W>0&&gsm>0&&qty>0){ collarPerPc=(L*W*gsm)/div; collarDz=collarPerPc*12; collarAfterDz=withWaste(collarDz,collarWaste); }
+    }
+
+    let cuffPerPc=0, cuffDz=0, cuffAfterDz=0; const cuffWaste=getVal('kg-cuff-waste');
+    if(document.getElementById('ck-cuff')?.checked){
+        const L=getVal('kg-cul')+getVal('kg-cula'), W=getVal('kg-cuw')+getVal('kg-cuwa'), gsm=getVal('kg-cugsm');
+        if(L>0&&W>0&&gsm>0&&qty>0){ cuffPerPc=(L*W*2*gsm)/div; cuffDz=cuffPerPc*12; cuffAfterDz=withWaste(cuffDz,cuffWaste); }
+    }
+
+    let pocketPerPc=0, pocketDz=0, pocketAfterDz=0; const pocketWaste=getVal('kg-pocket-waste');
+    if(document.getElementById('ck-pocket')?.checked){
+        const L=getVal('kg-pl')+getVal('kg-pla'), W=getVal('kg-pw')+getVal('kg-pwa'), pQty=getVal('kg-pqty')||1, gsm=getVal('kg-pgsm');
+        if(L>0&&W>0&&gsm>0&&qty>0){ pocketPerPc=(L*W*pQty*gsm)/div; pocketDz=pocketPerPc*12; pocketAfterDz=withWaste(pocketDz,pocketWaste); }
+    }
+
+    let hmPerPc=0, hmDz=0, hmAfterDz=0; const hmWaste=getVal('kg-halfmoon-waste');
+    if(document.getElementById('ck-halfmoon')?.checked){
+        const L=getVal('kg-hml')+getVal('kg-hmla'), W=getVal('kg-hmw')+getVal('kg-hmwa'), gsm=getVal('kg-hmgsm');
+        if(L>0&&W>0&&gsm>0&&qty>0){ hmPerPc=(L*W*gsm)/div; hmDz=hmPerPc*12; hmAfterDz=withWaste(hmDz,hmWaste); }
+    }
+
+    const totalDz=bodyDz+collarDz+cuffDz+pocketDz+hmDz;
+    const totalWithWaste=bodyAfterDz+collarAfterDz+cuffAfterDz+pocketAfterDz+hmAfterDz;
+    const totalKg=qty>0?(totalWithWaste/12)*qty:0;
+    const fmt=(n,d)=>(isNaN(n)||n===0)?'—':n.toFixed(d);
+    const updateRow=(checked,rowId,dispId,afterDz)=>{ const row=document.getElementById(rowId), disp=document.getElementById(dispId); if(checked){ if(row)row.style.display='flex'; if(disp)disp.innerText=afterDz>0?fmt(afterDz,3)+' kg/dz | '+fmt(afterDz/12,3)+' kg/pcs':'— kg/dz | — kg/pcs'; } else if(row)row.style.display='none'; };
+    updateRow(document.getElementById('ck-body')?.checked,'kg-body-row','kg-body-disp',bodyAfterDz);
+    updateRow(document.getElementById('ck-collar')?.checked,'kg-collar-row','kg-collar-disp',collarAfterDz);
+    updateRow(document.getElementById('ck-cuff')?.checked,'kg-cuff-row','kg-cuff-disp',cuffAfterDz);
+    updateRow(document.getElementById('ck-pocket')?.checked,'kg-pocket-row','kg-pocket-disp',pocketAfterDz);
+    updateRow(document.getElementById('ck-halfmoon')?.checked,'kg-halfmoon-row','kg-halfmoon-disp',hmAfterDz);
+    const before=document.getElementById('kg-total-before'); if(before)before.innerText=totalDz>0?fmt(totalDz,3)+' kg/dz':'— kg/dz';
+    const after=document.getElementById('kg-total-after'); if(after)after.innerText=totalWithWaste>0?fmt(totalWithWaste,3)+' kg/dz':'— kg/dz';
+    const total=document.getElementById('kg-total-kg'); if(total)total.innerText=totalKg>0?fmt(totalKg,3)+' kg':'— kg';
+    const dz=document.getElementById('kg-per-dz-label'); if(dz)dz.innerText=totalWithWaste>0?fmt(totalWithWaste,3)+' kg/dz':'— kg/dz';
+    const pc=document.getElementById('kg-per-pcs-label'); if(pc)pc.innerText=totalWithWaste>0?fmt(totalWithWaste/12,3)+' kg/pcs':'— kg/pcs';
+}
 // ========== PDF REPORT SVG ICONS ==========
 function reportIcon(name) {
     const icons = {
@@ -281,7 +197,6 @@ function downloadKnitReport() {
     const n = (v, d = 1) => Number(v || 0).toFixed(d);
 
     const qty = getVal('kg-qty');
-    const waste = getVal('kg-waste');
     const unit = window.knitUnit || 'cm';
     const div = unit === 'inch' ? '1,550,000' : '10,000,000';
 
@@ -314,6 +229,11 @@ function downloadKnitReport() {
     const totalAfter = txt('kg-total-after');
     const totalKg = txt('kg-total-kg');
     const perPc = txt('kg-per-pcs-label');
+    const bodyWaste = getVal('kg-body-waste');
+    const collarWaste = getVal('kg-collar-waste');
+    const cuffWaste = getVal('kg-cuff-waste');
+    const pocketWaste = getVal('kg-pocket-waste');
+    const halfmoonWaste = getVal('kg-halfmoon-waste');
 
     const showCollar = document.getElementById('ck-collar')?.checked || false;
     const showCuff = document.getElementById('ck-cuff')?.checked || false;
@@ -327,19 +247,19 @@ function downloadKnitReport() {
 
     let no = 1;
     let rows = `
-        <tr><td>${no++}</td><td><strong>Body</strong><div class="muted">Front + Back</div></td><td>${n(BL)} ${unit}</td><td>${n(SL)} ${unit}</td><td>${n(HC)} ${unit}</td><td>2</td><td>24</td><td>${n(bGSM,0)}</td><td><strong>${bodyDisp.split('|')[0] || '—'}</strong></td></tr>`;
+        <tr><td>${no++}</td><td><strong>Body</strong><div class="muted">Front + Back</div></td><td>${n(BL)} ${unit}</td><td>${n(SL)} ${unit}</td><td>${n(HC)} ${unit}</td><td>2</td><td>24</td><td>${n(bGSM,0)}</td><td>${n(bodyWaste,1)}%</td><td><strong>${bodyDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
     if (showCollar) rows += `
-        <tr><td>${no++}</td><td><strong>Collar</strong><div class="muted">Rib</div></td><td>${n(CL)} ${unit}</td><td>—</td><td>${n(CW)} ${unit}</td><td>1</td><td>12</td><td>${n(cGSM,0)}</td><td><strong>${collarDisp.split('|')[0] || '—'}</strong></td></tr>`;
+        <tr><td>${no++}</td><td><strong>Collar</strong><div class="muted">Rib</div></td><td>${n(CL)} ${unit}</td><td>—</td><td>${n(CW)} ${unit}</td><td>1</td><td>12</td><td>${n(cGSM,0)}</td><td>${n(collarWaste,1)}%</td><td><strong>${collarDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
     if (showCuff) rows += `
-        <tr><td>${no++}</td><td><strong>Cuff</strong><div class="muted">Rib × 2</div></td><td>${n(CuL)} ${unit}</td><td>—</td><td>${n(CuW)} ${unit}</td><td>2</td><td>24</td><td>${n(cuGSM,0)}</td><td><strong>${cuffDisp.split('|')[0] || '—'}</strong></td></tr>`;
+        <tr><td>${no++}</td><td><strong>Cuff</strong><div class="muted">Rib × 2</div></td><td>${n(CuL)} ${unit}</td><td>—</td><td>${n(CuW)} ${unit}</td><td>2</td><td>24</td><td>${n(cuGSM,0)}</td><td>${n(cuffWaste,1)}%</td><td><strong>${cuffDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
     if (showPocket) rows += `
-        <tr><td>${no++}</td><td><strong>Pocket</strong><div class="muted">Qty ${n(pQty,0)}</div></td><td>${n(PL)} ${unit}</td><td>—</td><td>${n(PW)} ${unit}</td><td>1</td><td>12</td><td>${n(pGSM,0)}</td><td><strong>${pocketDisp.split('|')[0] || '—'}</strong></td></tr>`;
+        <tr><td>${no++}</td><td><strong>Pocket</strong><div class="muted">Qty ${n(pQty,0)}</div></td><td>${n(PL)} ${unit}</td><td>—</td><td>${n(PW)} ${unit}</td><td>1</td><td>12</td><td>${n(pGSM,0)}</td><td>${n(pocketWaste,1)}%</td><td><strong>${pocketDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
     if (showHalfmoon) rows += `
-        <tr><td>${no++}</td><td><strong>Half-moon</strong><div class="muted">Body fabric</div></td><td>${n(HML)} ${unit}</td><td>—</td><td>${n(HMW)} ${unit}</td><td>1</td><td>12</td><td>${n(hmGSM,0)}</td><td><strong>${hmDisp.split('|')[0] || '—'}</strong></td></tr>`;
+        <tr><td>${no++}</td><td><strong>Half-moon</strong><div class="muted">Body fabric</div></td><td>${n(HML)} ${unit}</td><td>—</td><td>${n(HMW)} ${unit}</td><td>1</td><td>12</td><td>${n(hmGSM,0)}</td><td>${n(halfmoonWaste,1)}%</td><td><strong>${hmDisp.split('|')[0] || '—'}</strong></td></tr>`;
 
     const reportHtml = `
         <div class="report">
@@ -377,7 +297,7 @@ function downloadKnitReport() {
                 <table>
                     <thead><tr>
                         <th>SL</th><th>Component</th><th>Length</th><th>Sleeve</th><th>Width</th>
-                        <th>Ply</th><th>Qty/Dz</th><th>GSM</th><th>Consumption / Dz</th>
+                        <th>Ply</th><th>Qty/Dz</th><th>GSM</th><th>Wastage</th><th>Final / Dz</th>
                     </tr></thead>
                     <tbody>${rows}</tbody>
                 </table>
@@ -385,7 +305,7 @@ function downloadKnitReport() {
 
             <section class="summary-grid">
                 <div class="summary-card"><div class="metric-head">${reportIcon('components')}<span>NET CONSUMPTION</span></div><strong>${totalBefore}</strong><small>kg / dozen</small></div>
-                <div class="summary-card"><div class="metric-head">${reportIcon('warning')}<span>WASTAGE</span></div><strong>${waste}%</strong><small>applied to total</small></div>
+                <div class="summary-card"><div class="metric-head">${reportIcon('warning')}<span>WASTAGE</span></div><strong>Individual</strong><small>entered per component</small></div>
                 <div class="summary-card primary"><div class="metric-head">${reportIcon('summary')}<span>GRAND TOTAL</span></div><strong>${totalKg}</strong><small>for ${qty} pcs</small></div>
                 <div class="summary-card"><div class="metric-head">${reportIcon('file')}<span>PER PIECE</span></div><strong>${perPc}</strong><small>kg / piece</small></div>
             </section>
@@ -404,13 +324,13 @@ function downloadKnitReport() {
             <section class="formula">
                 <div class="section-head">${reportIcon('formula')}<span>FORMULA REFERENCE</span></div>
                 <div class="formula-text">
-                    <strong>Body:</strong> (Body Length + Sleeve Length) × ½ Chest × 2 × GSM ÷ ${div}
+                    <strong>Base consumption:</strong> Component dimensions × Ply × GSM ÷ ${div}
                     <br>
-                    <strong>Other components:</strong> Length × Width × Ply × GSM ÷ ${div}
+                    <strong>Final component:</strong> Base consumption × (1 + component wastage % ÷ 100)
                 </div>
             </section>
 
-            <div class="note">${reportIcon('warning')}<div><strong>IMPORTANT:</strong> This report is computer generated. Verify measurements, GSM, quantity and wastage before bulk production.</div></div>
+            <div class="note">${reportIcon('warning')}<div><strong>IMPORTANT:</strong> This report is computer generated. Wastage is entered separately for Main Body, Collar, Cuff, Pocket and Half-moon. Verify all measurements, GSM, quantity and wastage before bulk production.</div></div>
 
             <div class="report-footer">
                 <span>Fabrics Consumption • Garment Calculator Suite</span>
@@ -483,7 +403,7 @@ checkboxes.forEach(id => {
         'kg-cul', 'kg-cula', 'kg-cuw', 'kg-cuwa', 'kg-cugsm',
         'kg-pl', 'kg-pla', 'kg-pw', 'kg-pwa', 'kg-pgsm', 'kg-pqty',
         'kg-hml', 'kg-hmla', 'kg-hmw', 'kg-hmwa', 'kg-hmgsm',
-        'kg-waste', 'kg-qty'
+        'kg-body-waste', 'kg-collar-waste', 'kg-cuff-waste', 'kg-pocket-waste', 'kg-halfmoon-waste', 'kg-qty'
     ];
     inputs.forEach(id => {
         const input = document.getElementById(id);
