@@ -1070,3 +1070,117 @@ body.dark-mode .theme-toggle {
     font-size: 10px;
   }
 }
+
+
+/* ========== FORMULA REFERENCE CODE CARDS ========== */
+.formula-cards {
+  display: grid;
+  gap: 10px;
+}
+
+.formula-card {
+  background: #020617;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.formula-card-head {
+  min-height: 38px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #111c32;
+  border-bottom: 1px solid #1e3a5f;
+}
+
+.formula-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #7dd3fc;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+
+.formula-copy-btn {
+  flex: 0 0 auto;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #cbd5e1;
+  border-radius: 5px;
+  padding: 4px 9px;
+  font: 600 10px/1.2 Inter, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.formula-copy-btn:hover {
+  border-color: #22d3ee;
+  color: #67e8f9;
+}
+
+.formula-copy-btn.copied {
+  border-color: #22c55e;
+  color: #86efac;
+}
+
+.formula-code {
+  padding: 12px 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #e2e8f0;
+  text-align: center;
+}
+
+.formula-numerator,
+.formula-denominator {
+  width: max-content;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.formula-divider {
+  height: 1px;
+  background: #94a3b8;
+  width: 100%;
+  min-width: 62ch;
+  margin: 2px 0;
+}
+
+.formula-wastage {
+  margin-left: 62ch;
+  width: max-content;
+  color: #f8fafc;
+}
+
+@media (max-width: 600px) {
+  .formula-card-head {
+    padding: 7px 9px;
+  }
+
+  .formula-code {
+    font-size: 10px;
+    text-align: left;
+    padding: 10px 9px;
+  }
+
+  .formula-numerator,
+  .formula-denominator {
+    min-width: max-content;
+  }
+
+  .formula-divider {
+    min-width: 62ch;
+  }
+
+  .formula-wastage {
+    margin-left: 62ch;
+  }
+}
