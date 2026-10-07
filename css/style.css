@@ -1166,8 +1166,8 @@ body.dark-mode .theme-toggle {
 .formula-divider {
   height: 1px;
   background: #94a3b8;
-  flex: 1 1 auto;
-  width: auto;
+  flex: 0 0 auto;
+  width: 62ch;
 }
 
 .formula-wastage {
@@ -1199,7 +1199,7 @@ body.dark-mode .theme-toggle {
   }
 
   .formula-divider {
-    min-width: 0;
+    width: 62ch;
   }
 
   .formula-wastage {
