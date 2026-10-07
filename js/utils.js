@@ -95,52 +95,39 @@ function showPage(pageId, btn) {
 
 // ========== PDF GENERATOR ==========
 function generatePDF(title, contentHtml) {
-    // Use a hidden iframe instead of window.open().
-    // This avoids Chrome popup-blocking issues and the
-    // "Cannot read properties of null (reading 'document')" error.
-    const existingFrame = document.getElementById('pdf-print-frame');
-    if (existingFrame) existingFrame.remove();
+    // Open the print window directly from the user's button click.
+    // This avoids Chrome iframe unload/Permissions Policy warnings.
+    let printWindow = null;
 
-    const printFrame = document.createElement('iframe');
-    printFrame.id = 'pdf-print-frame';
-    printFrame.style.position = 'fixed';
-    printFrame.style.right = '0';
-    printFrame.style.bottom = '0';
-    printFrame.style.width = '1px';
-    printFrame.style.height = '1px';
-    printFrame.style.border = '0';
-    printFrame.style.opacity = '0';
-    printFrame.style.pointerEvents = 'none';
+    try {
+        printWindow = window.open('', '_blank', 'width=1200,height=900');
+    } catch (error) {
+        printWindow = null;
+    }
 
-    document.body.appendChild(printFrame);
-
-    const printWindow = printFrame.contentWindow;
-    const printDocument = printFrame.contentDocument || printWindow.document;
-
-    if (!printWindow || !printDocument) {
-        printFrame.remove();
+    if (!printWindow) {
         if (typeof showToast === 'function') {
-            showToast('PDF preview could not be opened.', 'error');
+            showToast('Please allow pop-ups for this site to print the report.', 'error');
         }
         return;
     }
 
-    printDocument.open();
-    printDocument.write(`
+    const logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
+
+    const fullHtml = `
         <!DOCTYPE html>
         <html>
         <head>
             <title>${title}</title>
             <meta charset="UTF-8">
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { font-family: 'Inter', sans-serif; padding: 30px; max-width: 1100px; margin: 0 auto; }
+                body { font-family: 'Inter', Arial, sans-serif; padding: 28px; max-width: 1100px; margin: 0 auto; color: #0f172a; background: #fff; }
                 h1 { color: #0f172a; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px; margin-bottom: 20px; }
                 h2 { color: #1e293b; font-size: 18px; margin: 20px 0 10px 0; }
                 h3 { color: #475569; font-size: 14px; margin: 15px 0 8px 0; }
-                .header { text-align: center; margin-bottom: 30px; }
-                .date { color: #64748b; font-size: 12px; margin-top: 5px; }
                 table { width: 100%; border-collapse: collapse; margin: 20px 0; }
                 th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
                 th { background: #f8fafc; font-weight: 600; }
@@ -149,8 +136,11 @@ function generatePDF(title, contentHtml) {
                 .box { background: linear-gradient(135deg, #0f172a, #1e3a5f); color: white; padding: 20px; border-radius: 12px; text-align: center; margin: 20px 0; }
                 .box-value { font-size: 32px; font-weight: 800; }
                 .highlight { color: #0ea5e9; }
+
                 .report { max-width: 1080px; margin: 0 auto; color: #0f172a; }
-                .report-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding: 0 0 18px; border-bottom: 3px solid #2563eb; }
+                .report-header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 0 0 18px; border-bottom: 3px solid #2563eb; }
+                .report-brand { background: #0f172a; border-radius: 10px; padding: 7px 12px; display: inline-flex; align-items: center; }
+                .report-brand svg { display: block; width: 360px; height: auto; }
                 .brand { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; color: #0f172a; }
                 .brand span { color: #0891b2; }
                 .subtitle { margin-top: 4px; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #64748b; }
@@ -195,50 +185,42 @@ function generatePDF(title, contentHtml) {
         <body>
             ${contentHtml}
             <div class="footer">
-                © 2026 Mostafizar Rahman | TG: @mostafizarfiz
+                © 2026 Fabrics Consumption • Garment Calculator Suite
             </div>
         </body>
         </html>
-    `);
-    printDocument.close();
+    `;
 
-    const cleanup = () => {
-        setTimeout(() => {
-            if (printFrame.parentNode) printFrame.remove();
-        }, 1500);
-    };
+    // Replace the report's plain brand block with the exact app logo.
+    const brandedHtml = fullHtml.replace(
+        '<div class="brand">FABRiCS <span>CONSUMPTiON</span></div>',
+        '<div class="report-brand">' + logoSvg + '</div>'
+    );
 
-    printFrame.onload = function() {
+    try {
+        printWindow.document.open();
+        printWindow.document.write(brandedHtml);
+        printWindow.document.close();
+
+        printWindow.focus();
+
         setTimeout(() => {
             try {
-                printWindow.focus();
                 printWindow.print();
-                cleanup();
             } catch (error) {
                 console.error('PDF print error:', error);
                 if (typeof showToast === 'function') {
                     showToast('PDF print failed. Please try again.', 'error');
                 }
-                cleanup();
             }
-        }, 300);
-    };
-
-    // Some browsers do not fire iframe.onload after document.write(),
-    // so use a safe fallback check.
-    setTimeout(() => {
-        if (document.getElementById('pdf-print-frame')) {
-            try {
-                if (printDocument.readyState === 'complete' || printDocument.readyState === 'interactive') {
-                    printWindow.focus();
-                    printWindow.print();
-                    cleanup();
-                }
-            } catch (error) {
-                console.error('PDF fallback print error:', error);
-            }
+        }, 500);
+    } catch (error) {
+        console.error('PDF generation error:', error);
+        try { printWindow.close(); } catch (_) {}
+        if (typeof showToast === 'function') {
+            showToast('PDF report could not be generated.', 'error');
         }
-    }, 700);
+    }
 }
 
 // ========== TOAST NOTIFICATION ==========
