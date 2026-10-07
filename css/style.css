@@ -1139,10 +1139,15 @@ body.dark-mode .theme-toggle {
   text-align: center;
 }
 
+.formula-code-inner {
+  display: inline-block;
+  width: max-content;
+  min-width: 100%;
+}
+
 .formula-numerator,
 .formula-denominator {
   width: max-content;
-  min-width: 100%;
   box-sizing: border-box;
 }
 
@@ -1150,7 +1155,6 @@ body.dark-mode .theme-toggle {
   height: 1px;
   background: #94a3b8;
   width: 100%;
-  min-width: 62ch;
   margin: 2px 0;
 }
 
