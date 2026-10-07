@@ -12,14 +12,23 @@
 <header>
   <a class="logo" href="javascript:void(0);" onclick="window.location.reload();" aria-label="Fabrics Consumption home">
     <span class="logo-mark" aria-hidden="true">
-      <svg viewBox="0 0 44 44" role="img">
-        <path class="mark-fabric" d="M7 13.5 22 7l15 6.5v17L22 37 7 30.5z"/>
-        <path class="mark-fold" d="M7 13.5 22 20l15-6.5M22 20v17"/>
-        <path class="mark-measure" d="M12 25.5h20M15 22.5v6M20 24v4M25 22.5v6M30 24v4"/>
+      <svg viewBox="0 0 48 48" role="img">
+        <defs>
+          <linearGradient id="logoBlue" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#67e8f9"/>
+            <stop offset=".55" stop-color="#22d3ee"/>
+            <stop offset="1" stop-color="#2563eb"/>
+          </linearGradient>
+        </defs>
+        <path class="fabric-roll" d="M10 16.5c0-3.4 4.4-6.1 9.8-6.1s9.8 2.7 9.8 6.1v15c0 3.4-4.4 6.1-9.8 6.1S10 34.9 10 31.5z"/>
+        <ellipse class="roll-edge" cx="19.8" cy="16.5" rx="9.8" ry="6.1"/>
+        <ellipse class="roll-core" cx="19.8" cy="16.5" rx="4.1" ry="2.5"/>
+        <path class="fabric-sheet" d="M29.5 18.5 39 13v17l-9.5 5.5z"/>
+        <path class="measure-line" d="M13.5 23.5h12.5M16 21v5M20 22v3M24 21v5"/>
       </svg>
     </span>
     <span class="logo-copy">
-      <span class="logo-name">Fabrics Consumption</span>
+      <span class="logo-name"><span>Fabrics</span> Consumption</span>
       <span class="logo-sub">GARMENT CALCULATOR SUITE</span>
     </span>
   </a>
