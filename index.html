@@ -11,28 +11,27 @@
 
 <header>
   <a class="logo" href="javascript:void(0);" onclick="window.location.reload();" aria-label="Fabrics Consumption home">
-<span class="logo-mark" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="100%" height="100%">
-        <defs>
-          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#22D3EE" />
-            <stop offset="100%" stop-color="#2563EB" />
-          </linearGradient>
-          <linearGradient id="iconBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#0F172A" />
-            <stop offset="100%" stop-color="#1E3A8A" />
-          </linearGradient>
-          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#FDE68A" />
-            <stop offset="50%" stop-color="#F59E0B" />
-            <stop offset="100%" stop-color="#B45309" />
-          </linearGradient>
-          <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#1E293B" />
-            <stop offset="100%" stop-color="#0F172A" />
-          </linearGradient>
-        </defs>
-        <rect x="0" y="0" width="70" height="70" rx="16" fill="url(#iconBgGrad)" stroke="url(#blueGrad)" stroke-width="2"/>
+    <svg class="logo-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 100" width="100%" height="100%" aria-hidden="true">
+      <defs>
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#60A5FA" />
+          <stop offset="100%" stop-color="#22D3EE" />
+        </linearGradient>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDE68A" />
+          <stop offset="50%" stop-color="#F59E0B" />
+          <stop offset="100%" stop-color="#B45309" />
+        </linearGradient>
+        <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#1E293B" />
+          <stop offset="100%" stop-color="#0F172A" />
+        </linearGradient>
+        <filter id="whiteShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.5" />
+        </filter>
+      </defs>
+      <g transform="translate(10, 15)">
+        <rect x="0" y="0" width="70" height="70" rx="16" fill="#1E293B" stroke="url(#blueGrad)" stroke-width="2"/>
         <rect x="18" y="15" width="12" height="42" rx="4" fill="url(#goldGrad)" />
         <g stroke="#1E293B" stroke-width="1.5" opacity="0.8">
           <line x1="21" y1="20" x2="27" y2="20" />
@@ -51,12 +50,13 @@
         <circle cx="35" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
         <circle cx="40" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
         <circle cx="45" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
-      </svg>
-    </span>
-    <span class="logo-copy">
-      <span class="logo-name"><span class="logo-fabrics">FABRiCS</span> <span class="logo-consumption">CONSUMPTiON</span></span>
-      <span class="logo-sub">GARMENT CALCULATOR SUITE</span>
-    </span>
+      </g>
+      <g transform="translate(100, 0)">
+        <text x="0" y="52" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="800" font-size="38" fill="#FFFFFF" letter-spacing="-0.5" filter="url(#whiteShadow)" textLength="165" lengthAdjust="spacingAndGlyphs">FABRiCS</text>
+        <text x="173" y="52" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="800" font-size="38" fill="url(#blueGrad)" stroke="url(#blueGrad)" stroke-width="0.8" letter-spacing="-0.5" textLength="240" lengthAdjust="spacingAndGlyphs">CONSUMPTiON</text>
+        <text x="0" y="76" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="600" font-size="11" fill="#94A3B8" textLength="413" lengthAdjust="spacing" letter-spacing="2">GARMENT CALCULATOR SUITE</text>
+      </g>
+    </svg>
   </a>
   <div class="header-url">fabricconsumption.vercel.app</div>
   <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
