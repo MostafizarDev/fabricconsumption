@@ -116,12 +116,12 @@ function generatePDF(title, contentHtml) {
     // On the white PDF page, use the same blue gradient for FABRiCS as CONSUMPTiON.
     // Keep the calculator icon and its internal white details unchanged.
     logoSvg = logoSvg.replace(
-        /(<text[^>]*fill=")#FFFFFF("[^>]*>FABRiCS<\\/text>)/,
+        /(<text[^>]*fill=")#FFFFFF("[^>]*>FABRiCS<\/text>)/,
         '$1url(#blueGrad)$2'
     );
     // Fallback for serialized SVG variants where the attribute order differs.
     logoSvg = logoSvg.replace(
-        /(<text(?=[^>]*>FABRiCS<\\/text>)[^>]*?)fill="#FFFFFF"/,
+        /(<text(?=[^>]*>FABRiCS<\/text>)[^>]*?)fill="#FFFFFF"/,
         '$1fill="url(#blueGrad)"'
     );
 
@@ -165,7 +165,13 @@ function generatePDF(title, contentHtml) {
                 .meta-grid span, .info-grid span, .summary-card span { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: .8px; color: #64748b; margin-bottom: 4px; }
                 .meta-grid strong, .info-grid strong { font-size: 11px; color: #0f172a; }
                 .section { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; background: #fff; }
-                .section-head { background: #0f172a; color: #fff; padding: 8px 11px; font-size: 9px; font-weight: 700; letter-spacing: 1px; }
+                .section-head { background: #0f172a; color: #fff; padding: 8px 11px; font-size: 9px; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; gap: 7px; }
+                .report-icon { width: 13px; height: 13px; flex: 0 0 13px; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+                .section-head .report-icon { color: #22d3ee; }
+                .metric-head { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+                .metric-head .report-icon { color: #2563eb; }
+                .metric-head span { margin-bottom: 0; }
+                .note { display: flex; align-items: flex-start; gap: 7px; }
                 .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 13px; }
                 table { margin: 0; font-size: 9px; }
                 th, td { padding: 7px 6px; border: 1px solid #e2e8f0; }
