@@ -959,8 +959,8 @@ body.dark-mode .theme-toggle {
   place-items: center;
   border-radius: 11px;
   background: linear-gradient(145deg, #111d33, #07101f);
-  border: 1px solid rgba(56, 189, 248, .28);
-  box-shadow: 0 6px 18px rgba(2, 132, 199, .14), inset 0 0 0 1px rgba(255,255,255,.035);
+  border: none;
+  box-shadow: none;
 }
 
 .logo-mark svg {
