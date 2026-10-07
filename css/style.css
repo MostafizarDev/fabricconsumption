@@ -916,9 +916,9 @@ body.dark-mode .unit-label {
 }
 
 body.dark-mode .input-note {
-  background: #29200d;
+  background: #111827;
   color: #fbbf24;
-  border-color: #854d0e;
+  border-color: transparent;
 }
 
 body.dark-mode table,
