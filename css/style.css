@@ -1140,11 +1140,16 @@ body.dark-mode .theme-toggle {
 }
 
 .formula-code-inner {
-  display: inline-block;
-  width: max-content;
+  display: block;
+  width: 100%;
 }
 
-.formula-numerator,
+.formula-numerator {
+  width: max-content;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .formula-denominator {
   width: 100%;
   box-sizing: border-box;
@@ -1161,8 +1166,8 @@ body.dark-mode .theme-toggle {
 .formula-divider {
   height: 1px;
   background: #94a3b8;
-  flex: 0 0 auto;
-  width: 62ch;
+  flex: 1 1 auto;
+  width: auto;
 }
 
 .formula-wastage {
@@ -1183,16 +1188,21 @@ body.dark-mode .theme-toggle {
     padding: 10px 9px;
   }
 
-  .formula-numerator,
+  .formula-numerator {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .formula-denominator {
-    min-width: max-content;
+    width: 100%;
+    min-width: 0;
   }
 
   .formula-divider {
-    min-width: 62ch;
+    min-width: 0;
   }
 
   .formula-wastage {
-    margin-left: 62ch;
+    margin-left: 8px;
   }
 }
