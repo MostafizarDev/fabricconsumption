@@ -22,7 +22,7 @@ header {
   display: flex;
   align-items: center;
   gap: 16px;
-  height: 60px;
+  height: 68px;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -944,17 +944,17 @@ body.dark-mode .theme-toggle {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  width: 292px;
-  height: 52px;
-  flex: 0 0 292px;
+  width: 310px;
+  height: 60px;
+  flex: 0 0 310px;
   text-decoration: none;
   overflow: hidden;
 }
 
 .logo-mark {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
   display: grid;
   place-items: center;
   border-radius: 11px;
@@ -964,8 +964,8 @@ body.dark-mode .theme-toggle {
 }
 
 .logo-mark svg {
-  width: 34px;
-  height: 34px;
+  width: 46px;
+  height: 46px;
   overflow: visible;
 }
 
@@ -1007,7 +1007,7 @@ body.dark-mode .theme-toggle {
 .logo-name {
   display: block;
   color: #f8fafc;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: -.4px;
   line-height: 1.12;
