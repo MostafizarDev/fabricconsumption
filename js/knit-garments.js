@@ -420,6 +420,31 @@ checkboxes.forEach(id => {
     const calcBtn = document.getElementById('btn-calc-knit');
     if (calcBtn) calcBtn.addEventListener('click', calcKnitGarments);
     
+    // Formula copy buttons
+    document.querySelectorAll('.formula-copy-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const formula = this.getAttribute('data-copy-formula') || '';
+            try {
+                await navigator.clipboard.writeText(formula);
+            } catch (e) {
+                const ta = document.createElement('textarea');
+                ta.value = formula;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+            }
+            const original = this.textContent;
+            this.textContent = '✓ Copied';
+            this.classList.add('copied');
+            clearTimeout(this._copyTimer);
+            this._copyTimer = setTimeout(() => {
+                this.textContent = original;
+                this.classList.remove('copied');
+            }, 1400);
+        });
+    });
+
     // PDF button
     const pdfBtn = document.getElementById('btn-pdf-knit');
     if (pdfBtn) pdfBtn.addEventListener('click', downloadKnitReport);
