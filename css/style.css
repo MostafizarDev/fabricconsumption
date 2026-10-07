@@ -838,11 +838,39 @@ body.dark-mode .opt-panel,
 body.dark-mode .add-formula-form,
 body.dark-mode .formula-card,
 body.dark-mode .result-card,
+body.dark-mode .r-card,
 body.dark-mode .converter-card,
 body.dark-mode .tool-card {
   background: #111827;
   color: #e2e8f0;
   border-color: #263244;
+}
+
+body.dark-mode .check-row {
+  background: #111827;
+  color: #e2e8f0;
+}
+
+body.dark-mode .check-row label {
+  color: #e2e8f0;
+}
+
+body.dark-mode .r-row {
+  color: #cbd5e1;
+  border-bottom-color: #263244;
+}
+
+body.dark-mode .r-row span:first-child {
+  color: #cbd5e1;
+}
+
+body.dark-mode .r-row span:last-child {
+  color: #38bdf8;
+}
+
+body.dark-mode .r-card.main {
+  background: linear-gradient(135deg, #172554, #1e3a5f);
+  color: #f8fafc;
 }
 
 body.dark-mode .inp-a,
