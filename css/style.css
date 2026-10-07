@@ -1146,8 +1146,9 @@ body.dark-mode .theme-toggle {
 
 .formula-numerator,
 .formula-denominator {
-  width: max-content;
+  width: 100%;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .formula-divider-row {
