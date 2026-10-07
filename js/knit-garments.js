@@ -324,9 +324,12 @@ function downloadKnitReport() {
             <section class="formula">
                 <div class="section-head">${reportIcon('formula')}<span>FORMULA REFERENCE</span></div>
                 <div class="formula-text">
-                    <strong>Base consumption:</strong> Component dimensions × Ply × GSM ÷ ${div}
+                    <strong>Body Consumption:</strong><br>
+                    (Body Length + Sleeve Length) × (½ Chest) × 2 × GSM × Quantity
                     <br>
-                    <strong>Final component:</strong> Base consumption × (1 + component wastage % ÷ 100)
+                    ────────────────────────────────── × Wastage %
+                    <br>
+                    1,00,00,000 (CM) &nbsp;&nbsp; or &nbsp;&nbsp; 15,50,000 (Inch)
                 </div>
             </section>
 
