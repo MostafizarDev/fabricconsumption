@@ -116,8 +116,13 @@ function generatePDF(title, contentHtml) {
     // On the white PDF page, use the same blue gradient for FABRiCS as CONSUMPTiON.
     // Keep the calculator icon and its internal white details unchanged.
     logoSvg = logoSvg.replace(
-        /(<text[^>]*?)fill="#FFFFFF"([^>]*>FABRiCS<\/text>)/,
-        '$1fill="url(#blueGrad)"$2'
+        /(<text[^>]*fill=")#FFFFFF("[^>]*>FABRiCS<\\/text>)/,
+        '$1url(#blueGrad)$2'
+    );
+    // Fallback for serialized SVG variants where the attribute order differs.
+    logoSvg = logoSvg.replace(
+        /(<text(?=[^>]*>FABRiCS<\\/text>)[^>]*?)fill="#FFFFFF"/,
+        '$1fill="url(#blueGrad)"'
     );
 
     const fullHtml = `
@@ -130,7 +135,7 @@ function generatePDF(title, contentHtml) {
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { font-family: 'Inter', Arial, sans-serif; padding: 28px; max-width: 1100px; margin: 0 auto; color: #0f172a; background: #fff; }
+                body { font-family: 'Inter', Arial, sans-serif; padding: 10mm; width: 210mm; min-height: 297mm; max-width: none; margin: 0 auto; color: #0f172a; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
                 h1 { color: #0f172a; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px; margin-bottom: 20px; }
                 h2 { color: #1e293b; font-size: 18px; margin: 20px 0 10px 0; }
                 h3 { color: #475569; font-size: 14px; margin: 15px 0 8px 0; }
@@ -143,10 +148,10 @@ function generatePDF(title, contentHtml) {
                 .box-value { font-size: 32px; font-weight: 800; }
                 .highlight { color: #0ea5e9; }
 
-                .report { max-width: 1080px; margin: 0 auto; color: #0f172a; }
+                .report { width: 100%; max-width: none; margin: 0 auto; color: #0f172a; }
                 .report-header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 0 0 18px; border-bottom: 3px solid #2563eb; }
-                .report-brand { display: inline-flex; align-items: center; }
-                .report-brand svg { display: block; width: 410px; height: auto; }
+                .report-brand { display: inline-flex; align-items: center; background: transparent !important; padding: 0 !important; border-radius: 0 !important; }
+                .report-brand svg { display: block; width: 360px; height: auto; }
                 .report-header .subtitle { display: none; }
                 .brand { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; color: #0f172a; }
                 .brand span { color: #0891b2; }
@@ -183,17 +188,16 @@ function generatePDF(title, contentHtml) {
                 .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
                 .report-footer { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #e2e8f0; margin-top: 18px; padding-top: 9px; font-size: 8px; color: #94a3b8; }
 
+                @page { size: A4 portrait; margin: 0; }
                 @media print {
-                    body { padding: 0; max-width: none; }
-                    .no-print { display: none; }
+                    html, body { width: 210mm; min-height: 297mm; margin: 0; }
+                    body { padding: 10mm; max-width: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                    .no-print { display: none !important; }
                 }
             </style>
         </head>
         <body>
             ${contentHtml}
-            <div class="footer">
-                © 2026 Fabrics Consumption • Garment Calculator Suite
-            </div>
         </body>
         </html>
     `;
