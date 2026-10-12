@@ -60,6 +60,20 @@ const FC_PAGE_ROUTES = {
     myformulas: '/my-formulas'
 };
 
+const FC_PAGE_TITLES = {
+    knit: 'Knit Garments',
+    knitpant: 'Knit Pant',
+    woven: 'Woven Shirt',
+    booking: 'Booking Sheet',
+    knitprice: 'Knit Price',
+    zipper: 'Zipper Calculator',
+    trims: 'Trims Calculator',
+    fob: 'FOB Costing',
+    sizeratio: 'Size Ratio',
+    converter: 'Unit Converter',
+    myformulas: 'My Formulas'
+};
+
 function getPageIdFromPath(pathname = window.location.pathname) {
     const path = pathname.replace(/\/+$/, '') || '/';
     const match = Object.entries(FC_PAGE_ROUTES).find(([, route]) => route === path);
@@ -78,6 +92,9 @@ function showPage(pageId, btn, routeOptions = {}) {
         const method = routeOptions.replace ? 'replaceState' : 'pushState';
         window.history[method]({ pageId }, '', route);
     }
+
+    const pageTitle = FC_PAGE_TITLES[pageId] || 'Garment Calculator Suite';
+    document.title = pageTitle + ' | Fabrics Consumption';
 
     // Hide all pages
     document.querySelectorAll('.page').forEach(page => {
