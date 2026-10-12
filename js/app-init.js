@@ -20,6 +20,7 @@ function initApp() {
     
     // Setup tab navigation
     setupTabNavigation();
+    initPageRouting();
     
     // Setup input listeners for all pages
     setupGlobalInputListeners();
@@ -108,6 +109,19 @@ function runAllCalculations() {
 }
 
 // Setup tab navigation
+// URL routing: each tool has a stable, shareable path.
+function initPageRouting() {
+    const pageId = getPageIdFromPath(window.location.pathname);
+    const tab = document.querySelector('.tab-btn[data-page="' + pageId + '"]');
+    showPage(pageId, tab, { fromHistory: true });
+
+    window.addEventListener('popstate', function() {
+        const nextPageId = getPageIdFromPath(window.location.pathname);
+        const nextTab = document.querySelector('.tab-btn[data-page="' + nextPageId + '"]');
+        showPage(nextPageId, nextTab, { fromHistory: true });
+    });
+}
+
 function setupTabNavigation() {
     const tabs = document.querySelectorAll('.tab-btn');
     tabs.forEach(tab => {
