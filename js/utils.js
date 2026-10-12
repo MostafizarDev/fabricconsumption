@@ -61,7 +61,7 @@ const FC_PAGE_ROUTES = {
 };
 
 function getPageIdFromPath(pathname = window.location.pathname) {
-    const path = pathname.replace(/\\/+$/, '') || '/';
+    const path = pathname.replace(/\/+$/, '') || '/';
     const match = Object.entries(FC_PAGE_ROUTES).find(([, route]) => route === path);
     return match ? match[0] : 'knit';
 }
