@@ -123,54 +123,116 @@ function resetAllInputs() {
 function calcKnitGarments() {
     const div = knitUnit === 'inch' ? 1550000 : 10000000;
     const qty = parseFloat(document.getElementById('kg-qty')?.value) || 0;
-    const getVal = id => { const v = parseFloat(document.getElementById(id)?.value); return isNaN(v) ? 0 : v; };
-    const withWaste = (baseDz, wastePct) => baseDz * (1 + wastePct / 100);
+    const getVal = id => {
+        const value = parseFloat(document.getElementById(id)?.value);
+        return Number.isFinite(value) ? value : 0;
+    };
+    const withWaste = (base, wastePct) => base * (1 + Math.max(0, wastePct) / 100);
+    const isChecked = id => document.getElementById(id)?.checked === true;
+    const fmt = (value, digits = 3) => Number.isFinite(value) && value > 0 ? value.toFixed(digits) : '—';
 
-    let bodyPerPc=0, bodyDz=0, bodyAfterDz=0; const bodyWaste=getVal('kg-body-waste');
-    if(document.getElementById('ck-body')?.checked){
-        const BL=getVal('kg-bl')+getVal('kg-bla'), SL=getVal('kg-sl')+getVal('kg-sla'), HC=getVal('kg-hc')+getVal('kg-hca'), gsm=getVal('kg-bgsm');
-        if(BL>0&&SL>0&&HC>0&&gsm>0&&qty>0){ bodyPerPc=((BL+SL)*HC*2*gsm)/div; bodyDz=bodyPerPc*12; bodyAfterDz=withWaste(bodyDz,bodyWaste); }
+    // Per-piece formula is calculated first. Quantity is used only for the order total.
+    // Net/dozen = per-piece × 12; wastage = net × (1 + wastage% / 100).
+    let bodyPerPc = 0;
+    let bodyDz = 0;
+    let bodyAfterDz = 0;
+    const bodyWaste = getVal('kg-body-waste');
+    if (isChecked('ck-body')) {
+        const bodyLength = getVal('kg-bl') + getVal('kg-bla');
+        const sleeveLength = getVal('kg-sl') + getVal('kg-sla');
+        const halfChest = getVal('kg-hc') + getVal('kg-hca');
+        const gsm = getVal('kg-bgsm');
+        if (bodyLength > 0 && sleeveLength > 0 && halfChest > 0 && gsm > 0 && qty > 0) {
+            bodyPerPc = ((bodyLength + sleeveLength) * halfChest * 2 * gsm) / div;
+            bodyDz = bodyPerPc * 12;
+            bodyAfterDz = withWaste(bodyDz, bodyWaste);
+        }
     }
 
-    let collarPerPc=0, collarDz=0, collarAfterDz=0; const collarWaste=getVal('kg-collar-waste');
-    if(document.getElementById('ck-collar')?.checked){
-        const L=getVal('kg-cl')+getVal('kg-cla'), W=getVal('kg-cw')+getVal('kg-cwa'), gsm=getVal('kg-cgsm');
-        if(L>0&&W>0&&gsm>0&&qty>0){ collarPerPc=(L*W*gsm)/div; collarDz=collarPerPc*12; collarAfterDz=withWaste(collarDz,collarWaste); }
+    let collarPerPc = 0, collarDz = 0, collarAfterDz = 0;
+    const collarWaste = getVal('kg-collar-waste');
+    if (isChecked('ck-collar')) {
+        const length = getVal('kg-cl') + getVal('kg-cla');
+        const width = getVal('kg-cw') + getVal('kg-cwa');
+        const gsm = getVal('kg-cgsm');
+        if (length > 0 && width > 0 && gsm > 0 && qty > 0) {
+            collarPerPc = (length * width * gsm) / div;
+            collarDz = collarPerPc * 12;
+            collarAfterDz = withWaste(collarDz, collarWaste);
+        }
     }
 
-    let cuffPerPc=0, cuffDz=0, cuffAfterDz=0; const cuffWaste=getVal('kg-cuff-waste');
-    if(document.getElementById('ck-cuff')?.checked){
-        const L=getVal('kg-cul')+getVal('kg-cula'), W=getVal('kg-cuw')+getVal('kg-cuwa'), gsm=getVal('kg-cugsm');
-        if(L>0&&W>0&&gsm>0&&qty>0){ cuffPerPc=(L*W*2*gsm)/div; cuffDz=cuffPerPc*12; cuffAfterDz=withWaste(cuffDz,cuffWaste); }
+    let cuffPerPc = 0, cuffDz = 0, cuffAfterDz = 0;
+    const cuffWaste = getVal('kg-cuff-waste');
+    if (isChecked('ck-cuff')) {
+        const length = getVal('kg-cul') + getVal('kg-cula');
+        const width = getVal('kg-cuw') + getVal('kg-cuwa');
+        const gsm = getVal('kg-cugsm');
+        if (length > 0 && width > 0 && gsm > 0 && qty > 0) {
+            cuffPerPc = (length * width * 2 * gsm) / div;
+            cuffDz = cuffPerPc * 12;
+            cuffAfterDz = withWaste(cuffDz, cuffWaste);
+        }
     }
 
-    let pocketPerPc=0, pocketDz=0, pocketAfterDz=0; const pocketWaste=getVal('kg-pocket-waste');
-    if(document.getElementById('ck-pocket')?.checked){
-        const L=getVal('kg-pl')+getVal('kg-pla'), W=getVal('kg-pw')+getVal('kg-pwa'), pQty=getVal('kg-pqty')||1, gsm=getVal('kg-pgsm');
-        if(L>0&&W>0&&gsm>0&&qty>0){ pocketPerPc=(L*W*pQty*gsm)/div; pocketDz=pocketPerPc*12; pocketAfterDz=withWaste(pocketDz,pocketWaste); }
+    let pocketPerPc = 0, pocketDz = 0, pocketAfterDz = 0;
+    const pocketWaste = getVal('kg-pocket-waste');
+    if (isChecked('ck-pocket')) {
+        const length = getVal('kg-pl') + getVal('kg-pla');
+        const width = getVal('kg-pw') + getVal('kg-pwa');
+        const pocketQty = Math.max(0, getVal('kg-pqty') || 1);
+        const gsm = getVal('kg-pgsm');
+        if (length > 0 && width > 0 && gsm > 0 && qty > 0) {
+            pocketPerPc = (length * width * pocketQty * gsm) / div;
+            pocketDz = pocketPerPc * 12;
+            pocketAfterDz = withWaste(pocketDz, pocketWaste);
+        }
     }
 
-    let hmPerPc=0, hmDz=0, hmAfterDz=0; const hmWaste=getVal('kg-halfmoon-waste');
-    if(document.getElementById('ck-halfmoon')?.checked){
-        const L=getVal('kg-hml')+getVal('kg-hmla'), W=getVal('kg-hmw')+getVal('kg-hmwa'), gsm=getVal('kg-hmgsm');
-        if(L>0&&W>0&&gsm>0&&qty>0){ hmPerPc=(L*W*gsm)/div; hmDz=hmPerPc*12; hmAfterDz=withWaste(hmDz,hmWaste); }
+    let hmPerPc = 0, hmDz = 0, hmAfterDz = 0;
+    const hmWaste = getVal('kg-halfmoon-waste');
+    if (isChecked('ck-halfmoon')) {
+        const length = getVal('kg-hml') + getVal('kg-hmla');
+        const width = getVal('kg-hmw') + getVal('kg-hmwa');
+        const gsm = getVal('kg-hmgsm');
+        if (length > 0 && width > 0 && gsm > 0 && qty > 0) {
+            hmPerPc = (length * width * gsm) / div;
+            hmDz = hmPerPc * 12;
+            hmAfterDz = withWaste(hmDz, hmWaste);
+        }
     }
 
-    const totalDz=bodyDz+collarDz+cuffDz+pocketDz+hmDz;
-    const totalWithWaste=bodyAfterDz+collarAfterDz+cuffAfterDz+pocketAfterDz+hmAfterDz;
-    const totalKg=qty>0?(totalWithWaste/12)*qty:0;
-    const fmt=(n,d)=>(isNaN(n)||n===0)?'—':n.toFixed(d);
-    const updateRow=(checked,rowId,dispId,afterDz)=>{ const row=document.getElementById(rowId), disp=document.getElementById(dispId); if(checked){ if(row)row.style.display='flex'; if(disp)disp.innerText=afterDz>0?fmt(afterDz,3)+' kg/dz | '+fmt(afterDz/12,3)+' kg/pcs':'— kg/dz | — kg/pcs'; } else if(row)row.style.display='none'; };
-    updateRow(document.getElementById('ck-body')?.checked,'kg-body-row','kg-body-disp',bodyAfterDz);
-    updateRow(document.getElementById('ck-collar')?.checked,'kg-collar-row','kg-collar-disp',collarAfterDz);
-    updateRow(document.getElementById('ck-cuff')?.checked,'kg-cuff-row','kg-cuff-disp',cuffAfterDz);
-    updateRow(document.getElementById('ck-pocket')?.checked,'kg-pocket-row','kg-pocket-disp',pocketAfterDz);
-    updateRow(document.getElementById('ck-halfmoon')?.checked,'kg-halfmoon-row','kg-halfmoon-disp',hmAfterDz);
-    const before=document.getElementById('kg-total-before'); if(before)before.innerText=totalDz>0?fmt(totalDz,3)+' kg/dz':'— kg/dz';
-    const after=document.getElementById('kg-total-after'); if(after)after.innerText=totalWithWaste>0?fmt(totalWithWaste,3)+' kg/dz':'— kg/dz';
-    const total=document.getElementById('kg-total-kg'); if(total)total.innerText=totalKg>0?fmt(totalKg,3)+' kg':'— kg';
-    const dz=document.getElementById('kg-per-dz-label'); if(dz)dz.innerText=totalWithWaste>0?fmt(totalWithWaste,3)+' kg/dz':'— kg/dz';
-    const pc=document.getElementById('kg-per-pcs-label'); if(pc)pc.innerText=totalWithWaste>0?fmt(totalWithWaste/12,3)+' kg/pcs':'— kg/pcs';
+    const totalDz = bodyDz + collarDz + cuffDz + pocketDz + hmDz;
+    const totalWithWaste = bodyAfterDz + collarAfterDz + cuffAfterDz + pocketAfterDz + hmAfterDz;
+    const totalKg = qty > 0 ? (totalWithWaste / 12) * qty : 0;
+
+    const updateRow = (checked, rowId, dispId, afterDz) => {
+        const row = document.getElementById(rowId);
+        const display = document.getElementById(dispId);
+        if (row) row.style.display = checked ? 'flex' : 'none';
+        if (checked && display) {
+            display.innerText = afterDz > 0
+                ? `${fmt(afterDz)} kg/dz | ${fmt(afterDz / 12)} kg/pcs`
+                : '— kg/dz | — kg/pcs';
+        }
+    };
+
+    updateRow(isChecked('ck-body'), 'kg-body-row', 'kg-body-disp', bodyAfterDz);
+    updateRow(isChecked('ck-collar'), 'kg-collar-row', 'kg-collar-disp', collarAfterDz);
+    updateRow(isChecked('ck-cuff'), 'kg-cuff-row', 'kg-cuff-disp', cuffAfterDz);
+    updateRow(isChecked('ck-pocket'), 'kg-pocket-row', 'kg-pocket-disp', pocketAfterDz);
+    updateRow(isChecked('ck-halfmoon'), 'kg-halfmoon-row', 'kg-halfmoon-disp', hmAfterDz);
+
+    const before = document.getElementById('kg-total-before');
+    const after = document.getElementById('kg-total-after');
+    const total = document.getElementById('kg-total-kg');
+    const dozen = document.getElementById('kg-per-dz-label');
+    const piece = document.getElementById('kg-per-pcs-label');
+    if (before) before.innerText = totalDz > 0 ? `${fmt(totalDz)} kg/dz` : '— kg/dz';
+    if (after) after.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste)} kg/dz` : '— kg/dz';
+    if (total) total.innerText = totalKg > 0 ? `${fmt(totalKg)} kg` : '— kg';
+    if (dozen) dozen.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste)} kg/dz` : '— kg/dz';
+    if (piece) piece.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste / 12)} kg/pcs` : '— kg/pcs';
 }
 // ========== PDF REPORT SVG ICONS ==========
 function reportIcon(name) {
