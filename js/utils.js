@@ -45,8 +45,40 @@ function inchToCm(inch) {
     return inch * 2.54;
 }
 
+// ========== URL ROUTING (WEB + FUTURE MOBILE APP FRIENDLY) ==========
+const FC_PAGE_ROUTES = {
+    knit: '/knit-garments',
+    knitpant: '/knit-pant',
+    woven: '/woven-shirt',
+    booking: '/booking-sheet',
+    knitprice: '/knit-price',
+    zipper: '/zipper',
+    trims: '/trims',
+    fob: '/fob-costing',
+    sizeratio: '/size-ratio',
+    converter: '/converter',
+    myformulas: '/my-formulas'
+};
+
+function getPageIdFromPath(pathname = window.location.pathname) {
+    const path = pathname.replace(/\\/+$/, '') || '/';
+    const match = Object.entries(FC_PAGE_ROUTES).find(([, route]) => route === path);
+    return match ? match[0] : 'knit';
+}
+
+function getRouteForPage(pageId) {
+    return FC_PAGE_ROUTES[pageId] || '/';
+}
+
 // ========== PAGE NAVIGATION ==========
-function showPage(pageId, btn) {
+function showPage(pageId, btn, routeOptions = {}) {
+    // Keep browser URL, refresh, bookmarks, and browser back/forward in sync.
+    const route = getRouteForPage(pageId);
+    if (!routeOptions.fromHistory && route && window.location.pathname !== route) {
+        const method = routeOptions.replace ? 'replaceState' : 'pushState';
+        window.history[method]({ pageId }, '', route);
+    }
+
     // Hide all pages
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
