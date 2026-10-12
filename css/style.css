@@ -1166,9 +1166,9 @@ body.dark-mode .theme-toggle {
 .formula-divider {
   height: 1px;
   background: #94a3b8;
-  flex: 0 0 58ch;
-  width: 58ch;
-  margin-left: 1cm;
+  flex: 0 0 72ch;
+  width: 72ch;
+  margin-left: 2cm;
   margin-right: 0;
 }
 
@@ -1207,4 +1207,12 @@ body.dark-mode .theme-toggle {
   .formula-wastage {
     margin-left: 8px;
   }
+}
+
+
+/* Keep the shorter divider only for Collar Consumption. */
+.formula-card.collar-formula-card .formula-divider {
+  flex-basis: 58ch;
+  width: 58ch;
+  margin-left: 1cm;
 }
