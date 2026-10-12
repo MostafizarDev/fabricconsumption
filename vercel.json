@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/knit-garments",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/knit-pant",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/woven-shirt",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/booking-sheet",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/knit-price",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/zipper",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/trims",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/fob-costing",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/size-ratio",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/converter",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/my-formulas",
+      "destination": "/index.html"
+    }
+  ]
+}
