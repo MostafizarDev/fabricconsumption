@@ -1216,3 +1216,11 @@ body.dark-mode .theme-toggle {
   width: 58ch;
   margin-left: 1cm;
 }
+
+/* Keep the Cuff wastage label visible within the formula card. */
+.formula-card.cuff-formula-card .formula-divider {
+  flex-basis: 58ch;
+  width: 58ch;
+  margin-left: 1cm;
+}
+
