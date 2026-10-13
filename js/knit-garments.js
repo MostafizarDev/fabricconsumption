@@ -98,7 +98,7 @@ function resetAllInputs() {
     // Reset result displays
     const resultSpans = [
         'kg-body-disp', 'kg-total-before', 'kg-total-after', 
-        'kg-total-kg', 'kg-per-dz-label', 'kg-per-pc-label',
+        'kg-total-kg', 'kg-per-dz-label', 'kg-per-pcs-label',
         'kg-collar-disp', 'kg-cuff-disp', 'kg-pocket-disp', 'kg-halfmoon-disp'
     ];
     resultSpans.forEach(id => {
@@ -214,8 +214,8 @@ function calcKnitGarments() {
             const perPieceKg = afterDz / 12;
             const orderTotalKg = perPieceKg * qty;
             display.innerText = afterDz > 0
-                ? `${fmt(orderTotalKg)} kg (order) | ${fmt(perPieceKg)} kg/pcs`
-                : '— kg (order) | — kg/pcs';
+                ? `${fmt(orderTotalKg)} kg (order qty) | ${fmt(perPieceKg)} kg/pcs`
+                : '— kg (order qty) | — kg/pcs';
         }
     };
 
