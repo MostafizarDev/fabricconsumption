@@ -211,9 +211,11 @@ function calcKnitGarments() {
         const display = document.getElementById(dispId);
         if (row) row.style.display = checked ? 'flex' : 'none';
         if (checked && display) {
+            const perPieceKg = afterDz / 12;
+            const orderTotalKg = perPieceKg * qty;
             display.innerText = afterDz > 0
-                ? `${fmt(afterDz)} kg/dz | ${fmt(afterDz / 12)} kg/pcs`
-                : '— kg/dz | — kg/pcs';
+                ? `${fmt(orderTotalKg)} kg (order) | ${fmt(perPieceKg)} kg/pcs`
+                : '— kg (order) | — kg/pcs';
         }
     };
 
@@ -228,9 +230,11 @@ function calcKnitGarments() {
     const total = document.getElementById('kg-total-kg');
     const dozen = document.getElementById('kg-per-dz-label');
     const piece = document.getElementById('kg-per-pcs-label');
-    if (before) before.innerText = totalDz > 0 ? `${fmt(totalDz)} kg/dz` : '— kg/dz';
-    if (after) after.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste)} kg/dz` : '— kg/dz';
+    const totalBeforeOrderKg = qty > 0 ? (totalDz / 12) * qty : 0;
+    if (before) before.innerText = totalBeforeOrderKg > 0 ? `${fmt(totalBeforeOrderKg)} kg` : '— kg';
+    if (after) after.innerText = totalKg > 0 ? `${fmt(totalKg)} kg` : '— kg';
     if (total) total.innerText = totalKg > 0 ? `${fmt(totalKg)} kg` : '— kg';
+    // Keep dozen-based values in the calculation model for reports/conversion, but do not show kg/dz in the default result UI.
     if (dozen) dozen.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste)} kg/dz` : '— kg/dz';
     if (piece) piece.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste / 12)} kg/pcs` : '— kg/pcs';
 
