@@ -264,13 +264,27 @@
             info.append(title, members);
             const order = document.createElement('strong'); order.className = 'kg-group-total-kg'; order.textContent = fmt(orderKg) + ' kg';
             head.append(info, order);
-            const metrics = document.createElement('div'); metrics.className = 'kg-group-total-metrics';
+            const details = document.createElement('button');
+            details.type = 'button';
+            details.className = 'kg-group-total-details-btn';
+            details.textContent = 'Show details';
+            details.setAttribute('aria-expanded', 'false');
+            const metrics = document.createElement('div');
+            metrics.className = 'kg-group-total-metrics';
+            metrics.hidden = true;
+            details.addEventListener('click', () => {
+                const expanded = details.getAttribute('aria-expanded') === 'true';
+                details.setAttribute('aria-expanded', String(!expanded));
+                metrics.hidden = expanded;
+                details.textContent = expanded ? 'Show details' : 'Hide details';
+            });
             [['Before wastage',fmt(beforeDz)+' kg/dz'],['After wastage',fmt(afterDz)+' kg/dz'],['Per piece',fmt(perPiece)+' kg/pcs'],['Order quantity',String(qty)+' pcs']].forEach(([labelText,valueText]) => {
                 const metric=document.createElement('div'); metric.className='kg-group-total-metric';
                 const label=document.createElement('span'); label.textContent=labelText;
                 const value=document.createElement('strong'); value.textContent=valueText;
                 metric.append(label,value); metrics.appendChild(metric);
             });
+            head.appendChild(details);
             card.append(head,metrics); list.appendChild(card);
         });
     }
