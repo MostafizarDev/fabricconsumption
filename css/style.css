@@ -1629,3 +1629,7 @@ body.dark-mode .kg-group-settings-btn:hover, body.dark-mode .kg-group-total-deta
 
 .kg-group-totals-empty { padding:12px; border:1px dashed #cbd5e1; border-radius:8px; color:#64748b; font-size:11px; line-height:1.5; }
 body.dark-mode .kg-group-totals-empty { border-color:#475569; color:#94a3b8; }
+
+/* Minimal icon-only expand/collapse control for fabric type cards. */
+.kg-group-total-details-btn { width:26px; height:26px; padding:4px; display:inline-flex; align-items:center; justify-content:center; border-radius:7px; }
+.kg-group-total-details-btn svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
