@@ -237,6 +237,45 @@
         else dialog.removeAttribute('open');
     }
 
+
+    function renderGroupTotals(data) {
+        const section = el('kg-group-totals');
+        const list = el('kg-group-total-list');
+        const count = el('kg-group-total-count');
+        if (!section || !list || !count) return;
+        list.replaceChildren();
+        if (!groups.length) { section.hidden = true; return; }
+        section.hidden = false;
+        count.textContent = groups.length + (groups.length === 1 ? ' group' : ' groups');
+        const components = data && data.components ? data.components : {};
+        const qty = Math.max(0, Number(data && data.qty) || 0);
+        const fmt = value => (Number.isFinite(value) ? value : 0).toFixed(3);
+        groups.forEach(group => {
+            const beforeDz = group.components.reduce((sum, id) => sum + (Number(components[id] && components[id].beforeDz) || 0), 0);
+            const afterDz = group.components.reduce((sum, id) => sum + (Number(components[id] && components[id].afterDz) || 0), 0);
+            const perPiece = afterDz / 12;
+            const orderKg = perPiece * qty;
+            const card = document.createElement('article'); card.className = 'kg-group-total-card';
+            const head = document.createElement('div'); head.className = 'kg-group-total-card-head';
+            const info = document.createElement('div');
+            const title = document.createElement('h4'); title.textContent = group.name;
+            const members = document.createElement('p'); members.className = 'kg-group-total-members';
+            members.textContent = group.components.map(id => COMPONENTS.find(item => item.id === id)?.label || id).join(' + ');
+            info.append(title, members);
+            const order = document.createElement('strong'); order.className = 'kg-group-total-kg'; order.textContent = fmt(orderKg) + ' kg';
+            head.append(info, order);
+            const metrics = document.createElement('div'); metrics.className = 'kg-group-total-metrics';
+            [['Before wastage',fmt(beforeDz)+' kg/dz'],['After wastage',fmt(afterDz)+' kg/dz'],['Per piece',fmt(perPiece)+' kg/pcs'],['Order quantity',String(qty)+' pcs']].forEach(([labelText,valueText]) => {
+                const metric=document.createElement('div'); metric.className='kg-group-total-metric';
+                const label=document.createElement('span'); label.textContent=labelText;
+                const value=document.createElement('strong'); value.textContent=valueText;
+                metric.append(label,value); metrics.appendChild(metric);
+            });
+            card.append(head,metrics); list.appendChild(card);
+        });
+    }
+    window.updateKnitGroupTotals = renderGroupTotals;
+
     function initFabricGroups() {
         const open = el('kg-manage-groups');
         const close = el('kg-groups-close');
