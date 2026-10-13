@@ -280,7 +280,9 @@
             const details = document.createElement('button');
             details.type = 'button';
             details.className = 'kg-group-total-details-btn';
-            details.textContent = 'Show details';
+            details.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg>';
+            details.setAttribute('aria-label', 'Show details for ' + group.name);
+            details.title = 'Show details';
             details.setAttribute('aria-expanded', 'false');
             const metrics = document.createElement('div');
             metrics.className = 'kg-group-total-metrics';
@@ -289,7 +291,9 @@
                 const expanded = details.getAttribute('aria-expanded') === 'true';
                 details.setAttribute('aria-expanded', String(!expanded));
                 metrics.hidden = expanded;
-                details.textContent = expanded ? 'Show details' : 'Hide details';
+                details.innerHTML = expanded ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14l5-5 5 5"></path></svg>';
+                details.setAttribute('aria-label', (expanded ? 'Show' : 'Hide') + ' details for ' + group.name);
+                details.title = expanded ? 'Show details' : 'Hide details';
             });
             [['Before wastage',fmt(beforeDz)+' kg/dz'],['After wastage',fmt(afterDz)+' kg/dz'],['Per piece',fmt(perPiece)+' kg/pcs'],['Order quantity',String(qty)+' pcs']].forEach(([labelText,valueText]) => {
                 const metric=document.createElement('div'); metric.className='kg-group-total-metric';
