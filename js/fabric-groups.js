@@ -244,9 +244,17 @@
         const count = el('kg-group-total-count');
         if (!section || !list || !count) return;
         list.replaceChildren();
-        if (!groups.length) { section.hidden = true; return; }
+        // Keep the totals panel and gear visible even when there are no groups,
+        // so users can always create their first group.
         section.hidden = false;
         count.textContent = groups.length + (groups.length === 1 ? ' group' : ' groups');
+        if (!groups.length) {
+            const empty = document.createElement('div');
+            empty.className = 'kg-group-totals-empty';
+            empty.textContent = 'No fabric groups yet. Click the gear icon to create your first group.';
+            list.appendChild(empty);
+            return;
+        }
         const components = data && data.components ? data.components : {};
         const qty = Math.max(0, Number(data && data.qty) || 0);
         const fmt = value => (Number.isFinite(value) ? value : 0).toFixed(3);
@@ -318,6 +326,7 @@
         });
         renderComponentChoices([]);
         renderGroups();
+        renderGroupTotals({ qty: 0, components: {} });
     }
 
     if (document.readyState === 'loading') {
