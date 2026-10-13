@@ -233,6 +233,19 @@ function calcKnitGarments() {
     if (total) total.innerText = totalKg > 0 ? `${fmt(totalKg)} kg` : '— kg';
     if (dozen) dozen.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste)} kg/dz` : '— kg/dz';
     if (piece) piece.innerText = totalWithWaste > 0 ? `${fmt(totalWithWaste / 12)} kg/pcs` : '— kg/pcs';
+
+    if (typeof window.updateKnitGroupTotals === 'function') {
+        window.updateKnitGroupTotals({
+            qty,
+            components: {
+                body: { beforeDz: bodyDz, afterDz: bodyAfterDz },
+                collar: { beforeDz: collarDz, afterDz: collarAfterDz },
+                cuff: { beforeDz: cuffDz, afterDz: cuffAfterDz },
+                pocket: { beforeDz: pocketDz, afterDz: pocketAfterDz },
+                halfmoon: { beforeDz: hmDz, afterDz: hmAfterDz }
+            }
+        });
+    }
 }
 // ========== PDF REPORT SVG ICONS ==========
 function reportIcon(name) {
