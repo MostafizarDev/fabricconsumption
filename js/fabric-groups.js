@@ -17,6 +17,7 @@
 
     let groups = loadGroups();
     let editingId = null;
+    let latestTotalsData = { qty: 0, components: {} };
 
     function loadGroups() {
         try {
@@ -205,6 +206,7 @@
         if (!saveGroups()) return;
         clearEditor();
         renderGroups();
+        renderGroupTotals(latestTotalsData);
     }
 
     function deleteGroup(groupId) {
@@ -216,6 +218,7 @@
         if (editingId === groupId) clearEditor();
         renderGroups();
         renderComponentChoices(selectedComponentIds());
+        renderGroupTotals(latestTotalsData);
     }
 
     function openDialog() {
@@ -239,6 +242,8 @@
 
 
     function renderGroupTotals(data) {
+        if (data) latestTotalsData = data;
+        data = latestTotalsData;
         const section = el('kg-group-totals');
         const list = el('kg-group-total-list');
         const count = el('kg-group-total-count');
