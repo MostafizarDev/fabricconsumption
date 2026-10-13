@@ -214,8 +214,8 @@ function calcKnitGarments() {
             const perPieceKg = afterDz / 12;
             const orderTotalKg = perPieceKg * qty;
             display.innerText = afterDz > 0
-                ? `${fmt(orderTotalKg)} kg (total qty) | ${fmt(perPieceKg)} kg/pcs`
-                : '— kg (total qty) | — kg/pcs';
+                ? `${fmt(orderTotalKg)} kg/order | ${fmt(perPieceKg)} kg/pcs`
+                : '— kg/order | — kg/pcs';
         }
     };
 
