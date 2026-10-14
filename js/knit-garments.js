@@ -270,166 +270,57 @@ function reportIcon(name) {
 function downloadKnitReport() {
     const getVal = id => {
         const n = parseFloat(document.getElementById(id)?.value);
-        return isNaN(n) ? 0 : n;
+        return Number.isFinite(n) ? n : 0;
     };
-    const txt = id => document.getElementById(id)?.innerText || '—';
-    const n = (v, d = 1) => Number(v || 0).toFixed(d);
-
-    const qty = getVal('kg-qty');
-    const unit = window.knitUnit || 'cm';
-    const div = unit === 'inch' ? '1,550,000' : '10,000,000';
-
-    const BL = getVal('kg-bl') + getVal('kg-bla');
-    const SL = getVal('kg-sl') + getVal('kg-sla');
-    const HC = getVal('kg-hc') + getVal('kg-hca');
-    const CL = getVal('kg-cl') + getVal('kg-cla');
-    const CW = getVal('kg-cw') + getVal('kg-cwa');
-    const CuL = getVal('kg-cul') + getVal('kg-cula');
-    const CuW = getVal('kg-cuw') + getVal('kg-cuwa');
-    const PL = getVal('kg-pl') + getVal('kg-pla');
-    const PW = getVal('kg-pw') + getVal('kg-pwa');
-    const HML = getVal('kg-hml') + getVal('kg-hmla');
-    const HMW = getVal('kg-hmw') + getVal('kg-hmwa');
-
-    const bGSM = getVal('kg-bgsm');
-    const cGSM = getVal('kg-cgsm');
-    const cuGSM = getVal('kg-cugsm');
-    const pGSM = getVal('kg-pgsm');
-    const hmGSM = getVal('kg-hmgsm');
-    const pQty = getVal('kg-pqty') || 1;
-
-    const bodyDisp = txt('kg-body-disp');
-    const collarDisp = txt('kg-collar-disp');
-    const cuffDisp = txt('kg-cuff-disp');
-    const pocketDisp = txt('kg-pocket-disp');
-    const hmDisp = txt('kg-halfmoon-disp');
-
-    const totalBefore = txt('kg-total-before');
-    const totalAfter = txt('kg-total-after');
-    const totalKg = txt('kg-total-kg');
-    const perPc = txt('kg-per-pcs-label');
-    const bodyWaste = getVal('kg-body-waste');
-    const collarWaste = getVal('kg-collar-waste');
-    const cuffWaste = getVal('kg-cuff-waste');
-    const pocketWaste = getVal('kg-pocket-waste');
-    const halfmoonWaste = getVal('kg-halfmoon-waste');
-
-    const showCollar = document.getElementById('ck-collar')?.checked || false;
-    const showCuff = document.getElementById('ck-cuff')?.checked || false;
-    const showPocket = document.getElementById('ck-pocket')?.checked || false;
-    const showHalfmoon = document.getElementById('ck-halfmoon')?.checked || false;
-
+    const val = id => document.getElementById(id)?.value?.trim() || '';
+    const checked = id => document.getElementById(id)?.checked === true;
+    const fmt = (value, digits = 3) => Number.isFinite(value) && value > 0 ? value.toFixed(digits) : '—';
+    const safe = value => String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const qty = getVal('kg-qty'), unit = window.knitUnit || 'cm';
+    const div = unit === 'inch' ? 1550000 : 10000000;
     const now = new Date();
     const reportId = 'FC-KNIT-' + now.toISOString().slice(0,10).replace(/-/g,'') + '-001';
     const dateText = now.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
     const timeText = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-
-    let no = 1;
-    let rows = `
-        <tr><td>${no++}</td><td><strong>Body</strong><div class="muted">Front + Back</div></td><td>${n(BL)} ${unit}</td><td>${n(SL)} ${unit}</td><td>${n(HC)} ${unit}</td><td>2</td><td>24</td><td>${n(bGSM,0)}</td><td>${n(bodyWaste,1)}%</td><td><strong>${bodyDisp.split('|')[0] || '—'}</strong></td></tr>`;
-
-    if (showCollar) rows += `
-        <tr><td>${no++}</td><td><strong>Collar</strong><div class="muted">Rib</div></td><td>${n(CL)} ${unit}</td><td>—</td><td>${n(CW)} ${unit}</td><td>1</td><td>12</td><td>${n(cGSM,0)}</td><td>${n(collarWaste,1)}%</td><td><strong>${collarDisp.split('|')[0] || '—'}</strong></td></tr>`;
-
-    if (showCuff) rows += `
-        <tr><td>${no++}</td><td><strong>Cuff</strong><div class="muted">Rib × 2</div></td><td>${n(CuL)} ${unit}</td><td>—</td><td>${n(CuW)} ${unit}</td><td>2</td><td>24</td><td>${n(cuGSM,0)}</td><td>${n(cuffWaste,1)}%</td><td><strong>${cuffDisp.split('|')[0] || '—'}</strong></td></tr>`;
-
-    if (showPocket) rows += `
-        <tr><td>${no++}</td><td><strong>Pocket</strong><div class="muted">Qty ${n(pQty,0)}</div></td><td>${n(PL)} ${unit}</td><td>—</td><td>${n(PW)} ${unit}</td><td>1</td><td>12</td><td>${n(pGSM,0)}</td><td>${n(pocketWaste,1)}%</td><td><strong>${pocketDisp.split('|')[0] || '—'}</strong></td></tr>`;
-
-    if (showHalfmoon) rows += `
-        <tr><td>${no++}</td><td><strong>Half-moon</strong><div class="muted">Body fabric</div></td><td>${n(HML)} ${unit}</td><td>—</td><td>${n(HMW)} ${unit}</td><td>1</td><td>12</td><td>${n(hmGSM,0)}</td><td>${n(halfmoonWaste,1)}%</td><td><strong>${hmDisp.split('|')[0] || '—'}</strong></td></tr>`;
-
-    const reportHtml = `
-        <div class="report">
-            <div class="report-header">
-                <div>
-                    <div class="brand">FABRiCS <span>CONSUMPTiON</span></div>
-                    <div class="subtitle">GARMENT CALCULATOR SUITE</div>
-                </div>
-                <div class="report-title">
-                    <div class="eyebrow">CALCULATION REPORT</div>
-                    <h1>Knit Fabrics Consumption</h1>
-                    <div class="report-id">${reportId}</div>
-                </div>
-            </div>
-
-            <div class="meta-grid">
-                <div><span>Date</span><strong>${dateText}</strong></div>
-                <div><span>Time</span><strong>${timeText}</strong></div>
-                <div><span>Unit</span><strong>${unit.toUpperCase()}</strong></div>
-                <div><span>Order Quantity</span><strong>${qty} pcs</strong></div>
-            </div>
-
-            <section class="section">
-                <div class="section-head">${reportIcon('info')}<span>ORDER INFORMATION</span></div>
-                <div class="info-grid">
-                    <div><span>Buyer Name</span><strong>________________________</strong></div>
-                    <div><span>Style No.</span><strong>________________________</strong></div>
-                    <div><span>Garment Type</span><strong>T-Shirt / Knit</strong></div>
-                    <div><span>Order Qty</span><strong>${qty} pcs</strong></div>
-                </div>
-            </section>
-
-            <section class="section">
-                <div class="section-head">${reportIcon('components')}<span>COMPONENT WISE CONSUMPTION</span></div>
-                <table>
-                    <thead><tr>
-                        <th>SL</th><th>Component</th><th>Length</th><th>Sleeve</th><th>Width</th>
-                        <th>Ply</th><th>Qty/Dz</th><th>GSM</th><th>Wastage</th><th>Final / Dz</th>
-                    </tr></thead>
-                    <tbody>${rows}</tbody>
-                </table>
-            </section>
-
-            <section class="summary-grid">
-                <div class="summary-card"><div class="metric-head">${reportIcon('components')}<span>NET CONSUMPTION</span></div><strong>${totalBefore}</strong><small>kg / dozen</small></div>
-                <div class="summary-card"><div class="metric-head">${reportIcon('warning')}<span>WASTAGE</span></div><strong>Individual</strong><small>entered per component</small></div>
-                <div class="summary-card primary"><div class="metric-head">${reportIcon('summary')}<span>GRAND TOTAL</span></div><strong>${totalKg}</strong><small>for ${qty} pcs</small></div>
-                <div class="summary-card"><div class="metric-head">${reportIcon('file')}<span>PER PIECE</span></div><strong>${perPc}</strong><small>kg / piece</small></div>
-            </section>
-
-            <section class="section">
-                <div class="section-head">${reportIcon('status')}<span>COMPONENT STATUS</span></div>
-                <div class="status-grid">
-                    <div class="status included">Body <b>Included</b></div>
-                    <div class="status ${showCollar ? 'included' : 'excluded'}">Collar <b>${showCollar ? 'Included' : 'Not Included'}</b></div>
-                    <div class="status ${showCuff ? 'included' : 'excluded'}">Cuff <b>${showCuff ? 'Included' : 'Not Included'}</b></div>
-                    <div class="status ${showPocket ? 'included' : 'excluded'}">Pocket <b>${showPocket ? 'Included' : 'Not Included'}</b></div>
-                    <div class="status ${showHalfmoon ? 'included' : 'excluded'}">Half-moon <b>${showHalfmoon ? 'Included' : 'Not Included'}</b></div>
-                </div>
-            </section>
-
-            <section class="formula">
-                <div class="section-head">${reportIcon('formula')}<span>FORMULA REFERENCE</span></div>
-                <div class="formula-text">
-                    <strong>Body Consumption:</strong><br>
-                    (Body Length + Sleeve Length) × (½ Chest) × 2 × GSM × Quantity
-                    <br>
-                    ────────────────────────────────── × Wastage %
-                    <br>
-                    1,00,00,000 (CM) &nbsp;&nbsp; or &nbsp;&nbsp; 15,50,000 (Inch)
-                </div>
-            </section>
-
-            <div class="note">${reportIcon('warning')}<div><strong>IMPORTANT:</strong> This report is computer generated. Wastage is entered separately for Main Body, Collar, Cuff, Pocket and Half-moon. Verify all measurements, GSM, quantity and wastage before bulk production.</div></div>
-
-            <div class="report-footer">
-                <span>Fabrics Consumption • Garment Calculator Suite</span>
-                <span>fabricconsumption.vercel.app</span>
-            </div>
-        </div>`;
-
-    if (typeof generatePDF === 'function') {
-        generatePDF('Knit Fabrics Consumption Report', reportHtml);
-    } else {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write('<!DOCTYPE html><html><head><title>Knit Fabrics Consumption Report</title></head><body>' + reportHtml + '</body></html>');
-        printWindow.document.close();
-        printWindow.print();
+    const components = [
+      {name:'Body',fabric:'Main body fabric',on:checked('ck-body'),l:getVal('kg-bl')+getVal('kg-bla'),s:getVal('kg-sl')+getVal('kg-sla'),w:getVal('kg-hc')+getVal('kg-hca'),ply:2,q:24,g:getVal('kg-bgsm'),x:getVal('kg-body-waste'),p:((getVal('kg-bl')+getVal('kg-bla')+getVal('kg-sl')+getVal('kg-sla'))*(getVal('kg-hc')+getVal('kg-hca'))*2*getVal('kg-bgsm'))/div},
+      {name:'Collar',fabric:'Rib',on:checked('ck-collar'),l:getVal('kg-cl')+getVal('kg-cla'),s:0,w:getVal('kg-cw')+getVal('kg-cwa'),ply:1,q:12,g:getVal('kg-cgsm'),x:getVal('kg-collar-waste'),p:((getVal('kg-cl')+getVal('kg-cla'))*(getVal('kg-cw')+getVal('kg-cwa'))*getVal('kg-cgsm'))/div},
+      {name:'Cuff',fabric:'Rib × 2',on:checked('ck-cuff'),l:getVal('kg-cul')+getVal('kg-cula'),s:0,w:getVal('kg-cuw')+getVal('kg-cuwa'),ply:2,q:24,g:getVal('kg-cugsm'),x:getVal('kg-cuff-waste'),p:((getVal('kg-cul')+getVal('kg-cula'))*(getVal('kg-cuw')+getVal('kg-cuwa'))*2*getVal('kg-cugsm'))/div},
+      {name:'Pocket',fabric:'Pocket fabric',on:checked('ck-pocket'),l:getVal('kg-pl')+getVal('kg-pla'),s:0,w:getVal('kg-pw')+getVal('kg-pwa'),ply:1,q:12,g:getVal('kg-pgsm'),x:getVal('kg-pocket-waste'),p:((getVal('kg-pl')+getVal('kg-pla'))*(getVal('kg-pw')+getVal('kg-pwa'))*(getVal('kg-pqty')||1)*getVal('kg-pgsm'))/div},
+      {name:'Half-moon',fabric:'Body fabric',on:checked('ck-halfmoon'),l:getVal('kg-hml')+getVal('kg-hmla'),s:0,w:getVal('kg-hmw')+getVal('kg-hmwa'),ply:1,q:12,g:getVal('kg-hmgsm'),x:getVal('kg-halfmoon-waste'),p:((getVal('kg-hml')+getVal('kg-hmla'))*(getVal('kg-hmw')+getVal('kg-hmwa'))*getVal('kg-hmgsm'))/div}
+    ];
+    const active = components.filter(c => c.on);
+    const complete = qty > 0 && active.length > 0 && active.every(c => c.l > 0 && c.w > 0 && c.g > 0);
+    const net = active.reduce((s,c) => s + c.p * qty, 0);
+    const waste = active.reduce((s,c) => s + c.p * qty * Math.max(0,c.x) / 100, 0);
+    const total = net + waste, perPiece = qty > 0 ? total / qty : 0, perDozen = perPiece * 12;
+    const rows = active.map((c,i) => {
+      const wasteKg = c.p * qty * Math.max(0,c.x) / 100;
+      const baseDz = c.p * 12, finalDz = baseDz * (1 + Math.max(0,c.x)/100);
+      return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(c.name)+'</strong><div class="muted">'+safe(c.fabric)+'</div></td><td>'+(c.l>0?fmt(c.l,1)+' '+unit:'—')+'</td><td>'+(c.s>0?fmt(c.s,1)+' '+unit:'—')+'</td><td>'+(c.w>0?fmt(c.w,1)+' '+unit:'—')+'</td><td>'+c.ply+'</td><td>'+c.q+'</td><td>'+(c.g||'—')+'</td><td>'+fmt(c.x,1)+'%</td><td>'+fmt(baseDz)+' kg</td><td>'+fmt(wasteKg)+' kg</td><td>'+fmt(finalDz)+' kg</td><td><strong>'+fmt(c.p*qty*(1+Math.max(0,c.x)/100))+' kg</strong></td></tr>';
+    }).join('');
+    const status = c => '<div class="status '+(c.on?'included':'excluded')+'">'+safe(c.name)+'<b>'+(c.on?'Included':'Not included')+'</b></div>';
+    const reportHtml = '<div class="report">'+
+      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabrics Consumption</h1><div class="report-id">'+reportId+' · REV 00</div></div></div>'+
+      '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+unit.toUpperCase()+'</strong></div><div><span>Order Quantity</span><strong>'+qty+' pcs</strong></div></div>'+
+      '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
+      '<div><span>Buyer Name</span><strong>'+(safe(val('kg-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(val('kg-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(val('kg-po'))||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(safe(val('kg-garment-type'))||'T-Shirt / Knit')+'</strong></div></div></section>'+
+      '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component / Fabric</th><th>Length</th><th>Sleeve</th><th>Width</th><th>Ply</th><th>Qty/Dz</th><th>GSM</th><th>Waste %</th><th>Base kg/dz</th><th>Waste kg/order</th><th>Final kg/dz</th><th>Order total kg</th></tr></thead><tbody>'+ (rows || '<tr><td colspan="13">No components selected.</td></tr>') +'</tbody></table></section>'+
+      '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+reportIcon('components')+'<span>NET CONSUMPTION</span></div><strong>'+fmt(net)+' kg</strong><small>Before wastage · whole order</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(waste)+' kg</strong><small>Component wastage total</small></div><div class="summary-card primary"><div class="metric-head">'+reportIcon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(total)+' kg</strong><small>With wastage</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('file')+'<span>PER PIECE</span></div><strong>'+fmt(perPiece)+' kg/pcs</strong><small>Final total ÷ order quantity</small></div></div>'+
+      '<div class="extra-summary"><div><span>CONSUMPTION PER DOZEN</span><strong>'+fmt(perDozen)+' kg/dozen</strong></div><div><span>BOOKING ALLOWANCE</span><strong>Optional — not included</strong></div><div><span>SUGGESTED BOOKING QTY</span><strong>Requires approved allowance</strong></div></div>'+
+      '<section class="section"><div class="section-head">'+reportIcon('status')+'<span>COMPONENT STATUS</span></div><div class="status-grid">'+components.map(status).join('')+'</div></section>'+
+      '<section class="formula"><div class="section-head">'+reportIcon('formula')+'<span>FORMULA / METHOD REFERENCE</span></div><div class="formula-text"><strong>Body:</strong> (Body Length + Sleeve Length) × (½ Chest) × 2 × GSM ÷ '+div.toLocaleString('en-US')+' ('+unit.toUpperCase()+')<br><br><strong>Wastage:</strong> Base consumption × (Wastage % ÷ 100)<br><strong>Final:</strong> Base consumption + wastage</div></section>'+
+      '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> '+(complete?'Verify measurements, GSM, quantity, and wastage before bulk production.':'DRAFT — INCOMPLETE DATA. Fill in required measurements, GSM, and a valid order quantity before using this report for bulk production.')+' Booking allowance is separate from component wastage.</div></div>'+
+      '<div class="approval-grid"><div><span>PREPARED BY</span><strong>______________________</strong></div><div><span>CHECKED BY</span><strong>______________________</strong></div><div><span>APPROVED BY</span><strong>______________________</strong></div></div>'+
+      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · fabricconsumption.vercel.app</span></div></div>';
+    if (typeof generatePDF === 'function') generatePDF('Knit Fabrics Consumption Report', reportHtml);
+    else {
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) return;
+      printWindow.document.write('<!DOCTYPE html><html><head><title>Knit Fabrics Consumption Report</title></head><body>'+reportHtml+'</body></html>');
+      printWindow.document.close(); printWindow.print();
     }
 }
-
 // ========== FORCE RESET ALL INPUTS ON PAGE LOAD ==========
 function forceResetAllInputs() {
     const allInputs = document.querySelectorAll('#page-knit input');
