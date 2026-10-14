@@ -242,6 +242,23 @@ function generatePDF(title, contentHtml) {
                 .formula-text { padding: 11px; font-family: monospace; font-size: 9px; line-height: 1.7; color: #334155; }
                 .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
                 .report-footer { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #e2e8f0; margin-top: 18px; padding-top: 9px; font-size: 8px; color: #94a3b8; }
+                .consumption-table { table-layout: fixed; font-size: 6.2px; }
+                .consumption-table th, .consumption-table td { padding: 4px 2px; overflow-wrap: anywhere; vertical-align: top; }
+                .consumption-table th { font-size: 6px; letter-spacing: 0; }
+                .consumption-table th:nth-child(1) { width: 3%; }
+                .consumption-table th:nth-child(2) { width: 13%; }
+                .consumption-table th:nth-child(3), .consumption-table th:nth-child(4), .consumption-table th:nth-child(5) { width: 7%; }
+                .consumption-table th:nth-child(6), .consumption-table th:nth-child(7), .consumption-table th:nth-child(8), .consumption-table th:nth-child(9) { width: 5%; }
+                .consumption-table th:nth-child(10), .consumption-table th:nth-child(11), .consumption-table th:nth-child(12), .consumption-table th:nth-child(13) { width: 9%; }
+                .extra-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 14px; }
+                .extra-summary > div { border: 1px solid #dbeafe; background: #f8fafc; border-radius: 7px; padding: 9px; }
+                .extra-summary span, .approval-grid span { display: block; font-size: 7px; letter-spacing: .6px; color: #64748b; margin-bottom: 5px; }
+                .extra-summary strong { font-size: 9px; color: #0f172a; }
+                .approval-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; padding: 10px 0; }
+                .approval-grid > div { border-bottom: 1px solid #cbd5e1; padding-bottom: 7px; }
+                .approval-grid strong { font-size: 8px; color: #334155; }
+                .good-text { color: #047857 !important; }
+                .draft-text { color: #b45309 !important; font-size: 8px !important; }
 
                 @page { size: A4 portrait; margin: 0; }
                 @media print {
