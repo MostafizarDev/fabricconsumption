@@ -354,7 +354,7 @@ function downloadKnitReport() {
       '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
       '<div><span>Buyer Name</span><strong>'+(safe(val('kg-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(val('kg-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(val('kg-po'))||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(safe(val('kg-garment-type'))||'________________________')+'</strong></div></div></section>'+
       '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component / Fabric</th><th>Length</th><th>Sleeve</th><th>Width</th><th>GSM</th><th>Waste %</th><th>Total kg/pcs</th><th>Total kg/dz</th><th>Waste kg/order</th><th>Order kg (Gross)</th><th>Remarks</th></tr></thead><tbody>'+ (rows || '<tr><td colspan="12">No components selected.</td></tr>') +'</tbody></table></section>'+
-      '+fabricSummarySection+'+
+      fabricSummarySection+
 
       '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+reportIcon('components')+'<span>NET CONSUMPTION</span></div><strong>'+fmt(net)+' kg</strong><small>Before wastage · whole order</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(waste)+' kg</strong><small>Component wastage total</small></div><div class="summary-card primary"><div class="metric-head">'+reportIcon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(total)+' kg</strong><small>With wastage</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('file')+'<span>PER PIECE</span></div><strong>'+fmt(perPiece)+' kg/pcs</strong><small>Final total ÷ order quantity</small></div></div>'+
       '<section class="comments-section"><div class="comments-title">COMMENTS</div><div class="comments-line"></div><div class="comments-line"></div></section>'+
@@ -365,7 +365,7 @@ function downloadKnitReport() {
       '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     const filePart = value => String(value || '').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
     const stamp = now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'_'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0')+String(now.getSeconds()).padStart(2,'0');
-    const reportFileName = ['Fabric_Consumption',filePart(val('kg-style')),filePart(val('kg-po')),reportId,reportRevision.replace(/\\s+/g,''),stamp].filter(Boolean).join('_');
+    const reportFileName = ['Fabric_Consumption',filePart(val('kg-style')),filePart(val('kg-po')),reportId,reportRevision.replace(/\s+/g,''),stamp].filter(Boolean).join('_');
     if (typeof generatePDF === 'function') generatePDF(reportFileName, reportHtml);
     else {
       const printWindow = window.open('', '_blank');
