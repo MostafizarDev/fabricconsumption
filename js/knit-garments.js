@@ -355,6 +355,21 @@ function forceResetAllInputs() {
     });
 }
 
+// ========== DEMO / RECENT / REPORT DETAILS ==========
+const KNIT_RECENT_KEY = 'fabricConsumption.knitRecent.v1';
+const KNIT_FORM_INPUT_IDS = ['kg-bl','kg-bla','kg-sl','kg-sla','kg-hc','kg-hca','kg-bgsm','kg-body-waste','kg-cl','kg-cla','kg-cw','kg-cwa','kg-cgsm','kg-collar-waste','kg-cul','kg-cula','kg-cuw','kg-cuwa','kg-cugsm','kg-cuff-waste','kg-pl','kg-pla','kg-pw','kg-pwa','kg-pgsm','kg-pqty','kg-pocket-waste','kg-hml','kg-hmla','kg-hmw','kg-hmwa','kg-hmgsm','kg-halfmoon-waste','kg-qty','kg-buyer','kg-style','kg-po','kg-garment-type'];
+const KNIT_CHECK_IDS = ['ck-body','ck-collar','ck-cuff','ck-pocket','ck-halfmoon'];
+const KNIT_DEMO_VALUES = {'kg-bl':'70','kg-bla':'6','kg-sl':'22','kg-sla':'6','kg-hc':'56','kg-hca':'6','kg-bgsm':'210','kg-body-waste':'5','kg-cl':'40','kg-cla':'0','kg-cw':'8','kg-cwa':'3','kg-cgsm':'180','kg-collar-waste':'3','kg-cul':'7','kg-cula':'0','kg-cuw':'7','kg-cuwa':'3','kg-cugsm':'180','kg-cuff-waste':'3','kg-pl':'14','kg-pla':'0','kg-pw':'12','kg-pwa':'0','kg-pgsm':'210','kg-pqty':'1','kg-pocket-waste':'3','kg-hml':'12','kg-hmla':'0','kg-hmw':'8','kg-hmwa':'0','kg-hmgsm':'210','kg-halfmoon-waste':'3','kg-qty':'1200'};
+let knitDemoSnapshot = null;
+function knitReadRecent(){try{const x=JSON.parse(localStorage.getItem(KNIT_RECENT_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
+function knitCaptureState(){const values={},checks={};KNIT_FORM_INPUT_IDS.forEach(id=>{const e=document.getElementById(id);if(e)values[id]=e.value});KNIT_CHECK_IDS.forEach(id=>{const e=document.getElementById(id);if(e)checks[id]=e.checked});return{values,checks,unit:knitUnit||'cm',savedAt:new Date().toISOString()}}
+function knitApplyState(state){if(!state)return;KNIT_FORM_INPUT_IDS.forEach(id=>{const e=document.getElementById(id);if(e&&state.values&&Object.prototype.hasOwnProperty.call(state.values,id))e.value=state.values[id]});KNIT_CHECK_IDS.forEach(id=>{const e=document.getElementById(id);if(e&&state.checks&&Object.prototype.hasOwnProperty.call(state.checks,id))e.checked=state.checks[id]});setKnitUnit(state.unit==='inch'?'inch':'cm');document.querySelectorAll('#page-knit .unit-bar .u-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-unit')===(state.unit||'cm')));toggleOptPanels();updateTotalSpans();calcKnitGarments()}
+function knitSaveRecent(showPanel=false){const state=knitCaptureState(),v=state.values||{},item={id:'knit-'+Date.now(),title:(v['kg-style']||'Untitled Style').trim(),buyer:(v['kg-buyer']||'').trim(),po:(v['kg-po']||'').trim(),garment:(v['kg-garment-type']||'').trim(),quantity:(v['kg-qty']||'').trim(),state};let list=knitReadRecent();list=[item,...list].slice(0,5);try{localStorage.setItem(KNIT_RECENT_KEY,JSON.stringify(list))}catch(_){alert('Could not save recent calculation. Browser storage may be full or disabled.');return}knitRenderRecent();if(showPanel){const p=document.getElementById('knit-recent-panel');if(p)p.hidden=false}}
+function knitRenderRecent(){const p=document.getElementById('knit-recent-panel');if(!p)return;const items=knitReadRecent(),esc=s=>String(s||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));p.innerHTML='<div class="knit-recent-head"><span>Recent Calculations · Last 5</span><button type="button" class="knit-recent-load" id="knit-save-current">Save Current</button></div>'+(items.length?items.map(x=>'<div class="knit-recent-item"><div class="knit-recent-info"><strong>'+esc(x.title)+(x.garment?' · '+esc(x.garment):'')+'</strong><small>'+esc(x.po?'PO: '+x.po:'No PO')+' · '+esc(x.quantity?x.quantity+' pcs':'Quantity not set')+' · '+esc(x.state&&x.state.savedAt?new Date(x.state.savedAt).toLocaleString():'Saved')+'</small></div><button type="button" class="knit-recent-load" data-load-knit-recent="'+esc(x.id)+'">Load</button></div>').join(''):'<div class="knit-recent-empty">No saved calculations yet. Click “Save Current” to keep this calculation.</div>');const save=document.getElementById('knit-save-current');if(save)save.addEventListener('click',()=>knitSaveRecent(true));p.querySelectorAll('[data-load-knit-recent]').forEach(b=>b.addEventListener('click',()=>{const x=knitReadRecent().find(y=>y.id===b.getAttribute('data-load-knit-recent'));if(x){knitApplyState(x.state);p.hidden=true;const d=document.getElementById('knit-demo-toggle');if(d){d.classList.remove('is-active');d.setAttribute('aria-pressed','false')}}}))}
+function knitSetDemo(on){const b=document.getElementById('knit-demo-toggle');if(on){if(!knitDemoSnapshot)knitDemoSnapshot=knitCaptureState();Object.keys(KNIT_DEMO_VALUES).forEach(id=>{const e=document.getElementById(id);if(e)e.value=KNIT_DEMO_VALUES[id]});KNIT_CHECK_IDS.forEach(id=>{const e=document.getElementById(id);if(e)e.checked=true});setKnitUnit('cm');document.querySelectorAll('#page-knit .unit-bar .u-btn').forEach(x=>x.classList.toggle('active',x.getAttribute('data-unit')==='cm'));toggleOptPanels();updateTotalSpans();calcKnitGarments()}else if(knitDemoSnapshot){const s=knitDemoSnapshot;knitDemoSnapshot=null;knitApplyState(s)}if(b){b.classList.toggle('is-active',on);b.setAttribute('aria-pressed',String(on))}}
+function knitOpenReportModal(){const m=document.getElementById('knit-report-modal');if(m)m.hidden=false}
+function knitCloseReportModal(){const m=document.getElementById('knit-report-modal');if(m)m.hidden=true}
+
 // ========== EVENT LISTENERS ==========
 document.addEventListener('DOMContentLoaded', function() {
     // Unit buttons
@@ -420,9 +435,19 @@ checkboxes.forEach(id => {
         });
     });
 
-    // PDF button
-    const pdfBtn = document.getElementById('btn-pdf-knit');
-    if (pdfBtn) pdfBtn.addEventListener('click', downloadKnitReport);
+    // Demo / Recent / report metadata controls
+    const demoBtn=document.getElementById('knit-demo-toggle');
+    if(demoBtn) demoBtn.addEventListener('click',()=>knitSetDemo(demoBtn.getAttribute('aria-pressed')!=='true'));
+    const recentBtn=document.getElementById('knit-recent-open');
+    if(recentBtn) recentBtn.addEventListener('click',()=>{const p=document.getElementById('knit-recent-panel');if(p){knitRenderRecent();p.hidden=!p.hidden}});
+    const settingsBtn=document.getElementById('knit-report-settings');
+    if(settingsBtn) settingsBtn.addEventListener('click',knitOpenReportModal);
+    document.querySelectorAll('[data-close-knit-modal]').forEach(e=>e.addEventListener('click',knitCloseReportModal));
+    const detailsSave=document.getElementById('knit-report-save');
+    if(detailsSave) detailsSave.addEventListener('click',knitCloseReportModal);
+    const pdfBtn=document.getElementById('btn-pdf-knit');
+    if(pdfBtn) pdfBtn.addEventListener('click',()=>{knitSaveRecent(false);downloadKnitReport()});
+    knitRenderRecent();
     
     // Set default unit button active
     const defaultBtn = document.querySelector('#page-knit .unit-bar .u-btn[data-unit="cm"]');
