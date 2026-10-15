@@ -162,16 +162,14 @@ function generatePDF(title, contentHtml) {
     }
 
     let logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
-    // Keep the logo icon unchanged, but render the FABRiCS / CONSUMPTiON wordmark in black.
-    logoSvg = logoSvg.replace(
-        /(<text[^>]*fill=")#FFFFFF("[^>]*>(?:FABRiCS|CONSUMPTiON)<\/text>)/g,
-        '$1#0F172A$2'
-    );
-    // Fallback for serialized SVG variants where the attribute order differs.
-    logoSvg = logoSvg.replace(
-        /(<text(?=[^>]*>(?:FABRiCS|CONSUMPTiON)<\/text>)[^>]*?)fill="#FFFFFF"/g,
-        '$1fill="#0F172A"'
-    );
+    // Make the complete FABRICS CONSUMPTION wordmark black, while leaving the icon and subtitle unchanged.
+    logoSvg = logoSvg.replace(/(<text\b[^>]*>)(FABRiCS|CONSUMPTiON)(<\/text>)/g, (match, open, word, close) => {
+        const blackOpen = open
+            .replace(/\sfill="[^"]*"/, ' fill="#0F172A"')
+            .replace(/\sstroke="[^"]*"/, ' stroke="#0F172A"')
+            .replace(/\sfilter="[^"]*"/, '');
+        return blackOpen + word + close;
+    });
 
     const fullHtml = `
         <!DOCTYPE html>
