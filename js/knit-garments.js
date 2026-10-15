@@ -365,7 +365,7 @@ function downloadKnitReport() {
       '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     const filePart = value => String(value || '').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
     const stamp = now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'_'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0')+String(now.getSeconds()).padStart(2,'0');
-    const reportFileName = ['Fabric_Consumption',filePart(val('kg-style')),filePart(val('kg-po')),reportId,reportRevision.replace(/\s+/g,''),stamp].filter(Boolean).join('_');
+    const reportFileName = ['FC',filePart(val('kg-style')),reportId.slice(-3),reportRevision.replace(/\s+/g,''),stamp.slice(-6)].filter(Boolean).join('_');
     if (typeof generatePDF === 'function') generatePDF(reportFileName, reportHtml);
     else {
       const printWindow = window.open('', '_blank');
