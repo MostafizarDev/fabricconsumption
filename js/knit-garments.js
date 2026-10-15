@@ -297,7 +297,7 @@ function downloadKnitReport() {
     const rows = active.map((c,i) => {
       const wasteKg = c.p * qty * Math.max(0,c.x) / 100;
       const baseDz = c.p * 12, finalDz = baseDz * (1 + Math.max(0,c.x)/100);
-      return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(c.name)+'</strong><div class="muted">'+safe(c.fabric)+'</div></td><td>'+(c.l>0?fmt(c.l,1)+' '+unit:'—')+'</td><td>'+(c.s>0?fmt(c.s,1)+' '+unit:'—')+'</td><td>'+(c.w>0?fmt(c.w,1)+' '+unit:'—')+'</td><td>'+(c.g||'—')+'</td><td>'+fmt(c.x,1)+'%</td><td>'+fmt(baseDz)+' kg</td><td>'+fmt(wasteKg)+' kg</td><td>'+fmt(finalDz)+' kg</td><td><strong>'+fmt(c.p*qty*(1+Math.max(0,c.x)/100))+' kg</strong></td><td>________________</td></tr>';
+      return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(c.name)+'</strong><div class="muted">'+safe(c.fabric)+'</div></td><td>'+(c.l>0?fmt(c.l,1)+' '+unit:'—')+'</td><td>'+(c.s>0?fmt(c.s,1)+' '+unit:'—')+'</td><td>'+(c.w>0?fmt(c.w,1)+' '+unit:'—')+'</td><td>'+(c.g||'—')+'</td><td>'+fmt(c.x,1)+'%</td><td>'+fmt(baseDz)+' kg</td><td>'+fmt(wasteKg)+' kg</td><td>'+fmt(finalDz)+' kg</td><td><strong>'+fmt(c.p*qty*(1+Math.max(0,c.x)/100))+' kg</strong></td><td></td></tr>';
     }).join('');
     const status = c => '<div class="status '+(c.on?'included':'excluded')+'">'+safe(c.name)+'<b>'+(c.on?'Included':'Not included')+'</b></div>';
     const reportHtml = '<div class="report">'+
