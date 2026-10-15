@@ -325,6 +325,28 @@ function downloadKnitReport() {
       const orderWithWaste = orderBeforeWaste + wasteKg;
       return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(c.name)+'</strong><div class="muted">'+safe(c.fabric)+'</div></td><td>'+(c.l>0?fmt(c.l,1)+' '+unit:'—')+'</td><td>'+(c.s>0?fmt(c.s,1)+' '+unit:'—')+'</td><td>'+(c.w>0?fmt(c.w,1)+' '+unit:'—')+'</td><td>'+(c.g||'—')+'</td><td>'+fmt(c.x,1)+'%</td><td>'+fmt(finalPcs)+' kg</td><td>'+fmt(finalDz)+' kg</td><td>'+fmt(wasteKg)+' kg</td><td><strong>'+fmt(orderWithWaste)+' kg</strong></td><td></td></tr>';
     }).join('');
+    const groupComponentIds = { body:0, collar:1, cuff:2, pocket:3, halfmoon:4 };
+    let savedFabricGroups = [];
+    try {
+      const parsedGroups = JSON.parse(localStorage.getItem('fc-knit-fabric-groups-v1') || '[]');
+      if (Array.isArray(parsedGroups)) savedFabricGroups = parsedGroups.filter(g => g && typeof g.name === 'string' && Array.isArray(g.components));
+    } catch (_) {}
+    const componentGroupIds = { Body:'body', Collar:'collar', Cuff:'cuff', Pocket:'pocket', 'Half-moon':'halfmoon' };
+    const assignedIds = new Set(savedFabricGroups.flatMap(g => g.components).filter(id => Object.prototype.hasOwnProperty.call(groupComponentIds,id)));
+    const summaryGroups = savedFabricGroups.map(g => ({
+      name:g.name,
+      members:g.components.map(id => components[groupComponentIds[id]]).filter(c => c && c.on)
+    })).filter(g => g.members.length);
+    const ungrouped = active.filter(c => !assignedIds.has(componentGroupIds[c.name]));
+    if (ungrouped.length) summaryGroups.push({name:'Others',members:ungrouped});
+    const fabricSummaryRows = summaryGroups.map((group,index) => {
+      const memberNames = group.members.map(c => c.name).join(', ');
+      const gsms = group.members.map(c => c.g || 0).join(' / ');
+      const finalDz = group.members.reduce((sum,c) => sum + c.p*12*(1+Math.max(0,c.x)/100),0);
+      const orderTotal = group.members.reduce((sum,c) => sum + c.p*qty*(1+Math.max(0,c.x)/100),0);
+      return '<tr><td>'+(index+1)+'</td><td>'+safe(group.name)+'</td><td>'+safe(memberNames)+'</td><td>'+gsms+'</td><td>'+fmt(finalDz)+'</td><td><strong>'+fmt(orderTotal)+'</strong></td><td>—</td></tr>';
+    }).join('');
+    const fabricSummarySection = '<section class="section"><div class="section-head">'+reportIcon('summary')+'<span>FABRIC TYPE WISE SUMMARY</span></div><table class="fabric-type-table"><thead><tr><th>SL</th><th>FABRIC TYPE</th><th>COMPONENTS</th><th>GSM</th><th>FINAL / DZ (kg)</th><th>ORDER TOTAL (kg)</th><th>REMARKS</th></tr></thead><tbody>'+(fabricSummaryRows || '<tr><td colspan="7">No active components.</td></tr>')+'</tbody></table></section>';
     const status = c => '<div class="status '+(c.on?'included':'excluded')+'">'+safe(c.name)+'<b>'+(c.on?'Included':'Not included')+'</b></div>';
     const reportHtml = '<div class="report">'+
       '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabrics Consumption</h1><div class="report-id">'+reportId+' · '+reportRevision+'</div></div></div>'+
@@ -332,23 +354,23 @@ function downloadKnitReport() {
       '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
       '<div><span>Buyer Name</span><strong>'+(safe(val('kg-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(val('kg-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(val('kg-po'))||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(safe(val('kg-garment-type'))||'________________________')+'</strong></div></div></section>'+
       '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component / Fabric</th><th>Length</th><th>Sleeve</th><th>Width</th><th>GSM</th><th>Waste %</th><th>Total kg/pcs</th><th>Total kg/dz</th><th>Waste kg/order</th><th>Order kg (Gross)</th><th>Remarks</th></tr></thead><tbody>'+ (rows || '<tr><td colspan="12">No components selected.</td></tr>') +'</tbody></table></section>'+
-      '<section class="section"><div class="section-head">'+reportIcon('summary')+'<span>FABRIC TYPE WISE SUMMARY</span></div><table class="fabric-type-table"><thead><tr><th>SL</th><th>FABRIC TYPE</th><th>COMPONENTS</th><th>GSM</th><th>FINAL / DZ (kg)</th><th>ORDER TOTAL (kg)</th><th>REMARKS</th></tr></thead><tbody>'+
-      '<tr><td>1</td><td>Main Body</td><td>Body</td><td>'+(components[0].g||0)+'</td><td>'+fmt(components[0].p*12*(1+Math.max(0,components[0].x)/100))+'</td><td><strong>'+fmt(components[0].p*qty*(1+Math.max(0,components[0].x)/100))+'</strong></td><td>—</td></tr>'+
-      '<tr><td>2</td><td>Rib</td><td>Collar, Cuff</td><td>'+([components[1].g,components[2].g].filter(Boolean).join(' / ')||'0')+'</td><td>'+fmt((components[1].p*12*(1+Math.max(0,components[1].x)/100))+(components[2].p*12*(1+Math.max(0,components[2].x)/100)))+'</td><td><strong>'+fmt((components[1].p*qty*(1+Math.max(0,components[1].x)/100))+(components[2].p*qty*(1+Math.max(0,components[2].x)/100)))+'</strong></td><td>—</td></tr>'+
-      '<tr><td>3</td><td>Others</td><td>Pocket, Half-moon</td><td>'+([components[3].g,components[4].g].filter(Boolean).join(' / ')||'0')+'</td><td>'+fmt((components[3].p*12*(1+Math.max(0,components[3].x)/100))+(components[4].p*12*(1+Math.max(0,components[4].x)/100)))+'</td><td><strong>'+fmt((components[3].p*qty*(1+Math.max(0,components[3].x)/100))+(components[4].p*qty*(1+Math.max(0,components[4].x)/100)))+'</strong></td><td>—</td></tr>'+
-      '</tbody></table></section>'+
+      '+fabricSummarySection+'+
 
       '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+reportIcon('components')+'<span>NET CONSUMPTION</span></div><strong>'+fmt(net)+' kg</strong><small>Before wastage · whole order</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(waste)+' kg</strong><small>Component wastage total</small></div><div class="summary-card primary"><div class="metric-head">'+reportIcon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(total)+' kg</strong><small>With wastage</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('file')+'<span>PER PIECE</span></div><strong>'+fmt(perPiece)+' kg/pcs</strong><small>Final total ÷ order quantity</small></div></div>'+
-      '<section class="section"><div class="section-head">'+reportIcon('status')+'<span>COMPONENT STATUS</span></div><div class="status-grid">'+components.map(status).join('')+'</div></section>'+
+      '<section class="comments-section"><div class="comments-title">COMMENTS</div><div class="comments-line"></div><div class="comments-line"></div></section>'+
+      '<section class="section status-section"><div class="section-head">'+reportIcon('status')+'<span>COMPONENT STATUS</span></div><div class="status-grid">'+components.map(status).join('')+'</div></section>'+
 
       '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> '+(complete?'Verify measurements, GSM, quantity, and wastage before bulk production.':'DRAFT — INCOMPLETE DATA. Fill in required measurements, GSM, and a valid order quantity before using this report for bulk production.')+' Booking allowance is separate from component wastage.</div></div>'+
       '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
       '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
-    if (typeof generatePDF === 'function') generatePDF('Knit Fabrics Consumption Report', reportHtml);
+    const filePart = value => String(value || '').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
+    const stamp = now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'_'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0')+String(now.getSeconds()).padStart(2,'0');
+    const reportFileName = ['Fabric_Consumption',filePart(val('kg-style')),filePart(val('kg-po')),reportId,reportRevision.replace(/\\s+/g,''),stamp].filter(Boolean).join('_');
+    if (typeof generatePDF === 'function') generatePDF(reportFileName, reportHtml);
     else {
       const printWindow = window.open('', '_blank');
       if (!printWindow) return;
-      printWindow.document.write('<!DOCTYPE html><html><head><title>Knit Fabrics Consumption Report</title></head><body>'+reportHtml+'</body></html>');
+      printWindow.document.write('<!DOCTYPE html><html><head><title>'+reportFileName+'</title></head><body>'+reportHtml+'</body></html>');
       printWindow.document.close(); printWindow.print();
     }
 }
