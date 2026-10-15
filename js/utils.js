@@ -248,11 +248,13 @@ function generatePDF(title, contentHtml) {
                 .consumption-table th, .consumption-table td { padding: 6px 3px; overflow-wrap: anywhere; vertical-align: middle; text-align: center; }
                 .consumption-table th { font-size: 7.5px; letter-spacing: 0; text-align: center; }
                 .consumption-table th:nth-child(1) { width: 3%; }
-                .consumption-table th:nth-child(2) { width: 15%; }
-                .consumption-table th:nth-child(3), .consumption-table th:nth-child(4), .consumption-table th:nth-child(5) { width: 7%; }
-                .consumption-table th:nth-child(6), .consumption-table th:nth-child(7) { width: 6%; }
-                .consumption-table th:nth-child(8), .consumption-table th:nth-child(9), .consumption-table th:nth-child(10), .consumption-table th:nth-child(11) { width: 9%; }
-                .consumption-table th:nth-child(12) { width: 13%; }
+                .consumption-table th:nth-child(2) { width: 12%; }
+                .consumption-table th:nth-child(3), .consumption-table th:nth-child(4), .consumption-table th:nth-child(5) { width: 5.5%; }
+                .consumption-table th:nth-child(6), .consumption-table th:nth-child(7) { width: 4.5%; }
+                .consumption-table th:nth-child(8), .consumption-table th:nth-child(9) { width: 9%; }
+                .consumption-table th:nth-child(10) { width: 8%; }
+                .consumption-table th:nth-child(11), .consumption-table th:nth-child(12) { width: 11%; }
+                .consumption-table th:nth-child(13) { width: 7%; }
                 .extra-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 14px; }
                 .extra-summary > div { border: 1px solid #dbeafe; background: #f8fafc; border-radius: 7px; padding: 9px; }
                 .extra-summary span, .approval-grid span { display: block; font-size: 7px; letter-spacing: .6px; color: #64748b; margin-bottom: 5px; }
