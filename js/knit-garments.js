@@ -357,7 +357,7 @@ function downloadKnitReport() {
       fabricSummarySection+
 
       '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+reportIcon('components')+'<span>NET CONSUMPTION</span></div><strong>'+fmt(net)+' kg</strong><small>Before wastage · whole order</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(waste)+' kg</strong><small>Component wastage total</small></div><div class="summary-card primary"><div class="metric-head">'+reportIcon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(total)+' kg</strong><small>With wastage</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('file')+'<span>PER PIECE</span></div><strong>'+fmt(perPiece)+' kg/pcs</strong><small>Final total ÷ order quantity</small></div></div>'+
-      '<section class="comments-section"><div class="comments-title">COMMENTS</div></section>'+
+      '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
       '<section class="section status-section"><div class="section-head">'+reportIcon('status')+'<span>COMPONENT STATUS</span></div><div class="status-grid">'+components.map(status).join('')+'</div></section>'+
 
       '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> '+(complete?'Verify measurements, GSM, quantity, and wastage before bulk production.':'DRAFT — INCOMPLETE DATA. Fill in required measurements, GSM, and a valid order quantity before using this report for bulk production.')+' Booking allowance is separate from component wastage.</div></div>'+
