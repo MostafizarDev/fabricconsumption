@@ -230,14 +230,15 @@ function generatePDF(title, contentHtml) {
                 .summary-card small { display: block; margin-top: 3px; font-size: 8px; color: #64748b; }
                 .summary-card.primary { background: #eff6ff; border-color: #93c5fd; }
                 .summary-card.primary strong { color: #2563eb; font-size: 21px; }
-                .status-grid { display: flex; flex-wrap: wrap; gap: 5px 12px; padding: 7px 2px; align-items: center; }
-                .status { flex: 0 0 auto; min-width: 0; white-space: nowrap; border: 0; border-radius: 0; padding: 2px 0; font-size: 8px; color: #475569; background: transparent !important; }
-                .status b { float: none; margin-left: 4px; font-weight: 500; color: #64748b; }
-                .status.included, .status.excluded { border: 0; background: transparent !important; color: #475569; }
-                .comments-section { margin: 10px 0 12px; padding: 8px 10px 7px; border: 1px solid #cbd5e1; border-radius: 6px; }
-                .comments-title { margin-bottom: 5px; color: #475569; font-size: 8px; font-weight: 700; letter-spacing: 1px; }
-                .comments-line { height: 17px; border-bottom: 1px dotted #94a3b8; }
-                .comments-line + .comments-line { margin-top: 2px; }
+                .status-grid { display: flex; flex-wrap: wrap; gap: 6px 7px; padding: 9px 10px; align-items: center; }
+                .status { display: inline-flex; align-items: center; gap: 5px; flex: 0 0 auto; min-width: 0; white-space: nowrap; border: 1px solid #e2e8f0; border-radius: 999px; padding: 4px 8px; font-size: 8px; color: #334155; background: #f8fafc !important; }
+                .status b { float: none; margin-left: 1px; font-size: 7px; font-weight: 700; }
+                .status.included { border-color: #bbf7d0; background: #f0fdf4 !important; color: #166534; }
+                .status.included b { color: #15803d; }
+                .status.excluded { border-color: #e2e8f0; background: #f8fafc !important; color: #64748b; }
+                .status.excluded b { color: #64748b; }
+                .comments-section { min-height: 27px; margin: 10px 0 12px; padding: 8px 10px 7px; border: 1px solid #cbd5e1; border-radius: 6px; }
+                .comments-title { color: #475569; font-size: 8px; font-weight: 700; letter-spacing: 1px; }
                 .status-section { margin-top: 8px; }
                 .consumption-table th:nth-child(7) { width: 6%; white-space: nowrap; font-size: 6.5px; }
                 .formula { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; }
