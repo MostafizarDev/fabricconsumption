@@ -279,7 +279,29 @@ function downloadKnitReport() {
     const qty = getVal('kg-qty'), unit = window.knitUnit || 'cm';
     const div = unit === 'inch' ? 1550000 : 10000000;
     const now = new Date();
-    const reportId = 'FC-KNIT-' + now.toISOString().slice(0,10).replace(/-/g,'') + '-001';
+    // Keep one Report ID for the same Buyer + Style + PO + Garment Type.
+    // First generated report is REV 00; each later generation for that same order increments the revision.
+    const reportKey = [val('kg-buyer'), val('kg-style'), val('kg-po'), val('kg-garment-type')].map(v => v.trim().toLowerCase()).join('|');
+    const reportStoreKey = 'fabricConsumption.knitReportRegistry.v1';
+    let reportRegistry = [];
+    try { const saved = JSON.parse(localStorage.getItem(reportStoreKey) || '[]'); if (Array.isArray(saved)) reportRegistry = saved; } catch (_) {}
+    let reportRecord = reportRegistry.find(r => r.key === reportKey && reportKey.replace(/\|/g,'').length > 0);
+    if (!reportRecord) {
+        const dateCode = now.toISOString().slice(0,10).replace(/-/g,'');
+        const seqKey = 'fabricConsumption.knitReportSequence.' + dateCode;
+        let seq = 0;
+        try { seq = parseInt(localStorage.getItem(seqKey) || '0', 10) || 0; } catch (_) {}
+        seq += 1;
+        try { localStorage.setItem(seqKey, String(seq)); } catch (_) {}
+        reportRecord = { key: reportKey || ('untitled|' + now.getTime()), id: 'FC-KNIT-' + dateCode + '-' + String(seq).padStart(3,'0'), revision: 0 };
+        reportRegistry.push(reportRecord);
+    } else {
+        reportRecord.revision = (Number(reportRecord.revision) || 0) + 1;
+    }
+    reportRegistry = reportRegistry.slice(-200);
+    try { localStorage.setItem(reportStoreKey, JSON.stringify(reportRegistry)); } catch (_) {}
+    const reportId = reportRecord.id;
+    const reportRevision = 'REV ' + String(reportRecord.revision).padStart(2,'0');
     const dateText = now.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
     const timeText = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     const components = [
@@ -301,7 +323,7 @@ function downloadKnitReport() {
     }).join('');
     const status = c => '<div class="status '+(c.on?'included':'excluded')+'">'+safe(c.name)+'<b>'+(c.on?'Included':'Not included')+'</b></div>';
     const reportHtml = '<div class="report">'+
-      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabrics Consumption</h1><div class="report-id">'+reportId+' · REV 00</div></div></div>'+
+      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabrics Consumption</h1><div class="report-id">'+reportId+' · '+reportRevision+'</div></div></div>'+
       '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+unit.toUpperCase()+'</strong></div><div><span>Order Quantity</span><strong>'+qty+' pcs</strong></div></div>'+
       '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
       '<div><span>Buyer Name</span><strong>'+(safe(val('kg-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(val('kg-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(val('kg-po'))||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(safe(val('kg-garment-type'))||'________________________')+'</strong></div></div></section>'+
@@ -316,7 +338,7 @@ function downloadKnitReport() {
       '<section class="section"><div class="section-head">'+reportIcon('status')+'<span>COMPONENT STATUS</span></div><div class="status-grid">'+components.map(status).join('')+'</div></section>'+
 
       '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> '+(complete?'Verify measurements, GSM, quantity, and wastage before bulk production.':'DRAFT — INCOMPLETE DATA. Fill in required measurements, GSM, and a valid order quantity before using this report for bulk production.')+' Booking allowance is separate from component wastage.</div></div>'+
-      '<div class="approval-grid"><div><span>PREPARED BY</span><strong>______________________</strong></div><div><span>CHECKED BY</span><strong>______________________</strong></div><div><span>APPROVED BY</span><strong>______________________</strong></div></div>'+
+      '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
       '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     if (typeof generatePDF === 'function') generatePDF('Knit Fabrics Consumption Report', reportHtml);
     else {
