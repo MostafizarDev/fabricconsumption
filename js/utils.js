@@ -237,8 +237,9 @@ function generatePDF(title, contentHtml) {
                 .status.included b { color: #15803d; }
                 .status.excluded { border-color: #e2e8f0; background: #f8fafc !important; color: #64748b; }
                 .status.excluded b { color: #64748b; }
-                .comments-section { min-height: 27px; margin: 10px 0 12px; padding: 8px 10px 7px; border: 1px solid #cbd5e1; border-radius: 6px; }
-                .comments-title { color: #475569; font-size: 8px; font-weight: 700; letter-spacing: 1px; }
+                .comments-section { min-height: 76px; margin: 10px 0 12px; padding: 9px 10px 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+                .comments-title { margin-bottom: 6px; color: #475569; font-size: 8px; font-weight: 700; letter-spacing: 1px; }
+                .comments-writing-area { height: 48px; background: repeating-linear-gradient(to bottom, transparent 0, transparent 15px, #e2e8f0 15px, #e2e8f0 16px); }
                 .status-section { margin-top: 8px; }
                 .consumption-table th:nth-child(7) { width: 6%; white-space: nowrap; font-size: 6.5px; }
                 .formula { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; }
