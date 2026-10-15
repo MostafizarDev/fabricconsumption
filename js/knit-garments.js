@@ -317,9 +317,13 @@ function downloadKnitReport() {
     const waste = active.reduce((s,c) => s + c.p * qty * Math.max(0,c.x) / 100, 0);
     const total = net + waste, perPiece = qty > 0 ? total / qty : 0, perDozen = perPiece * 12;
     const rows = active.map((c,i) => {
-      const wasteKg = c.p * qty * Math.max(0,c.x) / 100;
-      const baseDz = c.p * 12, finalDz = baseDz * (1 + Math.max(0,c.x)/100);
-      return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(c.name)+'</strong><div class="muted">'+safe(c.fabric)+'</div></td><td>'+(c.l>0?fmt(c.l,1)+' '+unit:'—')+'</td><td>'+(c.s>0?fmt(c.s,1)+' '+unit:'—')+'</td><td>'+(c.w>0?fmt(c.w,1)+' '+unit:'—')+'</td><td>'+(c.g||'—')+'</td><td>'+fmt(c.x,1)+'%</td><td>'+fmt(baseDz)+' kg</td><td>'+fmt(wasteKg)+' kg</td><td>'+fmt(finalDz)+' kg</td><td><strong>'+fmt(c.p*qty*(1+Math.max(0,c.x)/100))+' kg</strong></td><td></td></tr>';
+      const wasteRate = Math.max(0, c.x) / 100;
+      const wasteKg = c.p * qty * wasteRate;
+      const finalPcs = c.p * (1 + wasteRate);
+      const finalDz = c.p * 12 * (1 + wasteRate);
+      const orderBeforeWaste = c.p * qty;
+      const orderWithWaste = orderBeforeWaste + wasteKg;
+      return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(c.name)+'</strong><div class="muted">'+safe(c.fabric)+'</div></td><td>'+(c.l>0?fmt(c.l,1)+' '+unit:'—')+'</td><td>'+(c.s>0?fmt(c.s,1)+' '+unit:'—')+'</td><td>'+(c.w>0?fmt(c.w,1)+' '+unit:'—')+'</td><td>'+(c.g||'—')+'</td><td>'+fmt(c.x,1)+'%</td><td>'+fmt(finalPcs)+' kg</td><td>'+fmt(finalDz)+' kg</td><td>'+fmt(wasteKg)+' kg</td><td>'+fmt(orderBeforeWaste)+' kg</td><td><strong>'+fmt(orderWithWaste)+' kg</strong></td><td></td></tr>';
     }).join('');
     const status = c => '<div class="status '+(c.on?'included':'excluded')+'">'+safe(c.name)+'<b>'+(c.on?'Included':'Not included')+'</b></div>';
     const reportHtml = '<div class="report">'+
@@ -327,7 +331,7 @@ function downloadKnitReport() {
       '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+unit.toUpperCase()+'</strong></div><div><span>Order Quantity</span><strong>'+qty+' pcs</strong></div></div>'+
       '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
       '<div><span>Buyer Name</span><strong>'+(safe(val('kg-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(val('kg-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(val('kg-po'))||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(safe(val('kg-garment-type'))||'________________________')+'</strong></div></div></section>'+
-      '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component / Fabric</th><th>Length</th><th>Sleeve</th><th>Width</th><th>GSM</th><th>Waste %</th><th>Base kg/dz</th><th>Waste kg/order</th><th>Final kg/dz</th><th>Order Total kg</th><th>Remarks</th></tr></thead><tbody>'+ (rows || '<tr><td colspan="12">No components selected.</td></tr>') +'</tbody></table></section>'+
+      '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component / Fabric</th><th>Length</th><th>Sleeve</th><th>Width</th><th>GSM</th><th>Waste %</th><th>Final kg/pcs (With Wastage)</th><th>Final kg/dz (With Wastage)</th><th>Wastage kg/order</th><th>Order Total kg (Without Wastage)</th><th>Order Total kg (With Wastage)</th><th>Remarks</th></tr></thead><tbody>'+ (rows || '<tr><td colspan="13">No components selected.</td></tr>') +'</tbody></table></section>'+
       '<section class="section"><div class="section-head">'+reportIcon('summary')+'<span>FABRIC TYPE WISE SUMMARY</span></div><table class="fabric-type-table"><thead><tr><th>SL</th><th>FABRIC TYPE</th><th>COMPONENTS</th><th>GSM</th><th>FINAL / DZ (kg)</th><th>ORDER TOTAL (kg)</th><th>REMARKS</th></tr></thead><tbody>'+
       '<tr><td>1</td><td>Main Body</td><td>Body</td><td>'+(components[0].g||0)+'</td><td>'+fmt(components[0].p*12*(1+Math.max(0,components[0].x)/100))+'</td><td><strong>'+fmt(components[0].p*qty*(1+Math.max(0,components[0].x)/100))+'</strong></td><td>—</td></tr>'+
       '<tr><td>2</td><td>Rib</td><td>Collar, Cuff</td><td>'+([components[1].g,components[2].g].filter(Boolean).join(' / ')||'0')+'</td><td>'+fmt((components[1].p*12*(1+Math.max(0,components[1].x)/100))+(components[2].p*12*(1+Math.max(0,components[2].x)/100)))+'</td><td><strong>'+fmt((components[1].p*qty*(1+Math.max(0,components[1].x)/100))+(components[2].p*qty*(1+Math.max(0,components[2].x)/100)))+'</strong></td><td>—</td></tr>'+
