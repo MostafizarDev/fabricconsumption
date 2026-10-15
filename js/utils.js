@@ -230,12 +230,16 @@ function generatePDF(title, contentHtml) {
                 .summary-card small { display: block; margin-top: 3px; font-size: 8px; color: #64748b; }
                 .summary-card.primary { background: #eff6ff; border-color: #93c5fd; }
                 .summary-card.primary strong { color: #2563eb; font-size: 21px; }
-                .status-grid { display: flex; flex-wrap: nowrap; gap: 7px; padding: 11px; align-items: stretch; }
-                .status { flex: 1 1 0; min-width: 0; white-space: nowrap; border-radius: 6px; padding: 8px 7px; font-size: 8px; border: 1px solid #e2e8f0; }
-                .status b { float: none; margin-left: 5px; }
-                .status b { float: right; }
-                .status.included { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
-                .status.excluded { background: #f8fafc; color: #64748b; }
+                .status-grid { display: flex; flex-wrap: wrap; gap: 5px 12px; padding: 7px 2px; align-items: center; }
+                .status { flex: 0 0 auto; min-width: 0; white-space: nowrap; border: 0; border-radius: 0; padding: 2px 0; font-size: 8px; color: #475569; background: transparent !important; }
+                .status b { float: none; margin-left: 4px; font-weight: 500; color: #64748b; }
+                .status.included, .status.excluded { border: 0; background: transparent !important; color: #475569; }
+                .comments-section { margin: 10px 0 12px; padding: 8px 10px 7px; border: 1px solid #cbd5e1; border-radius: 6px; }
+                .comments-title { margin-bottom: 5px; color: #475569; font-size: 8px; font-weight: 700; letter-spacing: 1px; }
+                .comments-line { height: 17px; border-bottom: 1px dotted #94a3b8; }
+                .comments-line + .comments-line { margin-top: 2px; }
+                .status-section { margin-top: 8px; }
+                .consumption-table th:nth-child(7) { width: 6%; white-space: nowrap; font-size: 6.5px; }
                 .formula { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; }
                 .formula-text { padding: 11px; font-family: monospace; font-size: 9px; line-height: 1.7; color: #334155; }
                 .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
@@ -248,9 +252,9 @@ function generatePDF(title, contentHtml) {
                 .consumption-table th, .consumption-table td { padding: 6px 3px; overflow-wrap: anywhere; vertical-align: middle; text-align: center; }
                 .consumption-table th { font-size: 7.5px; letter-spacing: 0; text-align: center; }
                 .consumption-table th:nth-child(1) { width: 3%; }
-                .consumption-table th:nth-child(2) { width: 15%; }
-                .consumption-table th:nth-child(3), .consumption-table th:nth-child(4), .consumption-table th:nth-child(5) { width: 6.5%; }
-                .consumption-table th:nth-child(6), .consumption-table th:nth-child(7) { width: 5%; }
+                .consumption-table th:nth-child(2) { width: 14%; }
+                .consumption-table th:nth-child(3), .consumption-table th:nth-child(4), .consumption-table th:nth-child(5) { width: 6.2%; }
+                .consumption-table th:nth-child(6) { width: 5%; }
                 .consumption-table th:nth-child(8), .consumption-table th:nth-child(9) { width: 9%; }
                 .consumption-table th:nth-child(10) { width: 9%; }
                 .consumption-table th:nth-child(11) { width: 12%; }
