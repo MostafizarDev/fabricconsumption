@@ -243,9 +243,9 @@ function generatePDF(title, contentHtml) {
                 .fabric-type-table { table-layout: fixed; font-size: 8px; }
                 .fabric-type-table th, .fabric-type-table td { padding: 6px 5px; overflow-wrap: anywhere; }
                 .fabric-type-table th { font-size: 7px; }
-                .consumption-table { table-layout: fixed; font-size: 6.2px; }
-                .consumption-table th, .consumption-table td { padding: 4px 2px; overflow-wrap: anywhere; vertical-align: top; }
-                .consumption-table th { font-size: 6px; letter-spacing: 0; }
+                .consumption-table { table-layout: fixed; font-size: 8px; }
+                .consumption-table th, .consumption-table td { padding: 6px 3px; overflow-wrap: anywhere; vertical-align: middle; text-align: center; }
+                .consumption-table th { font-size: 7.5px; letter-spacing: 0; text-align: center; }
                 .consumption-table th:nth-child(1) { width: 3%; }
                 .consumption-table th:nth-child(2) { width: 15%; }
                 .consumption-table th:nth-child(3), .consumption-table th:nth-child(4), .consumption-table th:nth-child(5) { width: 7%; }
