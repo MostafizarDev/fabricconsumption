@@ -1697,3 +1697,16 @@ body.dark-mode .knit-recent-delete:hover { color:#fff; background:#dc2626; }
 #knit-recent-panel[hidden] { display:none !important; }
 @media(max-width:520px) { #knit-recent-panel { right:0; width:min(400px, calc(100vw - 32px)); max-height:60vh; } }
 body.dark-mode #knit-recent-panel { background:#111c32; border-color:#334155; box-shadow:0 14px 34px #0006; }
+
+
+/* Compact Recent dropdown width and buyer metadata */
+#knit-recent-panel { width:min(360px, calc(100vw - 32px)); max-width:360px; padding:10px; }
+.knit-recent-head { font-size:12px; margin-bottom:7px; }
+.knit-recent-item { gap:7px; padding:7px 0; }
+.knit-recent-info strong { font-size:10.5px; }
+.knit-recent-info small { font-size:9.5px; line-height:1.45; overflow-wrap:anywhere; }
+.knit-recent-buyer { color:#0284c7; font-weight:700; }
+.knit-recent-actions { gap:4px; }
+.knit-recent-load { padding:5px 7px; font-size:9.5px; }
+.knit-recent-delete { width:25px; height:25px; }
+@media(max-width:520px) { #knit-recent-panel { width:min(330px, calc(100vw - 24px)); max-width:330px; } }
