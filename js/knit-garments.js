@@ -317,7 +317,7 @@ function downloadKnitReport() {
 
       '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> '+(complete?'Verify measurements, GSM, quantity, and wastage before bulk production.':'DRAFT — INCOMPLETE DATA. Fill in required measurements, GSM, and a valid order quantity before using this report for bulk production.')+' Booking allowance is separate from component wastage.</div></div>'+
       '<div class="approval-grid"><div><span>PREPARED BY</span><strong>______________________</strong></div><div><span>CHECKED BY</span><strong>______________________</strong></div><div><span>APPROVED BY</span><strong>______________________</strong></div></div>'+
-      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · fabricconsumption.vercel.app</span></div></div>';
+      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     if (typeof generatePDF === 'function') generatePDF('Knit Fabrics Consumption Report', reportHtml);
     else {
       const printWindow = window.open('', '_blank');
