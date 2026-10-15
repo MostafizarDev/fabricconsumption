@@ -439,7 +439,7 @@ checkboxes.forEach(id => {
     const demoBtn=document.getElementById('knit-demo-toggle');
     if(demoBtn) demoBtn.addEventListener('click',()=>knitSetDemo(demoBtn.getAttribute('aria-pressed')!=='true'));
     const recentBtn=document.getElementById('knit-recent-open');
-    if(recentBtn) recentBtn.addEventListener('click',()=>{const p=document.getElementById('knit-recent-panel');if(p){knitRenderRecent();p.hidden=!p.hidden}});
+    if(recentBtn) recentBtn.addEventListener('click',()=>{const p=document.getElementById('knit-recent-panel');if(p){const willOpen=p.hidden;knitRenderRecent();p.hidden=!willOpen;recentBtn.classList.toggle('is-active',willOpen);recentBtn.setAttribute('aria-expanded',String(willOpen));}});
     const settingsBtn=document.getElementById('knit-report-settings');
     if(settingsBtn) settingsBtn.addEventListener('click',knitOpenReportModal);
     document.querySelectorAll('[data-close-knit-modal]').forEach(e=>e.addEventListener('click',knitCloseReportModal));
