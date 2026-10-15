@@ -1689,3 +1689,11 @@ body.dark-mode .knit-modal-fields input { background:#0b1120; border-color:#4755
 .knit-recent-delete:hover { color:#fff; background:#dc2626; border-color:#dc2626; }
 body.dark-mode .knit-recent-delete { color:#fca5a5; background:#2b1420; border-color:#7f1d1d; }
 body.dark-mode .knit-recent-delete:hover { color:#fff; background:#dc2626; }
+
+
+/* Recent dropdown: open directly below the Demo / Recent / Settings toolbar. */
+.knit-unit-toolbar { position:relative; }
+#knit-recent-panel { position:absolute; z-index:80; top:calc(100% + 8px); right:0; width:min(440px, calc(100vw - 32px)); max-width:440px; max-height:min(420px, 65vh); overflow:auto; margin:0; padding:12px; border:1px solid #dbe3ee; border-radius:12px; background:#fff; box-shadow:0 14px 34px #0f172a24; }
+#knit-recent-panel[hidden] { display:none !important; }
+@media(max-width:520px) { #knit-recent-panel { right:0; width:min(400px, calc(100vw - 32px)); max-height:60vh; } }
+body.dark-mode #knit-recent-panel { background:#111c32; border-color:#334155; box-shadow:0 14px 34px #0006; }
