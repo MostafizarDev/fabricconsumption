@@ -162,16 +162,15 @@ function generatePDF(title, contentHtml) {
     }
 
     let logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
-    // On the white PDF page, use the same blue gradient for FABRiCS as CONSUMPTiON.
-    // Keep the calculator icon and its internal white details unchanged.
+    // Keep the logo icon unchanged, but render the FABRiCS / CONSUMPTiON wordmark in black.
     logoSvg = logoSvg.replace(
-        /(<text[^>]*fill=")#FFFFFF("[^>]*>FABRiCS<\/text>)/,
-        '$1url(#blueGrad)$2'
+        /(<text[^>]*fill=")#FFFFFF("[^>]*>(?:FABRiCS|CONSUMPTiON)<\/text>)/g,
+        '$1#0F172A$2'
     );
     // Fallback for serialized SVG variants where the attribute order differs.
     logoSvg = logoSvg.replace(
-        /(<text(?=[^>]*>FABRiCS<\/text>)[^>]*?)fill="#FFFFFF"/,
-        '$1fill="url(#blueGrad)"'
+        /(<text(?=[^>]*>(?:FABRiCS|CONSUMPTiON)<\/text>)[^>]*?)fill="#FFFFFF"/g,
+        '$1fill="#0F172A"'
     );
 
     const fullHtml = `
@@ -233,8 +232,9 @@ function generatePDF(title, contentHtml) {
                 .summary-card small { display: block; margin-top: 3px; font-size: 8px; color: #64748b; }
                 .summary-card.primary { background: #eff6ff; border-color: #93c5fd; }
                 .summary-card.primary strong { color: #2563eb; font-size: 21px; }
-                .status-grid { display: flex; flex-wrap: wrap; gap: 7px; padding: 11px; }
-                .status { flex: 1 1 150px; border-radius: 6px; padding: 8px 10px; font-size: 9px; border: 1px solid #e2e8f0; }
+                .status-grid { display: flex; flex-wrap: nowrap; gap: 7px; padding: 11px; align-items: stretch; }
+                .status { flex: 1 1 0; min-width: 0; white-space: nowrap; border-radius: 6px; padding: 8px 7px; font-size: 8px; border: 1px solid #e2e8f0; }
+                .status b { float: none; margin-left: 5px; }
                 .status b { float: right; }
                 .status.included { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
                 .status.excluded { background: #f8fafc; color: #64748b; }
