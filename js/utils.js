@@ -240,6 +240,7 @@ function generatePDF(title, contentHtml) {
                 .formula-text { padding: 11px; font-family: monospace; font-size: 9px; line-height: 1.7; color: #334155; }
                 .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
                 .report-footer { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #e2e8f0; margin-top: 18px; padding-top: 9px; font-size: 8px; color: #94a3b8; }
+                .report-footer a { color: inherit; text-decoration: underline; cursor: pointer; }
                 .fabric-type-table { table-layout: fixed; font-size: 8px; }
                 .fabric-type-table th, .fabric-type-table td { padding: 6px 5px; overflow-wrap: anywhere; }
                 .fabric-type-table th { font-size: 7px; }
@@ -256,7 +257,7 @@ function generatePDF(title, contentHtml) {
                 .extra-summary > div { border: 1px solid #dbeafe; background: #f8fafc; border-radius: 7px; padding: 9px; }
                 .extra-summary span, .approval-grid span { display: block; font-size: 7px; letter-spacing: .6px; color: #64748b; margin-bottom: 5px; }
                 .extra-summary strong { font-size: 9px; color: #0f172a; }
-                .approval-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; padding: 10px 0; }
+                .approval-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; padding: 10px 0; }
                 .approval-grid > div { border-bottom: 1px solid #cbd5e1; padding-bottom: 7px; }
                 .approval-grid strong { font-size: 8px; color: #334155; }
                 .good-text { color: #047857 !important; }
