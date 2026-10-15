@@ -203,7 +203,7 @@ function generatePDF(title, contentHtml) {
                 .report-brand svg { display: block; width: 360px; height: auto; }
                 .report-header .subtitle { display: none; }
                 .brand { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; color: #0f172a; }
-                .brand span { color: #0891b2; }
+                .brand span { color: #0f172a; }
                 .subtitle { margin-top: 4px; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #64748b; }
                 .report-title { text-align: right; }
                 .eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 1.8px; color: #2563eb; margin-bottom: 3px; }
@@ -214,9 +214,9 @@ function generatePDF(title, contentHtml) {
                 .meta-grid span, .info-grid span, .summary-card span { display: block; font-size: 8px; text-transform: uppercase; letter-spacing: .8px; color: #64748b; margin-bottom: 4px; }
                 .meta-grid strong, .info-grid strong { font-size: 11px; color: #0f172a; }
                 .section { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; background: #fff; }
-                .section-head { background: #0f172a; color: #fff; padding: 8px 11px; font-size: 9px; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; gap: 7px; }
+                .section-head { background: #eff6ff; color: #10182d; padding: 8px 11px; font-size: 9px; font-weight: 700; letter-spacing: 1px; display: flex; align-items: center; gap: 7px; border-bottom: 1px solid #dbeafe; }
                 .report-icon { width: 13px; height: 13px; flex: 0 0 13px; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-                .section-head .report-icon { color: #22d3ee; }
+                .section-head .report-icon { color: #2563eb; }
                 .metric-head { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
                 .metric-head .report-icon { color: #2563eb; }
                 .metric-head span { margin-bottom: 0; }
@@ -242,6 +242,9 @@ function generatePDF(title, contentHtml) {
                 .formula-text { padding: 11px; font-family: monospace; font-size: 9px; line-height: 1.7; color: #334155; }
                 .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
                 .report-footer { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #e2e8f0; margin-top: 18px; padding-top: 9px; font-size: 8px; color: #94a3b8; }
+                .fabric-type-table { table-layout: fixed; font-size: 8px; }
+                .fabric-type-table th, .fabric-type-table td { padding: 6px 5px; overflow-wrap: anywhere; }
+                .fabric-type-table th { font-size: 7px; }
                 .consumption-table { table-layout: fixed; font-size: 6.2px; }
                 .consumption-table th, .consumption-table td { padding: 4px 2px; overflow-wrap: anywhere; vertical-align: top; }
                 .consumption-table th { font-size: 6px; letter-spacing: 0; }
