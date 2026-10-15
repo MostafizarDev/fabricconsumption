@@ -1633,3 +1633,50 @@ body.dark-mode .kg-group-totals-empty { border-color:#475569; color:#94a3b8; }
 /* Minimal icon-only expand/collapse control for fabric type cards. */
 .kg-group-total-details-btn { width:26px; height:26px; padding:4px; display:inline-flex; align-items:center; justify-content:center; border-radius:7px; }
 .kg-group-total-details-btn svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+
+
+/* Knit quick actions: Demo, Recent and report metadata */
+.knit-unit-toolbar { align-items:center; justify-content:space-between; gap:12px; }
+.unit-switch, .knit-quick-actions { display:flex; align-items:center; gap:6px; }
+.knit-quick-actions { margin-left:auto; }
+.knit-action-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:32px; padding:6px 10px; border:1px solid #cbd5e1; border-radius:9px; background:#fff; color:#334155; font:600 11px/1.2 Inter,sans-serif; cursor:pointer; transition:background .15s,border-color .15s,color .15s,box-shadow .15s; }
+.knit-action-btn svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.knit-action-btn:hover { border-color:#38bdf8; color:#0284c7; background:#f0f9ff; }
+.knit-action-btn.is-active, .knit-action-btn[aria-pressed="true"] { color:#fff; border-color:#0284c7; background:#0284c7; box-shadow:0 2px 7px #0284c733; }
+.knit-gear-btn { width:34px; padding:6px; }
+.knit-popover-panel { margin:-8px 0 14px auto; max-width:440px; padding:12px; border:1px solid #dbe3ee; border-radius:12px; background:#fff; box-shadow:0 12px 30px #0f172a18; }
+.knit-popover-panel[hidden], .knit-modal[hidden] { display:none !important; }
+.knit-recent-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:9px; font-size:13px; font-weight:700; }
+.knit-recent-empty { color:#64748b; font-size:11px; line-height:1.5; padding:8px 2px; }
+.knit-recent-item { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; border-top:1px solid #e2e8f0; }
+.knit-recent-item:first-of-type { border-top:0; }
+.knit-recent-info { min-width:0; display:flex; flex-direction:column; gap:3px; }
+.knit-recent-info strong { font-size:11px; overflow-wrap:anywhere; }
+.knit-recent-info small { font-size:10px; color:#64748b; }
+.knit-recent-load { flex-shrink:0; border:1px solid #bae6fd; color:#0369a1; background:#f0f9ff; border-radius:7px; padding:6px 9px; font:600 10px Inter,sans-serif; cursor:pointer; }
+.knit-modal { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:18px; }
+.knit-modal-backdrop { position:absolute; inset:0; background:#0f172acc; }
+.knit-modal-card { position:relative; width:min(100%,520px); max-height:90vh; overflow:auto; padding:20px; border:1px solid #dbe3ee; border-radius:16px; background:#fff; box-shadow:0 25px 80px #0004; }
+.knit-modal-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:18px; }
+.knit-modal-heading h3 { font-size:17px; color:#0f172a; }
+.knit-modal-heading p { margin-top:5px; color:#64748b; font-size:11px; }
+.knit-modal-close { border:0; background:transparent; color:#64748b; font-size:26px; line-height:1; cursor:pointer; }
+.knit-modal-fields { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+.knit-modal-fields label { display:flex; flex-direction:column; gap:6px; color:#475569; font-size:11px; font-weight:600; }
+.knit-modal-fields input { width:100%; min-width:0; padding:10px 11px; border:1px solid #cbd5e1; border-radius:8px; outline:none; background:#fff; color:#0f172a; font:500 12px Inter,sans-serif; }
+.knit-modal-fields input:focus { border-color:#38bdf8; box-shadow:0 0 0 3px #38bdf822; }
+.knit-modal-footer { display:flex; justify-content:flex-end; gap:8px; margin-top:18px; }
+body.dark-mode .knit-action-btn, body.dark-mode .knit-popover-panel { background:#111c32; border-color:#334155; color:#e2e8f0; }
+body.dark-mode .knit-action-btn.is-active, body.dark-mode .knit-action-btn[aria-pressed="true"] { background:#0284c7; border-color:#0284c7; color:#fff; }
+body.dark-mode .knit-recent-item { border-color:#334155; }
+body.dark-mode .knit-modal-card { background:#111c32; border-color:#334155; }
+body.dark-mode .knit-modal-heading h3 { color:#f8fafc; }
+body.dark-mode .knit-modal-fields input { background:#0b1120; border-color:#475569; color:#e2e8f0; }
+@media(max-width:520px) {
+ .knit-unit-toolbar { align-items:center; flex-wrap:wrap; }
+ .knit-quick-actions { gap:5px; }
+ .knit-action-btn { min-height:30px; padding:6px 8px; }
+ .knit-action-btn svg { width:15px; height:15px; }
+ .knit-modal-fields { grid-template-columns:1fr; }
+ .knit-popover-panel { max-width:100%; margin-top:0; }
+}
