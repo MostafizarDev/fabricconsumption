@@ -321,6 +321,12 @@
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('input[name="kp-method"]').forEach(input => input.addEventListener('change', setMethodUI));
     $('kp-unit')?.addEventListener('change', handleUnitChange);
+    document.querySelectorAll('[data-pant-unit]').forEach(button => button.addEventListener('click', () => {
+      if ($('kp-unit').value === button.dataset.pantUnit) return;
+      $('kp-unit').value = button.dataset.pantUnit;
+      document.querySelectorAll('[data-pant-unit]').forEach(item => item.classList.toggle('active', item === button));
+      handleUnitChange();
+    }));
     $('kp-component-checks')?.addEventListener('change', event => {
       if (event.target.matches('input[type="checkbox"]')) { renderComponentRows(); calculatePantConsumption(); }
     });
