@@ -431,42 +431,136 @@
   </div>
 </div>
 
-<!-- ==================== PAGE 2: KNIT PANT ==================== -->
+<!-- ==================== PAGE 2: UNIVERSAL PANT CONSUMPTION ==================== -->
 <div class="page" id="page-knitpant">
-  <p class="page-title">👖 Knit Pant Fabric Consumption</p>
-  <div class="unit-bar">
-    <button class="u-btn active" data-unit="cm">CM</button>
-    <button class="u-btn" data-unit="inch">Inch</button>
-  </div>
-  <div class="input-note">🟡 Yellow field = Seam Allowance</div>
-  <div class="calc-grid">
-    <div class="panel">
-      <div class="panel-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fc-svg-icon"><path d="M4 7h16v10H4z"></path><path d="M8 7v3M12 7v3M16 7v3"></path></svg> Pant Measurements</div>
-      <div class="sa-group"><div class="sa-label">A — Inseam Length (IL)</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="kp-il" placeholder="e.g., 75" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="kp-ila" placeholder="e.g., 5" value=""><span class="sa-sep">=</span><span class="sa-tot" id="kp-ilt">0.0 cm</span></div></div>
-      <div class="sa-group"><div class="sa-label">B — Center Front Rise (CFR)</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="kp-cfr" placeholder="e.g., 28" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="kp-cfra" placeholder="e.g., 8" value=""><span class="sa-sep">=</span><span class="sa-tot" id="kp-cfrt">0.0 cm</span></div></div>
-      <div class="sa-group"><div class="sa-label">C — Waist Belt Width (WBW)</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="kp-wbw" placeholder="e.g., 4" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="kp-wbwa" placeholder="e.g., 2" value=""><span class="sa-sep">=</span><span class="sa-tot" id="kp-wbwt">0.0 cm</span></div></div>
-      <div class="sa-group"><div class="sa-label">D — Half Thigh Circum (HTC)</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="kp-htc" placeholder="e.g., 36" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="kp-htca" placeholder="e.g., 6" value=""><span class="sa-sep">=</span><span class="sa-tot" id="kp-htct">0.0 cm</span></div></div>
-      <div class="field-row"><div class="f-group"><label>GSM</label><input class="inp-plain" type="text" inputmode="numeric" id="kp-gsm" placeholder="e.g., 240" value=""></div><div class="f-group"><label>Wastage %</label><input class="inp-plain" type="text" inputmode="numeric" id="kp-waste" placeholder="e.g., 5" value=""></div></div>
-      <button class="calc-btn" id="btn-calc-knitpant">Calculate</button>
+  <div class="pant-hero">
+    <div class="pant-hero-copy">
+      <span class="pant-eyebrow">FABRIC CONSUMPTION WORKSPACE</span>
+      <h1 class="pant-page-heading">Pant Fabric Consumption</h1>
+      <p>One calculator for Knit Pant, Woven Pant and Jogger styles. Select a calculation method, choose the components, and review the calculation breakdown before using the result.</p>
     </div>
-    <div class="result-panel">
-      <div class="r-card main"><div class="r-value" id="kp-r-dz">—</div><div class="r-unit">kg/dz</div></div>
-      <div class="r-card"><div class="r-row"><span>Per Piece</span><span id="kp-r-pcs">— kg</span></div></div>
-      <button class="calc-btn pdf-btn" id="btn-pdf-knitpant">📄 Download Report</button>
-    </div>
+    <div class="pant-hero-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M15 7h34l4 49H37L32 35l-5 21H12l3-49Z"/><path d="M15 15h34M32 8v27"/></svg></div>
   </div>
-  <div class="formula-note">
-    <div class="fn-title">📐 Formula Reference</div>
-    <div class="fraction-formula">
-      <span class="fn-highlight">Knit Pant Consumption:</span><br>
-      <div style="text-align: center; padding: 10px 0;">
-        (IL + CFR + WBW) × HTC × 4 × GSM × Quantity<br>
-        <span style="font-size: 16px;">─────────────────────────────────────────</span><br>
-        1,00,00,000 (CM) &nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp; 15,50,000 (Inch)
-      </div>
-      <div class="fn-body">✅ + Wastage% | ×4 for front/back panels of both legs</div>
-    </div>
+
+  <div class="pant-toolbar">
+    <div class="pant-unit-control"><label for="kp-unit">Measurement unit</label><select id="kp-unit"><option value="cm">Centimetre (CM)</option><option value="inch">Inch</option></select></div>
+    <div class="pant-toolbar-note"><span class="pant-status-dot"></span> Consumption only · No costing</div>
+    <div class="pant-toolbar-actions"><button type="button" class="pant-btn pant-btn-quiet" id="kp-demo">Load Demo</button><button type="button" class="pant-btn pant-btn-quiet" id="kp-reset">Reset</button></div>
   </div>
+
+  <section class="pant-section">
+    <div class="pant-section-heading"><div><span class="pant-step">01</span><h2>Style information</h2><p>These details will appear in your report.</p></div></div>
+    <div class="pant-info-grid">
+      <div class="pant-field"><label for="kp-buyer">Buyer / Customer <span>Optional</span></label><input id="kp-buyer" type="text" placeholder="Enter buyer name"></div>
+      <div class="pant-field"><label for="kp-style">Style / Item name</label><input id="kp-style" type="text" placeholder="e.g. Basic Fleece Jogger"></div>
+      <div class="pant-field"><label for="kp-po">PO / Order reference <span>Optional</span></label><input id="kp-po" type="text" placeholder="Enter PO number"></div>
+      <div class="pant-field"><label for="kp-pant-type">Pant construction</label><select id="kp-pant-type"><option value="Knit Pant">Knit Pant</option><option value="Woven Pant">Woven Pant</option><option value="Knit Jogger">Knit Jogger</option><option value="Woven Jogger">Woven Jogger</option><option value="Other Pant">Other Pant</option></select></div>
+      <div class="pant-field"><label for="kp-order-qty">Order quantity (pcs)</label><input id="kp-order-qty" type="number" min="1" step="1" value="1000" inputmode="numeric"></div>
+      <div class="pant-field"><label for="kp-default-gsm">Default GSM <span>Used for quick estimate</span></label><input id="kp-default-gsm" type="number" min="0" step="any" placeholder="e.g. 280"></div>
+    </div>
+  </section>
+
+  <section class="pant-section">
+    <div class="pant-section-heading"><div><span class="pant-step">02</span><h2>Calculation method</h2><p>Choose the method that matches the information you have. Results and assumptions change with the selected method.</p></div></div>
+    <div class="pant-method-grid" role="radiogroup" aria-label="Calculation method">
+      <label class="pant-method-card is-selected" data-method-card="quick">
+        <input type="radio" name="kp-method" value="quick" checked>
+        <span class="pant-method-icon">01</span><span class="pant-method-title">Quick Estimate</span><span class="pant-method-desc">Fast preliminary estimate using inseam, rise, waistband and thigh measurements.</span><span class="pant-method-tag">Preliminary only</span>
+      </label>
+      <label class="pant-method-card" data-method-card="components">
+        <input type="radio" name="kp-method" value="components">
+        <span class="pant-method-icon">02</span><span class="pant-method-title">Component-wise</span><span class="pant-method-desc">Calculate selected panels and parts using dimensions, quantity and GSM.</span><span class="pant-method-tag recommended">Recommended for estimates</span>
+      </label>
+      <label class="pant-method-card" data-method-card="marker">
+        <input type="radio" name="kp-method" value="marker">
+        <span class="pant-method-icon">03</span><span class="pant-method-title">Marker-based</span><span class="pant-method-desc">Use marker length, usable width and garments per marker for a marker-driven result.</span><span class="pant-method-tag">Best with verified marker data</span>
+      </label>
+    </div>
+  </section>
+
+  <div class="pant-workspace">
+    <div class="pant-workspace-main">
+      <section class="pant-section pant-method-panel" id="kp-quick-panel">
+        <div class="pant-section-heading"><div><span class="pant-step">03A</span><h2>Quick estimate measurements</h2><p>Use consistent finished measurements and add each allowance only once.</p></div></div>
+        <div class="pant-measure-grid">
+          <div class="pant-field"><label for="kp-il">Inseam length <span class="kp-unit-label">CM</span></label><input id="kp-il" type="number" min="0" step="any" placeholder="e.g. 75"></div>
+          <div class="pant-field"><label for="kp-ila">Inseam allowance <span class="kp-unit-label">CM</span></label><input id="kp-ila" type="number" min="0" step="any" value="0"></div>
+          <div class="pant-field"><label for="kp-cfr">Rise / crotch depth <span class="kp-unit-label">CM</span></label><input id="kp-cfr" type="number" min="0" step="any" placeholder="e.g. 28"></div>
+          <div class="pant-field"><label for="kp-cfra">Rise allowance <span class="kp-unit-label">CM</span></label><input id="kp-cfra" type="number" min="0" step="any" value="0"></div>
+          <div class="pant-field"><label for="kp-wbw">Waistband height <span class="kp-unit-label">CM</span></label><input id="kp-wbw" type="number" min="0" step="any" placeholder="e.g. 4"></div>
+          <div class="pant-field"><label for="kp-wbwa">Waistband allowance <span class="kp-unit-label">CM</span></label><input id="kp-wbwa" type="number" min="0" step="any" value="0"></div>
+          <div class="pant-field"><label for="kp-htc">Half-thigh width <span class="kp-unit-label">CM</span></label><input id="kp-htc" type="number" min="0" step="any" placeholder="e.g. 32"></div>
+          <div class="pant-field"><label for="kp-htca">Thigh allowance <span class="kp-unit-label">CM</span></label><input id="kp-htca" type="number" min="0" step="any" value="0"></div>
+          <div class="pant-field"><label for="kp-gsm">Body fabric GSM</label><input id="kp-gsm" type="number" min="0" step="any" placeholder="e.g. 280"></div>
+          <div class="pant-field"><label for="kp-waste">Wastage (%)</label><input id="kp-waste" type="number" min="0" max="100" step="any" value="5"></div>
+        </div>
+        <div class="pant-formula-box"><strong>Quick estimate formula</strong><code>[(Inseam + Rise + Waistband) × Half-thigh × 4 × GSM × 12] ÷ unit divisor</code><p>CM divisor: 10,000,000 · Inch divisor: 1,550,000. This simplified geometry is an approximation, not a marker result. The factor 4 represents a rough panel-area assumption and may not match every pattern.</p></div>
+      </section>
+
+      <section class="pant-section pant-method-panel" id="kp-components-panel" hidden>
+        <div class="pant-section-heading"><div><span class="pant-step">03B</span><h2>Choose pant components</h2><p>Tick only the components present in this style. Add custom parts when the pattern requires them.</p></div><button type="button" class="pant-btn pant-btn-quiet" id="kp-add-component">+ Custom component</button></div>
+        <div class="pant-component-checks" id="kp-component-checks">
+          <label><input type="checkbox" value="front" checked> Front leg panels <small>Usually 2 panels</small></label>
+          <label><input type="checkbox" value="back" checked> Back leg panels <small>Usually 2 panels</small></label>
+          <label><input type="checkbox" value="waistband" checked> Waistband <small>Quantity by pattern</small></label>
+          <label><input type="checkbox" value="cuff"> Bottom cuff / rib <small>Optional</small></label>
+          <label><input type="checkbox" value="pocketbag"> Pocket bag / lining <small>Optional</small></label>
+          <label><input type="checkbox" value="sidepocket"> Side pocket / facing <small>Optional</small></label>
+          <label><input type="checkbox" value="backpocket"> Back pocket <small>Optional</small></label>
+          <label><input type="checkbox" value="fly"> Fly / zipper guard <small>Optional</small></label>
+          <label><input type="checkbox" value="cargo"> Cargo pocket <small>Optional</small></label>
+          <label><input type="checkbox" value="knee"> Knee panel <small>Optional</small></label>
+          <label><input type="checkbox" value="gusset"> Gusset <small>Optional</small></label>
+          <label><input type="checkbox" value="other"> Other panel <small>Optional</small></label>
+        </div>
+        <div class="pant-table-wrap"><table class="pant-component-table"><thead><tr><th>Component / Fabric</th><th>Length (<span class="kp-unit-label">CM</span>)</th><th>Width (<span class="kp-unit-label">CM</span>)</th><th>Qty / pc</th><th>GSM</th><th>Waste %</th><th>Net kg/pc</th><th></th></tr></thead><tbody id="kp-component-rows"></tbody></table></div>
+        <div class="pant-table-note">Enter the cut-panel dimensions for one garment. Quantity means the number of identical pieces used in one garment. If measurements already include seam/hem allowance, do not add the same allowance again.</div>
+        <div class="pant-formula-box"><strong>Component-wise formula</strong><code>Area (m²) = Length(cm) × Width(cm) × Qty ÷ 10,000</code><code>Net kg/pc = Σ[Area × GSM ÷ 1,000] · Final = Net × (1 + wastage% ÷ 100)</code><p>Each selected row is calculated independently. Different fabrics should have their own GSM and wastage values.</p></div>
+      </section>
+
+      <section class="pant-section pant-method-panel" id="kp-marker-panel" hidden>
+        <div class="pant-section-heading"><div><span class="pant-step">03C</span><h2>Marker details</h2><p>Use values from the approved marker or CAD report. Do not estimate missing marker data silently.</p></div></div>
+        <div class="pant-measure-grid">
+          <div class="pant-field"><label for="kp-marker-length">Marker length <span class="kp-unit-label">CM</span></label><input id="kp-marker-length" type="number" min="0" step="any" placeholder="Enter actual marker length"></div>
+          <div class="pant-field"><label for="kp-marker-width">Usable fabric width <span class="kp-unit-label">CM</span></label><input id="kp-marker-width" type="number" min="0" step="any" placeholder="Enter usable width"></div>
+          <div class="pant-field"><label for="kp-marker-pcs">Garments in marker</label><input id="kp-marker-pcs" type="number" min="1" step="1" value="1"></div>
+          <div class="pant-field"><label for="kp-marker-gsm">Fabric GSM</label><input id="kp-marker-gsm" type="number" min="0" step="any" placeholder="e.g. 280"></div>
+          <div class="pant-field"><label for="kp-marker-waste">Additional wastage (%)</label><input id="kp-marker-waste" type="number" min="0" max="100" step="any" value="0"></div>
+        </div>
+        <div class="pant-formula-box"><strong>Marker-based formula</strong><code>Length / garment = Marker length ÷ garments in marker</code><code>Approx. kg/pc = Marker length(m) × usable width(m) × GSM ÷ 1,000 ÷ garments in marker</code><p>Additional wastage is added only if it is not already included in the marker efficiency/consumption. The width × length calculation is an area-based weight estimate; marker length per garment is the primary marker output.</p></div>
+      </section>
+
+      <section class="pant-section">
+        <div class="pant-section-heading"><div><span class="pant-step">04</span><h2>Calculation checks</h2><p>Review these checks before relying on the result.</p></div></div>
+        <div id="kp-validation" class="pant-validation" aria-live="polite"><div class="pant-validation-item info">Select a method and enter the required measurements.</div></div>
+        <div class="pant-actions"><button type="button" class="pant-btn pant-btn-primary" id="btn-calc-knitpant">Calculate consumption</button><button type="button" class="pant-btn pant-btn-secondary" id="btn-pdf-knitpant">Export PDF report</button></div>
+      </section>
+    </div>
+
+    <aside class="pant-summary-column">
+      <section class="pant-summary-card">
+        <div class="pant-summary-top"><span>LIVE SUMMARY</span><span class="pant-live-dot"></span></div>
+        <h2>Fabric consumption</h2>
+        <p class="pant-summary-caption" id="kp-summary-method">Quick Estimate · preliminary</p>
+        <div class="pant-primary-result"><span>Per garment</span><strong id="kp-r-pc">— kg</strong></div>
+        <div class="pant-summary-metrics"><div><span>Per dozen</span><strong id="kp-r-dz">— kg</strong></div><div><span>Order total</span><strong id="kp-r-order">— kg</strong></div></div>
+        <div class="pant-summary-metrics marker-only" id="kp-marker-results" hidden><div><span>Length / garment</span><strong id="kp-r-meter">— m</strong></div><div><span>Order length</span><strong id="kp-r-order-meter">— m</strong></div></div>
+        <div class="pant-summary-breakdown"><div><span>Before wastage</span><strong id="kp-r-before">— kg/pc</strong></div><div><span>Wastage added</span><strong id="kp-r-waste">— kg/pc</strong></div><div><span>Selected method</span><strong id="kp-r-method">Quick Estimate</strong></div></div>
+        <div class="pant-summary-warning" id="kp-result-note">Enter the required data to calculate. Incomplete inputs will not produce a confirmed result.</div>
+      </section>
+      <section class="pant-summary-card pant-breakdown-card"><div class="pant-section-heading"><div><h2>Component breakdown</h2><p>Consumption contribution by selected part.</p></div></div><div id="kp-breakdown-list" class="pant-breakdown-list"><p class="pant-empty">No calculated components yet.</p></div></section>
+    </aside>
+  </div>
+
+  <section class="pant-section pant-reference">
+    <div class="pant-section-heading"><div><span class="pant-step">05</span><h2>Formula reference & assumptions</h2><p>Understand what each method calculates before approving a consumption figure.</p></div></div>
+    <div class="pant-reference-grid">
+      <article><h3>01 · Quick Estimate</h3><p>Uses a simplified geometric estimate from inseam, rise, waistband height and half-thigh. Best for a fast first estimate; it does not model every panel shape.</p></article>
+      <article><h3>02 · Component-wise</h3><p>Calculates area and weight for each selected cut component. Useful when dimensions and GSM are known. Accuracy depends on correct panel dimensions and quantities.</p></article>
+      <article><h3>03 · Marker-based</h3><p>Uses approved marker length and garments per marker to derive length per garment. Fabric width and GSM provide an area-based kg estimate; confirm the final result against CAD/production data.</p></article>
+    </div>
+    <div class="pant-disclaimer"><strong>Accuracy note:</strong> no single simplified formula can guarantee exact consumption for every knit, woven or jogger style. Validate the first calculation against an approved pattern/marker or actual factory consumption. Costing is intentionally excluded from this page.</div>
+  </section>
 </div>
 
 <!-- ==================== PAGE 3: WOVEN SHIRT ==================== -->
