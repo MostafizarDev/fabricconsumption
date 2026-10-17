@@ -21,6 +21,7 @@
   const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   let lastResult = null;
   let customCount = 0;
+  let currentUnit = 'cm';
 
   const componentDefs = {
     front: { name: 'Front leg panels', qty: 2, length: 75, width: 32, gsm: 280, waste: 5 },
@@ -223,6 +224,30 @@
     document.querySelectorAll('#page-knitpant .kp-unit-label').forEach(node => node.textContent = unitLabel());
   }
 
+  function handleUnitChange() {
+    const nextUnit = $('kp-unit').value;
+    if (nextUnit !== currentUnit) {
+      const factor = nextUnit === 'inch' ? (1 / 2.54) : 2.54;
+      const ids = ['kp-il','kp-ila','kp-cfr','kp-cfra','kp-wbw','kp-wbwa','kp-htc','kp-htca','kp-marker-length','kp-marker-width'];
+      ids.forEach(id => {
+        const input = $(id);
+        if (input && input.value.trim() !== '') {
+          const n = Number(input.value);
+          if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\\.?0+$/, '');
+        }
+      });
+      document.querySelectorAll('#kp-component-rows input[data-field="length"], #kp-component-rows input[data-field="width"]').forEach(input => {
+        if (input.value.trim() !== '') {
+          const n = Number(input.value);
+          if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\\.?0+$/, '');
+        }
+      });
+      currentUnit = nextUnit;
+    }
+    updateUnitLabels();
+    calculatePantConsumption();
+  }
+
   function addCustomComponent() {
     customCount += 1;
     const key = 'custom-' + customCount;
@@ -242,6 +267,7 @@
     $('kp-order-qty').value = 1000;
     $('kp-default-gsm').value = 280;
     $('kp-unit').value = 'cm';
+    currentUnit = 'cm';
     $('kp-il').value = 75; $('kp-ila').value = 2;
     $('kp-cfr').value = 28; $('kp-cfra').value = 2;
     $('kp-wbw').value = 4; $('kp-wbwa').value = 1;
@@ -266,6 +292,7 @@
     ['kp-buyer','kp-style','kp-po'].forEach(id => $(id).value = '');
     $('kp-pant-type').value = 'Knit Pant';
     $('kp-unit').value = 'cm';
+    currentUnit = 'cm';
     renderComponentRows();
     updateUnitLabels();
     setMethodUI();
@@ -293,15 +320,13 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('input[name="kp-method"]').forEach(input => input.addEventListener('change', setMethodUI));
-    $('kp-unit')?.addEventListener('change', () => { updateUnitLabels(); calculatePantConsumption(); });
+    $('kp-unit')?.addEventListener('change', handleUnitChange);
     $('kp-component-checks')?.addEventListener('change', event => {
       if (event.target.matches('input[type="checkbox"]')) { renderComponentRows(); calculatePantConsumption(); }
     });
     $('kp-add-component')?.addEventListener('click', addCustomComponent);
     $('kp-demo')?.addEventListener('click', loadDemo);
     $('kp-reset')?.addEventListener('click', resetAll);
-    $('btn-calc-knitpant')?.addEventListener('click', calculatePantConsumption);
-    $('btn-pdf-knitpant')?.addEventListener('click', downloadKnitPantReport);
     document.querySelectorAll('#page-knitpant input, #page-knitpant select').forEach(input => {
       if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po') input.addEventListener('input', calculatePantConsumption);
       if (['kp-pant-type','kp-buyer','kp-style','kp-po'].includes(input.id)) input.addEventListener('input', () => { if (lastResult) { lastResult.type = $('kp-pant-type').value; lastResult.buyer = $('kp-buyer').value; lastResult.style = $('kp-style').value; lastResult.po = $('kp-po').value; } });
