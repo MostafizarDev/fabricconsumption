@@ -1873,3 +1873,13 @@ body.dark-mode #page-knitpant .pant-method-card.is-selected { background:#102b40
 #page-knitpant { width:100%; max-width:1120px; margin-left:auto; margin-right:auto; }
 #page-knitpant .pant-hero { margin:0 0 16px; }
 @media(max-width:560px) { #page-knitpant { max-width:100%; } }
+
+
+/* Knit Pant should align to the same content width as Knit Garments */
+#page-knitpant { width:100%; max-width:1200px; margin-left:auto; margin-right:auto; }
+#page-knitpant .pant-method-grid { align-items:stretch; gap:10px; }
+#page-knitpant .pant-method-card { min-height:94px; height:auto; padding:12px 14px; gap:5px; border-radius:9px; justify-content:center; }
+#page-knitpant .pant-method-title { font-size:12px; line-height:1.35; font-weight:700; }
+#page-knitpant .pant-method-desc { font-size:10px; line-height:1.45; }
+#page-knitpant .pant-method-card input { top:11px; right:11px; }
+@media(max-width:820px) { #page-knitpant { max-width:100%; } #page-knitpant .pant-method-card { min-height:82px; } }
