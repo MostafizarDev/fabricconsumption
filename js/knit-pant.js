@@ -233,13 +233,13 @@
         const input = $(id);
         if (input && input.value.trim() !== '') {
           const n = Number(input.value);
-          if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\\.?0+$/, '');
+          if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\.?0+$/, '');
         }
       });
       document.querySelectorAll('#kp-component-rows input[data-field="length"], #kp-component-rows input[data-field="width"]').forEach(input => {
         if (input.value.trim() !== '') {
           const n = Number(input.value);
-          if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\\.?0+$/, '');
+          if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\.?0+$/, '');
         }
       });
       currentUnit = nextUnit;
