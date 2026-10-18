@@ -1940,3 +1940,15 @@ body.dark-mode #page-knitpant .page-title { color:#e2e8f0; }
   #page-knitpant .pant-method-grid { grid-template-columns:1fr 1fr; }
   #page-knitpant .pant-method-card { min-height:76px; padding:10px; }
 }
+
+/* Knit Pant: Knit Garments-inspired component-first workspace */
+#page-knitpant .pant-method-panel[hidden] { display:block !important; }
+#page-knitpant .pant-method-grid { display:none !important; }
+#page-knitpant #kp-components-panel { margin-top:14px; }
+#page-knitpant .pant-component-checks { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+#page-knitpant .pant-component-checks label { display:flex; align-items:center; gap:7px; min-height:38px; padding:8px 10px; border:1px solid var(--border,#e2e8f0); border-radius:7px; background:var(--card-bg,#fff); font-size:11px; }
+#page-knitpant .pant-component-checks label small { margin-left:auto; color:var(--muted,#64748b); font-size:9px; }
+#page-knitpant .pant-component-checks input { accent-color:var(--accent,#0284c7); }
+#page-knitpant .pant-method-panel .pant-formula-box { margin-top:12px; }
+@media(max-width:700px){#page-knitpant .pant-component-checks{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:420px){#page-knitpant .pant-component-checks{grid-template-columns:1fr;}}
