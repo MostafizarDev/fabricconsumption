@@ -450,10 +450,27 @@
   <p class="page-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fc-svg-icon fc-pants-icon"><path d="M6 3h12l1.5 18h-5L12 13l-2.5 8H4.5L6 3Z"></path><path d="M6 6h12"></path><path d="M12 3v10"></path></svg> Knit Pant Fabric Consumption</p>
   <p class="page-desc">Quick Estimate and Component-wise calculations for Knit Pant, Woven Pant and Jogger styles.</p>
 
-  <div class="unit-bar pant-toolbar">
+  <div class="unit-bar knit-unit-toolbar pant-toolbar knit-pant-toolbar">
     <div class="unit-switch pant-unit-switch"><button type="button" class="u-btn active" data-pant-unit="cm">CM</button><button type="button" class="u-btn" data-pant-unit="inch">Inch</button></div><input type="hidden" id="kp-unit" value="cm">
-    <div class="pant-toolbar-note"><span class="pant-status-dot"></span> Fabric consumption</div>
-    <div class="pant-toolbar-actions"><button type="button" class="pant-btn pant-btn-quiet" id="kp-demo">Load Demo</button><button type="button" class="pant-btn pant-btn-quiet" id="kp-reset">Reset</button></div>
+    <div class="knit-quick-actions">
+      <button type="button" class="knit-action-btn" id="kp-demo" aria-pressed="false" title="Show demo test values"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0-2-3l-5-9V3M8 15h8"/></svg><span>Demo</span></button>
+      <button type="button" class="knit-action-btn" id="kp-recent-open" title="Recent calculations" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
+      <button type="button" class="knit-action-btn knit-gear-btn" id="kp-report-settings" title="Report information" aria-label="Report information settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.8h4l.6 2.1a7.6 7.6 0 0 1 1.8.8l2.1-.9 2 3.5-1.6 1.5a7.6 7.6 0 0 1 0 2.1l1.6 1.5-2 3.5-2.1-.9a7.6 7.6 0 0 1-1.8.8l-.6 2.1h-4l-.6-2.1a7.6 7.6 0 0 1-1.8-.8l-2.1.9-2-3.5 1.6-1.5a7.6 7.6 0 0 1 0-2.1L3.5 8.3l2-3.5 2.1.9a7.6 7.6 0 0 1 1.8-.8L10 2.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+    </div>
+    <div id="kp-recent-panel" class="knit-popover-panel" hidden></div>
+  </div>
+  <div id="kp-report-modal" class="knit-modal" hidden>
+    <div class="knit-modal-backdrop" data-close-kp-modal></div>
+    <section class="knit-modal-card" role="dialog" aria-modal="true" aria-labelledby="kp-report-modal-title">
+      <div class="knit-modal-heading"><div><h3 id="kp-report-modal-title">Report Information</h3><p>These details will appear in the PDF report.</p></div><button type="button" class="knit-modal-close" data-close-kp-modal aria-label="Close">×</button></div>
+      <div class="knit-modal-fields">
+        <label>Buyer Name<input id="kp-report-buyer" type="text" placeholder="Enter buyer name"></label>
+        <label>Style Name / Style No.<input id="kp-report-style" type="text" placeholder="Enter style name or number"></label>
+        <label>PO / Order No.<input id="kp-report-po" type="text" placeholder="Enter PO or order number"></label>
+        <label>Pant Type<input id="kp-report-type" type="text" placeholder="e.g., Knit Jogger"></label>
+      </div>
+      <div class="knit-modal-footer"><button type="button" class="knit-action-btn" data-close-kp-modal>Cancel</button><button type="button" class="knit-action-btn is-active" id="kp-report-save">Save Details</button></div>
+    </section>
   </div>
 
   <section class="pant-section">
@@ -519,7 +536,7 @@
       <section class="pant-section">
         <div class="pant-section-heading"><div><h2>Calculation Checks</h2><p>Review input checks before using the result.</p></div></div>
         <div id="kp-validation" class="pant-validation" aria-live="polite"><div class="pant-validation-item info">Select a method and enter the required measurements.</div></div>
-        <div class="pant-actions"><button type="button" class="pant-btn pant-btn-primary" id="btn-calc-knitpant">Calculate consumption</button><button type="button" class="pant-btn pant-btn-secondary" id="btn-pdf-knitpant">Export PDF report</button></div>
+        <div class="pant-actions"><button type="button" class="pant-btn pant-btn-primary" id="btn-calc-knitpant">Calculate consumption</button><button type="button" class="pant-btn pant-btn-secondary" id="btn-pdf-knitpant">📄 Download Full Report (PDF)</button></div>
       </section>
     </div>
 
