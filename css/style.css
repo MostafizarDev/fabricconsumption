@@ -2011,3 +2011,14 @@ body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-break
 #page-knitpant .pant-total-fabric strong { display:block; width:100%; color:#fff; font-size:29px; line-height:1.2; text-align:center; }
 #page-knitpant .pant-total-fabric .pant-total-fabric-unit { display:block; width:100%; color:#cbd5e1; font-size:11px; text-align:center; }
 #page-knitpant .pant-total-fabric .pant-total-fabric-perpcs { display:block; width:100%; color:#cbd5e1; font-size:11px; text-align:center; }
+
+
+/* Knit Pant inputs: combine Quick Estimate and Fabric Components into one visual section */
+#page-knitpant #kp-quick-panel,
+#page-knitpant #kp-components-panel { border-radius:0; box-shadow:none; }
+#page-knitpant #kp-quick-panel { margin-bottom:0; padding-bottom:14px; border-bottom:0; border-bottom-left-radius:0; border-bottom-right-radius:0; }
+#page-knitpant #kp-components-panel { margin-top:0; padding-top:14px; border-top:1px solid var(--border,#e2e8f0); border-top-left-radius:0; border-top-right-radius:0; }
+#page-knitpant #kp-quick-panel .pant-section-heading p,
+#page-knitpant #kp-components-panel .pant-section-heading p { display:none; }
+#page-knitpant #kp-quick-panel .pant-section-heading,
+#page-knitpant #kp-components-panel .pant-section-heading { margin-bottom:12px; }
