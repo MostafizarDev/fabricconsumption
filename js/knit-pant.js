@@ -502,11 +502,12 @@
         calculatePantConsumption();
       }
     });
-    $('kp-add-component-select')?.addEventListener('change', event => {
-      const key = event.target.value;
+    $('kp-confirm-add-component')?.addEventListener('click', () => {
+      const select = $('kp-add-component-select');
+      const key = select?.value;
       if (!key) return;
       addComponentByKey(key);
-      event.target.value = '';
+      select.value = '';
     });
     $('kp-add-component')?.addEventListener('click', () => addCustomComponent());
     $('kp-demo')?.addEventListener('click', () => {
