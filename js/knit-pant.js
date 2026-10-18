@@ -50,7 +50,33 @@
   }
   function setResultText(id, value) { const node = $(id); if (node) node.textContent = value; }
 
+  function renderSelectedComponentChips() {
+    const container = $('kp-selected-components');
+    if (!container) return;
+    const selected = Array.from(document.querySelectorAll('#kp-component-checks input[type="checkbox"]:checked'));
+    container.innerHTML = selected.map(check => {
+      const d = componentDefs[check.value] || { name: check.dataset.name || 'Custom component' };
+      return '<div class="kp-selected-component" data-selected-component="' + escapeHtml(check.value) + '"><span class="kp-selected-check" aria-hidden="true">✓</span><span class="kp-selected-name">' + escapeHtml(d.name) + '</span><button type="button" class="kp-selected-remove" data-remove-selected-component="' + escapeHtml(check.value) + '" aria-label="Remove ' + escapeHtml(d.name) + '" title="Remove component">×</button></div>';
+    }).join('');
+    container.querySelectorAll('[data-remove-selected-component]').forEach(button => button.addEventListener('click', () => {
+      const key = button.dataset.removeSelectedComponent;
+      const cb = document.querySelector('#kp-component-checks input[value="' + CSS.escape(key) + '"]');
+      if (cb) cb.checked = false;
+      renderComponentRows();
+      activateMethod('components');
+      calculatePantConsumption();
+    }));
+    const select = $('kp-add-component-select');
+    if (select) {
+      Array.from(select.options).forEach(option => {
+        if (option.value) option.disabled = selected.some(cb => cb.value === option.value);
+      });
+      if (select.value && selected.some(cb => cb.value === select.value)) select.value = '';
+    }
+  }
+
   function renderComponentRows() {
+    renderSelectedComponentChips();
     const body = $('kp-component-rows');
     if (!body) return;
     const selected = Array.from(document.querySelectorAll('#kp-component-checks input[type="checkbox"]:checked'));
@@ -474,6 +500,12 @@
         renderComponentRows();
         calculatePantConsumption();
       }
+    });
+    $('kp-add-component-select')?.addEventListener('change', event => {
+      const key = event.target.value;
+      if (!key) return;
+      addComponentByKey(key);
+      event.target.value = '';
     });
     $('kp-add-component')?.addEventListener('click', () => addCustomComponent());
     $('kp-demo')?.addEventListener('click', () => {
