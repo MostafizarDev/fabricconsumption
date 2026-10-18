@@ -495,15 +495,15 @@
       </section>
 
       <section class="pant-section pant-method-panel" id="kp-components-panel">
-        <div class="pant-section-heading"><div><h2>Fabric Components</h2><p>Start with the main panels. Add other parts only when your style needs them.</p></div></div>
+        <div class="pant-section-heading"><div><h2>Additional Components</h2><p>Select only the components needed for this pant style.</p></div></div>
         <div class="pant-component-toolbar">
-          <div class="pant-component-checks" id="kp-component-checks">
-            <label><input type="checkbox" value="front" checked> Front leg panels</label>
-            <label><input type="checkbox" value="back" checked> Back leg panels</label>
-            <label><input type="checkbox" value="waistband" checked> Waistband</label>
-          </div>
+          <div class="pant-component-checks" id="kp-component-checks"></div>
           <div class="pant-add-component-row">
-            <select id="kp-add-component-select" aria-label="Choose an additional component">
+            <select id="kp-add-component-select" aria-label="Choose a component">
+              <option value="" selected disabled>Select component</option>
+              <option value="front">Front leg panels</option>
+              <option value="back">Back leg panels</option>
+              <option value="waistband">Waistband</option>
               <option value="cuff">Bottom cuff / rib</option>
               <option value="pocketbag">Pocket bag / lining</option>
               <option value="sidepocket">Side pocket / facing</option>
@@ -512,7 +512,7 @@
               <option value="cargo">Cargo pocket</option>
               <option value="knee">Knee panel</option>
               <option value="gusset">Gusset</option>
-              <option value="custom">Custom</option>
+              <option value="custom">Custom component</option>
             </select>
             <button type="button" class="pant-btn pant-btn-quiet" id="kp-add-component">+ Add Component</button>
           </div>
