@@ -129,16 +129,17 @@
   function updateKnitGarmentStyleSummary(rows, orderQty, beforeKg, methodName) {
     const container = $('kp-summary-components');
     if (!container) return;
-    if (methodName && methodName.startsWith('Quick')) {
-      container.innerHTML = '';
-      return;
-    }
+    if (methodName && methodName.startsWith('Quick')) { container.innerHTML = ''; return; }
     const esc = value => escapeHtml(String(value || 'Component'));
     const list = rows || [];
     container.innerHTML = list.map(row => {
-      const perPc = Number(row.kg) || Number(row.finalKg) || 0;
-      const totalOrderKg = perPc * orderQty;
-      return '<div class="pant-kg-component-row"><span class="pant-kg-component-name"><span class="pant-kg-icon">◈</span>' + esc(row.name) + '</span><strong>' + fmt(totalOrderKg,3) + ' kg/qty | ' + fmt(perPc,3) + ' kg/pcs</strong></div>';
+      const hasResult = Number.isFinite(Number(row.kg)) && row.kg !== null && row.kg !== '';
+      const perPc = hasResult ? Number(row.kg) : (Number(row.finalKg) || 0);
+      const totalOrderKg = perPc * (Number(orderQty) || 0);
+      const valueText = hasResult || row.finalKg != null
+        ? fmt(totalOrderKg,3) + ' kg/qty | ' + fmt(perPc,3) + ' kg/pcs'
+        : '— kg/qty | — kg/pcs';
+      return '<div class="pant-kg-component-row"><span class="pant-kg-component-name">' + esc(row.name) + '</span><strong>' + valueText + '</strong></div>';
     }).join('');
   }
   function resetSummary() {
@@ -149,6 +150,8 @@
     const breakdown = $('kp-breakdown-list');
     if (breakdown) breakdown.innerHTML = '<p class="pant-empty">No calculated components yet.</p>';
     lastResult = null;
+    const selectedRows = collectComponentRows().map(row => ({name: row.name}));
+    updateKnitGarmentStyleSummary(selectedRows, val('kp-order-qty', 0), 0, method() === 'quick' ? 'Quick Estimate' : 'Component-wise');
   }
 
   function publishResult({ beforeKg, afterKg, orderQty, methodName, note, meterPerPc = null, orderMeter = null, rows = [] }) {
