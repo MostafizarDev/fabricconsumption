@@ -2003,3 +2003,11 @@ body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-break
 #page-knitpant .pant-summary-card:first-child .pant-primary-result { margin-top:0; padding:18px 15px; text-align:center; justify-items:center; }
 #page-knitpant .pant-summary-card:first-child .pant-primary-result span { width:100%; text-align:center; }
 #page-knitpant .pant-summary-card:first-child .pant-primary-result strong { width:100%; text-align:center; }
+
+
+/* Knit Pant Total Fabric result card — mirror Knit Garments */
+#page-knitpant .pant-summary-card:first-child .pant-primary-result.pant-total-fabric { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:16px 12px; text-align:center; }
+#page-knitpant .pant-total-fabric .pant-total-fabric-title { display:block; width:100%; color:#cbd5e1; font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; text-align:center; }
+#page-knitpant .pant-total-fabric strong { display:block; width:100%; color:#fff; font-size:29px; line-height:1.2; text-align:center; }
+#page-knitpant .pant-total-fabric .pant-total-fabric-unit { display:block; width:100%; color:#cbd5e1; font-size:11px; text-align:center; }
+#page-knitpant .pant-total-fabric .pant-total-fabric-perpcs { display:block; width:100%; color:#cbd5e1; font-size:11px; text-align:center; }
