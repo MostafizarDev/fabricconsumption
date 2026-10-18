@@ -491,20 +491,28 @@
       </section>
 
       <section class="pant-section pant-method-panel" id="kp-components-panel">
-        <div class="pant-section-heading"><div><h2>Fabric Components</h2><p>Select the parts used in this style, or add your own component.</p></div><button type="button" class="pant-btn pant-btn-quiet" id="kp-add-component">+ Add Component</button></div>
-        <div class="pant-component-checks" id="kp-component-checks">
-          <label><input type="checkbox" value="front" checked> Front leg panels <small>Usually 2 panels</small></label>
-          <label><input type="checkbox" value="back" checked> Back leg panels <small>Usually 2 panels</small></label>
-          <label><input type="checkbox" value="waistband" checked> Waistband <small>Quantity by pattern</small></label>
-          <label><input type="checkbox" value="cuff"> Bottom cuff / rib <small>Optional</small></label>
-          <label><input type="checkbox" value="pocketbag"> Pocket bag / lining <small>Optional</small></label>
-          <label><input type="checkbox" value="sidepocket"> Side pocket / facing <small>Optional</small></label>
-          <label><input type="checkbox" value="backpocket"> Back pocket <small>Optional</small></label>
-          <label><input type="checkbox" value="fly"> Fly / zipper guard <small>Optional</small></label>
-          <label><input type="checkbox" value="cargo"> Cargo pocket <small>Optional</small></label>
-          <label><input type="checkbox" value="knee"> Knee panel <small>Optional</small></label>
-          <label><input type="checkbox" value="gusset"> Gusset <small>Optional</small></label>
-          <label><input type="checkbox" value="other"> Other panel <small>Optional</small></label>
+        <div class="pant-section-heading"><div><h2>Fabric Components</h2><p>Start with the main panels. Add other parts only when your style needs them.</p></div></div>
+        <div class="pant-component-toolbar">
+          <div class="pant-component-checks" id="kp-component-checks">
+            <label><input type="checkbox" value="front" checked> Front leg panels</label>
+            <label><input type="checkbox" value="back" checked> Back leg panels</label>
+            <label><input type="checkbox" value="waistband" checked> Waistband</label>
+          </div>
+          <div class="pant-add-component-row">
+            <select id="kp-add-component-select" aria-label="Choose an additional component">
+              <option value="cuff">Bottom cuff / rib</option>
+              <option value="pocketbag">Pocket bag / lining</option>
+              <option value="sidepocket">Side pocket / facing</option>
+              <option value="backpocket">Back pocket</option>
+              <option value="fly">Fly / zipper guard</option>
+              <option value="cargo">Cargo pocket</option>
+              <option value="knee">Knee panel</option>
+              <option value="gusset">Gusset</option>
+              <option value="other">Other panel</option>
+            </select>
+            <button type="button" class="pant-btn pant-btn-quiet" id="kp-add-component">+ Add Component</button>
+            <button type="button" class="pant-btn pant-btn-quiet" id="kp-add-custom-component">+ Custom</button>
+          </div>
         </div>
         <div class="pant-table-wrap"><table class="pant-component-table"><thead><tr><th>Component / Fabric</th><th>Length (<span class="kp-unit-label">CM</span>)</th><th>Width (<span class="kp-unit-label">CM</span>)</th><th>Qty / pc</th><th>GSM</th><th>Waste %</th><th>Net kg/pc</th><th></th></tr></thead><tbody id="kp-component-rows"></tbody></table></div>
         <div class="pant-table-note"><strong>Sample data:</strong> the initial row values are demonstration inputs for testing the calculator. Replace them with approved pattern measurements before using any result for production. Quantity means identical pieces per garment. If measurements already include seam/hem allowance, do not add the same allowance again.</div>
