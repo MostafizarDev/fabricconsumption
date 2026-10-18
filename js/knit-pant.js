@@ -57,16 +57,22 @@
     body.innerHTML = selected.map(check => {
       const d = componentDefs[check.value] || { name: check.dataset.name || 'Custom component', qty: 1, length: 0, width: 0, gsm: val('kp-default-gsm', 0), waste: 5 };
       const key = check.value;
-      return '<tr data-component-row="' + escapeHtml(key) + '">' +
-        '<td><input class="pant-row-name" data-field="name" aria-label="Component name" value="' + escapeHtml(d.name) + '"></td>' +
-        '<td><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="e.g., 70" value="' + (d.length || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="e.g., 6" value="' + (d.lengthAllowance ?? '') + '"></div></td>' +
-        '<td><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="e.g., 32" value="' + (d.width || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="e.g., 2" value="' + (d.widthAllowance ?? '') + '"></div></td>' +
-        '<td><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" value="' + (d.qty ?? 1) + '"></td>' +
-        '<td><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" value="' + (d.gsm || val('kp-default-gsm', 0) || '') + '"></td>' +
-        '<td><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></td>' +
-        '<td class="pant-row-result" data-field="result">—</td><td><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></td></tr>';
+      return '<tr data-component-row="' + escapeHtml(key) + '"><td colspan="2">' +
+        '<div class="pant-component-card">' +
+          '<div class="pant-component-card-head"><input class="pant-row-name" data-field="name" aria-label="Component name" value="' + escapeHtml(d.name) + '"><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></div>' +
+          '<div class="pant-component-measure-grid">' +
+            '<label class="pant-component-measure"><span>Length + L. Allow. (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="Length" value="' + (d.length || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="Allow." value="' + (d.lengthAllowance ?? '') + '"></div></label>' +
+            '<label class="pant-component-measure"><span>Width + W. Allow. (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="Width" value="' + (d.width || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="Allow." value="' + (d.widthAllowance ?? '') + '"></div></label>' +
+          '</div>' +
+          '<div class="pant-component-meta-grid">' +
+            '<label><span>Qty / pc</span><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" value="' + (d.qty ?? 1) + '"></label>' +
+            '<label><span>GSM</span><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" value="' + (d.gsm || val('kp-default-gsm', 0) || '') + '"></label>' +
+            '<label><span>Waste %</span><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></label>' +
+            '<div class="pant-component-net"><span>Net kg/pc</span><strong class="pant-row-result" data-field="result">—</strong></div>' +
+          '</div>' +
+        '</div></td></tr>';
     }).join('');
-    if (!selected.length) body.innerHTML = '<tr><td colspan="8" class="pant-no-rows">Select at least one component above.</td></tr>';
+    if (!selected.length) body.innerHTML = '<tr><td colspan="2" class="pant-no-rows">Select at least one component above.</td></tr>';
     body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
       const row = input.closest('tr[data-component-row]');
       if (row && input.dataset.field === 'name') {
