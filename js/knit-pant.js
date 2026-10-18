@@ -72,7 +72,7 @@
           '</div>' +
         '</div></td></tr>';
     }).join('');
-    if (!selected.length) body.innerHTML = '<tr><td colspan="2" class="pant-no-rows"><span class="pant-empty-icon" aria-hidden="true">＋</span><strong>No components added yet</strong><span>Choose a component above to enter its measurements.</span></td></tr>';
+    if (!selected.length) body.innerHTML = '<tr><td colspan="2" class="pant-no-rows">Select components above to add measurements.</td></tr>';
     body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
       const row = input.closest('tr[data-component-row]');
       if (row && input.dataset.field === 'name') {
@@ -330,7 +330,7 @@
     $('kp-htc').value = 32; $('kp-htca').value = 2;
     $('kp-gsm').value = 280; $('kp-waste').value = 5;
     document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-      if (!cb.value.startsWith('custom-')) cb.closest('label')?.remove();
+      if (!cb.value.startsWith('custom-')) cb.checked = false;
       else cb.checked = false;
     });
     ['front','back','waistband','cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
@@ -350,7 +350,7 @@
     ['kp-buyer','kp-style','kp-po'].forEach(id => $(id).value = '');
     $('kp-pant-type').value = 'Knit Pant';
     document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-      if (!cb.value.startsWith('custom-')) cb.closest('label')?.remove();
+      if (!cb.value.startsWith('custom-')) cb.checked = false;
     });
     activateMethod('quick');
     $('kp-unit').value = 'cm';
@@ -463,7 +463,7 @@
       const type = $('kp-pant-type').value;
       // Changing pant type does not auto-add components; the user chooses what applies.
       document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-        if (!cb.value.startsWith('custom-')) cb.closest('label')?.remove();
+        if (!cb.value.startsWith('custom-')) cb.checked = false;
       });
       renderComponentRows();
       calculatePantConsumption();
