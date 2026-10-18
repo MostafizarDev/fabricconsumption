@@ -2514,3 +2514,37 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
   margin-bottom:6px;
   line-height:1.25;
 }
+
+
+/* Pant Measurements: match the compact Knit Garment measurement styling */
+#page-knitpant #kp-quick-panel .pant-field label .kp-unit-label {
+  display:inline !important;
+  margin:0 0 0 2px !important;
+  color:var(--muted,#64748b);
+  font-size:9px;
+  font-weight:500;
+  line-height:inherit;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-field > label .kp-unit-label {
+  display:inline !important;
+  margin:0 !important;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total .kp-unit-label {
+  display:inline !important;
+  margin-left:4px !important;
+  color:inherit;
+  font-size:inherit;
+  font-weight:inherit;
+  line-height:inherit;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total {
+  gap:0;
+  min-width:82px;
+  padding:5px 10px;
+  font-size:13px;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair input {
+  height:34px;
+  min-height:34px;
+  border-radius:8px;
+}
