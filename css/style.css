@@ -2434,3 +2434,59 @@ body.dark-mode #page-knitpant #kp-components-panel .pant-measure-total {
     gap:6px;
   }
 }
+
+
+/* Pant Measurements — Knit-style inseam + allowance pair */
+#page-knitpant #kp-quick-panel .pant-inseam-field { min-width:0; }
+#page-knitpant #kp-quick-panel .pant-inseam-field > label {
+  display:block;
+  margin-bottom:6px;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair input {
+  box-sizing:border-box;
+  flex:0 1 76px;
+  width:76px;
+  min-width:52px;
+  max-width:100px;
+  height:34px;
+  padding:6px 8px;
+  border:1px solid var(--border,#d5deea);
+  border-radius:8px;
+  font-size:12px;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair #kp-ila {
+  background:#fffbeb;
+  border-color:#fbbf24;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:28px;
+  padding:4px 10px;
+  border-radius:6px;
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair #kp-ila {
+  background:#2a2412;
+  border-color:#a16207;
+}
+body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total {
+  background:#1e3a5f;
+  color:#bfdbfe;
+}
+@media(max-width:480px) {
+  #page-knitpant #kp-quick-panel .pant-inseam-pair { gap:4px; }
+  #page-knitpant #kp-quick-panel .pant-inseam-pair input { min-width:44px; padding:5px; }
+  #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total { padding:4px 7px; font-size:11px; }
+}
