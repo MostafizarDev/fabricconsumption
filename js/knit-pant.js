@@ -341,6 +341,76 @@
     setMethodUI();
   }
 
+
+  const KP_RECENT_KEY = 'fabricConsumption.knitPantRecent.v1';
+  let kpDemoSnapshot = null;
+  function kpCaptureState() {
+    const values = {};
+    document.querySelectorAll('#page-knitpant input, #page-knitpant select').forEach(el => {
+      if (el.type === 'checkbox') values[el.id || ('check:' + el.value)] = el.checked;
+      else if (el.type !== 'radio' && !el.closest('#kp-component-rows')) values[el.id] = el.value;
+    });
+    const selected = Array.from(document.querySelectorAll('#kp-component-checks input[type="checkbox"]:checked')).map(cb => cb.value);
+    const rows = {};
+    document.querySelectorAll('#kp-component-rows tr[data-component-row]').forEach(row => {
+      const item = {};
+      row.querySelectorAll('[data-field]').forEach(el => { if (el.dataset.field !== 'result' && !el.dataset.field.endsWith('Total')) item[el.dataset.field] = el.value; });
+      rows[row.dataset.componentRow] = item;
+    });
+    const defs = {};
+    selected.forEach(key => { if (componentDefs[key]) defs[key] = {...componentDefs[key]}; });
+    return { values, selected, rows, defs, method: method(), unit: $('kp-unit').value, savedAt: new Date().toISOString() };
+  }
+  function kpApplyState(state) {
+    if (!state) return;
+    Object.keys(state.values || {}).forEach(id => {
+      if (id.startsWith('check:')) return;
+      const el = $(id);
+      if (el && !el.closest('#kp-component-rows') && el.type !== 'checkbox') el.value = state.values[id];
+    });
+    if (state.defs) Object.keys(state.defs).forEach(key => { componentDefs[key] = {...state.defs[key]}; });
+    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
+      if (cb.value.startsWith('custom-') && !(state.selected || []).includes(cb.value)) cb.closest('label')?.remove();
+    });
+    (state.selected || []).forEach(key => {
+      if (!document.querySelector('#kp-component-checks input[value="' + CSS.escape(key) + '"]')) ensureComponentCheckbox(key, true);
+    });
+    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => { cb.checked = (state.selected || []).includes(cb.value); });
+    $('kp-unit').value = state.unit || 'cm';
+    currentUnit = $('kp-unit').value;
+    document.querySelectorAll('[data-pant-unit]').forEach(btn => btn.classList.toggle('active', btn.dataset.pantUnit === currentUnit));
+    const methodRadio = document.querySelector('input[name="kp-method"][value="' + (state.method || 'quick') + '"]');
+    if (methodRadio) methodRadio.checked = true;
+    renderComponentRows();
+    Object.keys(state.rows || {}).forEach(key => {
+      const row = document.querySelector('#kp-component-rows tr[data-component-row="' + CSS.escape(key) + '"]');
+      if (!row) return;
+      Object.keys(state.rows[key]).forEach(field => { const el = row.querySelector('[data-field="' + field + '"]'); if (el) el.value = state.rows[key][field]; });
+    });
+    updateUnitLabels(); setMethodUI(); calculatePantConsumption();
+  }
+  function kpReadRecent() { try { const x = JSON.parse(localStorage.getItem(KP_RECENT_KEY) || '[]'); return Array.isArray(x) ? x : []; } catch (_) { return []; } }
+  function kpSaveRecent(showPanel = false) {
+    const state = kpCaptureState(), v = state.values || {};
+    const item = { id:'pant-' + Date.now(), title:(v['kp-style'] || 'Untitled Style').trim(), buyer:(v['kp-buyer'] || '').trim(), po:(v['kp-po'] || '').trim(), type:v['kp-pant-type'] || '', qty:v['kp-order-qty'] || '', state };
+    const list = [item, ...kpReadRecent()].slice(0,5);
+    try { localStorage.setItem(KP_RECENT_KEY, JSON.stringify(list)); } catch (_) { alert('Could not save Recent calculations. Browser storage may be full or disabled.'); return; }
+    kpRenderRecent(); if (showPanel) $('kp-recent-panel').hidden = false;
+  }
+  function kpRenderRecent() {
+    const panel = $('kp-recent-panel'); if (!panel) return;
+    const esc = s => String(s || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const list = kpReadRecent();
+    panel.innerHTML = '<div class="knit-recent-head"><span>Recent Calculations · Last 5</span><button type="button" class="knit-recent-load" id="kp-save-current">Save Current</button></div>' +
+      (list.length ? list.map(x => '<div class="knit-recent-item"><div class="knit-recent-info"><strong>'+esc(x.title || 'Untitled Style')+(x.type?' · '+esc(x.type):'')+'</strong><small>'+(x.buyer?esc(x.buyer)+' · ':'')+esc(x.po?'PO: '+x.po:'No PO')+' · '+esc(x.qty?x.qty+' pcs':'Quantity not set')+' · '+esc(x.state?.savedAt?new Date(x.state.savedAt).toLocaleString():'Saved')+'</small></div><div class="knit-recent-actions"><button type="button" class="knit-recent-load" data-load-kp-recent="'+esc(x.id)+'">Load</button><button type="button" class="knit-recent-delete" data-delete-kp-recent="'+esc(x.id)+'" title="Remove from Recent">×</button></div></div>').join(''):'<div class="knit-recent-empty">No saved calculations yet. Click “Save Current” to keep this calculation.</div>');
+    $('kp-save-current')?.addEventListener('click',()=>kpSaveRecent(true));
+    panel.querySelectorAll('[data-load-kp-recent]').forEach(btn=>btn.addEventListener('click',()=>{const x=kpReadRecent().find(y=>y.id===btn.dataset.loadKpRecent);if(x){kpApplyState(x.state);panel.hidden=true;$('kp-recent-open')?.classList.remove('is-active')}}));
+    panel.querySelectorAll('[data-delete-kp-recent]').forEach(btn=>btn.addEventListener('click',()=>{try{localStorage.setItem(KP_RECENT_KEY,JSON.stringify(kpReadRecent().filter(x=>x.id!==btn.dataset.deleteKpRecent)));kpRenderRecent()}catch(_){alert('Could not update Recent calculations.')}}));
+  }
+  function kpOpenReportModal() {
+    $('kp-report-buyer').value=$('kp-buyer').value; $('kp-report-style').value=$('kp-style').value; $('kp-report-po').value=$('kp-po').value; $('kp-report-type').value=$('kp-pant-type').value; $('kp-report-modal').hidden=false;
+  }
+  function kpCloseReportModal() { $('kp-report-modal').hidden=true; }
   function downloadKnitPantReport() {
     calculatePantConsumption();
     if (!lastResult) {
@@ -396,8 +466,25 @@
       if (key === 'custom') addCustomComponent();
       else addComponentByKey(key);
     });
-    $('kp-demo')?.addEventListener('click', loadDemo);
-    $('kp-reset')?.addEventListener('click', resetAll);
+    $('kp-demo')?.addEventListener('click', () => {
+      const btn=$('kp-demo'), active=btn.getAttribute('aria-pressed')==='true';
+      if(active){if(kpDemoSnapshot)kpApplyState(kpDemoSnapshot);kpDemoSnapshot=null;btn.setAttribute('aria-pressed','false');btn.classList.remove('is-active')}
+      else{kpDemoSnapshot=kpCaptureState();loadDemo();btn.setAttribute('aria-pressed','true');btn.classList.add('is-active')}
+    });
+    $('kp-reset')?.addEventListener('click',()=>{resetAll();kpDemoSnapshot=null;$('kp-demo')?.setAttribute('aria-pressed','false');$('kp-demo')?.classList.remove('is-active')});
+    $('kp-recent-open')?.addEventListener('click',()=>{const panel=$('kp-recent-panel'),opening=panel.hidden;kpRenderRecent();panel.hidden=!opening;$('kp-recent-open').classList.toggle('is-active',opening);$('kp-recent-open').setAttribute('aria-expanded',String(opening))});
+    $('kp-report-settings')?.addEventListener('click',kpOpenReportModal);
+    document.querySelectorAll('[data-close-kp-modal]').forEach(el=>el.addEventListener('click',kpCloseReportModal));
+    $('kp-report-save')?.addEventListener('click',()=>{
+      $('kp-buyer').value=$('kp-report-buyer').value;$('kp-style').value=$('kp-report-style').value;$('kp-po').value=$('kp-report-po').value;
+      const type=$('kp-report-type').value.trim();
+      if(type&&!Array.from($('kp-pant-type').options).some(o=>o.value===type)){const option=document.createElement('option');option.value=type;option.textContent=type;$('kp-pant-type').appendChild(option)}
+      if(type)$('kp-pant-type').value=type;
+      if(lastResult){lastResult.buyer=$('kp-buyer').value;lastResult.style=$('kp-style').value;lastResult.po=$('kp-po').value;lastResult.type=$('kp-pant-type').value}
+      kpCloseReportModal();
+    });
+    $('btn-pdf-knitpant')?.addEventListener('click',()=>{kpSaveRecent(false);downloadKnitPantReport()});
+    kpRenderRecent();
     document.querySelectorAll('#page-knitpant input, #page-knitpant select').forEach(input => {
       if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po' && input.name !== 'kp-method' && input.id !== 'kp-add-component-select') input.addEventListener('input', () => {
         if (input.closest('#kp-quick-panel')) activateMethod('quick');
