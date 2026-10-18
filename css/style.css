@@ -2022,3 +2022,22 @@ body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-break
 #page-knitpant #kp-components-panel .pant-section-heading p { display:none; }
 #page-knitpant #kp-quick-panel .pant-section-heading,
 #page-knitpant #kp-components-panel .pant-section-heading { margin-bottom:12px; }
+
+
+/* Knit Pant Quick Estimate — match Knit Garments measurement styling */
+#page-knitpant #kp-quick-panel .pant-measure-grid { column-gap:12px; row-gap:10px; }
+#page-knitpant #kp-quick-panel .pant-field { min-width:0; }
+#page-knitpant #kp-quick-panel .pant-field label { display:block; margin-bottom:4px; color:var(--text,#334155); font-size:11px; font-weight:600; line-height:1.25; }
+#page-knitpant #kp-quick-panel .pant-field label .kp-unit-label { display:block; margin-top:3px; color:var(--muted,#64748b); font-size:9px; font-weight:500; }
+#page-knitpant #kp-quick-panel .pant-field input { min-height:39px; padding:8px 10px; border:1px solid var(--border,#cbd5e1); border-radius:7px; background:var(--input-bg,#fff); color:var(--text,#0f172a); font-size:11px; }
+#page-knitpant #kp-quick-panel .pant-field input::placeholder { color:#a8b4c4; font-style:normal; opacity:1; }
+#page-knitpant #kp-quick-panel #kp-ila,
+#page-knitpant #kp-quick-panel #kp-cfra,
+#page-knitpant #kp-quick-panel #kp-wbwa,
+#page-knitpant #kp-quick-panel #kp-htca,
+#page-knitpant #kp-quick-panel #kp-waste { background:#fffbeb; border-color:#fcd34d; }
+body.dark-mode #page-knitpant #kp-quick-panel #kp-ila,
+body.dark-mode #page-knitpant #kp-quick-panel #kp-cfra,
+body.dark-mode #page-knitpant #kp-quick-panel #kp-wbwa,
+body.dark-mode #page-knitpant #kp-quick-panel #kp-htca,
+body.dark-mode #page-knitpant #kp-quick-panel #kp-waste { background:#2a2412; border-color:#a16207; }
