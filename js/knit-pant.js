@@ -68,7 +68,7 @@
             '<label><span>Qty / pc</span><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" value="' + (d.qty ?? 1) + '"></label>' +
             '<label><span>GSM</span><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" value="' + (d.gsm || val('kp-default-gsm', 0) || '') + '"></label>' +
             '<label><span>Waste %</span><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></label>' +
-            '<div class="pant-component-net"><span>Net kg/pc</span><strong class="pant-row-result" data-field="result">—</strong></div>' +
+
           '</div>' +
         '</div></td></tr>';
     }).join('');
@@ -126,6 +126,26 @@
     });
   }
 
+  function updateKnitGarmentStyleSummary(rows, orderQty, beforeKg) {
+    const groups = [
+      {id:'kp-summary-body', keys:['front','back','waistband'], label:'Body'},
+      {id:'kp-summary-collar', keys:['collar'], label:'Collar'},
+      {id:'kp-summary-cuff', keys:['cuff'], label:'Cuff'},
+      {id:'kp-summary-pocket', keys:['pocketbag','sidepocket','backpocket','cargo','fly'], label:'Pocket'},
+      {id:'kp-summary-halfmoon', keys:['halfmoon'], label:'Half-moon'}
+    ];
+    groups.forEach(group => {
+      const node = $(group.id);
+      if (!node) return;
+      const matches = (rows || []).filter(row => group.keys.includes(row.key) || group.keys.includes(row.componentKey));
+      const totalKg = matches.reduce((sum,row) => sum + (Number(row.kg) || 0) * orderQty, 0);
+      const perPc = matches.reduce((sum,row) => sum + (Number(row.kg) || 0), 0);
+      node.hidden = matches.length === 0;
+      const strong = node.querySelector('strong');
+      if (strong) strong.textContent = fmt(totalKg,3) + ' kg/qty | ' + fmt(perPc,3) + ' kg/pcs';
+    });
+    setResultText('kp-r-before',fmt(beforeKg * orderQty,3) + ' kg');
+  }
   function resetSummary() {
     ['kp-r-pc','kp-r-pc-secondary','kp-r-dz','kp-r-order','kp-r-before','kp-r-waste','kp-r-meter','kp-r-order-meter'].forEach(id => setResultText(id, '—'));
     setResultText('kp-summary-method', 'Awaiting valid inputs');
