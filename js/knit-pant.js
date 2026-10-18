@@ -330,10 +330,10 @@
     $('kp-htc').value = 32; $('kp-htca').value = 2;
     $('kp-gsm').value = 280; $('kp-waste').value = 5;
     document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-      if (!['front','back','waistband'].includes(cb.value) && !cb.value.startsWith('custom-')) cb.closest('label')?.remove();
-      else cb.checked = ['front','back','waistband'].includes(cb.value);
+      if (!cb.value.startsWith('custom-')) cb.closest('label')?.remove();
+      else cb.checked = false;
     });
-    ['cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
+    ['front','back','waistband','cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
     renderComponentRows();
     updateUnitLabels();
     calculatePantConsumption();
@@ -341,7 +341,7 @@
 
   function resetAll() {
     document.querySelectorAll('#page-knitpant input').forEach(input => {
-      if (input.type === 'checkbox') input.checked = ['front','back','waistband'].includes(input.value);
+      if (input.type === 'checkbox') input.checked = false;
       else if (input.type === 'radio') input.checked = input.value === 'quick';
       else if (input.id === 'kp-order-qty') input.value = '1000';
       else if (input.id === 'kp-waste') input.value = '5';
@@ -350,7 +350,7 @@
     ['kp-buyer','kp-style','kp-po'].forEach(id => $(id).value = '');
     $('kp-pant-type').value = 'Knit Pant';
     document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-      if (!['front','back','waistband'].includes(cb.value)) cb.closest('label')?.remove();
+      if (!cb.value.startsWith('custom-')) cb.closest('label')?.remove();
     });
     activateMethod('quick');
     $('kp-unit').value = 'cm';
@@ -461,16 +461,11 @@
     }));
     $('kp-pant-type')?.addEventListener('change', () => {
       const type = $('kp-pant-type').value;
-      let preset = ['front','back','waistband'];
-      if (type.includes('Jogger')) preset = preset.concat(['cuff']);
-      if (type.includes('Woven')) preset = preset.concat(['sidepocket','fly']);
+      // Changing pant type does not auto-add components; the user chooses what applies.
       document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-        if (!['front','back','waistband'].includes(cb.value) && !cb.value.startsWith('custom-')) cb.closest('label')?.remove();
-        else if (!cb.value.startsWith('custom-')) cb.checked = false;
+        if (!cb.value.startsWith('custom-')) cb.closest('label')?.remove();
       });
-      preset.forEach(key => ensureComponentCheckbox(key, true));
       renderComponentRows();
-      activateMethod('components');
       calculatePantConsumption();
     });
     $('kp-component-checks')?.addEventListener('change', event => {
@@ -481,9 +476,12 @@
       }
     });
     $('kp-add-component')?.addEventListener('click', () => {
-      const key = $('kp-add-component-select').value;
+      const select = $('kp-add-component-select');
+      const key = select.value;
+      if (!key) return;
       if (key === 'custom') addCustomComponent();
       else addComponentByKey(key);
+      select.value = '';
     });
     $('kp-demo')?.addEventListener('click', () => {
       const btn=$('kp-demo'), active=btn.getAttribute('aria-pressed')==='true';
