@@ -69,8 +69,11 @@
     if (!selected.length) body.innerHTML = '<tr><td colspan="8" class="pant-no-rows">Select at least one component above.</td></tr>';
     body.querySelectorAll('input').forEach(input => input.addEventListener('input', calculatePantConsumption));
     body.querySelectorAll('[data-remove-component]').forEach(button => button.addEventListener('click', () => {
-      const cb = document.querySelector('#kp-component-checks input[value="' + CSS.escape(button.dataset.removeComponent) + '"]');
-      if (cb) cb.checked = false;
+      const key = button.dataset.removeComponent;
+      const cb = document.querySelector('#kp-component-checks input[value="' + CSS.escape(key) + '"]');
+      if (cb) cb.closest('label')?.remove();
+      renderComponentRows();
+      activateMethod('components');
       calculatePantConsumption();
     }));
   }
@@ -221,13 +224,39 @@
     calculatePantConsumption();
   }
 
+  function ensureComponentCheckbox(key, checked = true) {
+    const checks = $('kp-component-checks');
+    let checkbox = checks.querySelector('input[value="' + CSS.escape(key) + '"]');
+    if (!checkbox) {
+      const d = componentDefs[key];
+      if (!d) return null;
+      const label = document.createElement('label');
+      label.innerHTML = '<input type="checkbox" value="' + escapeHtml(key) + '"> ' + escapeHtml(d.name);
+      checks.appendChild(label);
+      checkbox = label.querySelector('input');
+    }
+    checkbox.checked = checked;
+    return checkbox;
+  }
+
+  function addComponentByKey(key) {
+    const existing = $('kp-component-checks').querySelector('input[value="' + CSS.escape(key) + '"]');
+    if (existing) {
+      existing.checked = true;
+    } else {
+      ensureComponentCheckbox(key, true);
+    }
+    activateMethod('components');
+    renderComponentRows();
+    calculatePantConsumption();
+  }
+
   function addCustomComponent() {
     customCount += 1;
     const key = 'custom-' + customCount;
-    const label = document.createElement('label');
-    label.innerHTML = '<input type="checkbox" checked value="' + key + '" data-name="Custom component ' + customCount + '"> Custom component ' + customCount + ' <small>Editable in the table</small>';
-    $('kp-component-checks').appendChild(label);
     componentDefs[key] = {name:'Custom component ' + customCount,qty:1,length:0,width:0,gsm:val('kp-default-gsm',0),waste:5};
+    ensureComponentCheckbox(key, true);
+    activateMethod('components');
     renderComponentRows();
     calculatePantConsumption();
   }
@@ -246,7 +275,8 @@
     $('kp-wbw').value = 4; $('kp-wbwa').value = 1;
     $('kp-htc').value = 32; $('kp-htca').value = 2;
     $('kp-gsm').value = 280; $('kp-waste').value = 5;
-    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => cb.checked = ['front','back','waistband','cuff','pocketbag'].includes(cb.value));
+    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => cb.checked = ['front','back','waistband'].includes(cb.value));
+    ['cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
     renderComponentRows();
     updateUnitLabels();
     calculatePantConsumption();
@@ -262,6 +292,9 @@
     });
     ['kp-buyer','kp-style','kp-po'].forEach(id => $(id).value = '');
     $('kp-pant-type').value = 'Knit Pant';
+    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
+      if (!['front','back','waistband'].includes(cb.value)) cb.closest('label')?.remove();
+    });
     activateMethod('quick');
     $('kp-unit').value = 'cm';
     currentUnit = 'cm';
@@ -302,11 +335,12 @@
     $('kp-pant-type')?.addEventListener('change', () => {
       const type = $('kp-pant-type').value;
       let preset = ['front','back','waistband'];
-      if (type.includes('Jogger')) preset = preset.concat(['cuff','pocketbag']);
-      if (type.includes('Woven')) preset = preset.concat(['sidepocket','backpocket','fly']);
+      if (type.includes('Jogger')) preset = preset.concat(['cuff']);
+      if (type.includes('Woven')) preset = preset.concat(['sidepocket','fly']);
       document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-        if (!cb.value.startsWith('custom-')) cb.checked = preset.includes(cb.value);
+        if (!cb.value.startsWith('custom-')) cb.checked = false;
       });
+      preset.forEach(key => ensureComponentCheckbox(key, true));
       renderComponentRows();
       activateMethod('components');
       calculatePantConsumption();
@@ -318,11 +352,12 @@
         calculatePantConsumption();
       }
     });
-    $('kp-add-component')?.addEventListener('click', () => { activateMethod('components'); addCustomComponent(); });
+    $('kp-add-component')?.addEventListener('click', () => addComponentByKey($('kp-add-component-select').value));
+    $('kp-add-custom-component')?.addEventListener('click', addCustomComponent);
     $('kp-demo')?.addEventListener('click', loadDemo);
     $('kp-reset')?.addEventListener('click', resetAll);
     document.querySelectorAll('#page-knitpant input, #page-knitpant select').forEach(input => {
-      if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po' && input.name !== 'kp-method') input.addEventListener('input', () => {
+      if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po' && input.name !== 'kp-method' && input.id !== 'kp-add-component-select') input.addEventListener('input', () => {
         if (input.closest('#kp-quick-panel')) activateMethod('quick');
         calculatePantConsumption();
       });
