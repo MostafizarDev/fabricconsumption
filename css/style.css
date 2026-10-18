@@ -2154,3 +2154,36 @@ body.dark-mode #page-knitpant .pant-kg-breakdown .pant-kg-component-row { border
   #page-knitpant .pant-kg-component-name { font-size:11px; gap:5px; }
   #page-knitpant .pant-kg-component-row strong { font-size:10px!important; }
 }
+
+
+/* Prevent long Knit Pant component names and result values overlapping in the summary */
+#page-knitpant .pant-kg-breakdown .pant-kg-component-row {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+  align-items:start;
+  gap:10px;
+  padding:8px 0;
+}
+#page-knitpant .pant-kg-component-name {
+  min-width:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.45;
+}
+#page-knitpant .pant-kg-component-row strong {
+  min-width:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.45;
+  justify-self:stretch;
+}
+@media(max-width:1100px) {
+  #page-knitpant .pant-kg-breakdown .pant-kg-component-row {
+    grid-template-columns:minmax(0,1fr);
+    gap:3px;
+  }
+  #page-knitpant .pant-kg-component-row strong {
+    text-align:left;
+    padding-left:25px;
+  }
+}
