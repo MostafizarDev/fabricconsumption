@@ -104,6 +104,7 @@
       if (row && input.dataset.field === 'name') {
         const key = row.dataset.componentRow;
         if (componentDefs[key]) componentDefs[key].name = input.value.trim() || 'Component';
+        renderSelectedComponentChips();
       }
       if (row) updateComponentMeasurementTotals(row);
       activateMethod('components');
