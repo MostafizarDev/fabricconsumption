@@ -185,11 +185,12 @@
   }
 
   function setMethodUI() {
-    const selected = method();
-    document.querySelectorAll('[data-method-card]').forEach(card => card.classList.toggle('is-selected', card.dataset.methodCard === selected));
-    $('kp-quick-panel').hidden = selected !== 'quick';
-    $('kp-components-panel').hidden = selected !== 'components';
+    // Both workflows stay visible on one page. The active calculation follows the section the user edits.
     calculatePantConsumption();
+  }
+  function activateMethod(value) {
+    const radio = document.querySelector('input[name="kp-method"][value="' + value + '"]');
+    if (radio) radio.checked = true;
   }
 
   function updateUnitLabels() {
@@ -261,6 +262,7 @@
     });
     ['kp-buyer','kp-style','kp-po'].forEach(id => $(id).value = '');
     $('kp-pant-type').value = 'Knit Pant';
+    activateMethod('quick');
     $('kp-unit').value = 'cm';
     currentUnit = 'cm';
     renderComponentRows();
@@ -298,13 +300,20 @@
       handleUnitChange();
     }));
     $('kp-component-checks')?.addEventListener('change', event => {
-      if (event.target.matches('input[type="checkbox"]')) { renderComponentRows(); calculatePantConsumption(); }
+      if (event.target.matches('input[type="checkbox"]')) {
+        activateMethod('components');
+        renderComponentRows();
+        calculatePantConsumption();
+      }
     });
-    $('kp-add-component')?.addEventListener('click', addCustomComponent);
+    $('kp-add-component')?.addEventListener('click', () => { activateMethod('components'); addCustomComponent(); });
     $('kp-demo')?.addEventListener('click', loadDemo);
     $('kp-reset')?.addEventListener('click', resetAll);
     document.querySelectorAll('#page-knitpant input, #page-knitpant select').forEach(input => {
-      if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po') input.addEventListener('input', calculatePantConsumption);
+      if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po' && input.name !== 'kp-method') input.addEventListener('input', () => {
+        if (input.closest('#kp-quick-panel')) activateMethod('quick');
+        calculatePantConsumption();
+      });
       if (['kp-pant-type','kp-buyer','kp-style','kp-po'].includes(input.id)) input.addEventListener('input', () => { if (lastResult) { lastResult.type = $('kp-pant-type').value; lastResult.buyer = $('kp-buyer').value; lastResult.style = $('kp-style').value; lastResult.po = $('kp-po').value; } });
     });
     renderComponentRows();
