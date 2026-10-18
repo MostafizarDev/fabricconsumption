@@ -175,7 +175,7 @@
       const perPc = ((inseam + rise + waistband) * thigh * 4 * val('kp-gsm') / 10000000) * (1 + waste / 100);
       pantMeasurementText = fmt(perPc * qty,3) + ' kg/qty | ' + fmt(perPc,3) + ' kg/pcs';
     }
-    const pantRow = '<div class="pant-kg-component-row pant-kg-pant-measurement-row"><span class="pant-kg-component-name">Pant Measurements</span><strong>' + pantMeasurementText + '</strong></div>';
+    const pantRow = '<div class="pant-kg-component-row pant-kg-pant-measurement-row"><span class="pant-kg-component-name">Main Body </span><strong>' + pantMeasurementText + '</strong></div>';
     const componentRows = list.map(row => {
       const hasResult = Number.isFinite(Number(row.kg)) && row.kg !== null && row.kg !== '';
       const perPc = hasResult ? Number(row.kg) : (Number(row.finalKg) || 0);
