@@ -388,7 +388,7 @@
     $('kp-po').value = 'DEMO-001';
     $('kp-pant-type').value = 'Knit Jogger';
     $('kp-order-qty').value = 1000;
-    $('kp-default-gsm').value = 280;
+    $('kp-gsm').value = 280;
     $('kp-unit').value = 'cm';
     currentUnit = 'cm';
     $('kp-il').value = 75; $('kp-ila').value = 2;
@@ -494,9 +494,25 @@
     panel.querySelectorAll('[data-delete-kp-recent]').forEach(btn=>btn.addEventListener('click',()=>{try{localStorage.setItem(KP_RECENT_KEY,JSON.stringify(kpReadRecent().filter(x=>x.id!==btn.dataset.deleteKpRecent)));kpRenderRecent()}catch(_){alert('Could not update Recent calculations.')}}));
   }
   function kpOpenReportModal() {
-    $('kp-report-buyer').value=$('kp-buyer').value; $('kp-report-style').value=$('kp-style').value; $('kp-report-po').value=$('kp-po').value; $('kp-report-type').value=$('kp-pant-type').value; $('kp-report-modal').hidden=false;
+    const modal = $('kp-report-modal');
+    if (!modal) return;
+    const copyValue = (fromId, toId) => {
+      const from = $(fromId), to = $(toId);
+      if (from && to) to.value = from.value || '';
+    };
+    copyValue('kp-buyer', 'kp-report-buyer');
+    copyValue('kp-style', 'kp-report-style');
+    copyValue('kp-po', 'kp-report-po');
+    copyValue('kp-pant-type', 'kp-report-type');
+    modal.hidden = false;
+    modal.setAttribute('aria-hidden', 'false');
   }
-  function kpCloseReportModal() { $('kp-report-modal').hidden=true; }
+  function kpCloseReportModal() {
+    const modal = $('kp-report-modal');
+    if (!modal) return;
+    modal.hidden = true;
+    modal.setAttribute('aria-hidden', 'true');
+  }
   function downloadKnitPantReport() {
     calculatePantConsumption();
     if (!lastResult) {
@@ -557,8 +573,15 @@
     });
     $('kp-reset')?.addEventListener('click',()=>{resetAll();kpDemoSnapshot=null;$('kp-demo')?.setAttribute('aria-pressed','false');$('kp-demo')?.classList.remove('is-active')});
     $('kp-recent-open')?.addEventListener('click',()=>{const panel=$('kp-recent-panel'),opening=panel.hidden;kpRenderRecent();panel.hidden=!opening;$('kp-recent-open').classList.toggle('is-active',opening);$('kp-recent-open').setAttribute('aria-expanded',String(opening))});
-    $('kp-report-settings')?.addEventListener('click',kpOpenReportModal);
+    $('kp-report-settings')?.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      kpOpenReportModal();
+    });
     document.querySelectorAll('[data-close-kp-modal]').forEach(el=>el.addEventListener('click',kpCloseReportModal));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !$('kp-report-modal')?.hidden) kpCloseReportModal();
+    });
     $('kp-report-save')?.addEventListener('click',()=>{
       $('kp-buyer').value=$('kp-report-buyer').value;$('kp-style').value=$('kp-report-style').value;$('kp-po').value=$('kp-report-po').value;
       const type=$('kp-report-type').value.trim();
