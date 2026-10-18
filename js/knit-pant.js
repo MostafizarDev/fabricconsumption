@@ -60,7 +60,9 @@
       return '<tr data-component-row="' + escapeHtml(key) + '">' +
         '<td><input class="pant-row-name" data-field="name" aria-label="Component name" value="' + escapeHtml(d.name) + '"></td>' +
         '<td><input type="number" min="0" step="any" data-field="length" aria-label="Length" value="' + (d.length || '') + '"></td>' +
+        '<td><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length seam allowance" value="' + (d.lengthAllowance ?? 0) + '"></td>' +
         '<td><input type="number" min="0" step="any" data-field="width" aria-label="Width" value="' + (d.width || '') + '"></td>' +
+        '<td><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width seam allowance" value="' + (d.widthAllowance ?? 0) + '"></td>' +
         '<td><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" value="' + (d.qty ?? 1) + '"></td>' +
         '<td><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" value="' + (d.gsm || val('kp-default-gsm', 0) || '') + '"></td>' +
         '<td><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></td>' +
@@ -88,7 +90,9 @@
         key: row.dataset.componentRow,
         name: get('name')?.value.trim() || 'Component',
         length: get('length')?.value.trim() === '' ? null : Number(get('length').value),
+        lengthAllowance: get('lengthAllowance')?.value.trim() === '' ? null : Number(get('lengthAllowance').value),
         width: get('width')?.value.trim() === '' ? null : Number(get('width').value),
+        widthAllowance: get('widthAllowance')?.value.trim() === '' ? null : Number(get('widthAllowance').value),
         qty: get('qty')?.value.trim() === '' ? null : Number(get('qty').value),
         gsm: get('gsm')?.value.trim() === '' ? null : Number(get('gsm').value),
         waste: get('waste')?.value.trim() === '' ? null : Number(get('waste').value),
@@ -158,13 +162,13 @@
     let beforeKg = 0;
     let afterKg = 0;
     rows.forEach(row => {
-      const vals = [row.length,row.width,row.qty,row.gsm,row.waste];
+      const vals = [row.length,row.lengthAllowance,row.width,row.widthAllowance,row.qty,row.gsm,row.waste];
       if (vals.some(x => x === null || !Number.isFinite(x)) || row.length <= 0 || row.width <= 0 || row.qty <= 0 || row.gsm <= 0 || row.waste < 0 || row.waste > 100) {
         errors.push(row.name + ': enter positive length, width, quantity and GSM; wastage must be 0–100%.');
         if (row.resultNode) row.resultNode.textContent = 'Check inputs';
         return;
       }
-      const areaM2 = (row.length * f) * (row.width * f) * row.qty / 10000;
+      const cutLength = (row.length + row.lengthAllowance) * f;\n      const cutWidth = (row.width + row.widthAllowance) * f;\n      const areaM2 = cutLength * cutWidth * row.qty / 10000;
       const netKg = areaM2 * row.gsm / 1000;
       const finalKg = netKg * (1 + row.waste / 100);
       beforeKg += netKg;
@@ -216,7 +220,7 @@
           if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\.?0+$/, '');
         }
       });
-      document.querySelectorAll('#kp-component-rows input[data-field="length"], #kp-component-rows input[data-field="width"]').forEach(input => {
+      document.querySelectorAll('#kp-component-rows input[data-field="length"], #kp-component-rows input[data-field="lengthAllowance"], #kp-component-rows input[data-field="width"], #kp-component-rows input[data-field="widthAllowance"]').forEach(input => {
         if (input.value.trim() !== '') {
           const n = Number(input.value);
           if (Number.isFinite(n)) input.value = (n * factor).toFixed(3).replace(/\.?0+$/, '');
