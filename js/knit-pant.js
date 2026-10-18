@@ -98,7 +98,7 @@
   }
 
   function resetSummary() {
-    ['kp-r-pc','kp-r-dz','kp-r-order','kp-r-before','kp-r-waste','kp-r-meter','kp-r-order-meter'].forEach(id => setResultText(id, '—'));
+    ['kp-r-pc','kp-r-pc-secondary','kp-r-dz','kp-r-order','kp-r-before','kp-r-waste','kp-r-meter','kp-r-order-meter'].forEach(id => setResultText(id, '—'));
     setResultText('kp-summary-method', 'Awaiting valid inputs');
     setResultText('kp-r-method', '—');
     setResultText('kp-result-note', 'Enter the required data to calculate. Incomplete inputs will not produce a confirmed result.');
@@ -110,6 +110,7 @@
   function publishResult({ beforeKg, afterKg, orderQty, methodName, note, meterPerPc = null, orderMeter = null, rows = [] }) {
     const wasteKg = afterKg - beforeKg;
     setResultText('kp-r-pc', fmt(afterKg, 4) + ' kg');
+    setResultText('kp-r-pc-secondary', fmt(afterKg, 4) + ' kg/pcs');
     setResultText('kp-r-dz', fmt(afterKg * 12, 3) + ' kg');
     setResultText('kp-r-order', fmt(afterKg * orderQty, 3) + ' kg');
     setResultText('kp-r-before', fmt(beforeKg, 4) + ' kg/pc');
