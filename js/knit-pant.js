@@ -127,26 +127,19 @@
   }
 
   function updateKnitGarmentStyleSummary(rows, orderQty, beforeKg, methodName) {
-    const groups = [
-      {id:'kp-summary-body', keys:['front leg panels','back leg panels','waistband','body']},
-      {id:'kp-summary-collar', keys:['collar']},
-      {id:'kp-summary-cuff', keys:['cuff','rib']},
-      {id:'kp-summary-pocket', keys:['pocket','fly','cargo']},
-      {id:'kp-summary-halfmoon', keys:['half-moon','half moon','halfmoon']}
-    ];
-    groups.forEach(group => {
-      const node = $(group.id);
-      if (!node) return;
-      const matches = (rows || []).filter(row => group.keys.some(key => String(row.name || '').toLowerCase().includes(key)));
-      const finalPerPc = matches.reduce((sum,row) => sum + (Number(row.kg) || Number(row.finalKg) || 0), 0);
-      const totalOrderKg = finalPerPc * orderQty;
-      node.hidden = matches.length === 0;
-      const strong = node.querySelector('strong');
-      if (strong) strong.textContent = fmt(totalOrderKg,3) + ' kg/qty | ' + fmt(finalPerPc,3) + ' kg/pcs';
-    });
+    const container = $('kp-summary-components');
+    if (!container) return;
     if (methodName && methodName.startsWith('Quick')) {
-      ['kp-summary-body','kp-summary-collar','kp-summary-cuff','kp-summary-pocket','kp-summary-halfmoon'].forEach(id=>{const node=$(id);if(node)node.hidden=true;});
+      container.innerHTML = '';
+      return;
     }
+    const esc = value => escapeHtml(String(value || 'Component'));
+    const list = rows || [];
+    container.innerHTML = list.map(row => {
+      const perPc = Number(row.kg) || Number(row.finalKg) || 0;
+      const totalOrderKg = perPc * orderQty;
+      return '<div class="pant-kg-component-row"><span class="pant-kg-component-name"><span class="pant-kg-icon">◈</span>' + esc(row.name) + '</span><strong>' + fmt(totalOrderKg,3) + ' kg/qty | ' + fmt(perPc,3) + ' kg/pcs</strong></div>';
+    }).join('');
   }
   function resetSummary() {
     ['kp-r-pc','kp-r-pc-secondary','kp-r-dz','kp-r-order','kp-r-before','kp-r-waste','kp-r-meter','kp-r-order-meter'].forEach(id => setResultText(id, '—'));
