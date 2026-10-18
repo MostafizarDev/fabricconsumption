@@ -2112,3 +2112,18 @@ body.dark-mode #page-knitpant .pant-measure-pair input[data-field="widthAllowanc
   #page-knitpant .pant-measure-pair input { flex:0 1 64px; min-width:48px; }
   #page-knitpant .pant-measure-total { min-width:70px; }
 }
+
+
+/* Knit Pant toolbar parity with Knit Garments */
+#page-knitpant .knit-pant-toolbar { position:relative; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+#page-knitpant .knit-pant-toolbar .knit-quick-actions { margin-left:auto; }
+#page-knitpant .knit-pant-toolbar .knit-popover-panel { position:absolute; z-index:30; top:calc(100% + 8px); right:0; width:min(440px,100%); margin:0; }
+#page-knitpant .knit-pant-toolbar .pant-unit-switch { flex:0 0 auto; }
+#page-knitpant .pant-actions .pdf-btn { display:block; width:100%; margin-top:10px; }
+#page-knitpant .knit-modal { z-index:1000; }
+@media(max-width:520px) {
+  #page-knitpant .knit-pant-toolbar { align-items:flex-start; }
+  #page-knitpant .knit-pant-toolbar .knit-quick-actions { width:100%; margin-left:0; justify-content:flex-end; }
+  #page-knitpant .knit-pant-toolbar .knit-popover-panel { top:100%; width:100%; }
+}
+body.dark-mode #page-knitpant .knit-pant-toolbar .knit-popover-panel { background:#111c32; border-color:#334155; }
