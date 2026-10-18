@@ -401,6 +401,8 @@
       else cb.checked = false;
     });
     ['front','back','waistband','cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
+    // Demo should expose the prefilled component measurement cards, like Knit Garments.
+    activateMethod('components');
     renderComponentRows();
     updateUnitLabels();
     calculatePantConsumption();
