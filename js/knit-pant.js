@@ -61,8 +61,8 @@
         '<div class="pant-component-card">' +
           '<div class="pant-component-card-head"><input class="pant-row-name" data-field="name" aria-label="Component name" value="' + escapeHtml(d.name) + '"><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></div>' +
           '<div class="pant-component-measure-grid">' +
-            '<label class="pant-component-measure"><span>Length + L. Allow. (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="Length" value="' + (d.length || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="Allow." value="' + (d.lengthAllowance ?? '') + '"></div></label>' +
-            '<label class="pant-component-measure"><span>Width + W. Allow. (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="Width" value="' + (d.width || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="Allow." value="' + (d.widthAllowance ?? '') + '"></div></label>' +
+            '<label class="pant-component-measure"><span>Length Measurements (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="e.g., 70" value="' + (d.length || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="e.g., 6" value="' + (d.lengthAllowance ?? '') + '"><span class="pant-measure-equals">=</span><span class="pant-measure-total" data-field="lengthTotal">0.0 <span class="kp-unit-label">CM</span></span></div></label>' +
+            '<label class="pant-component-measure"><span>Width Measurements (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="e.g., 32" value="' + (d.width || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="e.g., 2" value="' + (d.widthAllowance ?? '') + '"><span class="pant-measure-equals">=</span><span class="pant-measure-total" data-field="widthTotal">0.0 <span class="kp-unit-label">CM</span></span></div></label>' +
           '</div>' +
           '<div class="pant-component-meta-grid">' +
             '<label><span>Qty / pc</span><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" value="' + (d.qty ?? 1) + '"></label>' +
@@ -79,9 +79,11 @@
         const key = row.dataset.componentRow;
         if (componentDefs[key]) componentDefs[key].name = input.value.trim() || 'Component';
       }
+      if (row) updateComponentMeasurementTotals(row);
       activateMethod('components');
       calculatePantConsumption();
     }));
+    body.querySelectorAll('tr[data-component-row]').forEach(updateComponentMeasurementTotals);
     body.querySelectorAll('[data-remove-component]').forEach(button => button.addEventListener('click', () => {
       const key = button.dataset.removeComponent;
       const cb = document.querySelector('#kp-component-checks input[value="' + CSS.escape(key) + '"]');
@@ -90,6 +92,20 @@
       activateMethod('components');
       calculatePantConsumption();
     }));
+  }
+
+  function updateComponentMeasurementTotals(row) {
+    const read = field => {
+      const input = row.querySelector('[data-field="' + field + '"]');
+      if (!input || input.value.trim() === '') return 0;
+      const value = Number(input.value);
+      return Number.isFinite(value) ? value : 0;
+    };
+    const unit = unitLabel().toUpperCase();
+    const lengthTotal = row.querySelector('[data-field="lengthTotal"]');
+    const widthTotal = row.querySelector('[data-field="widthTotal"]');
+    if (lengthTotal) lengthTotal.innerHTML = fmt(read('length') + read('lengthAllowance'), 1) + ' <span class="kp-unit-label">' + unit + '</span>';
+    if (widthTotal) widthTotal.innerHTML = fmt(read('width') + read('widthAllowance'), 1) + ' <span class="kp-unit-label">' + unit + '</span>';
   }
 
   function collectComponentRows() {
