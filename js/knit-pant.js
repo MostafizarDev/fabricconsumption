@@ -59,10 +59,8 @@
       const key = check.value;
       return '<tr data-component-row="' + escapeHtml(key) + '">' +
         '<td><input class="pant-row-name" data-field="name" aria-label="Component name" value="' + escapeHtml(d.name) + '"></td>' +
-        '<td><input type="number" min="0" step="any" data-field="length" aria-label="Length" value="' + (d.length || '') + '"></td>' +
-        '<td><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length seam allowance" value="' + (d.lengthAllowance ?? 0) + '"></td>' +
-        '<td><input type="number" min="0" step="any" data-field="width" aria-label="Width" value="' + (d.width || '') + '"></td>' +
-        '<td><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width seam allowance" value="' + (d.widthAllowance ?? 0) + '"></td>' +
+        '<td><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="e.g., 70" value="' + (d.length || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="e.g., 6" value="' + (d.lengthAllowance ?? '') + '"></div></td>' +
+        '<td><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="e.g., 32" value="' + (d.width || '') + '"><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="e.g., 2" value="' + (d.widthAllowance ?? '') + '"></div></td>' +
         '<td><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" value="' + (d.qty ?? 1) + '"></td>' +
         '<td><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" value="' + (d.gsm || val('kp-default-gsm', 0) || '') + '"></td>' +
         '<td><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></td>' +
