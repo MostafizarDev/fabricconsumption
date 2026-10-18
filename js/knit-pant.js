@@ -566,10 +566,23 @@
       select.value = '';
     });
     $('kp-add-component')?.addEventListener('click', () => addCustomComponent());
-    $('kp-demo')?.addEventListener('click', () => {
-      const btn=$('kp-demo'), active=btn.getAttribute('aria-pressed')==='true';
-      if(active){if(kpDemoSnapshot)kpApplyState(kpDemoSnapshot);kpDemoSnapshot=null;btn.setAttribute('aria-pressed','false');btn.classList.remove('is-active')}
-      else{kpDemoSnapshot=kpCaptureState();loadDemo();btn.setAttribute('aria-pressed','true');btn.classList.add('is-active')}
+    // Match Knit Garments Demo toggle: load a complete sample state, then restore the exact prior state.
+    $('kp-demo')?.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const btn = $('kp-demo');
+      const active = btn?.getAttribute('aria-pressed') === 'true';
+      if (active) {
+        if (kpDemoSnapshot) kpApplyState(kpDemoSnapshot);
+        kpDemoSnapshot = null;
+        btn?.classList.remove('is-active');
+        btn?.setAttribute('aria-pressed', 'false');
+      } else {
+        kpDemoSnapshot = kpCaptureState();
+        loadDemo();
+        btn?.classList.add('is-active');
+        btn?.setAttribute('aria-pressed', 'true');
+      }
     });
     $('kp-reset')?.addEventListener('click',()=>{resetAll();kpDemoSnapshot=null;$('kp-demo')?.setAttribute('aria-pressed','false');$('kp-demo')?.classList.remove('is-active')});
     $('kp-recent-open')?.addEventListener('click',()=>{const panel=$('kp-recent-panel'),opening=panel.hidden;kpRenderRecent();panel.hidden=!opening;$('kp-recent-open').classList.toggle('is-active',opening);$('kp-recent-open').setAttribute('aria-expanded',String(opening))});
