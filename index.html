@@ -473,19 +473,7 @@
     </section>
   </div>
 
-  <section class="pant-section">
-    <div class="pant-section-heading"><div><h2>Style information</h2><p>Enter the style and order details.</p></div></div>
-    <div class="pant-info-grid">
-      <div class="pant-field"><label for="kp-buyer">Buyer / Customer <span>Optional</span></label><input id="kp-buyer" type="text" placeholder="Enter buyer name"></div>
-      <div class="pant-field"><label for="kp-style">Style / Item name</label><input id="kp-style" type="text" placeholder="e.g. Basic Fleece Jogger"></div>
-      <div class="pant-field"><label for="kp-po">PO / Order reference <span>Optional</span></label><input id="kp-po" type="text" placeholder="Enter PO number"></div>
-      <div class="pant-field"><label for="kp-pant-type">Pant construction</label><select id="kp-pant-type"><option value="Knit Pant">Knit Pant</option><option value="Woven Pant">Woven Pant</option><option value="Knit Jogger">Knit Jogger</option><option value="Woven Jogger">Woven Jogger</option><option value="Other Pant">Other Pant</option></select></div>
-      <div class="pant-field"><label for="kp-order-qty">Order quantity (pcs)</label><input id="kp-order-qty" type="number" min="1" step="1" value="1000" inputmode="numeric"></div>
-      <div class="pant-field"><label for="kp-default-gsm">Default GSM <span>Used for quick estimate</span></label><input id="kp-default-gsm" type="number" min="0" step="any" placeholder="e.g. 280"></div>
-    </div>
-  </section>
-
-  <input type="radio" name="kp-method" value="quick" checked hidden>
+    <input type="radio" name="kp-method" value="quick" checked hidden>
   <input type="radio" name="kp-method" value="components" hidden>
 
   <div class="pant-workspace">
@@ -541,15 +529,23 @@
     </div>
 
     <aside class="pant-summary-column">
-      <section class="pant-summary-card">
+      <section class="pant-summary-card pant-kg-summary">
         <div class="pant-primary-result pant-total-fabric">
           <span class="pant-total-fabric-title">Total Fabric</span>
           <strong id="kp-r-pc">— kg</strong>
           <span class="pant-total-fabric-unit">kg (with wastage)</span>
           <span class="pant-total-fabric-perpcs" id="kp-r-pc-secondary">— kg/pcs</span>
         </div>
-        <div class="pant-summary-metrics"><div><span>Per dozen</span><strong id="kp-r-dz">— kg</strong></div><div><span>Order total</span><strong id="kp-r-order">— kg</strong></div></div>
-        <div class="pant-summary-breakdown"><div><span>Total before wastage</span><strong id="kp-r-before">— kg/pc</strong></div><div><span>Total after wastage</span><strong id="kp-r-waste">— kg/pc</strong></div><div hidden><span>Selected method</span><strong id="kp-r-method">Quick Estimate</strong></div></div>
+        <div class="pant-summary-breakdown pant-kg-breakdown">
+          <div class="pant-kg-component-row" id="kp-summary-body"><span class="pant-kg-component-name"><span class="pant-kg-icon">♧</span>Body</span><strong>— kg/qty | — kg/pcs</strong></div>
+          <div class="pant-kg-component-row" id="kp-summary-collar"><span class="pant-kg-component-name"><span class="pant-kg-icon">♢</span>Collar</span><strong>— kg/qty | — kg/pcs</strong></div>
+          <div class="pant-kg-component-row" id="kp-summary-cuff"><span class="pant-kg-component-name"><span class="pant-kg-icon">♧</span>Cuff</span><strong>— kg/qty | — kg/pcs</strong></div>
+          <div class="pant-kg-component-row" id="kp-summary-pocket"><span class="pant-kg-component-name"><span class="pant-kg-icon">♧</span>Pocket</span><strong>— kg/qty | — kg/pcs</strong></div>
+          <div class="pant-kg-component-row" id="kp-summary-halfmoon"><span class="pant-kg-component-name"><span class="pant-kg-icon">◔</span>Half-moon</span><strong>— kg/qty | — kg/pcs</strong></div>
+          <div class="pant-kg-total-row"><span><span class="pant-kg-icon">▱</span>Total before wastage</span><strong id="kp-r-before">— kg</strong></div>
+          <div class="pant-kg-total-row"><span><span class="pant-kg-icon">⚠</span>Total after wastage</span><strong id="kp-r-waste">— kg</strong></div>
+          <div hidden><span>Per dozen</span><strong id="kp-r-dz">— kg</strong></div><div hidden><span>Order total</span><strong id="kp-r-order">— kg</strong></div><div hidden><span>Selected method</span><strong id="kp-r-method">Quick Estimate</strong></div>
+        </div>
         <div class="pant-summary-warning" id="kp-result-note">Enter the required data to calculate.</div>
       </section>
       <section class="pant-summary-card pant-breakdown-card"><div class="pant-section-heading"><div><h2>Component breakdown</h2></div></div><div id="kp-breakdown-list" class="pant-breakdown-list"><p class="pant-empty">No calculated components yet.</p></div></section>
