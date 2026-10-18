@@ -2633,3 +2633,56 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
     padding:7px;
   }
 }
+
+
+/* Paired Pant measurements: base + allowance = total */
+#page-knitpant #kp-quick-panel .pant-inseam-field {
+  width:100%;
+  min-width:0;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-field > label {
+  display:block;
+  width:100%;
+  margin-bottom:6px;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair {
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:6px;
+  width:100%;
+  min-width:0;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair input {
+  flex:0 1 76px;
+  width:76px;
+  min-width:44px;
+  max-width:100px;
+  height:34px;
+  min-height:34px;
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:11px;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  min-width:82px;
+  min-height:28px;
+  padding:5px 10px;
+  border-radius:6px;
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+#page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-total .kp-unit-label {
+  display:inline !important;
+  margin-left:4px !important;
+  color:inherit;
+  font-size:inherit;
+  font-weight:inherit;
+}
