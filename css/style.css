@@ -2252,3 +2252,16 @@ body.dark-mode #page-knitpant #kp-summary-components .pant-kg-component-row { bo
 body.dark-mode #page-knitpant #kp-components-panel .pant-no-rows { background:#111c2e; }
 body.dark-mode #page-knitpant #kp-components-panel .pant-no-rows strong { color:#e2e8f0; }
 @media(max-width:480px){#page-knitpant #kp-components-panel .pant-component-toolbar{display:block}#page-knitpant #kp-components-panel .pant-add-component-row{display:grid;grid-template-columns:minmax(0,1fr) auto}#page-knitpant #kp-components-panel #kp-add-component-select{width:100%;min-width:0}#page-knitpant #kp-components-panel #kp-add-component{padding:0 10px}}
+
+
+/* Additional Components — selectable chips (Example 2) */
+#page-knitpant #kp-components-panel .pant-component-toolbar { display:block; }
+#page-knitpant #kp-components-panel .pant-component-checks { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0; }
+#page-knitpant #kp-components-panel .pant-component-checks label { display:inline-flex; align-items:center; gap:7px; min-height:34px; padding:8px 12px; border:1px solid var(--border,#dbe4ee); border-radius:999px; background:var(--card-bg,#fff); color:var(--text,#334155); font-size:11px; font-weight:500; cursor:pointer; transition:background .15s,border-color .15s,color .15s; }
+#page-knitpant #kp-components-panel .pant-component-checks label:has(input:checked) { background:var(--accent-soft,#eff6ff); border-color:var(--accent,#0284c7); color:var(--accent,#0369a1); }
+#page-knitpant #kp-components-panel .pant-component-checks input { width:13px; height:13px; margin:0; accent-color:var(--accent,#0284c7); }
+#page-knitpant #kp-components-panel .pant-custom-chip { margin-top:10px; min-height:32px; padding:0 12px; border:1px dashed var(--border,#cbd5e1); border-radius:999px; background:transparent; color:var(--muted,#64748b); font-size:11px; }
+#page-knitpant #kp-components-panel .pant-table-wrap { margin-top:12px; }
+#page-knitpant #kp-components-panel .pant-no-rows { padding:12px!important; color:var(--muted,#64748b); text-align:left; font-size:10px; background:transparent; }
+body.dark-mode #page-knitpant #kp-components-panel .pant-component-checks label { background:#0b1220; color:#cbd5e1; }
+body.dark-mode #page-knitpant #kp-components-panel .pant-component-checks label:has(input:checked) { background:#102b40; color:#7dd3fc; border-color:#0284c7; }
