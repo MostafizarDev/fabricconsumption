@@ -468,24 +468,13 @@
     </div>
   </section>
 
-  <section class="pant-section">
-    <div class="pant-section-heading"><div><h2>Calculation method</h2><p>Select the calculation method.</p></div></div>
-    <div class="pant-method-grid" role="radiogroup" aria-label="Calculation method">
-      <label class="pant-method-card is-selected" data-method-card="quick">
-        <input type="radio" name="kp-method" value="quick" checked>
-        <span class="pant-method-title">Quick Estimate</span><span class="pant-method-desc">Fast estimate from key measurements.</span>
-      </label>
-      <label class="pant-method-card" data-method-card="components">
-        <input type="radio" name="kp-method" value="components">
-        <span class="pant-method-title">Component-wise</span><span class="pant-method-desc">Separate calculation for each fabric component.</span>
-      </label>
-    </div>
-  </section>
+  <input type="radio" name="kp-method" value="quick" checked hidden>
+  <input type="radio" name="kp-method" value="components" hidden>
 
   <div class="pant-workspace">
     <div class="pant-workspace-main">
       <section class="pant-section pant-method-panel" id="kp-quick-panel">
-        <div class="pant-section-heading"><div><h2>Quick estimate measurements</h2><p>Add allowances only when they are not already included.</p></div></div>
+        <div class="pant-section-heading"><div><h2>Quick Estimate</h2><p>Use key measurements for a fast preliminary estimate.</p></div></div>
         <div class="pant-measure-grid">
           <div class="pant-field"><label for="kp-il">Inseam length <span class="kp-unit-label">CM</span></label><input id="kp-il" type="number" min="0" step="any" placeholder="e.g. 75"></div>
           <div class="pant-field"><label for="kp-ila">Inseam allowance <span class="kp-unit-label">CM</span></label><input id="kp-ila" type="number" min="0" step="any" value="0"></div>
@@ -501,8 +490,8 @@
         <div class="pant-formula-box"><strong>Quick estimate formula</strong><code>[(Inseam + Rise + Waistband) × Half-thigh × 4 × GSM × 12] ÷ unit divisor</code><p>CM divisor: 10,000,000 · Inch divisor: 1,550,000. This simplified geometry is an approximation, not a marker result. The factor 4 represents a rough panel-area assumption and may not match every pattern.</p></div>
       </section>
 
-      <section class="pant-section pant-method-panel" id="kp-components-panel" hidden>
-        <div class="pant-section-heading"><div><h2>Choose pant components</h2><p>Select the parts used in this style.</p></div><button type="button" class="pant-btn pant-btn-quiet" id="kp-add-component">+ Custom component</button></div>
+      <section class="pant-section pant-method-panel" id="kp-components-panel">
+        <div class="pant-section-heading"><div><h2>Fabric Components</h2><p>Select the parts used in this style, or add your own component.</p></div><button type="button" class="pant-btn pant-btn-quiet" id="kp-add-component">+ Add Component</button></div>
         <div class="pant-component-checks" id="kp-component-checks">
           <label><input type="checkbox" value="front" checked> Front leg panels <small>Usually 2 panels</small></label>
           <label><input type="checkbox" value="back" checked> Back leg panels <small>Usually 2 panels</small></label>
@@ -523,7 +512,7 @@
       </section>
 
       <section class="pant-section">
-        <div class="pant-section-heading"><div><h2>Calculation checks</h2><p>Review input checks before using the result.</p></div></div>
+        <div class="pant-section-heading"><div><h2>Calculation Checks</h2><p>Review input checks before using the result.</p></div></div>
         <div id="kp-validation" class="pant-validation" aria-live="polite"><div class="pant-validation-item info">Select a method and enter the required measurements.</div></div>
         <div class="pant-actions"><button type="button" class="pant-btn pant-btn-primary" id="btn-calc-knitpant">Calculate consumption</button><button type="button" class="pant-btn pant-btn-secondary" id="btn-pdf-knitpant">Export PDF report</button></div>
       </section>
