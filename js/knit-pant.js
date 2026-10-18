@@ -1,6 +1,6 @@
 // ============================================
 // UNIVERSAL PANT FABRIC CONSUMPTION
-// Methods: Quick Estimate, Component-wise, Marker-based
+// Methods: Quick Estimate, Component-wise
 // Consumption only; no costing.
 // ============================================
 (function () {
@@ -111,11 +111,6 @@
     setResultText('kp-summary-method', methodName);
     setResultText('kp-r-method', methodName);
     setResultText('kp-result-note', note);
-    $('kp-marker-results').hidden = meterPerPc === null;
-    if (meterPerPc !== null) {
-      setResultText('kp-r-meter', fmt(meterPerPc, 4) + ' m');
-      setResultText('kp-r-order-meter', fmt(orderMeter, 3) + ' m');
-    }
     const list = $('kp-breakdown-list');
     if (list) {
       list.innerHTML = rows.length ? rows.map(r => '<div class="pant-breakdown-row"><span>' + escapeHtml(r.name) + '</span><strong>' + fmt(r.kg, 4) + ' kg/pc</strong></div>').join('') : '<p class="pant-empty">This method produces an overall estimate, not a panel breakdown.</p>';
@@ -179,27 +174,6 @@
     showValidation([{type:'success',text:results.length + ' selected components calculated successfully.'},{type:'warning',text:'Area-based estimate only; fabric nesting, marker efficiency, shrinkage and cutting loss may change actual consumption.'}]);
   }
 
-  function calculateMarker() {
-    const length = num('kp-marker-length'), width = num('kp-marker-width'), pieces = num('kp-marker-pcs'), gsm = num('kp-marker-gsm'), waste = num('kp-marker-waste');
-    const missing = [];
-    if (length === null || length <= 0) missing.push('marker length');
-    if (width === null || width <= 0) missing.push('usable fabric width');
-    if (pieces === null || pieces <= 0) missing.push('garments in marker');
-    if (gsm === null || gsm <= 0) missing.push('fabric GSM');
-    if (waste === null || waste < 0 || waste > 100) missing.push('valid additional wastage (0–100%)');
-    if (missing.length) { resetSummary(); showValidation([{type:'error',text:'Required marker inputs missing or invalid: ' + missing.join(', ') + '.'},{type:'info',text:'Use actual approved marker values; do not enter guessed marker data as confirmed consumption.'}]); return; }
-    const toM = unitFactorToCm() / 100;
-    const markerLengthM = length * toM;
-    const widthM = width * toM;
-    const meterPerPcBefore = markerLengthM / pieces;
-    const areaM2PerPc = markerLengthM * widthM / pieces;
-    const beforeKg = areaM2PerPc * gsm / 1000;
-    const afterKg = beforeKg * (1 + waste / 100);
-    const meterPerPc = meterPerPcBefore * (1 + waste / 100);
-    publishResult({beforeKg,afterKg,orderQty:val('kp-order-qty',0),methodName:'Marker-based · verified inputs required',note:'Length per garment is derived from marker length ÷ garments per marker. Weight is an area × GSM estimate; confirm marker wastage treatment.',meterPerPc,orderMeter:meterPerPc*val('kp-order-qty',0),rows:[{name:'Marker fabric',kg:afterKg}]});
-    showValidation([{type:'success',text:'Marker length per garment: ' + fmt(meterPerPc,4) + ' m, including the entered additional wastage.'},{type:'warning',text:'If marker length/consumption already includes cutting loss, set additional wastage to 0% to avoid double counting.'}]);
-  }
-
   function calculatePantConsumption() {
     const qty = num('kp-order-qty');
     if (qty === null || qty <= 0 || !Number.isInteger(qty)) {
@@ -207,8 +181,7 @@
     }
     const selectedMethod = method();
     if (selectedMethod === 'quick') calculateQuick();
-    else if (selectedMethod === 'components') calculateComponents();
-    else calculateMarker();
+    else calculateComponents();
   }
 
   function setMethodUI() {
@@ -216,7 +189,6 @@
     document.querySelectorAll('[data-method-card]').forEach(card => card.classList.toggle('is-selected', card.dataset.methodCard === selected));
     $('kp-quick-panel').hidden = selected !== 'quick';
     $('kp-components-panel').hidden = selected !== 'components';
-    $('kp-marker-panel').hidden = selected !== 'marker';
     calculatePantConsumption();
   }
 
@@ -228,7 +200,7 @@
     const nextUnit = $('kp-unit').value;
     if (nextUnit !== currentUnit) {
       const factor = nextUnit === 'inch' ? (1 / 2.54) : 2.54;
-      const ids = ['kp-il','kp-ila','kp-cfr','kp-cfra','kp-wbw','kp-wbwa','kp-htc','kp-htca','kp-marker-length','kp-marker-width'];
+      const ids = ['kp-il','kp-ila','kp-cfr','kp-cfra','kp-wbw','kp-wbwa','kp-htc','kp-htca'];
       ids.forEach(id => {
         const input = $(id);
         if (input && input.value.trim() !== '') {
@@ -273,7 +245,6 @@
     $('kp-wbw').value = 4; $('kp-wbwa').value = 1;
     $('kp-htc').value = 32; $('kp-htca').value = 2;
     $('kp-gsm').value = 280; $('kp-waste').value = 5;
-    $('kp-marker-length').value = 650; $('kp-marker-width').value = 180; $('kp-marker-pcs').value = 10; $('kp-marker-gsm').value = 280; $('kp-marker-waste').value = 0;
     document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => cb.checked = ['front','back','waistband','cuff','pocketbag'].includes(cb.value));
     renderComponentRows();
     updateUnitLabels();
@@ -285,8 +256,7 @@
       if (input.type === 'checkbox') input.checked = ['front','back','waistband'].includes(input.value);
       else if (input.type === 'radio') input.checked = input.value === 'quick';
       else if (input.id === 'kp-order-qty') input.value = '1000';
-      else if (input.id === 'kp-waste' || input.id === 'kp-marker-waste') input.value = input.id === 'kp-waste' ? '5' : '0';
-      else if (input.id === 'kp-marker-pcs') input.value = '1';
+      else if (input.id === 'kp-waste') input.value = '5';
       else input.value = '';
     });
     ['kp-buyer','kp-style','kp-po'].forEach(id => $(id).value = '');
