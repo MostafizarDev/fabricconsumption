@@ -2287,3 +2287,6 @@ body.dark-mode #page-knitpant #kp-components-panel .kp-selected-remove { color:#
   #page-knitpant #kp-components-panel #kp-add-component-select { width:100%; min-width:0; }
   #page-knitpant #kp-components-panel #kp-add-component { width:100%; }
 }
+
+#page-knitpant #kp-components-panel #kp-confirm-add-component { min-height:40px; padding:0 18px; border-radius:9px; font-size:12px; font-weight:700; white-space:nowrap; }
+@media(max-width:520px) { #page-knitpant #kp-components-panel #kp-confirm-add-component { flex:1 1 auto; } }
