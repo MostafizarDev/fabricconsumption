@@ -126,25 +126,27 @@
     });
   }
 
-  function updateKnitGarmentStyleSummary(rows, orderQty, beforeKg) {
+  function updateKnitGarmentStyleSummary(rows, orderQty, beforeKg, methodName) {
     const groups = [
-      {id:'kp-summary-body', keys:['front','back','waistband'], label:'Body'},
-      {id:'kp-summary-collar', keys:['collar'], label:'Collar'},
-      {id:'kp-summary-cuff', keys:['cuff'], label:'Cuff'},
-      {id:'kp-summary-pocket', keys:['pocketbag','sidepocket','backpocket','cargo','fly'], label:'Pocket'},
-      {id:'kp-summary-halfmoon', keys:['halfmoon'], label:'Half-moon'}
+      {id:'kp-summary-body', keys:['front leg panels','back leg panels','waistband','body']},
+      {id:'kp-summary-collar', keys:['collar']},
+      {id:'kp-summary-cuff', keys:['cuff','rib']},
+      {id:'kp-summary-pocket', keys:['pocket','fly','cargo']},
+      {id:'kp-summary-halfmoon', keys:['half-moon','half moon','halfmoon']}
     ];
     groups.forEach(group => {
       const node = $(group.id);
       if (!node) return;
-      const matches = (rows || []).filter(row => group.keys.includes(row.key) || group.keys.includes(row.componentKey));
-      const totalKg = matches.reduce((sum,row) => sum + (Number(row.kg) || 0) * orderQty, 0);
-      const perPc = matches.reduce((sum,row) => sum + (Number(row.kg) || 0), 0);
+      const matches = (rows || []).filter(row => group.keys.some(key => String(row.name || '').toLowerCase().includes(key)));
+      const finalPerPc = matches.reduce((sum,row) => sum + (Number(row.kg) || Number(row.finalKg) || 0), 0);
+      const totalOrderKg = finalPerPc * orderQty;
       node.hidden = matches.length === 0;
       const strong = node.querySelector('strong');
-      if (strong) strong.textContent = fmt(totalKg,3) + ' kg/qty | ' + fmt(perPc,3) + ' kg/pcs';
+      if (strong) strong.textContent = fmt(totalOrderKg,3) + ' kg/qty | ' + fmt(finalPerPc,3) + ' kg/pcs';
     });
-    setResultText('kp-r-before',fmt(beforeKg * orderQty,3) + ' kg');
+    if (methodName && methodName.startsWith('Quick')) {
+      ['kp-summary-body','kp-summary-collar','kp-summary-cuff','kp-summary-pocket','kp-summary-halfmoon'].forEach(id=>{const node=$(id);if(node)node.hidden=true;});
+    }
   }
   function resetSummary() {
     ['kp-r-pc','kp-r-pc-secondary','kp-r-dz','kp-r-order','kp-r-before','kp-r-waste','kp-r-meter','kp-r-order-meter'].forEach(id => setResultText(id, '—'));
@@ -162,8 +164,9 @@
     setResultText('kp-r-pc-secondary', fmt(afterKg, 4) + ' kg/pcs');
     setResultText('kp-r-dz', fmt(afterKg * 12, 3) + ' kg');
     setResultText('kp-r-order', fmt(afterKg * orderQty, 3) + ' kg');
-    setResultText('kp-r-before', fmt(beforeKg, 4) + ' kg/pc');
-    setResultText('kp-r-waste', fmt(wasteKg, 4) + ' kg/pc');
+    setResultText('kp-r-before', fmt(beforeKg * orderQty, 3) + ' kg');
+    setResultText('kp-r-waste', fmt(afterKg * orderQty, 3) + ' kg');
+    updateKnitGarmentStyleSummary(rows, orderQty, beforeKg, methodName);
     setResultText('kp-summary-method', methodName);
     setResultText('kp-r-method', methodName);
     setResultText('kp-result-note', note);
