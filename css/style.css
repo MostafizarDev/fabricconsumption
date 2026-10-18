@@ -1963,3 +1963,13 @@ body.dark-mode #page-knitpant .page-title { color:#e2e8f0; }
 #page-knitpant .pant-add-component-row .pant-btn { min-height:34px; }
 body.dark-mode #page-knitpant #kp-add-component-select { background:#0b1220; color:#e2e8f0; border-color:#475569; }
 @media(max-width:480px){#page-knitpant .pant-add-component-row{align-items:stretch}#page-knitpant #kp-add-component-select{width:100%;min-width:0}#page-knitpant .pant-add-component-row .pant-btn{flex:1}}
+
+/* Knit Pant Formula Reference — match Knit Garments' formula cards */
+#page-knitpant .pant-formula-reference { margin-top:20px; }
+#page-knitpant .pant-formula-reference .formula-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+#page-knitpant .pant-formula-reference .formula-card { min-width:0; }
+#page-knitpant .pant-formula-reference .formula-card-head { gap:8px; }
+#page-knitpant .pant-formula-reference .formula-card-title { line-height:1.45; }
+#page-knitpant .pant-formula-reference .formula-copy-btn { flex:0 0 auto; }
+#page-knitpant .pant-formula-caption { font-size:11px; line-height:1.7; margin-top:9px; }
+@media(max-width:650px){#page-knitpant .pant-formula-reference .formula-cards{grid-template-columns:1fr}}
