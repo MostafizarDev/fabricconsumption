@@ -66,8 +66,13 @@
         '<td><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></td>' +
         '<td class="pant-row-result" data-field="result">—</td><td><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></td></tr>';
     }).join('');
-    if (!selected.length) body.innerHTML = '<tr><td colspan="10" class="pant-no-rows">Select at least one component above.</td></tr>';
+    if (!selected.length) body.innerHTML = '<tr><td colspan="8" class="pant-no-rows">Select at least one component above.</td></tr>';
     body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
+      const row = input.closest('tr[data-component-row]');
+      if (row && input.dataset.field === 'name') {
+        const key = row.dataset.componentRow;
+        if (componentDefs[key]) componentDefs[key].name = input.value.trim() || 'Component';
+      }
       activateMethod('components');
       calculatePantConsumption();
     }));
@@ -88,9 +93,9 @@
         key: row.dataset.componentRow,
         name: get('name')?.value.trim() || 'Component',
         length: get('length')?.value.trim() === '' ? null : Number(get('length').value),
-        lengthAllowance: get('lengthAllowance')?.value.trim() === '' ? null : Number(get('lengthAllowance').value),
+        lengthAllowance: get('lengthAllowance')?.value.trim() === '' ? 0 : Number(get('lengthAllowance').value),
         width: get('width')?.value.trim() === '' ? null : Number(get('width').value),
-        widthAllowance: get('widthAllowance')?.value.trim() === '' ? null : Number(get('widthAllowance').value),
+        widthAllowance: get('widthAllowance')?.value.trim() === '' ? 0 : Number(get('widthAllowance').value),
         qty: get('qty')?.value.trim() === '' ? null : Number(get('qty').value),
         gsm: get('gsm')?.value.trim() === '' ? null : Number(get('gsm').value),
         waste: get('waste')?.value.trim() === '' ? null : Number(get('waste').value),
