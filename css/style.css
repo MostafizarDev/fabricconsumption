@@ -1973,3 +1973,26 @@ body.dark-mode #page-knitpant #kp-add-component-select { background:#0b1220; col
 #page-knitpant .pant-formula-reference .formula-copy-btn { flex:0 0 auto; }
 #page-knitpant .pant-formula-caption { font-size:11px; line-height:1.7; margin-top:9px; }
 /* Formula reference cards stay vertically stacked on every screen size */
+
+
+/* Knit Pant consumption summary — align with Knit Garments result cards */
+#page-knitpant .pant-summary-column { gap:12px; }
+#page-knitpant .pant-summary-card:first-child { padding:0; overflow:hidden; border:1px solid var(--border,#dbe4ee); border-radius:11px; background:var(--card-bg,#fff); }
+#page-knitpant .pant-summary-card:first-child .pant-summary-top { min-height:38px; padding:11px 14px; margin:0; color:#cbd5e1; background:#0f172a; font-size:10px; letter-spacing:1px; }
+#page-knitpant .pant-summary-card:first-child h2 { padding:15px 15px 0; margin:0; color:var(--text,#0f172a); font-size:14px; font-weight:800; }
+#page-knitpant .pant-summary-card:first-child .pant-summary-caption { padding:0 15px; margin-top:4px; }
+#page-knitpant .pant-summary-card:first-child .pant-primary-result { padding:14px 15px; margin:12px 0 0; border:0; background:linear-gradient(135deg,#0f172a,#1e3a5f); }
+#page-knitpant .pant-summary-card:first-child .pant-primary-result span { color:#cbd5e1; font-size:10px; }
+#page-knitpant .pant-summary-card:first-child .pant-primary-result strong { color:#fff; font-size:28px; letter-spacing:-.7px; }
+#page-knitpant .pant-summary-card:first-child .pant-summary-metrics { padding:13px 15px; gap:12px; background:var(--card-bg,#fff); }
+#page-knitpant .pant-summary-card:first-child .pant-summary-metrics span { font-size:10px; }
+#page-knitpant .pant-summary-card:first-child .pant-summary-metrics strong { font-size:14px; }
+#page-knitpant .pant-summary-card:first-child .pant-summary-breakdown { padding:0 15px 13px; gap:0; }
+#page-knitpant .pant-summary-card:first-child .pant-summary-breakdown div { padding:8px 0; border-top:1px solid var(--border,#edf2f7); }
+#page-knitpant .pant-summary-card:first-child .pant-summary-breakdown strong { color:var(--text,#334155); }
+#page-knitpant .pant-summary-card:first-child .pant-summary-warning { margin:0 13px 13px; }
+body.dark-mode #page-knitpant .pant-summary-card:first-child { background:#111827; border-color:#334155; }
+body.dark-mode #page-knitpant .pant-summary-card:first-child h2 { color:#e2e8f0; }
+body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-metrics { background:#111827; }
+body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-breakdown div { border-top-color:#263244; }
+body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-breakdown strong { color:#cbd5e1; }
