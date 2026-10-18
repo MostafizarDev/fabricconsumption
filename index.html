@@ -496,8 +496,26 @@
 
       <section class="pant-section pant-method-panel" id="kp-components-panel">
         <div class="pant-section-heading"><div><h2>Additional Components</h2><p>Select only the components needed for this pant style.</p></div></div>
-        <div class="pant-component-toolbar">
-          <div class="pant-component-checks" id="kp-component-checks" aria-label="Choose components">
+        <div class="pant-component-toolbar pant-component-picker">
+          <div class="pant-add-component-row">
+            <select id="kp-add-component-select" aria-label="Select an additional component">
+              <option value="">Select component…</option>
+              <option value="front">Front leg panels</option>
+              <option value="back">Back leg panels</option>
+              <option value="waistband">Waistband</option>
+              <option value="cuff">Bottom cuff / rib</option>
+              <option value="pocketbag">Pocket bag / lining</option>
+              <option value="sidepocket">Side pocket / facing</option>
+              <option value="backpocket">Back pocket</option>
+              <option value="fly">Fly / zipper guard</option>
+              <option value="cargo">Cargo pocket</option>
+              <option value="knee">Knee panel</option>
+              <option value="gusset">Gusset</option>
+              <option value="other">Other panel</option>
+            </select>
+            <button type="button" class="pant-btn pant-btn-quiet pant-custom-chip" id="kp-add-component"><span aria-hidden="true">＋</span> Custom component</button>
+          </div>
+          <div class="pant-component-checks" id="kp-component-checks" aria-label="Selected component state">
             <label><input type="checkbox" value="front"> Front leg panels</label>
             <label><input type="checkbox" value="back"> Back leg panels</label>
             <label><input type="checkbox" value="waistband"> Waistband</label>
@@ -510,8 +528,8 @@
             <label><input type="checkbox" value="knee"> Knee panel</label>
             <label><input type="checkbox" value="gusset"> Gusset</label>
           </div>
-          <button type="button" class="pant-btn pant-btn-quiet pant-custom-chip" id="kp-add-component"><span aria-hidden="true">＋</span> Custom component</button>
         </div>
+        <div id="kp-selected-components" class="kp-selected-components" aria-live="polite" aria-label="Selected components"></div>
         <div class="pant-table-wrap"><table class="pant-component-table pant-component-cards"><thead><tr><th>Component</th><th>Measurements</th></tr></thead><tbody id="kp-component-rows"></tbody></table></div>
         <div class="pant-table-note">Enter each component measurement and its quantity per garment. Avoid adding seam/hem allowance twice.</div>
       </section>
