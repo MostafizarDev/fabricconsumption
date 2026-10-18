@@ -278,7 +278,10 @@
     $('kp-wbw').value = 4; $('kp-wbwa').value = 1;
     $('kp-htc').value = 32; $('kp-htca').value = 2;
     $('kp-gsm').value = 280; $('kp-waste').value = 5;
-    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => cb.checked = ['front','back','waistband'].includes(cb.value));
+    document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
+      if (!['front','back','waistband'].includes(cb.value) && !cb.value.startsWith('custom-')) cb.closest('label')?.remove();
+      else cb.checked = ['front','back','waistband'].includes(cb.value);
+    });
     ['cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
     renderComponentRows();
     updateUnitLabels();
@@ -341,7 +344,8 @@
       if (type.includes('Jogger')) preset = preset.concat(['cuff']);
       if (type.includes('Woven')) preset = preset.concat(['sidepocket','fly']);
       document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-        if (!cb.value.startsWith('custom-')) cb.checked = false;
+        if (!['front','back','waistband'].includes(cb.value) && !cb.value.startsWith('custom-')) cb.closest('label')?.remove();
+        else if (!cb.value.startsWith('custom-')) cb.checked = false;
       });
       preset.forEach(key => ensureComponentCheckbox(key, true));
       renderComponentRows();
