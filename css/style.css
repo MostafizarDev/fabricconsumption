@@ -2082,3 +2082,33 @@ body.dark-mode #page-knitpant .pant-component-meta-grid input { color:#e2e8f0; b
   #page-knitpant .pant-component-measure-grid { grid-template-columns:1fr; gap:8px; }
   #page-knitpant .pant-component-meta-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
 }
+
+
+/* Match Knit Garments seam allowance panels and result chips */
+#page-knitpant .pant-component-card { border-left:3px solid #0ea5e9; border-radius:12px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.07); }
+#page-knitpant .pant-component-card-head { margin-bottom:12px; }
+#page-knitpant .pant-component-card-head .pant-row-name { border-color:#e2e8f0; }
+#page-knitpant .pant-component-measure-grid { grid-template-columns:1fr; gap:12px; }
+#page-knitpant .pant-component-measure { gap:5px; color:#334155; font-size:12px; font-weight:500; }
+#page-knitpant .pant-component-measure > span { color:#334155; font-size:12px; font-weight:500; }
+#page-knitpant .pant-measure-pair { display:flex; align-items:center; flex-wrap:nowrap; gap:6px; }
+#page-knitpant .pant-measure-pair input { flex:0 1 70px; width:70px; min-width:54px; max-width:90px; height:34px; padding:7px 6px; border:1.5px solid #e2e8f0; border-radius:7px; font-size:13px; text-align:center; }
+#page-knitpant .pant-measure-pair input[data-field="lengthAllowance"],
+#page-knitpant .pant-measure-pair input[data-field="widthAllowance"] { background:#fffbeb; border-color:#fcd34d; }
+#page-knitpant .pant-measure-plus, #page-knitpant .pant-measure-equals { color:#94a3b8; font-size:13px; font-weight:600; }
+#page-knitpant .pant-measure-total { display:inline-flex; align-items:center; justify-content:center; min-width:82px; padding:5px 10px; border-radius:6px; background:#dbeafe; color:#1d4ed8; font-size:13px; font-weight:700; white-space:nowrap; }
+#page-knitpant .pant-component-meta-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:16px; }
+#page-knitpant .pant-component-meta-grid label { color:#334155; font-size:12px; font-weight:500; }
+#page-knitpant .pant-component-meta-grid input { height:34px; font-size:13px; }
+#page-knitpant .pant-component-net strong { font-size:13px; }
+body.dark-mode #page-knitpant .pant-component-card { border-left-color:#0ea5e9; background:#111827; }
+body.dark-mode #page-knitpant .pant-component-measure,
+body.dark-mode #page-knitpant .pant-component-measure > span,
+body.dark-mode #page-knitpant .pant-component-meta-grid label { color:#cbd5e1; }
+body.dark-mode #page-knitpant .pant-measure-pair input[data-field="lengthAllowance"],
+body.dark-mode #page-knitpant .pant-measure-pair input[data-field="widthAllowance"] { background:#2a2412; border-color:#a16207; }
+@media(max-width:560px) {
+  #page-knitpant .pant-measure-pair { flex-wrap:wrap; }
+  #page-knitpant .pant-measure-pair input { flex:0 1 64px; min-width:48px; }
+  #page-knitpant .pant-measure-total { min-width:70px; }
+}
