@@ -68,7 +68,7 @@
         '<td><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" value="' + (d.waste ?? 5) + '"></td>' +
         '<td class="pant-row-result" data-field="result">—</td><td><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></td></tr>';
     }).join('');
-    if (!selected.length) body.innerHTML = '<tr><td colspan="8" class="pant-no-rows">Select at least one component above.</td></tr>';
+    if (!selected.length) body.innerHTML = '<tr><td colspan="10" class="pant-no-rows">Select at least one component above.</td></tr>';
     body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
       activateMethod('components');
       calculatePantConsumption();
@@ -168,7 +168,9 @@
         if (row.resultNode) row.resultNode.textContent = 'Check inputs';
         return;
       }
-      const cutLength = (row.length + row.lengthAllowance) * f;\n      const cutWidth = (row.width + row.widthAllowance) * f;\n      const areaM2 = cutLength * cutWidth * row.qty / 10000;
+      const cutLength = (row.length + row.lengthAllowance) * f;
+      const cutWidth = (row.width + row.widthAllowance) * f;
+      const areaM2 = cutLength * cutWidth * row.qty / 10000;
       const netKg = areaM2 * row.gsm / 1000;
       const finalKg = netKg * (1 + row.waste / 100);
       beforeKg += netKg;
