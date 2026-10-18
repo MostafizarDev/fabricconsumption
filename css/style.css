@@ -1996,3 +1996,10 @@ body.dark-mode #page-knitpant .pant-summary-card:first-child h2 { color:#e2e8f0;
 body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-metrics { background:#111827; }
 body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-breakdown div { border-top-color:#263244; }
 body.dark-mode #page-knitpant .pant-summary-card:first-child .pant-summary-breakdown strong { color:#cbd5e1; }
+
+
+/* Knit Pant summary: remove title strip and center the primary total like Knit Garments */
+#page-knitpant .pant-summary-card:first-child .pant-summary-top { display:none; }
+#page-knitpant .pant-summary-card:first-child .pant-primary-result { margin-top:0; padding:18px 15px; text-align:center; justify-items:center; }
+#page-knitpant .pant-summary-card:first-child .pant-primary-result span { width:100%; text-align:center; }
+#page-knitpant .pant-summary-card:first-child .pant-primary-result strong { width:100%; text-align:center; }
