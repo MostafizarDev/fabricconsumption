@@ -475,14 +475,7 @@
         calculatePantConsumption();
       }
     });
-    $('kp-add-component')?.addEventListener('click', () => {
-      const select = $('kp-add-component-select');
-      const key = select.value;
-      if (!key) return;
-      if (key === 'custom') addCustomComponent();
-      else addComponentByKey(key);
-      select.value = '';
-    });
+    $('kp-add-component')?.addEventListener('click', () => addCustomComponent());
     $('kp-demo')?.addEventListener('click', () => {
       const btn=$('kp-demo'), active=btn.getAttribute('aria-pressed')==='true';
       if(active){if(kpDemoSnapshot)kpApplyState(kpDemoSnapshot);kpDemoSnapshot=null;btn.setAttribute('aria-pressed','false');btn.classList.remove('is-active')}
