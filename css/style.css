@@ -2187,3 +2187,49 @@ body.dark-mode #page-knitpant .pant-kg-breakdown .pant-kg-component-row { border
     padding-left:25px;
   }
 }
+
+
+/* Final fix: keep each selected Knit Pant component on its own full-width summary row */
+#page-knitpant #kp-summary-components { display:flex!important; flex-direction:column!important; width:100%; min-width:0; }
+#page-knitpant #kp-summary-components .pant-kg-component-row {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)!important;
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:initial;
+  gap:10px;
+  padding:9px 0;
+  border-top:1px solid #edf2f7;
+}
+#page-knitpant #kp-summary-components .pant-kg-component-name {
+  display:block!important;
+  width:100%;
+  min-width:0;
+  white-space:normal!important;
+  overflow-wrap:break-word;
+  word-break:normal;
+  line-height:1.4;
+}
+#page-knitpant #kp-summary-components .pant-kg-component-row strong {
+  display:block;
+  width:100%;
+  min-width:0;
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  text-align:right;
+  line-height:1.4;
+  padding:0!important;
+}
+@media(max-width:1100px) {
+  #page-knitpant #kp-summary-components .pant-kg-component-row {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:4px;
+  }
+  #page-knitpant #kp-summary-components .pant-kg-component-row strong {
+    text-align:left;
+  }
+}
+body.dark-mode #page-knitpant #kp-summary-components .pant-kg-component-row { border-top-color:#263244; }
