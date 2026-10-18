@@ -67,7 +67,10 @@
         '<td class="pant-row-result" data-field="result">—</td><td><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></td></tr>';
     }).join('');
     if (!selected.length) body.innerHTML = '<tr><td colspan="8" class="pant-no-rows">Select at least one component above.</td></tr>';
-    body.querySelectorAll('input').forEach(input => input.addEventListener('input', calculatePantConsumption));
+    body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
+      activateMethod('components');
+      calculatePantConsumption();
+    }));
     body.querySelectorAll('[data-remove-component]').forEach(button => button.addEventListener('click', () => {
       const key = button.dataset.removeComponent;
       const cb = document.querySelector('#kp-component-checks input[value="' + CSS.escape(key) + '"]');
