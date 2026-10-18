@@ -360,8 +360,11 @@
         calculatePantConsumption();
       }
     });
-    $('kp-add-component')?.addEventListener('click', () => addComponentByKey($('kp-add-component-select').value));
-    $('kp-add-custom-component')?.addEventListener('click', addCustomComponent);
+    $('kp-add-component')?.addEventListener('click', () => {
+      const key = $('kp-add-component-select').value;
+      if (key === 'custom') addCustomComponent();
+      else addComponentByKey(key);
+    });
     $('kp-demo')?.addEventListener('click', loadDemo);
     $('kp-reset')?.addEventListener('click', resetAll);
     document.querySelectorAll('#page-knitpant input, #page-knitpant select').forEach(input => {
