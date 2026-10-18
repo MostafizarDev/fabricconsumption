@@ -383,22 +383,25 @@
   }
 
   function loadDemo() {
-    $('kp-buyer').value = 'Demo Buyer';
-    $('kp-style').value = 'Basic Jogger Pant';
-    $('kp-po').value = 'DEMO-001';
-    $('kp-pant-type').value = 'Knit Jogger';
-    $('kp-order-qty').value = 1000;
-    $('kp-gsm').value = 280;
-    $('kp-unit').value = 'cm';
+    // Use only IDs that exist in the current Knit Pant UI.
+    const setValue = (id, value) => {
+      const el = $(id);
+      if (el) el.value = value;
+    };
+    setValue('kp-report-buyer', 'Demo Buyer');
+    setValue('kp-report-style', 'Basic Jogger Pant');
+    setValue('kp-report-po', 'DEMO-001');
+    setValue('kp-report-type', 'Knit Jogger');
+    setValue('kp-gsm', 280);
+    setValue('kp-unit', 'cm');
     currentUnit = 'cm';
-    $('kp-il').value = 75; $('kp-ila').value = 2;
-    $('kp-cfr').value = 28; $('kp-cfra').value = 2;
-    $('kp-wbw').value = 4; $('kp-wbwa').value = 1;
-    $('kp-htc').value = 32; $('kp-htca').value = 2;
-    $('kp-gsm').value = 280; $('kp-waste').value = 5;
+    setValue('kp-il', 75); setValue('kp-ila', 2);
+    setValue('kp-cfr', 28); setValue('kp-cfra', 2);
+    setValue('kp-wbw', 4); setValue('kp-wbwa', 1);
+    setValue('kp-htc', 32); setValue('kp-htca', 2);
+    setValue('kp-waste', 5);
     document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
-      if (!cb.value.startsWith('custom-')) cb.checked = false;
-      else cb.checked = false;
+      cb.checked = false;
     });
     ['front','back','waistband','cuff','pocketbag'].forEach(key => ensureComponentCheckbox(key, true));
     // Demo should expose the prefilled component measurement cards, like Knit Garments.
