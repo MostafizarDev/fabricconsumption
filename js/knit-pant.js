@@ -299,6 +299,18 @@
       document.querySelectorAll('[data-pant-unit]').forEach(item => item.classList.toggle('active', item === button));
       handleUnitChange();
     }));
+    $('kp-pant-type')?.addEventListener('change', () => {
+      const type = $('kp-pant-type').value;
+      let preset = ['front','back','waistband'];
+      if (type.includes('Jogger')) preset = preset.concat(['cuff','pocketbag']);
+      if (type.includes('Woven')) preset = preset.concat(['sidepocket','backpocket','fly']);
+      document.querySelectorAll('#kp-component-checks input[type="checkbox"]').forEach(cb => {
+        if (!cb.value.startsWith('custom-')) cb.checked = preset.includes(cb.value);
+      });
+      renderComponentRows();
+      activateMethod('components');
+      calculatePantConsumption();
+    });
     $('kp-component-checks')?.addEventListener('change', event => {
       if (event.target.matches('input[type="checkbox"]')) {
         activateMethod('components');
