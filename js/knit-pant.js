@@ -72,7 +72,7 @@
           '</div>' +
         '</div></td></tr>';
     }).join('');
-    if (!selected.length) body.innerHTML = '<tr><td colspan="2" class="pant-no-rows">Select at least one component above.</td></tr>';
+    if (!selected.length) body.innerHTML = '<tr><td colspan="2" class="pant-no-rows"><span class="pant-empty-icon" aria-hidden="true">＋</span><strong>No components added yet</strong><span>Choose a component above to enter its measurements.</span></td></tr>';
     body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
       const row = input.closest('tr[data-component-row]');
       if (row && input.dataset.field === 'name') {
