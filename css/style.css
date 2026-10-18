@@ -2548,3 +2548,35 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
   min-height:34px;
   border-radius:8px;
 }
+
+
+/* Pant-only quick fields: compact Knit Garment-style labels and inputs.
+   Intentionally excludes the custom Inseam measurement row. */
+#page-knitpant #kp-quick-panel .pant-field:not(.pant-inseam-field) label .kp-unit-label {
+  display:inline !important;
+  margin:0 0 0 2px !important;
+  font-size:9px;
+  font-weight:500;
+  line-height:inherit;
+}
+#page-knitpant #kp-quick-panel .pant-field:not(.pant-inseam-field) input {
+  min-height:34px;
+  height:34px;
+  padding:7px 9px;
+  border-radius:7px;
+  font-size:11px;
+}
+#page-knitpant #kp-quick-panel .pant-field:not(.pant-inseam-field) {
+  gap:5px;
+}
+#page-knitpant #kp-quick-panel .pant-measure-grid {
+  column-gap:10px;
+  row-gap:9px;
+}
+@media(max-width:560px) {
+  #page-knitpant #kp-quick-panel .pant-field:not(.pant-inseam-field) input {
+    min-height:34px;
+    height:34px;
+    padding:7px;
+  }
+}
