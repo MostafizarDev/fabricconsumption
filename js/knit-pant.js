@@ -22,6 +22,7 @@
   let lastResult = null;
   let customCount = 0;
   let currentUnit = 'cm';
+  let showDemoValues = false;
 
   const componentDefs = {
     front: { name: 'Front leg panels', qty: 2, length: 75, width: 32, gsm: 280, waste: 5 },
@@ -87,13 +88,13 @@
         '<div class="pant-component-card">' +
           '<div class="pant-component-card-head"><input class="pant-row-name" data-field="name" aria-label="Component name" value="' + escapeHtml(d.name) + '"><button type="button" class="pant-row-remove" data-remove-component="' + escapeHtml(key) + '" aria-label="Remove component">×</button></div>' +
           '<div class="pant-component-measure-grid">' +
-            '<label class="pant-component-measure"><span>Length Measurements (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="' + (d.length || 'e.g., 70') + '" value=""><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="' + (d.lengthAllowance ?? 'e.g., 6') + '" value=""><span class="pant-measure-equals">=</span><span class="pant-measure-total" data-field="lengthTotal">0.0 <span class="kp-unit-label">CM</span></span></div></label>' +
-            '<label class="pant-component-measure"><span>Width Measurements (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="' + (d.width || 'e.g., 32') + '" value=""><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="' + (d.widthAllowance ?? 'e.g., 2') + '" value=""><span class="pant-measure-equals">=</span><span class="pant-measure-total" data-field="widthTotal">0.0 <span class="kp-unit-label">CM</span></span></div></label>' +
+            '<label class="pant-component-measure"><span>Length Measurements (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="length" aria-label="Length" placeholder="e.g., 70" value="' + (showDemoValues ? (d.length ?? '') : '') + '"'><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="lengthAllowance" aria-label="Length allowance" placeholder="e.g., 6" value="' + (showDemoValues ? (d.lengthAllowance ?? 0) : '') + '"'><span class="pant-measure-equals">=</span><span class="pant-measure-total" data-field="lengthTotal">0.0 <span class="kp-unit-label">CM</span></span></div></label>' +
+            '<label class="pant-component-measure"><span>Width Measurements (<span class="kp-unit-label">CM</span>)</span><div class="pant-measure-pair"><input type="number" min="0" step="any" data-field="width" aria-label="Width" placeholder="e.g., 32" value="' + (showDemoValues ? (d.width ?? '') : '') + '"'><span class="pant-measure-plus">+</span><input type="number" min="0" step="any" data-field="widthAllowance" aria-label="Width allowance" placeholder="e.g., 2" value="' + (showDemoValues ? (d.widthAllowance ?? 0) : '') + '"'><span class="pant-measure-equals">=</span><span class="pant-measure-total" data-field="widthTotal">0.0 <span class="kp-unit-label">CM</span></span></div></label>' +
           '</div>' +
           '<div class="pant-component-meta-grid">' +
-            '<label><span>Qty / pc</span><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" placeholder="' + (d.qty ?? 1) + '" value=""></label>' +
-            '<label><span>GSM</span><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" placeholder="' + (d.gsm || val('kp-default-gsm', 0) || 'e.g., 280') + '" value=""></label>' +
-            '<label><span>Waste %</span><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" placeholder="' + (d.waste ?? 5) + '" value=""></label>' +
+            '<label><span>Qty / pc</span><input type="number" min="0" step="1" data-field="qty" aria-label="Quantity per garment" placeholder="e.g., 2" value="' + (showDemoValues ? (d.qty ?? 1) : '') + '"'></label>' +
+            '<label><span>GSM</span><input type="number" min="0" step="any" data-field="gsm" aria-label="GSM" placeholder="e.g., 280" value="' + (showDemoValues ? (d.gsm || val('kp-default-gsm', 0) || '') : '') + '"'></label>' +
+            '<label><span>Waste %</span><input type="number" min="0" max="100" step="any" data-field="waste" aria-label="Wastage percent" placeholder="e.g., 5" value="' + (showDemoValues ? (d.waste ?? 5) : '') + '"'></label>' +
 
           '</div>' +
         '</div></td></tr>';
@@ -383,6 +384,7 @@
   }
 
   function loadDemo() {
+    showDemoValues = true;
     // Use only IDs that exist in the current Knit Pant UI.
     const setValue = (id, value) => {
       const el = $(id);
@@ -412,6 +414,7 @@
   }
 
   function resetAll() {
+    showDemoValues = false;
     document.querySelectorAll('#page-knitpant input').forEach(input => {
       if (input.type === 'checkbox') input.checked = false;
       else if (input.type === 'radio') input.checked = input.value === 'quick';
@@ -558,19 +561,21 @@
     });
     $('kp-component-checks')?.addEventListener('change', event => {
       if (event.target.matches('input[type="checkbox"]')) {
+        showDemoValues = false;
         activateMethod('components');
         renderComponentRows();
         calculatePantConsumption();
       }
     });
     $('kp-confirm-add-component')?.addEventListener('click', () => {
+      showDemoValues = false;
       const select = $('kp-add-component-select');
       const key = select?.value;
       if (!key) return;
       addComponentByKey(key);
       select.value = '';
     });
-    $('kp-add-component')?.addEventListener('click', () => addCustomComponent());
+    $('kp-add-component')?.addEventListener('click', () => { showDemoValues = false; addCustomComponent(); });
     // Match Knit Garments Demo toggle: load a complete sample state, then restore the exact prior state.
     $('kp-demo')?.addEventListener('click', function (event) {
       event.preventDefault();
