@@ -2368,3 +2368,69 @@ body.dark-mode #page-knitpant #kp-components-panel .kp-selected-remove { color:#
     margin-top:7px;
   }
 }
+
+
+/* Knit Pant Additional Components — Pocket Measurements inspired layout */
+#page-knitpant #kp-components-panel .pant-component-measure-grid {
+  grid-template-columns:minmax(0,1fr);
+  gap:8px;
+}
+#page-knitpant #kp-components-panel .pant-component-measure {
+  gap:4px;
+}
+#page-knitpant #kp-components-panel .pant-component-measure > span {
+  line-height:1.2;
+}
+#page-knitpant #kp-components-panel .pant-measure-pair {
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  width:100%;
+  gap:6px;
+}
+#page-knitpant #kp-components-panel .pant-measure-pair input {
+  flex:0 1 70px;
+  width:70px;
+  min-width:48px;
+  max-width:90px;
+  height:31px;
+  padding:5px 7px;
+  text-align:left;
+}
+#page-knitpant #kp-components-panel .pant-measure-total {
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:0 10px;
+  border-radius:6px;
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+#page-knitpant #kp-components-panel .pant-component-meta-grid {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin-top:9px;
+}
+#page-knitpant #kp-components-panel .pant-component-meta-grid input {
+  height:31px;
+}
+body.dark-mode #page-knitpant #kp-components-panel .pant-measure-total {
+  background:#1e3a5f;
+  color:#bfdbfe;
+}
+@media(max-width:520px) {
+  #page-knitpant #kp-components-panel .pant-measure-pair {
+    gap:5px;
+  }
+  #page-knitpant #kp-components-panel .pant-measure-pair input {
+    flex:0 1 64px;
+    min-width:44px;
+  }
+  #page-knitpant #kp-components-panel .pant-component-meta-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+  }
+}
