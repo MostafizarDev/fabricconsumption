@@ -280,6 +280,7 @@
   function updateUnitLabels() {
     document.querySelectorAll('#page-knitpant .kp-unit-label').forEach(node => node.textContent = unitLabel());
     updateInseamTotal();
+    updatePantMeasurementTotals();
   }
 
   function updateInseamTotal() {
@@ -287,6 +288,19 @@
     const allowance = Number($('kp-ila')?.value || 0);
     const total = $('kp-inseam-total');
     if (total) total.innerHTML = fmt(length + allowance, 1) + ' <span class="kp-unit-label">' + unitLabel() + '</span>';
+  }
+
+  function updatePantMeasurementTotals() {
+    [
+      ['kp-cfr', 'kp-cfra', 'kp-rise-total'],
+      ['kp-wbw', 'kp-wbwa', 'kp-waistband-total'],
+      ['kp-htc', 'kp-htca', 'kp-thigh-total']
+    ].forEach(([baseId, allowanceId, totalId]) => {
+      const base = Number($(baseId)?.value || 0);
+      const allowance = Number($(allowanceId)?.value || 0);
+      const total = $(totalId);
+      if (total) total.innerHTML = fmt(base + allowance, 1) + ' <span class="kp-unit-label">' + unitLabel() + '</span>';
+    });
   }
 
   function handleUnitChange() {
@@ -541,6 +555,7 @@
       if (!input.closest('#kp-component-rows') && input.id !== 'kp-unit' && input.id !== 'kp-pant-type' && input.id !== 'kp-buyer' && input.id !== 'kp-style' && input.id !== 'kp-po' && input.name !== 'kp-method' && input.id !== 'kp-add-component-select') input.addEventListener('input', () => {
         if (input.closest('#kp-quick-panel')) activateMethod('quick');
         updateInseamTotal();
+        updatePantMeasurementTotals();
         calculatePantConsumption();
       });
       if (['kp-pant-type','kp-buyer','kp-style','kp-po'].includes(input.id)) input.addEventListener('input', () => { if (lastResult) { lastResult.type = $('kp-pant-type').value; lastResult.buyer = $('kp-buyer').value; lastResult.style = $('kp-style').value; lastResult.po = $('kp-po').value; } });
