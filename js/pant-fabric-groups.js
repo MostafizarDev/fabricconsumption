@@ -6,6 +6,7 @@
   let groups = load();
   let editingId = null;
   let latest = { qty: 0, rows: [] };
+  let dialogOpening = false;
 
   function load() {
     try {
@@ -67,7 +68,29 @@
     else groups.push({id:'kp-group-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7),name,components});
     if(!save())return;clearEditor();renderGroups();renderTotals();
   }
-  function openDialog(){const d=$('kp-groups-dialog');if(!d)return;clearEditor();renderGroups();renderChoices([]);if(d.showModal)d.showModal();else d.setAttribute('open','');}
+  function openDialog(){
+    const d = $('kp-groups-dialog');
+    if (!d || dialogOpening || d.open) return;
+    dialogOpening = true;
+    try {
+      editingId = null;
+      if ($('kp-group-name')) $('kp-group-name').value = '';
+      if ($('kp-group-editor-title')) $('kp-group-editor-title').textContent = 'Create a group';
+      if ($('kp-group-save')) $('kp-group-save').textContent = 'Create Group';
+      if ($('kp-group-cancel')) $('kp-group-cancel').hidden = true;
+      showError('');
+      renderGroups();
+      renderChoices([]);
+      if (typeof d.showModal === 'function') d.showModal();
+      else d.setAttribute('open', '');
+    } catch (error) {
+      console.error('Knit Pant fabric groups could not open:', error);
+      showError('Could not open Fabric Groups. Please refresh the page and try again.');
+      d.setAttribute('open', '');
+    } finally {
+      dialogOpening = false;
+    }
+  }
   function closeDialog(){const d=$('kp-groups-dialog');if(!d)return;if(d.close&&d.open)d.close();else d.removeAttribute('open');}
   function renderTotals(data){
     if(data)latest=data;
@@ -100,7 +123,15 @@
     open.addEventListener('click',openDialog);$('kp-groups-close')?.addEventListener('click',closeDialog);$('kp-groups-done')?.addEventListener('click',closeDialog);$('kp-group-save')?.addEventListener('click',saveGroup);$('kp-group-cancel')?.addEventListener('click',clearEditor);
     $('kp-group-name')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGroup();}});
     dialog.addEventListener('click',e=>{if(e.target===dialog)closeDialog();});
-    document.addEventListener('change',e=>{if(e.target.closest('#kp-component-rows')||e.target.closest('#kp-selected-components')){renderGroups();renderChoices(editingId?(groups.find(g=>g.id===editingId)?.components||[]):[]);renderTotals();}});
+    document.addEventListener('change', e => {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest('#kp-component-rows') || target.closest('#kp-selected-components')) {
+        renderGroups();
+        renderChoices(editingId ? (groups.find(g => g.id === editingId)?.components || []) : []);
+        renderTotals();
+      }
+    });
     renderGroups();renderChoices([]);renderTotals({qty:0,rows:[]});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
