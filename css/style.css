@@ -2738,3 +2738,10 @@ body.dark-mode #page-knitpant .pant-component-totals .kg-group-totals-empty { bo
   #page-knitpant .pant-component-totals .kg-group-total-card-head h4 { font-size:11px; }
   #page-knitpant .pant-component-totals .kg-group-total-kg { font-size:12px; }
 }
+
+/* Knit Pant Fabrics Type grouping uses the shared Knit Garments group manager styles */
+#page-knitpant .pant-component-totals .kg-group-heading-actions { display:flex; align-items:center; gap:8px; }
+#page-knitpant .pant-component-totals .kg-group-settings-btn { width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; padding:6px; border:1px solid #dbe3ee; border-radius:7px; background:#fff; color:#475569; cursor:pointer; }
+#page-knitpant .pant-component-totals .kg-group-settings-btn svg { width:18px; height:18px; }
+#page-knitpant .pant-component-totals .kg-group-settings-btn:hover { border-color:#93c5fd; color:#1d4ed8; }
+body.dark-mode #page-knitpant .pant-component-totals .kg-group-settings-btn { background:#0b1120; border-color:#475569; color:#cbd5e1; }
