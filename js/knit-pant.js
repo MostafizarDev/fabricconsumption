@@ -194,7 +194,8 @@
     setResultText('kp-r-method', '—');
     setResultText('kp-result-note', 'Enter the required data to calculate. Incomplete inputs will not produce a confirmed result.');
     const breakdown = $('kp-breakdown-list');
-    if (breakdown) breakdown.innerHTML = '<p class="pant-empty">No calculated components yet.</p>';
+    if (breakdown) breakdown.innerHTML = '<div class="kg-group-totals-empty">No calculated components yet.</div>';
+    setResultText('kp-breakdown-count', '0 components');
     lastResult = null;
     const selectedRows = collectComponentRows().map(row => ({name: row.name}));
     updateKnitGarmentStyleSummary(selectedRows, val('kp-order-qty', 0), 0, method() === 'quick' ? 'Quick Estimate' : 'Component-wise');
@@ -213,6 +214,17 @@
     return ((inseam + rise + waistband) * thigh * 4 * val('kp-gsm') / 10000000) * (1 + waste / 100);
   }
 
+  document.addEventListener('click', event => {
+    const button = event.target.closest('#kp-breakdown-list .kg-group-total-details-btn');
+    if (!button) return;
+    const card = button.closest('.kg-group-total-card');
+    const metrics = card && card.querySelector('.kg-group-total-metrics');
+    if (!metrics) return;
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    metrics.hidden = expanded;
+  });
+
   function publishResult({ beforeKg, afterKg, orderQty, methodName, note, meterPerPc = null, orderMeter = null, rows = [] }) {
     const isComponentWise = methodName.startsWith('Component-wise');
     const mainBodyKg = isComponentWise ? getMainBodyKgPerPiece() : 0;
@@ -229,8 +241,26 @@
     setResultText('kp-r-method', methodName);
     setResultText('kp-result-note', note);
     const list = $('kp-breakdown-list');
+    const count = $('kp-breakdown-count');
+    if (count) count.textContent = rows.length + (rows.length === 1 ? ' component' : ' components');
     if (list) {
-      list.innerHTML = rows.length ? rows.map(r => '<div class="pant-breakdown-row"><span>' + escapeHtml(r.name) + '</span><strong>' + fmt(r.kg, 4) + ' kg/pc</strong></div>').join('') : '<p class="pant-empty">This method produces an overall estimate, not a panel breakdown.</p>';
+      list.innerHTML = rows.length ? rows.map((r, i) => {
+        const perPc = Number(r.kg) || 0;
+        const orderTotal = perPc * orderQty;
+        const beforePerPc = Number(r.beforeKg ?? r.netKg ?? r.baseKg);
+        const beforeOrder = Number.isFinite(beforePerPc) ? beforePerPc * orderQty : null;
+        const wasteKg = beforeOrder === null ? null : orderTotal - beforeOrder;
+        return '<article class="kg-group-total-card pant-breakdown-total-card">' +
+          '<div class="kg-group-total-card-head"><div><h4>' + escapeHtml(r.name) + '</h4><p class="kg-group-total-members">Knit Pant component</p></div>' +
+          '<strong class="kg-group-total-kg">' + fmt(orderTotal, 3) + ' kg</strong>' +
+          '<button type="button" class="kg-group-total-details-btn" aria-label="Show details for ' + escapeHtml(r.name) + '" title="Show details" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg></button></div>' +
+          '<div class="kg-group-total-metrics" hidden><div class="kg-group-total-metric"><span>Before wastage</span><strong>' + (beforeOrder === null ? '—' : fmt(beforeOrder, 3) + ' kg') + '</strong></div>' +
+          '<div class="kg-group-total-metric"><span>After wastage</span><strong>' + fmt(orderTotal, 3) + ' kg</strong></div>' +
+          '<div class="kg-group-total-metric"><span>Per piece</span><strong>' + fmt(perPc, 4) + ' kg/pcs</strong></div>' +
+          '<div class="kg-group-total-metric"><span>Order quantity</span><strong>' + fmt(orderQty, 0) + ' pcs</strong></div>' +
+          (wasteKg === null ? '' : '<div class="kg-group-total-metric"><span>Wastage</span><strong>' + fmt(wasteKg, 3) + ' kg</strong></div>') +
+          '</div></article>';
+      }).join('') : '<div class="kg-group-totals-empty">This method produces an overall estimate, not a component breakdown.</div>';
     }
     lastResult = { beforeKg, afterKg, orderQty, methodName, note, meterPerPc, orderMeter, rows, unit: unitLabel(), type: $('kp-pant-type').value, buyer: $('kp-buyer').value, style: $('kp-style').value, po: $('kp-po').value };
   }
