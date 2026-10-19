@@ -2718,3 +2718,23 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
   font-size:12px!important;
   line-height:1.25!important;
 }
+
+
+/* Knit Pant component breakdown — match Knit Garments Fabrics Type cards */
+#page-knitpant .pant-component-totals { margin-top:0; }
+#page-knitpant .pant-component-totals .kg-group-total-list { display:flex; flex-direction:column; gap:8px; }
+#page-knitpant .pant-component-totals .kg-group-total-card-head { align-items:center; margin-bottom:0; gap:8px; }
+#page-knitpant .pant-component-totals .kg-group-total-card-head > div { min-width:0; flex:1 1 auto; }
+#page-knitpant .pant-component-totals .kg-group-total-card-head h4 { overflow-wrap:anywhere; }
+#page-knitpant .pant-component-totals .kg-group-total-kg { flex:0 0 auto; white-space:nowrap; font-size:13px; }
+#page-knitpant .pant-component-totals .kg-group-total-details-btn { flex:0 0 26px; }
+#page-knitpant .pant-component-totals .kg-group-total-details-btn[aria-expanded="true"] svg { transform:rotate(180deg); }
+#page-knitpant .pant-component-totals .kg-group-total-details-btn svg { transition:transform .15s ease; }
+#page-knitpant .pant-component-totals .kg-group-total-metrics { margin-top:9px; }
+#page-knitpant .pant-component-totals .kg-group-totals-empty { padding:12px; border:1px dashed #cbd5e1; border-radius:8px; color:#64748b; font-size:11px; line-height:1.5; }
+body.dark-mode #page-knitpant .pant-component-totals .kg-group-totals-empty { border-color:#475569; color:#94a3b8; }
+@media(max-width:520px) {
+  #page-knitpant .pant-component-totals .kg-group-total-card-head { flex-wrap:nowrap; }
+  #page-knitpant .pant-component-totals .kg-group-total-card-head h4 { font-size:11px; }
+  #page-knitpant .pant-component-totals .kg-group-total-kg { font-size:12px; }
+}
