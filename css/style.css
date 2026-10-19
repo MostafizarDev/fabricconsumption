@@ -2686,3 +2686,35 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
   font-size:inherit;
   font-weight:inherit;
 }
+
+
+/* Keep Knit Pant summary name and consumption on a single line */
+#page-knitpant #kp-summary-components .pant-kg-component-row {
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:6px!important;
+  padding:7px 0!important;
+}
+#page-knitpant #kp-summary-components .pant-kg-component-name {
+  flex:0 1 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+}
+#page-knitpant #kp-summary-components .pant-kg-component-row strong {
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  white-space:nowrap!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-align:right!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+}
