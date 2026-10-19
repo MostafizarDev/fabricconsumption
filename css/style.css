@@ -2745,3 +2745,32 @@ body.dark-mode #page-knitpant .pant-component-totals .kg-group-totals-empty { bo
 #page-knitpant .pant-component-totals .kg-group-settings-btn svg { width:18px; height:18px; }
 #page-knitpant .pant-component-totals .kg-group-settings-btn:hover { border-color:#93c5fd; color:#1d4ed8; }
 body.dark-mode #page-knitpant .pant-component-totals .kg-group-settings-btn { background:#0b1120; border-color:#475569; color:#cbd5e1; }
+
+
+/* Keep GSM, wastage and order quantity aligned on one row in Knit Pant */
+#page-knitpant #kp-quick-panel .pant-measure-grid > .pant-bottom-fields {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+#page-knitpant #kp-quick-panel .pant-bottom-fields .pant-field {
+  min-width: 0;
+}
+#page-knitpant #kp-quick-panel .pant-bottom-fields .pant-field label {
+  min-height: 14px;
+}
+@media (max-width: 420px) {
+  #page-knitpant #kp-quick-panel .pant-measure-grid > .pant-bottom-fields {
+    gap: 7px;
+  }
+  #page-knitpant #kp-quick-panel .pant-bottom-fields .pant-field label {
+    font-size: 10px;
+  }
+  #page-knitpant #kp-quick-panel .pant-bottom-fields .pant-field input {
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 10px;
+  }
+}
