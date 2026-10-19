@@ -200,14 +200,30 @@
     updateKnitGarmentStyleSummary(selectedRows, val('kp-order-qty', 0), 0, method() === 'quick' ? 'Quick Estimate' : 'Component-wise');
   }
 
+  function getMainBodyKgPerPiece() {
+    const required = ['kp-il','kp-cfr','kp-wbw','kp-htc','kp-gsm'];
+    if (!required.every(id => num(id) !== null && num(id) > 0)) return 0;
+    const waste = num('kp-waste');
+    if (waste === null || waste < 0 || waste > 100) return 0;
+    const f = unitFactorToCm();
+    const inseam = (val('kp-il') + val('kp-ila')) * f;
+    const rise = (val('kp-cfr') + val('kp-cfra')) * f;
+    const waistband = (val('kp-wbw') + val('kp-wbwa')) * f;
+    const thigh = (val('kp-htc') + val('kp-htca')) * f;
+    return ((inseam + rise + waistband) * thigh * 4 * val('kp-gsm') / 10000000) * (1 + waste / 100);
+  }
+
   function publishResult({ beforeKg, afterKg, orderQty, methodName, note, meterPerPc = null, orderMeter = null, rows = [] }) {
-    const wasteKg = afterKg - beforeKg;
-    setResultText('kp-r-pc', fmt(afterKg, 4) + ' kg');
-    setResultText('kp-r-pc-secondary', fmt(afterKg, 4) + ' kg/pcs');
-    setResultText('kp-r-dz', fmt(afterKg * 12, 3) + ' kg');
-    setResultText('kp-r-order', fmt(afterKg * orderQty, 3) + ' kg');
-    setResultText('kp-r-before', fmt(beforeKg * orderQty, 3) + ' kg');
-    setResultText('kp-r-waste', fmt(afterKg * orderQty, 3) + ' kg');
+    const isComponentWise = methodName.startsWith('Component-wise');
+    const mainBodyKg = isComponentWise ? getMainBodyKgPerPiece() : 0;
+    const totalPerPiece = afterKg + mainBodyKg;
+    const totalOrderKg = totalPerPiece * orderQty;
+    setResultText('kp-r-pc', fmt(totalOrderKg, 4) + ' kg');
+    setResultText('kp-r-pc-secondary', fmt(totalPerPiece, 4) + ' kg/pcs');
+    setResultText('kp-r-dz', fmt(totalPerPiece * 12, 3) + ' kg');
+    setResultText('kp-r-order', fmt(totalOrderKg, 3) + ' kg');
+    setResultText('kp-r-before', fmt((beforeKg + mainBodyKg / (1 + (val('kp-waste') / 100))) * orderQty, 3) + ' kg');
+    setResultText('kp-r-waste', fmt(totalOrderKg, 3) + ' kg');
     updateKnitGarmentStyleSummary(rows, orderQty, beforeKg, methodName);
     setResultText('kp-summary-method', methodName);
     setResultText('kp-r-method', methodName);
