@@ -262,7 +262,7 @@
           '</div></article>';
       }).join('') : '<div class="kg-group-totals-empty">This method produces an overall estimate, not a component breakdown.</div>';
     }
-    lastResult = { beforeKg, afterKg, orderQty, methodName, note, meterPerPc, orderMeter, rows, unit: unitLabel(), type: $('kp-pant-type').value, buyer: $('kp-buyer').value, style: $('kp-style').value, po: $('kp-po').value };
+    lastResult = { beforeKg, afterKg, orderQty, methodName, note, meterPerPc, orderMeter, rows, unit: unitLabel(), type: $('kp-pant-type')?.value || $('kp-report-type')?.value || 'Knit Pant', buyer: $('kp-buyer')?.value || $('kp-report-buyer')?.value || '', style: $('kp-style')?.value || $('kp-report-style')?.value || '', po: $('kp-po')?.value || $('kp-report-po')?.value || '' };
   }
 
   function calculateQuick() {
