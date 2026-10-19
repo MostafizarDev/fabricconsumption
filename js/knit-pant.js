@@ -652,11 +652,27 @@
       if (event.key === 'Escape' && !$('kp-report-modal')?.hidden) kpCloseReportModal();
     });
     $('kp-report-save')?.addEventListener('click',()=>{
-      $('kp-buyer').value=$('kp-report-buyer').value;$('kp-style').value=$('kp-report-style').value;$('kp-po').value=$('kp-report-po').value;
-      const type=$('kp-report-type').value.trim();
-      if(type&&!Array.from($('kp-pant-type').options).some(o=>o.value===type)){const option=document.createElement('option');option.value=type;option.textContent=type;$('kp-pant-type').appendChild(option)}
-      if(type)$('kp-pant-type').value=type;
-      if(lastResult){lastResult.buyer=$('kp-buyer').value;lastResult.style=$('kp-style').value;lastResult.po=$('kp-po').value;lastResult.type=$('kp-pant-type').value}
+      const buyer = $('kp-report-buyer')?.value.trim() || '';
+      const style = $('kp-report-style')?.value.trim() || '';
+      const po = $('kp-report-po')?.value.trim() || '';
+      const type = $('kp-report-type')?.value.trim() || 'Knit Pant';
+      // These report fields are the source of truth; legacy hidden fields may not exist in this layout.
+      const typeSelect = $('kp-pant-type');
+      if (typeSelect) {
+        if (type && !Array.from(typeSelect.options).some(o => o.value === type)) {
+          const option = document.createElement('option');
+          option.value = type;
+          option.textContent = type;
+          typeSelect.appendChild(option);
+        }
+        if (type) typeSelect.value = type;
+      }
+      if (lastResult) {
+        lastResult.buyer = buyer;
+        lastResult.style = style;
+        lastResult.po = po;
+        lastResult.type = type;
+      }
       kpCloseReportModal();
     });
     $('btn-pdf-knitpant')?.addEventListener('click',()=>{kpSaveRecent(false);downloadKnitPantReport()});
