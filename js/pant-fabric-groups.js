@@ -120,6 +120,9 @@
   window.updatePantGroupTotals=renderTotals;
   function init(){
     const open=$('kp-manage-groups'),dialog=$('kp-groups-dialog');if(!open||!dialog||open.dataset.groupsReady==='true')return;open.dataset.groupsReady='true';
+    // Keep the modal outside page sections that are hidden during navigation.
+    // Native dialogs inside a hidden page container may fail to become visible.
+    if (dialog.parentElement !== document.body) document.body.appendChild(dialog);
     open.addEventListener('click',openDialog);$('kp-groups-close')?.addEventListener('click',closeDialog);$('kp-groups-done')?.addEventListener('click',closeDialog);$('kp-group-save')?.addEventListener('click',saveGroup);$('kp-group-cancel')?.addEventListener('click',clearEditor);
     $('kp-group-name')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGroup();}});
     dialog.addEventListener('click',e=>{if(e.target===dialog)closeDialog();});
