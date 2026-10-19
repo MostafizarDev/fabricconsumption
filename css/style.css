@@ -2704,8 +2704,8 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
   white-space:nowrap!important;
   overflow:hidden!important;
   text-overflow:ellipsis!important;
-  font-size:10px!important;
-  line-height:1.2!important;
+  font-size:12px!important;
+  line-height:1.25!important;
 }
 #page-knitpant #kp-summary-components .pant-kg-component-row strong {
   flex:0 0 auto!important;
@@ -2715,6 +2715,6 @@ body.dark-mode #page-knitpant #kp-quick-panel .pant-inseam-pair .pant-measure-to
   overflow-wrap:normal!important;
   word-break:normal!important;
   text-align:right!important;
-  font-size:10px!important;
-  line-height:1.2!important;
+  font-size:12px!important;
+  line-height:1.25!important;
 }
