@@ -319,7 +319,7 @@
       showValidation(errors.map(text => ({type:'error',text})).concat([{type:'info',text:'No final total is shown until every selected component has valid inputs.'}]));
       return;
     }
-    publishResult({beforeKg,afterKg,orderQty:val('kp-order-qty',0),methodName:'Component-wise · panel area',note:'Component-wise consumption calculated from the selected panel inputs.',rows:results});
+    publishResult({beforeKg,afterKg,orderQty:val('kp-order-qty',0),methodName:'Component-wise · panel area',note:'',rows:results});
     showValidation([{type:'success',text:results.length + ' selected components calculated successfully.'},{type:'warning',text:'Area-based estimate only; fabric nesting, marker efficiency, shrinkage and cutting loss may change actual consumption.'}]);
   }
 
