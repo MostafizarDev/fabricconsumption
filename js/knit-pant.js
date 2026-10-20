@@ -593,6 +593,29 @@
     const beforeOrder = r.beforeKg * r.orderQty;
     const wastageOrder = Math.max(0, r.afterKg-r.beforeKg) * r.orderQty;
     const finalOrder = r.afterKg * r.orderQty;
+    // Build the same Fabrics Type summary used by the Knit Garments report.
+    let savedPantGroups = [];
+    try {
+      const stored = JSON.parse(localStorage.getItem('fc-knit-pant-fabric-groups-v1') || '[]');
+      if (Array.isArray(stored)) savedPantGroups = stored.filter(g => g && typeof g.id === 'string' && typeof g.name === 'string' && Array.isArray(g.components));
+    } catch (_) {}
+    const validRows = r.rows || [];
+    const rowByKey = new Map(validRows.map(row => [row.key, row]));
+    const assignedKeys = new Set(savedPantGroups.flatMap(group => group.components).filter(key => rowByKey.has(key)));
+    const fabricTypeGroups = savedPantGroups.map(group => ({
+      name: group.name,
+      members: group.components.map(key => rowByKey.get(key)).filter(Boolean)
+    })).filter(group => group.members.length);
+    const ungroupedRows = validRows.filter(row => !assignedKeys.has(row.key));
+    if (ungroupedRows.length) fabricTypeGroups.push({name:'Others',members:ungroupedRows});
+    const fabricTypeRows = fabricTypeGroups.map((group,index) => {
+      const memberNames = group.members.map(row => row.name).join(', ');
+      const groupBefore = group.members.reduce((sum,row) => sum + (Number(row.netKg) || 0),0);
+      const groupFinal = group.members.reduce((sum,row) => sum + (Number(row.finalKg ?? row.kg) || 0),0);
+      const groupWastage = groupFinal - groupBefore;
+      return '<tr><td>'+(index+1)+'</td><td><strong>'+escapeHtml(group.name)+'</strong></td><td>'+escapeHtml(memberNames)+'</td><td>'+fmt(groupBefore*12,3)+' kg</td><td>'+fmt(groupFinal*12,3)+' kg</td><td>'+fmt(groupWastage*r.orderQty,3)+' kg</td><td><strong>'+fmt(groupFinal*r.orderQty,3)+' kg</strong></td><td>—</td></tr>';
+    }).join('');
+    const fabricTypeSection = '<section class="section"><div class="section-head">'+reportIcon('summary')+'<span>FABRICS TYPE WISE SUMMARY</span></div><table class="fabric-type-table"><thead><tr><th>SL</th><th>FABRIC TYPE</th><th>COMPONENTS</th><th>BEFORE WASTAGE / DZ</th><th>FINAL / DZ</th><th>WASTAGE / ORDER</th><th>ORDER TOTAL</th><th>REMARKS</th></tr></thead><tbody>'+(fabricTypeRows || '<tr><td colspan="8">'+(validRows.length ? 'No grouped components.' : 'Quick Estimate — overall pant fabric consumption')+'</td></tr>')+'</tbody></table></section>';
     const filePart = value => String(value || '').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
     const fileName = ['FC',filePart(r.buyer),filePart(r.style),filePart(r.po) ? 'PO'+filePart(r.po).replace(/^PO[_-]?/i,'') : '',reportId].filter(Boolean).join('_');
     const report = '<div class="report">'+
@@ -600,6 +623,7 @@
       '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+escapeHtml(r.unit)+'</strong></div><div><span>Order Quantity</span><strong>'+r.orderQty+' pcs</strong></div></div>'+
       '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(escapeHtml(r.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(escapeHtml(r.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(escapeHtml(r.po)||'________________')+'</strong></div><div><span>Pant Type</span><strong>'+escapeHtml(r.type)+'</strong></div></div></section>'+
       '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component</th><th>Consumption / Piece</th><th>Consumption / Dozen</th><th>Order Total</th><th>Remarks</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6">Quick estimate summary</td></tr>')+'</tbody></table></section>'+
+      fabricTypeSection+
       '<section class="section"><div class="section-head">'+reportIcon('summary')+'<span>CALCULATION METHOD</span></div><div style="padding:12px 13px;font-size:10px;line-height:1.6"><strong>'+escapeHtml(r.methodName)+'</strong><div style="margin-top:4px;color:#475569">'+escapeHtml(r.note)+'</div></div></section>'+
       '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+reportIcon('components')+'<span>BEFORE WASTAGE</span></div><strong>'+fmt(r.beforeKg,4)+' kg/pc</strong><small>'+fmt(beforeOrder,3)+' kg per order</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(r.afterKg-r.beforeKg,4)+' kg/pc</strong><small>'+fmt(wastageOrder,3)+' kg per order</small></div><div class="summary-card primary"><div class="metric-head">'+reportIcon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(finalOrder,3)+' kg</strong><small>Including wastage</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('file')+'<span>PER DOZEN</span></div><strong>'+fmt(r.afterKg*12,3)+' kg/dz</strong><small>Final consumption</small></div></div>'+
       '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
