@@ -23,6 +23,17 @@
   let customCount = 0;
   let currentUnit = 'cm';
   let showDemoValues = false;
+  const KP_REPORT_INFO_KEY = 'fc-knit-pant-report-info-v1';
+  function kpReadReportInfo() {
+    try {
+      const data = JSON.parse(localStorage.getItem(KP_REPORT_INFO_KEY) || '{}');
+      return data && typeof data === 'object' ? { buyer: String(data.buyer || ''), style: String(data.style || ''), po: String(data.po || ''), type: String(data.type || '') } : { buyer:'', style:'', po:'', type:'' };
+    } catch (_) { return { buyer:'', style:'', po:'', type:'' }; }
+  }
+  function kpWriteReportInfo(info) {
+    try { localStorage.setItem(KP_REPORT_INFO_KEY, JSON.stringify(info)); return true; }
+    catch (_) { alert('Could not save Report Information. Please check browser storage settings.'); return false; }
+  }
 
   const componentDefs = {
     front: { name: 'Front leg panels', qty: 2, length: 75, width: 32, gsm: 280, waste: 5 },
@@ -232,7 +243,7 @@
     if (typeof window.updatePantGroupTotals === 'function') {
       window.updatePantGroupTotals({ qty: orderQty, rows: rows || [] });
     }
-    lastResult = { beforeKg, afterKg, orderQty, methodName, note, meterPerPc, orderMeter, rows, unit: unitLabel(), type: $('kp-pant-type')?.value || $('kp-report-type')?.value || 'Knit Pant', buyer: $('kp-buyer')?.value || $('kp-report-buyer')?.value || '', style: $('kp-style')?.value || $('kp-report-style')?.value || '', po: $('kp-po')?.value || $('kp-report-po')?.value || '' };
+    lastResult = { beforeKg, afterKg, orderQty, methodName, note, meterPerPc, orderMeter, rows, unit: unitLabel(), type: kpReadReportInfo().type || $('kp-pant-type')?.value || $('kp-report-type')?.value || 'Knit Pant', buyer: kpReadReportInfo().buyer || $('kp-buyer')?.value || $('kp-report-buyer')?.value || '', style: kpReadReportInfo().style || $('kp-style')?.value || $('kp-report-style')?.value || '', po: kpReadReportInfo().po || $('kp-po')?.value || $('kp-report-po')?.value || '' };
   }
 
   function calculateQuick() {
@@ -502,7 +513,8 @@
   function kpReadRecent() { try { const x = JSON.parse(localStorage.getItem(KP_RECENT_KEY) || '[]'); return Array.isArray(x) ? x : []; } catch (_) { return []; } }
   function kpSaveRecent(showPanel = false) {
     const state = kpCaptureState(), v = state.values || {};
-    const item = { id:'pant-' + Date.now(), title:(v['kp-style'] || 'Untitled Style').trim(), buyer:(v['kp-buyer'] || '').trim(), po:(v['kp-po'] || '').trim(), type:v['kp-pant-type'] || '', qty:v['kp-order-qty'] || '', state };
+    const reportInfo = kpReadReportInfo();
+    const item = { id:'pant-' + Date.now(), title:(reportInfo.style || v['kp-style'] || 'Untitled Style').trim(), buyer:(reportInfo.buyer || v['kp-buyer'] || '').trim(), po:(reportInfo.po || v['kp-po'] || '').trim(), type:reportInfo.type || v['kp-pant-type'] || '', qty:v['kp-order-qty'] || '', state };
     const list = [item, ...kpReadRecent()].slice(0,5);
     try { localStorage.setItem(KP_RECENT_KEY, JSON.stringify(list)); } catch (_) { alert('Could not save Recent calculations. Browser storage may be full or disabled.'); return; }
     kpRenderRecent(); if (showPanel) $('kp-recent-panel').hidden = false;
@@ -524,10 +536,19 @@
       const from = $(fromId), to = $(toId);
       if (from && to) to.value = from.value || '';
     };
-    copyValue('kp-buyer', 'kp-report-buyer');
-    copyValue('kp-style', 'kp-report-style');
-    copyValue('kp-po', 'kp-report-po');
-    copyValue('kp-pant-type', 'kp-report-type');
+    const saved = kpReadReportInfo();
+    const hasSaved = Boolean(saved.buyer || saved.style || saved.po || saved.type);
+    if (hasSaved) {
+      $('kp-report-buyer').value = saved.buyer;
+      $('kp-report-style').value = saved.style;
+      $('kp-report-po').value = saved.po;
+      $('kp-report-type').value = saved.type;
+    } else {
+      copyValue('kp-buyer', 'kp-report-buyer');
+      copyValue('kp-style', 'kp-report-style');
+      copyValue('kp-po', 'kp-report-po');
+      copyValue('kp-pant-type', 'kp-report-type');
+    }
     modal.hidden = false;
     modal.setAttribute('aria-hidden', 'false');
   }
@@ -626,7 +647,9 @@
       const style = $('kp-report-style')?.value.trim() || '';
       const po = $('kp-report-po')?.value.trim() || '';
       const type = $('kp-report-type')?.value.trim() || 'Knit Pant';
-      // These report fields are the source of truth; legacy hidden fields may not exist in this layout.
+      const reportInfo = { buyer, style, po, type };
+      if (!kpWriteReportInfo(reportInfo)) return;
+      // Keep legacy controls in sync when present; the saved report info also survives page reloads.
       const typeSelect = $('kp-pant-type');
       if (typeSelect) {
         if (type && !Array.from(typeSelect.options).some(o => o.value === type)) {
