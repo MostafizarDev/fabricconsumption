@@ -1886,14 +1886,20 @@ body.dark-mode #page-knitpant .pant-method-card.is-selected { background:#102b40
 
 /* ========== SHARED CONSUMPTION HERO ========== */
 #page-knit .consumption-hero,
-#page-knitpant .consumption-hero{padding:24px 28px;margin-bottom:14px;border-radius:14px;color:#eaf4ff;background:linear-gradient(120deg,#0f172a,#172554,#164e63)}
+#page-knitpant .consumption-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 28px;margin-bottom:14px;border-radius:14px;color:#eaf4ff;background:linear-gradient(120deg,#0f172a,#172554,#164e63)}
+#page-knit .consumption-hero-copy,
+#page-knitpant .consumption-hero-copy{min-width:0;flex:1}
 #page-knit .consumption-hero span,
 #page-knitpant .consumption-hero span{color:#67e8f9;font-size:10px;font-weight:800;letter-spacing:1.5px}
 #page-knit .consumption-hero h1,
 #page-knitpant .consumption-hero h1{margin:7px 0;font-size:clamp(24px,3vw,32px);font-weight:800}
 #page-knit .consumption-hero p,
 #page-knitpant .consumption-hero p{max-width:760px;color:#cbd5e1;font-size:12px;line-height:1.6}
-@media(max-width:600px){#page-knit .consumption-hero,#page-knitpant .consumption-hero{padding:20px 18px}}
+#page-knit .consumption-hero-icon,
+#page-knitpant .consumption-hero-icon{width:92px;height:92px;flex:0 0 92px;display:grid;place-items:center;color:#67e8f9;background:rgba(103,232,249,.09);border:1px solid rgba(103,232,249,.28);border-radius:20px}
+#page-knit .consumption-hero-icon svg,
+#page-knitpant .consumption-hero-icon svg{display:block;width:58px;height:58px}
+@media(max-width:600px){#page-knit .consumption-hero,#page-knitpant .consumption-hero{padding:20px 18px;gap:12px}#page-knit .consumption-hero-icon,#page-knitpant .consumption-hero-icon{width:58px;height:58px;flex-basis:58px;border-radius:14px}#page-knit .consumption-hero-icon svg,#page-knitpant .consumption-hero-icon svg{width:38px;height:38px}#page-knit .consumption-hero h1,#page-knitpant .consumption-hero h1{font-size:22px}}
 
 /* Marker Consumption page */
 #page-marker .marker-hero{padding:24px 28px;margin-bottom:14px;border-radius:14px;color:#eaf4ff;background:linear-gradient(120deg,#0f172a,#172554,#164e63)}
