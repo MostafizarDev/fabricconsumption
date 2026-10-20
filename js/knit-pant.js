@@ -389,6 +389,12 @@
   }
 
   function addComponentByKey(key) {
+    // "Custom panel" is an add-new action, not a single reusable component.
+    // Each click creates another independently editable custom panel.
+    if (key === 'other') {
+      addCustomComponent();
+      return;
+    }
     const existing = $('kp-component-checks').querySelector('input[value="' + CSS.escape(key) + '"]');
     if (existing) {
       existing.checked = true;
@@ -403,7 +409,7 @@
   function addCustomComponent() {
     customCount += 1;
     const key = 'custom-' + customCount;
-    componentDefs[key] = {name:'Custom component ' + customCount,qty:1,length:0,width:0,gsm:val('kp-default-gsm',0),waste:5};
+    componentDefs[key] = {name:'Custom panel ' + customCount,qty:1,length:0,width:0,gsm:val('kp-default-gsm',0),waste:5};
     ensureComponentCheckbox(key, true);
     activateMethod('components');
     renderComponentRows();
