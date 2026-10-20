@@ -571,16 +571,42 @@
       return;
     }
     const r = lastResult;
-    const rowHtml = (r.rows || []).map(row => '<tr><td>' + escapeHtml(row.name) + '</td><td>' + fmt(row.kg,4) + ' kg/pc</td></tr>').join('');
-    const report = '<div class="header"><h1>Pant Fabric Consumption Report</h1><div class="date">Generated: ' + new Date().toLocaleString() + '</div></div>' +
-      '<div class="box"><div>Consumption per garment</div><div class="box-value">' + fmt(r.afterKg,4) + ' kg/pc</div><div>' + fmt(r.afterKg*12,3) + ' kg/dozen · ' + fmt(r.afterKg*r.orderQty,3) + ' kg/order</div></div>' +
-      '<h2>Style information</h2><p>Buyer: ' + escapeHtml(r.buyer || '—') + ' | Style: ' + escapeHtml(r.style || '—') + ' | PO: ' + escapeHtml(r.po || '—') + '</p><p>Pant type: ' + escapeHtml(r.type) + ' | Order qty: ' + r.orderQty + ' pcs | Unit: ' + r.unit + '</p>' +
-      '<h2>Calculation method</h2><p>' + escapeHtml(r.methodName) + '</p><p>' + escapeHtml(r.note) + '</p>' +
-      '<h2>Result breakdown</h2><table><thead><tr><th>Component</th><th>Consumption</th></tr></thead><tbody>' + (rowHtml || '<tr><td>Overall estimate</td><td>' + fmt(r.afterKg,4) + ' kg/pc</td></tr>') + '</tbody></table>' +
-      '<p>Before wastage: ' + fmt(r.beforeKg,4) + ' kg/pc | Wastage: ' + fmt(r.afterKg-r.beforeKg,4) + ' kg/pc</p>' +
-      (r.meterPerPc !== null ? '<p>Length/garment: ' + fmt(r.meterPerPc,4) + ' m | Order length: ' + fmt(r.orderMeter,3) + ' m</p>' : '') +
-      '<p><strong>Note:</strong> Consumption estimate only; costing excluded. Validate against approved pattern/marker and factory consumption.</p>';
-    if (typeof generatePDF === 'function') generatePDF('Pant Fabric Consumption Report', report);
+    const now = new Date();
+    const dateText = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+    const timeText = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const reportId = 'FC-PANT-' + now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + String(now.getHours()).padStart(2,'0') + String(now.getMinutes()).padStart(2,'0');
+    const reportIcon = name => {
+      const icons = {
+        info:'<svg class="report-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path></svg>',
+        components:'<svg class="report-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>',
+        summary:'<svg class="report-icon" viewBox="0 0 24 24"><path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 6-7"></path></svg>',
+        warning:'<svg class="report-icon" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"></path><path d="M12 9v5M12 17h.01"></path></svg>',
+        file:'<svg class="report-icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v5h5M9 13h6M9 17h6"></path></svg>'
+      };
+      return icons[name] || icons.file;
+    };
+    const rows = (r.rows || []).map((row,i) => {
+      const name = escapeHtml(row.name || ('Component ' + (i+1)));
+      const kg = Number(row.kg) || 0;
+      return '<tr><td>'+(i+1)+'</td><td><strong>'+name+'</strong></td><td>'+fmt(kg,4)+' kg/pc</td><td>'+fmt(kg*12,3)+' kg/dz</td><td>'+fmt(kg*r.orderQty,3)+' kg</td><td>—</td></tr>';
+    }).join('');
+    const beforeOrder = r.beforeKg * r.orderQty;
+    const wastageOrder = Math.max(0, r.afterKg-r.beforeKg) * r.orderQty;
+    const finalOrder = r.afterKg * r.orderQty;
+    const filePart = value => String(value || '').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
+    const fileName = ['FC',filePart(r.buyer),filePart(r.style),filePart(r.po) ? 'PO'+filePart(r.po).replace(/^PO[_-]?/i,'') : '',reportId].filter(Boolean).join('_');
+    const report = '<div class="report">'+
+      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Pant Fabric Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
+      '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+escapeHtml(r.unit)+'</strong></div><div><span>Order Quantity</span><strong>'+r.orderQty+' pcs</strong></div></div>'+
+      '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(escapeHtml(r.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(escapeHtml(r.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(escapeHtml(r.po)||'________________')+'</strong></div><div><span>Pant Type</span><strong>'+escapeHtml(r.type)+'</strong></div></div></section>'+
+      '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component</th><th>Consumption / Piece</th><th>Consumption / Dozen</th><th>Order Total</th><th>Remarks</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6">Quick estimate summary</td></tr>')+'</tbody></table></section>'+
+      '<section class="section"><div class="section-head">'+reportIcon('summary')+'<span>CALCULATION METHOD</span></div><div style="padding:12px 13px;font-size:10px;line-height:1.6"><strong>'+escapeHtml(r.methodName)+'</strong><div style="margin-top:4px;color:#475569">'+escapeHtml(r.note)+'</div></div></section>'+
+      '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+reportIcon('components')+'<span>BEFORE WASTAGE</span></div><strong>'+fmt(r.beforeKg,4)+' kg/pc</strong><small>'+fmt(beforeOrder,3)+' kg per order</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(r.afterKg-r.beforeKg,4)+' kg/pc</strong><small>'+fmt(wastageOrder,3)+' kg per order</small></div><div class="summary-card primary"><div class="metric-head">'+reportIcon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(finalOrder,3)+' kg</strong><small>Including wastage</small></div><div class="summary-card"><div class="metric-head">'+reportIcon('file')+'<span>PER DOZEN</span></div><strong>'+fmt(r.afterKg*12,3)+' kg/dz</strong><small>Final consumption</small></div></div>'+
+      '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
+      '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> Consumption estimate only; costing excluded. Verify dimensions, allowances, GSM, wastage and order quantity against the approved pattern/CAD marker and actual factory consumption.</div></div>'+
+      '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
+      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+    if (typeof generatePDF === 'function') generatePDF(fileName, report);
     else window.print();
   }
 
