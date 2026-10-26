@@ -2915,3 +2915,34 @@ body.dark-mode #page-marker .marker-method-card{background:#111c2e;border-color:
 body.dark-mode #page-marker .marker-method-card.active{background:#082f49;border-color:#0ea5e9}
 body.dark-mode #page-marker .marker-method-copy strong{color:#e2e8f0}
 @media(max-width:640px){#page-marker .marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-card{padding:13px}}
+
+
+/* Simplified Marker Consumption layout */
+#page-marker .marker-hero{padding:20px 24px;margin-bottom:12px;border-radius:12px;box-shadow:none}
+#page-marker .marker-hero h1{margin:0 0 5px;font-size:26px}
+#page-marker .marker-hero p{font-size:11px}
+#page-marker .marker-section,#page-marker .marker-results-section{padding:15px;margin-bottom:12px;border-radius:10px;box-shadow:none}
+#page-marker .marker-section h2,#page-marker .marker-results-heading h2{margin:0 0 12px;font-size:15px;letter-spacing:0}
+#page-marker .marker-fields{gap:10px 12px}
+#page-marker .marker-fields input{min-height:36px;padding:8px 10px}
+#page-marker .marker-method-options{gap:9px}
+#page-marker .marker-method-card{align-items:center;padding:12px;border-radius:9px;box-shadow:none}
+#page-marker .marker-method-copy{padding-right:8px}
+#page-marker .marker-method-copy strong{font-size:11px}
+#page-marker .marker-method-check{right:9px;top:9px}
+#page-marker .marker-head{margin-bottom:9px}
+#page-marker .marker-head h2{margin:0 0 3px}
+#page-marker .marker-table th{padding:8px 6px}
+#page-marker .marker-table td{padding:4px}
+#page-marker .marker-table input{min-height:32px;padding:7px}
+#page-marker .marker-actions{margin-top:12px}
+#page-marker .marker-actions .marker-btn{min-height:35px}
+#page-marker .marker-status{margin-top:8px;padding:8px 10px}
+#page-marker .marker-results-heading{align-items:center;margin-bottom:10px}
+#page-marker .marker-summary article{min-height:78px;padding:13px;gap:5px}
+#page-marker .marker-summary article strong{font-size:22px}
+#page-marker .marker-extra-results{margin-top:9px}
+#page-marker .marker-extra-results summary{padding:10px 12px}
+#page-marker .marker-summary-extra{padding:9px}
+#page-marker .marker-fabric-row{padding:9px 1px}
+@media(max-width:560px){#page-marker .marker-hero{padding:18px}#page-marker .marker-hero h1{font-size:23px}#page-marker .marker-section,#page-marker .marker-results-section{padding:12px}#page-marker .marker-method-card{padding:10px}}
