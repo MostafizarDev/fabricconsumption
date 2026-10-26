@@ -2917,3 +2917,26 @@ body.dark-mode #page-marker .marker-method-copy strong{color:#e2e8f0}
 @media(max-width:640px){#page-marker .marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-card{padding:13px}}
 
 
+
+
+/* Restore the previous Marker Consumption design */
+#page-marker .marker-hero{padding:26px 28px;border-radius:16px;box-shadow:0 10px 28px rgba(15,23,42,.10)}
+#page-marker .marker-hero h1{font-size:30px;letter-spacing:-.7px}
+#page-marker .marker-section,#page-marker .marker-results-section{padding:20px;margin-bottom:14px;border-radius:14px}
+#page-marker .marker-section h2,#page-marker .marker-results-heading h2{font-size:17px;letter-spacing:-.25px}
+#page-marker .marker-method-options{gap:12px}
+#page-marker .marker-method-card{align-items:flex-start;padding:15px;border-radius:11px}
+#page-marker .marker-method-copy{gap:5px;padding-right:14px}
+#page-marker .marker-method-copy strong{font-size:12px}
+#page-marker .marker-method-copy small{display:block;font-size:10px}
+#page-marker .marker-table th{padding:11px 8px}
+#page-marker .marker-table td{padding:7px}
+#page-marker .marker-table input{min-height:36px;padding:8px 9px}
+#page-marker .marker-actions{margin-top:18px}
+#page-marker .marker-actions .marker-btn{min-height:39px}
+#page-marker .marker-summary article{min-height:95px;padding:17px;gap:8px}
+#page-marker .marker-summary article strong{font-size:clamp(21px,2.4vw,28px)}
+#page-marker .marker-summary .marker-result-main strong{font-size:clamp(25px,3vw,34px)}
+#page-marker .marker-extra-results summary{padding:12px 14px}
+#page-marker .marker-fabric-row{padding:12px 2px}
+@media(max-width:560px){#page-marker .marker-hero{padding:20px}#page-marker .marker-section,#page-marker .marker-results-section{padding:15px}#page-marker .marker-method-card{padding:13px}}
