@@ -3158,3 +3158,24 @@ body.dark-mode #page-marker .marker-method-section .marker-method-card:nth-child
   border-color:#10b981;
   box-shadow:inset 0 0 0 1px rgba(16,185,129,.18),0 0 0 2px rgba(16,185,129,.13),0 5px 14px rgba(16,185,129,.10);
 }
+
+
+/* Marker Consumption: blink Order Qty when marker measurements exist but quantity is missing */
+#page-marker #mk-qty.mk-qty-warning{
+  border:2px solid #dc2626!important;
+  background:#fff1f2!important;
+  color:#991b1b!important;
+  box-shadow:0 0 0 3px rgba(220,38,38,.14)!important;
+  animation:mkOrderQtyAlert .85s ease-in-out infinite;
+}
+#page-marker #mk-qty.mk-qty-warning::placeholder{color:#b91c1c!important}
+@keyframes mkOrderQtyAlert{
+  0%,100%{border-color:#dc2626;box-shadow:0 0 0 2px rgba(220,38,38,.12)}
+  50%{border-color:#991b1b;box-shadow:0 0 0 5px rgba(220,38,38,.28)}
+}
+body.dark-mode #page-marker #mk-qty.mk-qty-warning{
+  background:#450a0a!important;color:#fee2e2!important;border-color:#f87171!important;
+}
+@media(prefers-reduced-motion:reduce){
+  #page-marker #mk-qty.mk-qty-warning{animation:none}
+}
