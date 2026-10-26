@@ -3158,3 +3158,27 @@ body.dark-mode #page-marker .marker-method-section .marker-method-card:nth-child
   border-color:#10b981;
   box-shadow:inset 0 0 0 1px rgba(16,185,129,.18),0 0 0 2px rgba(16,185,129,.13),0 5px 14px rgba(16,185,129,.10);
 }
+
+
+/* Marker Consumption formula reference — matching Knit Garments formula cards */
+#page-marker .marker-formula-reference{margin-top:16px;padding:20px;border:1px solid var(--border,#dbe4ee);border-radius:14px;background:var(--card-bg,#fff);color:var(--text,#0f172a)}
+#page-marker .marker-formula-reference .fn-title{display:flex;align-items:center;gap:9px;margin-bottom:14px;font-size:16px;font-weight:800;color:var(--text,#0f172a)}
+#page-marker .marker-formula-reference .formula-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#page-marker .marker-formula-reference .formula-card{min-width:0;padding:15px;border:1px solid var(--border,#dbe4ee);border-radius:11px;background:var(--soft-bg,#f8fafc)}
+#page-marker .marker-formula-reference .formula-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+#page-marker .marker-formula-reference .formula-card-title{font-size:13px;font-weight:800;line-height:1.45;color:var(--text,#0f172a)}
+#page-marker .marker-formula-reference .marker-formula-intro{margin:0 0 12px;color:var(--muted,#64748b);font-size:11px;line-height:1.55}
+#page-marker .marker-formula-reference .formula-code{overflow-x:auto;padding:12px 10px;border:1px solid var(--border,#dbe4ee);border-radius:8px;background:var(--card-bg,#fff)}
+#page-marker .marker-formula-reference .formula-code-inner{min-width:0;text-align:center}
+#page-marker .marker-formula-reference .formula-numerator,#page-marker .marker-formula-reference .formula-denominator{font-size:11px;font-weight:650;line-height:1.65;overflow-wrap:anywhere;color:var(--text,#334155)}
+#page-marker .marker-formula-reference .formula-divider-row{display:flex;align-items:center;gap:8px;margin:5px 0}
+#page-marker .marker-formula-reference .formula-divider{display:block;flex:1;height:1px;background:var(--border,#94a3b8)}
+#page-marker .marker-formula-reference .formula-wastage{flex:0 0 auto;font-size:10px;font-weight:700;color:#0879d8}
+#page-marker .marker-formula-reference .marker-formula-result{margin-top:10px;font-size:11px;line-height:1.65;color:var(--muted,#64748b)}
+#page-marker .marker-formula-reference .marker-formula-result strong{color:var(--text,#0f172a)}
+#page-marker .marker-formula-reference .marker-formula-footnote{margin-top:13px;padding:10px 12px;border-radius:8px;background:#eaf5ff;color:#164e83;font-size:11px;line-height:1.6}
+body.dark-mode #page-marker .marker-formula-reference{background:#111c2e;border-color:#334155;color:#e2e8f0}
+body.dark-mode #page-marker .marker-formula-reference .fn-title,body.dark-mode #page-marker .marker-formula-reference .formula-card-title,body.dark-mode #page-marker .marker-formula-reference .formula-numerator,body.dark-mode #page-marker .marker-formula-reference .formula-denominator,body.dark-mode #page-marker .marker-formula-reference .marker-formula-result strong{color:#e2e8f0}
+body.dark-mode #page-marker .marker-formula-reference .formula-card,body.dark-mode #page-marker .marker-formula-reference .formula-code{background:#0b1220;border-color:#334155}
+body.dark-mode #page-marker .marker-formula-reference .marker-formula-footnote{background:#082f49;color:#bae6fd}
+@media(max-width:760px){#page-marker .marker-formula-reference .formula-cards{grid-template-columns:1fr}}
