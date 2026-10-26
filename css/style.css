@@ -3012,3 +3012,89 @@ body.dark-mode #page-marker .marker-method-section .marker-method-icon{backgroun
 @media(max-width:760px){#page-marker .marker-method-section{grid-template-columns:minmax(0,1fr);gap:12px}#page-marker .marker-method-section>.marker-section-heading p{max-width:none}}
 @media(max-width:640px){#page-marker .marker-method-section>.marker-method-options{grid-template-columns:repeat(2,minmax(0,1fr))}#page-marker .marker-method-section .marker-method-card{min-height:132px;padding:12px 8px 10px}}
 @media(max-width:420px){#page-marker .marker-method-section>.marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-section .marker-method-card{min-height:112px}}
+
+
+/* Consumption Method — balanced horizontal cards, aligned with the reference UI */
+#page-marker .marker-method-section{
+  display:grid;
+  grid-template-columns:minmax(205px,.78fr) minmax(0,2.22fr);
+  align-items:center;
+  gap:18px;
+}
+#page-marker .marker-method-section>.marker-section-heading{
+  grid-column:1;grid-row:1;align-self:center;margin:0;
+}
+#page-marker .marker-method-section>.marker-section-heading h2{
+  font-size:17px;line-height:1.3;letter-spacing:-.3px;margin:0 0 6px;
+}
+#page-marker .marker-method-section>.marker-section-heading p{
+  max-width:230px;font-size:11px;line-height:1.55;margin:0;color:var(--muted,#64748b);
+}
+#page-marker .marker-method-section>.marker-method-options{
+  grid-column:2;grid-row:1;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0;
+}
+#page-marker .marker-method-section .marker-method-card{
+  display:flex;flex-direction:row;align-items:center;justify-content:flex-start;
+  gap:13px;min-width:0;min-height:112px;height:auto;padding:17px 16px;
+  text-align:left;border:1px solid #d8e3ef;border-radius:13px;
+  background:linear-gradient(145deg,#fff 0%,#f8fbff 100%);
+  box-shadow:0 3px 10px rgba(15,23,42,.035);
+  transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+#page-marker .marker-method-section .marker-method-card:hover{
+  transform:translateY(-1px);border-color:#93c5fd;box-shadow:0 6px 16px rgba(2,132,199,.08);
+}
+#page-marker .marker-method-section .marker-method-card.active{
+  border-color:#1687ee;
+  background:linear-gradient(135deg,#eaf5ff 0%,#f5faff 100%);
+  box-shadow:inset 0 0 0 1px rgba(22,135,238,.14),0 5px 14px rgba(2,132,199,.07);
+}
+#page-marker .marker-method-section .marker-method-icon{
+  flex:0 0 48px;width:48px;height:48px;border-radius:13px;
+  display:grid;place-items:center;background:#e0efff;color:#0868c8;
+}
+#page-marker .marker-method-section .marker-method-icon svg{width:25px;height:25px}
+#page-marker .marker-method-section .marker-method-copy{
+  display:flex;flex:1;min-width:0;flex-direction:column;align-items:flex-start;
+  justify-items:initial;gap:5px;padding:0 14px 0 0;
+}
+#page-marker .marker-method-section .marker-method-copy strong{
+  font-size:12px;font-weight:750;line-height:1.4;color:var(--text,#0f172a);
+}
+#page-marker .marker-method-section .marker-method-copy small{
+  max-width:270px;font-size:10px;line-height:1.5;color:var(--muted,#64748b);
+}
+#page-marker .marker-method-section .marker-method-check{
+  right:10px;top:10px;width:18px;height:18px;background:#0879d8;font-size:11px;
+}
+#page-marker .marker-method-section .marker-method-card:not(.active):nth-child(2) .marker-method-icon{
+  background:#e1f5ed;color:#12805c;
+}
+#page-marker .marker-method-section .marker-method-card:not(.active):nth-child(2):hover{
+  border-color:#8dd8bb;
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-card{
+  background:linear-gradient(145deg,#111c2e 0%,#0f172a 100%);border-color:#334155;
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-card.active{
+  background:linear-gradient(135deg,#082f49 0%,#10253a 100%);border-color:#0ea5e9;
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-icon{
+  background:#12334a;color:#7dd3fc;
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-card:not(.active):nth-child(2) .marker-method-icon{
+  background:#12382f;color:#6ee7b7;
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-copy strong{color:#e2e8f0}
+@media(max-width:760px){
+  #page-marker .marker-method-section{grid-template-columns:minmax(0,1fr);gap:13px}
+  #page-marker .marker-method-section>.marker-section-heading,
+  #page-marker .marker-method-section>.marker-method-options{grid-column:1;grid-row:auto}
+  #page-marker .marker-method-section>.marker-section-heading p{max-width:none}
+}
+@media(max-width:520px){
+  #page-marker .marker-method-section>.marker-method-options{grid-template-columns:1fr}
+  #page-marker .marker-method-section .marker-method-card{min-height:92px;padding:14px}
+  #page-marker .marker-method-section .marker-method-icon{flex-basis:42px;width:42px;height:42px}
+}
