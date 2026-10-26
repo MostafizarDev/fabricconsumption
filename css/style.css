@@ -2825,3 +2825,10 @@ body.dark-mode .marker-type-card{background:#111c2e;border-color:#334155;color:#
 body.dark-mode .marker-type-edit-row input,body.dark-mode .marker-type-add input{background:#0b1220;border-color:#475569;color:#e2e8f0}
 body.dark-mode .marker-type-delete{background:#351b22;color:#fca5a5;border-color:#7f1d1d}
 @media(max-width:560px){#page-marker .marker-garment-type-control{align-items:stretch}#page-marker #mk-manage-types{padding:7px 8px;font-size:9px}.marker-type-card{padding:15px}}
+
+
+/* Marker Consumption — inline Custom garment type option */
+#page-marker .marker-garment-type-field{display:grid;align-content:start;gap:6px;color:var(--text,#334155);font-size:11px;font-weight:700;min-width:0}
+#page-marker #mk-type-custom[hidden]{display:none!important}
+#page-marker #mk-type-custom{width:100%;min-width:0;padding:8px;border:1px solid var(--border,#cbd5e1);border-radius:6px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:inherit;font-size:10px}
+body.dark-mode #page-marker #mk-type-custom{background:#0b1220;color:#e2e8f0;border-color:#475569}
