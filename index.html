@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261026-marker-icon-fix">
+<link rel="stylesheet" href="css/style.css?v=20261026-garment-type-edit">
 </head>
 <body>
 
@@ -98,7 +98,7 @@
 <div class="marker-hero consumption-hero marker-consumption-hero"><div class="consumption-hero-copy"><span>UNIVERSAL CUTTING WORKSPACE</span><h1>Marker Consumption</h1><p>One calculator for T-shirts, pants, joggers, dresses and other garments. Add separate rows for different markers or fabrics.</p></div><div class="consumption-hero-icon marker-hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><rect x="8" y="10" width="48" height="44" rx="8" stroke="currentColor" stroke-width="2.5"/><path d="M17 20h30M17 28h18M17 36h12M17 44h20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="m39 30 8 8-8 8-8-8 8-8Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M39 34v8M35 38h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div>
 <section class="marker-section"><h2>Order Information</h2><div class="marker-fields">
 <label>Buyer <input id="mk-buyer" placeholder="Buyer name"></label><label>Style <input id="mk-style" placeholder="Style name"></label><label>PO No. <input id="mk-po" placeholder="PO number"></label>
-<label>Garment Type <select id="mk-type"><option>T-Shirt</option><option>Pant</option><option>Jogger</option><option>Women's Dress</option><option>Hoodie</option><option>Other</option></select></label><label>Order Qty (pcs) <input id="mk-qty" type="number" min="1" value="1000"></label><label>Unit <select id="mk-unit"><option value="cm">CM</option><option value="inch">Inch</option></select></label></div></section>
+<div class="marker-garment-type-field"><label for="mk-type">Garment Type</label><div class="marker-garment-type-control"><select id="mk-type"></select><button class="marker-btn" id="mk-manage-types" type="button" title="Edit garment type options">⚙ Edit</button></div></div><label>Order Qty (pcs) <input id="mk-qty" type="number" min="1" value="1000"></label><label>Unit <select id="mk-unit"><option value="cm">CM</option><option value="inch">Inch</option></select></label></div></section>
 <section class="marker-section"><div class="marker-head"><div><h2>Marker & Fabric Details</h2><p>Use approved marker/CAD measurements.</p></div><button class="marker-btn primary" id="mk-add">+ Add Marker</button></div>
 <div class="marker-table-wrap"><table class="marker-table"><thead><tr><th>Part / Marker</th><th>Fabric Type</th><th>Length</th><th>Width</th><th>Garments / Marker</th><th>GSM</th><th>Waste %</th><th>kg/pc</th><th>Order kg</th><th></th></tr></thead><tbody id="mk-rows"></tbody></table></div>
 <p class="marker-help">Each row is one marker/fabric line. Do not count the same fabric area twice. Set waste to 0% if already included in approved marker consumption.</p>
