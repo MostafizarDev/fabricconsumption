@@ -2991,3 +2991,24 @@ body.dark-mode #page-marker .marker-method-icon{background:#12334a;color:#7dd3fc
 @media(max-width:420px){
  #page-marker .marker-method-section>.marker-method-options{grid-template-columns:1fr}
 }
+
+/* Refine existing three-column Consumption Method design without changing layout */
+#page-marker .marker-method-section{column-gap:14px}
+#page-marker .marker-method-section>.marker-section-heading h2{font-size:17px;letter-spacing:-.3px}
+#page-marker .marker-method-section>.marker-section-heading p{max-width:210px;font-size:10px;line-height:1.5}
+#page-marker .marker-method-section>.marker-method-options{gap:10px}
+#page-marker .marker-method-section .marker-method-card{position:relative;min-height:138px;padding:14px 12px 12px;border-radius:12px;border-color:var(--border,#dbe4ee);background:var(--card-bg,#fff);box-shadow:0 2px 8px rgba(15,23,42,.04);transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+#page-marker .marker-method-section .marker-method-card:hover{transform:translateY(-1px);border-color:#7dd3fc;box-shadow:0 5px 13px rgba(2,132,199,.08)}
+#page-marker .marker-method-section .marker-method-card.active{border-color:#0284c7;background:linear-gradient(180deg,#f0f9ff 0%,#fff 100%);box-shadow:inset 0 0 0 1px rgba(2,132,199,.16),0 4px 12px rgba(2,132,199,.06)}
+#page-marker .marker-method-section .marker-method-icon{width:36px;height:36px;flex-basis:36px;border-radius:10px;background:#e0f2fe;color:#0369a1}
+#page-marker .marker-method-section .marker-method-icon svg{width:21px;height:21px}
+#page-marker .marker-method-section .marker-method-copy{gap:5px;padding:0 2px}
+#page-marker .marker-method-section .marker-method-copy strong{font-size:11px;line-height:1.4}
+#page-marker .marker-method-section .marker-method-copy small{font-size:9px;line-height:1.5}
+#page-marker .marker-method-section .marker-method-check{right:9px;top:9px}
+body.dark-mode #page-marker .marker-method-section .marker-method-card{background:#111c2e;border-color:#334155;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+body.dark-mode #page-marker .marker-method-section .marker-method-card.active{background:linear-gradient(180deg,#082f49 0%,#111c2e 100%);border-color:#0ea5e9}
+body.dark-mode #page-marker .marker-method-section .marker-method-icon{background:#12334a;color:#7dd3fc}
+@media(max-width:760px){#page-marker .marker-method-section{grid-template-columns:minmax(0,1fr);gap:12px}#page-marker .marker-method-section>.marker-section-heading p{max-width:none}}
+@media(max-width:640px){#page-marker .marker-method-section>.marker-method-options{grid-template-columns:repeat(2,minmax(0,1fr))}#page-marker .marker-method-section .marker-method-card{min-height:132px;padding:12px 8px 10px}}
+@media(max-width:420px){#page-marker .marker-method-section>.marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-section .marker-method-card{min-height:112px}}
