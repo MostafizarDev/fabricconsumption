@@ -106,7 +106,7 @@
 <div class="marker-actions"><button class="marker-btn primary" id="mk-calc">Calculate</button><button class="marker-btn" id="mk-pdf">Download PDF</button></div><p id="mk-status" class="marker-status">Enter approved marker data.</p></section>
 <section class="marker-results-section"><div class="marker-results-heading"><div><span class="marker-kicker">CALCULATION RESULTS</span><h2>Consumption Summary</h2><p>Per-piece consumption is the primary result. Dozen and order totals are available when needed.</p></div><span class="marker-unit-pill">UNIT: IN</span></div><div class="marker-summary marker-summary-primary"><article class="marker-result-main"><span>FINAL CONSUMPTION / PC</span><strong id="mk-pc">—</strong><small>Includes row-wise wastage</small></article><article><span>ORDER QUANTITY</span><strong id="mk-order-qty">—</strong><small>Pieces</small></article></div><details class="marker-extra-results"><summary>Show dozen and order totals</summary><div class="marker-summary marker-summary-extra"><article><span>CONSUMPTION / DOZEN</span><strong id="mk-dz">—</strong></article><article><span>TOTAL ORDER CONSUMPTION</span><strong id="mk-order">—</strong></article></div></details></section>
 <section class="marker-section marker-fabric-summary-section"><h2>Fabric-wise Summary</h2><p class="marker-section-subtitle">Review consumption by fabric type before exporting the report.</p><div id="mk-fabrics">No calculation yet.</div></section>
-<p class="marker-note"><strong>Calculation method:</strong> Weight-based uses marker area × GSM ÷ garments per marker, with inch dimensions converted to square metres. Wastage is applied as a percentage of base consumption.</p>
+<p class="marker-note"><strong>Calculation method:</strong> Weight-based follows the Excel-style formula: Marker Length (in) × Marker Width (in) × GSM ÷ (1,550,000 × Garments / Marker). Wastage is applied as a percentage of base consumption.</p>
 <section class="formula-note">
   <div class="fn-title">📐 Formula Reference</div>
   <div class="formula-cards">
@@ -116,9 +116,9 @@
       </div>
       <div class="fn-body marker-formula-footnote">Use when marker length and width are in inches and fabric GSM is known.</div>
       <div class="formula-code"><div class="formula-code-inner">
-        <div class="formula-numerator">Marker Length (in) × 0.0254 × Marker Width (in) × 0.0254 × GSM</div>
+        <div class="formula-numerator">Marker Length (in) × Marker Width (in) × GSM</div>
         <div class="formula-divider-row"><span class="formula-divider"></span><span class="formula-wastage">× (1 + Waste % ÷ 100)</span></div>
-        <div class="formula-denominator">1,000 × Garments / Marker</div>
+        <div class="formula-denominator">1,550,000 × Garments / Marker</div>
       </div></div>
       <div class="fn-body marker-formula-footnote"><strong>Result:</strong> kg per garment. <strong>Per dozen:</strong> kg per garment × 12.</div>
     </div>
