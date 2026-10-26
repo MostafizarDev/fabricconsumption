@@ -3510,3 +3510,36 @@ body.dark-mode #page-marker .marker-table td.marker-row-result[data-r="order"]{
   background:#172b45 !important;
   color:#bfdbfe !important;
 }
+
+
+/* Compact result pills like the reference (e.g. 30.0 cm) */
+#page-marker .marker-table td.marker-row-result[data-r="pc"],
+#page-marker .marker-table td.marker-row-result[data-r="order"]{
+  min-width:90px;
+  padding:5px 8px !important;
+  border-left:0 !important;
+  border-right:0 !important;
+  border-top:0 !important;
+  background:transparent !important;
+  color:inherit !important;
+  text-align:center !important;
+  vertical-align:middle;
+}
+#page-marker .marker-table .marker-result-pill{
+  display:inline-block;
+  min-width:56px;
+  padding:6px 14px;
+  border:0;
+  border-radius:6px;
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.2;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+body.dark-mode #page-marker .marker-table .marker-result-pill{
+  background:#243f60;
+  color:#bfdbfe;
+}
