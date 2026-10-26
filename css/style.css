@@ -2976,3 +2976,18 @@ body.dark-mode #page-marker .marker-method-card.active{background:linear-gradien
 body.dark-mode #page-marker .marker-method-icon{background:#12334a;color:#7dd3fc}
 @media(max-width:640px){#page-marker .marker-method-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#page-marker .marker-method-card{min-height:126px;padding:12px 8px 10px;gap:7px}#page-marker .marker-method-icon{width:34px;height:34px;flex-basis:34px}#page-marker .marker-method-icon svg{width:20px;height:20px}#page-marker .marker-method-copy strong{font-size:10px}#page-marker .marker-method-copy small{font-size:9px}}
 @media(max-width:360px){#page-marker .marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-card{min-height:112px}}
+
+
+/* Consumption Method section: three-column composition — heading + two method cards */
+#page-marker .marker-method-section{display:grid;grid-template-columns:minmax(155px,.8fr) minmax(0,1fr) minmax(0,1fr);align-items:center;column-gap:16px;row-gap:12px}
+#page-marker .marker-method-section>.marker-section-heading{grid-column:1;grid-row:1;margin:0;align-self:center}
+#page-marker .marker-method-section>.marker-method-options{grid-column:2 / 4;grid-row:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0}
+#page-marker .marker-method-section .marker-method-card{height:100%;min-width:0}
+@media(max-width:760px){
+ #page-marker .marker-method-section{grid-template-columns:minmax(0,1fr);gap:12px}
+ #page-marker .marker-method-section>.marker-section-heading{grid-column:1;grid-row:auto}
+ #page-marker .marker-method-section>.marker-method-options{grid-column:1;grid-row:auto}
+}
+@media(max-width:420px){
+ #page-marker .marker-method-section>.marker-method-options{grid-template-columns:1fr}
+}
