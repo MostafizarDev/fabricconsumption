@@ -2893,3 +2893,25 @@ body.dark-mode #page-marker .marker-extra-results{border-color:#334155}
 body.dark-mode #page-marker .marker-extra-results summary{background:#172338;color:#e2e8f0}
 @media(max-width:820px){#page-marker .marker-summary{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
 @media(max-width:560px){#page-marker .marker-hero{padding:20px;align-items:flex-start}#page-marker .marker-section-heading,#page-marker .marker-results-heading{flex-direction:column;gap:10px}#page-marker .marker-fields{grid-template-columns:1fr 1fr}#page-marker .marker-summary{grid-template-columns:1fr 1fr}#page-marker .marker-summary .marker-result-main{grid-column:1/-1}#page-marker .marker-summary-extra{grid-template-columns:1fr}#page-marker .marker-actions .marker-btn{flex:1;min-width:0}#page-marker .marker-head-actions{justify-content:flex-start}}
+
+
+/* Marker Consumption method selector */
+#page-marker .marker-method-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#page-marker .marker-method-card{position:relative;display:flex;align-items:flex-start;gap:11px;padding:15px;border:1px solid var(--border,#dbe4ee);border-radius:11px;background:var(--card-bg,#fff);cursor:pointer;transition:border-color .15s,background .15s}
+#page-marker .marker-method-card input{position:absolute;opacity:0;pointer-events:none}
+#page-marker .marker-method-card.active{border-color:#0284c7;background:#f0f9ff;box-shadow:0 0 0 1px #0284c7}
+#page-marker .marker-method-icon{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:9px;background:var(--soft-bg,#f1f5f9);color:#0284c7;font-size:20px;font-weight:800}
+#page-marker .marker-method-copy{display:grid;gap:5px;padding-right:14px}
+#page-marker .marker-method-copy strong{font-size:12px;color:var(--text,#0f172a);line-height:1.45}
+#page-marker .marker-method-copy small{font-size:10px;font-weight:400;color:var(--muted,#64748b);line-height:1.5}
+#page-marker .marker-method-check{position:absolute;right:12px;top:12px;display:none;place-items:center;width:18px;height:18px;border-radius:50%;background:#0284c7;color:#fff;font-size:11px}
+#page-marker .marker-method-card.active .marker-method-check{display:grid}
+#page-marker .marker-length-unit-row{display:flex;align-items:center;gap:10px;margin-top:13px;padding-top:13px;border-top:1px solid var(--border,#e2e8f0)}
+#page-marker .marker-length-unit-row[hidden]{display:none}
+#page-marker .marker-length-unit-row label{font-size:11px;font-weight:700}
+#page-marker #mk-length-unit{padding:8px 10px;border:1px solid var(--border,#cbd5e1);border-radius:7px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:inherit;font-size:11px}
+#page-marker .mk-gsm-column[hidden],#page-marker .mk-gsm-cell[hidden]{display:none}
+body.dark-mode #page-marker .marker-method-card{background:#111c2e;border-color:#334155}
+body.dark-mode #page-marker .marker-method-card.active{background:#082f49;border-color:#0ea5e9}
+body.dark-mode #page-marker .marker-method-copy strong{color:#e2e8f0}
+@media(max-width:640px){#page-marker .marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-card{padding:13px}}
