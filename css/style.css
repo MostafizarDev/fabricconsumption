@@ -3456,3 +3456,29 @@ body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{
   background:#132338 !important;
   color:#7dd3fc !important;
 }
+
+
+/* Correct selector: marker-row-result is the TD itself, not a child element */
+#page-marker .marker-table td.marker-row-result[data-r="pc"],
+#page-marker .marker-table td.marker-row-result[data-r="order"]{
+  box-sizing:border-box;
+  min-width:90px;
+  height:36px;
+  padding:8px 6px !important;
+  border:2px solid #ff1717 !important;
+  border-radius:1px !important;
+  background:#fff !important;
+  color:#0879bd !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  line-height:1.35 !important;
+  text-align:center !important;
+  vertical-align:middle;
+  font-variant-numeric:tabular-nums;
+}
+body.dark-mode #page-marker .marker-table td.marker-row-result[data-r="pc"],
+body.dark-mode #page-marker .marker-table td.marker-row-result[data-r="order"]{
+  border-color:#ff4545 !important;
+  background:#132338 !important;
+  color:#7dd3fc !important;
+}
