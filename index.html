@@ -129,7 +129,7 @@
       <div class="fn-body marker-formula-footnote">Use when the full-order total marker length is known; GSM and width are not required.</div>
       <div class="formula-code"><div class="formula-code-inner">
         <div class="formula-numerator" id="mk-length-formula-numerator">Total Marker Length (yd)</div>
-        <div class="formula-divider-row"><span class="formula-divider"></span><span class="formula-wastage">× Wastage %</span></div>
+        <div class="formula-divider-row"><span class="formula-divider"></span><span class="formula-wastage">× (1 + Wastage % ÷ 100)</span></div>
         <div class="formula-denominator">Total Garments Qty</div>
       </div></div>
       <div class="fn-body marker-formula-footnote" id="mk-length-formula-note">Yards selected: Total Marker Length (yd) ÷ Total Garments Qty. Wastage is applied as × (1 + Wastage % ÷ 100). This uses the full-order total marker length, not a single marker length. <strong>Per dozen:</strong> per-garment result × 12.</div>
@@ -1207,7 +1207,7 @@
 
 <script src="js/utils.js"></script>
 <script src="js/knit-garments.js"></script>
-<script src="js/marker-consumption.js?v=20261026-total-garments-qty"></script>
+<script src="js/marker-consumption.js?v=20261026-final-woven-formula"></script>
 <script src="js/knit-pant.js?v=20261020-fabrictypesummary1"></script>
 <script src="js/pant-fabric-groups.js?v=20261019-pantgroups3"></script>
 <script src="js/woven-shirt.js"></script>
