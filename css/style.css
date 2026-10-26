@@ -3244,3 +3244,64 @@ body.dark-mode #page-marker .marker-table td:nth-child(7),
 body.dark-mode #page-marker .marker-table td:nth-child(8){background:#101f2e;border-color:#29485f}
 body.dark-mode #page-marker .marker-table td:nth-child(7) .marker-row-result,
 body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{background:#172f43;border-color:#29485f;color:#bae6fd}
+
+
+/* Keep Final kg/pc and Order kg as two separate soft button-style cells */
+#page-marker .marker-table th:nth-child(7),
+#page-marker .marker-table th:nth-child(8){
+  min-width:98px;
+  padding:0 5px 8px;
+  background:transparent;
+  color:var(--muted,#64748b);
+  border:0;
+  border-radius:0;
+  text-align:center;
+}
+#page-marker .marker-table th:nth-child(7){border-left:0}
+#page-marker .marker-table th:nth-child(8){border-right:0}
+#page-marker .marker-table th:nth-child(7)::before,
+#page-marker .marker-table th:nth-child(8)::before{
+  display:block;
+  padding:10px 9px;
+  border:1px solid #bfdbfe;
+  border-radius:9px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:10px;
+  font-weight:800;
+}
+#page-marker .marker-table th:nth-child(7)::before{content:"Final kg/pc"}
+#page-marker .marker-table th:nth-child(8)::before{content:"Order kg"}
+#page-marker .marker-table th:nth-child(7),
+#page-marker .marker-table th:nth-child(8){font-size:0}
+#page-marker .marker-table td:nth-child(7),
+#page-marker .marker-table td:nth-child(8){
+  min-width:98px;
+  padding:3px 5px;
+  background:transparent;
+  border:0;
+  text-align:center;
+}
+#page-marker .marker-table td:nth-child(7) .marker-row-result,
+#page-marker .marker-table td:nth-child(8) .marker-row-result{
+  display:block;
+  min-height:36px;
+  padding:9px 8px;
+  border:1px solid #bfdbfe;
+  border-radius:9px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.35;
+  text-align:center;
+  font-variant-numeric:tabular-nums;
+}
+body.dark-mode #page-marker .marker-table th:nth-child(7)::before,
+body.dark-mode #page-marker .marker-table th:nth-child(8)::before,
+body.dark-mode #page-marker .marker-table td:nth-child(7) .marker-row-result,
+body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{
+  background:#172b45;
+  border-color:#315781;
+  color:#bfdbfe;
+}
