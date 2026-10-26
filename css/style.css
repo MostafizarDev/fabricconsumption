@@ -2791,3 +2791,11 @@ body.dark-mode #page-knitpant .pant-component-totals .kg-group-settings-btn { ba
     font-size: 10px;
   }
 }
+
+
+/* Marker Consumption hero icon — match Knit Garments and Knit Pant sizing */
+#page-marker .consumption-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 28px;margin-bottom:14px;border-radius:14px;color:#eaf4ff;background:linear-gradient(120deg,#0f172a,#172554,#164e63)}
+#page-marker .consumption-hero-copy{min-width:0;flex:1}
+#page-marker .consumption-hero-icon{width:92px;height:92px;flex:0 0 92px;display:grid;place-items:center;color:#67e8f9;background:rgba(103,232,249,.09);border:1px solid rgba(103,232,249,.28);border-radius:20px}
+#page-marker .consumption-hero-icon svg{display:block;width:58px;height:58px}
+@media(max-width:600px){#page-marker .consumption-hero{padding:20px 18px;gap:12px}#page-marker .consumption-hero-icon{width:58px;height:58px;flex-basis:58px;border-radius:14px}#page-marker .consumption-hero-icon svg{width:38px;height:38px}#page-marker .consumption-hero h1{font-size:22px}}
