@@ -47,6 +47,7 @@ function inchToCm(inch) {
 
 // ========== URL ROUTING (WEB + FUTURE MOBILE APP FRIENDLY) ==========
 const FC_PAGE_ROUTES = {
+    marker: '/Marker-Consumption',
     knit: '/knit-garments',
     knitpant: '/knit-pant',
     woven: '/woven-shirt',
@@ -61,6 +62,7 @@ const FC_PAGE_ROUTES = {
 };
 
 const FC_PAGE_TITLES = {
+    marker: 'Marker Consumption',
     knit: 'Knit Garments',
     knitpant: 'Knit Pant',
     woven: 'Woven Shirt',
@@ -113,7 +115,9 @@ function showPage(pageId, btn, routeOptions = {}) {
     if (btn) btn.classList.add('active');
 
     // Recalculate based on page
-    if (pageId === 'knit' && typeof calcKnitGarments === 'function') {
+    if (pageId === 'marker' && typeof calcMarkerConsumption === 'function') {
+        setTimeout(() => calcMarkerConsumption(), 50);
+    } else if (pageId === 'knit' && typeof calcKnitGarments === 'function') {
         setTimeout(() => calcKnitGarments(), 50);
     } else if (pageId === 'knitpant' && typeof calcKnitPant === 'function') {
         setTimeout(() => calcKnitPant(), 50);
