@@ -3361,3 +3361,26 @@ body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{
   border-color:#315781;
   color:#bfdbfe;
 }
+
+
+/* Keep row divider lines continuous across result and delete columns */
+#page-marker .marker-table tbody td:nth-child(7),
+#page-marker .marker-table tbody td:nth-child(8),
+#page-marker .marker-table tbody td:nth-child(9){
+  border-bottom:1px solid #dbe4ef !important;
+}
+#page-marker .marker-table tbody tr:last-child td:nth-child(7),
+#page-marker .marker-table tbody tr:last-child td:nth-child(8),
+#page-marker .marker-table tbody tr:last-child td:nth-child(9){
+  border-bottom:0 !important;
+}
+body.dark-mode #page-marker .marker-table tbody td:nth-child(7),
+body.dark-mode #page-marker .marker-table tbody td:nth-child(8),
+body.dark-mode #page-marker .marker-table tbody td:nth-child(9){
+  border-bottom:1px solid #294056 !important;
+}
+body.dark-mode #page-marker .marker-table tbody tr:last-child td:nth-child(7),
+body.dark-mode #page-marker .marker-table tbody tr:last-child td:nth-child(8),
+body.dark-mode #page-marker .marker-table tbody tr:last-child td:nth-child(9){
+  border-bottom:0 !important;
+}
