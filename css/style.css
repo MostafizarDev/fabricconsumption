@@ -2940,3 +2940,20 @@ body.dark-mode #page-marker .marker-method-copy strong{color:#e2e8f0}
 #page-marker .marker-extra-results summary{padding:12px 14px}
 #page-marker .marker-fabric-row{padding:12px 2px}
 @media(max-width:560px){#page-marker .marker-hero{padding:20px}#page-marker .marker-section,#page-marker .marker-results-section{padding:15px}#page-marker .marker-method-card{padding:13px}}
+
+/* Marker Consumption — compact method cards and method-linked unit in Order Information */
+#page-marker .marker-method-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#page-marker .marker-method-card{align-items:center;gap:9px;min-height:76px;padding:10px 12px;border-radius:10px}
+#page-marker .marker-method-icon{flex:0 0 30px;width:30px;height:30px;border-radius:8px}
+#page-marker .marker-method-icon svg{display:block;width:19px;height:19px}
+#page-marker .marker-method-copy{gap:3px;padding-right:12px}
+#page-marker .marker-method-copy strong{font-size:11px;line-height:1.35}
+#page-marker .marker-method-copy small{font-size:9px;line-height:1.35}
+#page-marker .marker-method-check{right:8px;top:8px;width:16px;height:16px;font-size:10px}
+#page-marker .marker-unit-field{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:0;color:var(--text,#334155);font-size:11px;font-weight:700}
+#page-marker .marker-unit-value{display:flex;align-items:center;min-height:39px;padding:10px 11px;border:1px solid var(--border,#dbe4ee);border-radius:8px;background:var(--soft-bg,#f8fafc);color:var(--text,#334155);font-size:11px;font-weight:600}
+#page-marker #mk-length-unit{width:100%;min-height:39px;padding:9px 10px;border:1px solid var(--border,#dbe4ee);border-radius:8px;background:var(--input-bg,#fff);color:var(--text,#334155);font:inherit;font-size:11px}
+#page-marker #mk-length-unit[hidden],#page-marker #mk-order-unit[hidden]{display:none!important}
+body.dark-mode #page-marker .marker-unit-value{background:#172338;border-color:#334155;color:#e2e8f0}
+body.dark-mode #page-marker #mk-length-unit{background:#0b1220;border-color:#475569;color:#e2e8f0}
+@media(max-width:640px){#page-marker .marker-method-options{grid-template-columns:1fr}#page-marker .marker-method-card{min-height:68px;padding:10px}#page-marker .marker-method-copy strong{font-size:11px}#page-marker .marker-method-copy small{font-size:9px}}
