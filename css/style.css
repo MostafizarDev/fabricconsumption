@@ -3123,3 +3123,38 @@ body.dark-mode #page-marker .marker-unit-field.is-length-mode #mk-length-unit{
   border-color:#10b981;background:#12382f;color:#d1fae5;
   box-shadow:0 0 0 2px rgba(16,185,129,.18),0 3px 12px rgba(16,185,129,.12);
 }
+
+
+/* Method selector cards follow the same blue/green color state as the Unit field */
+#page-marker .marker-method-section .marker-method-card.active{
+  border-color:#1687ee;
+  background:linear-gradient(135deg,#eaf5ff 0%,#f5faff 100%);
+  box-shadow:inset 0 0 0 1px rgba(22,135,238,.14),0 0 0 2px rgba(22,135,238,.10),0 5px 14px rgba(2,132,199,.09);
+}
+#page-marker .marker-method-section .marker-method-card.active .marker-method-icon{
+  background:#d7eaff;color:#0868c8;
+}
+#page-marker .marker-method-section .marker-method-card.active .marker-method-check{
+  background:#0879d8;color:#fff;box-shadow:0 0 0 3px rgba(8,121,216,.12);
+}
+#page-marker .marker-method-section .marker-method-card:nth-child(2).active{
+  border-color:#10a779;
+  background:linear-gradient(135deg,#e8fbf3 0%,#f5fffa 100%);
+  box-shadow:inset 0 0 0 1px rgba(16,167,121,.14),0 0 0 2px rgba(16,167,121,.10),0 5px 14px rgba(16,167,121,.08);
+}
+#page-marker .marker-method-section .marker-method-card:nth-child(2).active .marker-method-icon{
+  background:#d0f4e5;color:#087f5b;
+}
+#page-marker .marker-method-section .marker-method-card:nth-child(2).active .marker-method-check{
+  background:#0b9a70;color:#fff;box-shadow:0 0 0 3px rgba(11,154,112,.12);
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-card.active{
+  background:linear-gradient(135deg,#082f49 0%,#10253a 100%);
+  border-color:#0ea5e9;
+  box-shadow:inset 0 0 0 1px rgba(14,165,233,.18),0 0 0 2px rgba(14,165,233,.13),0 5px 14px rgba(14,165,233,.10);
+}
+body.dark-mode #page-marker .marker-method-section .marker-method-card:nth-child(2).active{
+  background:linear-gradient(135deg,#12382f 0%,#102a26 100%);
+  border-color:#10b981;
+  box-shadow:inset 0 0 0 1px rgba(16,185,129,.18),0 0 0 2px rgba(16,185,129,.13),0 5px 14px rgba(16,185,129,.10);
+}
