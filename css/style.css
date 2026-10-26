@@ -3098,3 +3098,28 @@ body.dark-mode #page-marker .marker-method-section .marker-method-copy strong{co
   #page-marker .marker-method-section .marker-method-card{min-height:92px;padding:14px}
   #page-marker .marker-method-section .marker-method-icon{flex-basis:42px;width:42px;height:42px}
 }
+
+
+/* Unit field reflects the selected Consumption Method with a matching glow */
+#page-marker .marker-unit-field .marker-unit-value,
+#page-marker .marker-unit-field #mk-length-unit{
+  transition:border-color .2s ease,background-color .2s ease,box-shadow .2s ease;
+}
+#page-marker .marker-unit-field:not(.is-length-mode) .marker-unit-value{
+  border-color:#1687ee;
+  background:linear-gradient(135deg,#eaf5ff 0%,#f5faff 100%);
+  box-shadow:0 0 0 2px rgba(22,135,238,.12),0 3px 10px rgba(22,135,238,.09);
+}
+#page-marker .marker-unit-field.is-length-mode #mk-length-unit{
+  border-color:#10a779;
+  background:linear-gradient(135deg,#e8fbf3 0%,#f5fffa 100%);
+  box-shadow:0 0 0 2px rgba(16,167,121,.13),0 3px 10px rgba(16,167,121,.08);
+}
+body.dark-mode #page-marker .marker-unit-field:not(.is-length-mode) .marker-unit-value{
+  border-color:#0ea5e9;background:#082f49;color:#e0f2fe;
+  box-shadow:0 0 0 2px rgba(14,165,233,.18),0 3px 12px rgba(14,165,233,.12);
+}
+body.dark-mode #page-marker .marker-unit-field.is-length-mode #mk-length-unit{
+  border-color:#10b981;background:#12382f;color:#d1fae5;
+  box-shadow:0 0 0 2px rgba(16,185,129,.18),0 3px 12px rgba(16,185,129,.12);
+}
