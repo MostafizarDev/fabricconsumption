@@ -2839,3 +2839,9 @@ body.dark-mode #page-marker #mk-type-custom{background:#0b1220;color:#e2e8f0;bor
 #page-marker .marker-actions{justify-content:center;align-items:center;}
 #page-marker .marker-actions .marker-btn{min-width:130px;}
 @media(max-width:560px){#page-marker .marker-actions .marker-btn{flex:1;min-width:0;}}
+
+
+/* Marker Consumption Order Information: placeholder-style inputs */
+#page-marker .marker-fields input,
+#page-marker .marker-fields select{font-weight:400;color:var(--text,#334155);}
+#page-marker .marker-fields input::placeholder{color:#94a3b8;opacity:1;font-weight:400;}
