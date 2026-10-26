@@ -3212,3 +3212,35 @@ body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{col
  #page-marker .marker-table td:nth-child(7),
  #page-marker .marker-table td:nth-child(8){min-width:92px;padding:9px 10px}
 }
+
+
+/* Marker result columns: soft button-like cards matching Consumption Method */
+#page-marker .marker-table th:nth-child(7),
+#page-marker .marker-table th:nth-child(8){
+  min-width:96px;padding:10px 11px;background:#f0f9ff;color:#075985;
+  border-top:1px solid #bae6fd;border-bottom:1px solid #bae6fd;
+  font-size:10px;font-weight:800;
+}
+#page-marker .marker-table th:nth-child(7){border-left:1px solid #bae6fd;border-radius:10px 0 0 0}
+#page-marker .marker-table th:nth-child(8){border-right:1px solid #bae6fd;border-radius:0 10px 0 0}
+#page-marker .marker-table td:nth-child(7),
+#page-marker .marker-table td:nth-child(8){
+  min-width:96px;padding:9px 10px;background:#f8fcff;
+  border-top:1px solid #dbeafe;border-bottom:1px solid #dbeafe;
+}
+#page-marker .marker-table td:nth-child(7){border-left:1px solid #dbeafe}
+#page-marker .marker-table td:nth-child(8){border-right:1px solid #dbeafe}
+#page-marker .marker-table td:nth-child(7) .marker-row-result,
+#page-marker .marker-table td:nth-child(8) .marker-row-result{
+  display:block;padding:8px 9px;border:1px solid #dbeafe;border-radius:8px;
+  background:#eff8ff;color:#0369a1;font-size:12px;font-weight:800;line-height:1.35;
+  font-variant-numeric:tabular-nums;
+}
+#page-marker .marker-table tbody tr:last-child td:nth-child(7){border-radius:0 0 0 10px}
+#page-marker .marker-table tbody tr:last-child td:nth-child(8){border-radius:0 0 10px 0}
+body.dark-mode #page-marker .marker-table th:nth-child(7),
+body.dark-mode #page-marker .marker-table th:nth-child(8){background:#172b3d;color:#bae6fd;border-color:#29485f}
+body.dark-mode #page-marker .marker-table td:nth-child(7),
+body.dark-mode #page-marker .marker-table td:nth-child(8){background:#101f2e;border-color:#29485f}
+body.dark-mode #page-marker .marker-table td:nth-child(7) .marker-row-result,
+body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{background:#172f43;border-color:#29485f;color:#bae6fd}
