@@ -3179,3 +3179,31 @@ body.dark-mode #page-marker #mk-qty.mk-qty-warning{
 @media(prefers-reduced-motion:reduce){
   #page-marker #mk-qty.mk-qty-warning{animation:none}
 }
+
+
+/* Marker Consumption: compact input fields and clearer result block */
+#page-marker .marker-table input{min-width:46px;padding:5px 6px;font-size:9px;border-radius:5px}
+#page-marker .marker-table th:nth-child(7),
+#page-marker .marker-table th:nth-child(8){font-size:10px;font-weight:800;padding:11px 12px;background:#e0f2fe;color:#075985}
+#page-marker .marker-table td:nth-child(7),
+#page-marker .marker-table td:nth-child(8){padding:10px 12px;background:#f0f9ff;border-top:1px solid #bae6fd;border-bottom:1px solid #bae6fd}
+#page-marker .marker-table th:nth-child(7),
+#page-marker .marker-table td:nth-child(7){border-left:2px solid #7dd3fc}
+#page-marker .marker-table th:nth-child(8),
+#page-marker .marker-table td:nth-child(8){border-right:2px solid #7dd3fc}
+#page-marker .marker-table td:nth-child(7) .marker-row-result,
+#page-marker .marker-table td:nth-child(8) .marker-row-result{font-size:12px;font-weight:900;color:#0369a1}
+#page-marker .marker-table td:nth-child(7) input,
+#page-marker .marker-table td:nth-child(8) input{font-size:9px}
+body.dark-mode #page-marker .marker-table th:nth-child(7),
+body.dark-mode #page-marker .marker-table th:nth-child(8){background:#123047;color:#bae6fd}
+body.dark-mode #page-marker .marker-table td:nth-child(7),
+body.dark-mode #page-marker .marker-table td:nth-child(8){background:#102638;border-color:#164e63}
+body.dark-mode #page-marker .marker-table td:nth-child(7) .marker-row-result,
+body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{color:#7dd3fc}
+@media(max-width:600px){
+  #page-marker .marker-table th:nth-child(7),
+  #page-marker .marker-table th:nth-child(8),
+  #page-marker .marker-table td:nth-child(7),
+  #page-marker .marker-table td:nth-child(8){padding:8px 10px}
+}
