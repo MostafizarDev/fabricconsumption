@@ -3384,3 +3384,28 @@ body.dark-mode #page-marker .marker-table tbody tr:last-child td:nth-child(8),
 body.dark-mode #page-marker .marker-table tbody tr:last-child td:nth-child(9){
   border-bottom:0 !important;
 }
+
+
+/* Straight, uninterrupted horizontal separators across every marker row */
+#page-marker .marker-table{
+  border-collapse:collapse !important;
+  border-spacing:0 !important;
+}
+#page-marker .marker-table tbody tr td{
+  border-bottom:1px solid #dbe4ef !important;
+  border-radius:0 !important;
+}
+#page-marker .marker-table tbody tr:last-child td{
+  border-bottom:0 !important;
+}
+#page-marker .marker-table tbody td:nth-child(7),
+#page-marker .marker-table tbody td:nth-child(8){
+  border-left:0 !important;
+  border-right:0 !important;
+}
+body.dark-mode #page-marker .marker-table tbody tr td{
+  border-bottom:1px solid #294056 !important;
+}
+body.dark-mode #page-marker .marker-table tbody tr:last-child td{
+  border-bottom:0 !important;
+}
