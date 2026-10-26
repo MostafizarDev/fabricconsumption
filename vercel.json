@@ -2,6 +2,10 @@
   "version": 2,
   "rewrites": [
     {
+      "source": "/Marker-Consumption",
+      "destination": "/index.html"
+    },
+    {
       "source": "/knit-garments",
       "destination": "/index.html"
     },
