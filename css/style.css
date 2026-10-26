@@ -2833,3 +2833,9 @@ body.dark-mode .marker-type-delete{background:#351b22;color:#fca5a5;border-color
 #page-marker #mk-type-custom[hidden]{display:none!important}
 #page-marker #mk-type-custom{width:100%;min-width:0;padding:8px;border:1px solid var(--border,#cbd5e1);border-radius:6px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:inherit;font-size:10px}
 body.dark-mode #page-marker #mk-type-custom{background:#0b1220;color:#e2e8f0;border-color:#475569}
+
+
+/* Marker Consumption: center primary actions like the other calculator pages */
+#page-marker .marker-actions{justify-content:center;align-items:center;}
+#page-marker .marker-actions .marker-btn{min-width:130px;}
+@media(max-width:560px){#page-marker .marker-actions .marker-btn{flex:1;min-width:0;}}
