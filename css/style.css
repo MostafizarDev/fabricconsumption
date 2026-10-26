@@ -3543,3 +3543,76 @@ body.dark-mode #page-marker .marker-table .marker-result-pill{
   background:#243f60;
   color:#bfdbfe;
 }
+
+
+/* Final alignment for dynamic Final/Order result columns in both methods */
+#page-marker .marker-table thead th:nth-child(7),
+#page-marker .marker-table thead th:nth-child(8){
+  min-width:112px !important;
+  width:112px;
+  padding:9px 8px !important;
+  text-align:center !important;
+  white-space:nowrap;
+  font-size:10px !important;
+  color:var(--muted,#64748b) !important;
+  background:#f8fafc !important;
+  border:0 !important;
+  border-bottom:1px solid #dbe4ef !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+#page-marker .marker-table thead th:nth-child(7)::before,
+#page-marker .marker-table thead th:nth-child(8)::before{
+  content:none !important;
+  display:none !important;
+}
+#page-marker .marker-table tbody td.marker-row-result[data-r="pc"],
+#page-marker .marker-table tbody td.marker-row-result[data-r="order"]{
+  width:112px;
+  min-width:112px !important;
+  padding:6px 8px !important;
+  text-align:center !important;
+  vertical-align:middle !important;
+  background:transparent !important;
+  border-left:0 !important;
+  border-right:0 !important;
+}
+#page-marker .marker-table .marker-result-pill{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  min-width:72px;
+  max-width:100%;
+  min-height:28px;
+  padding:6px 12px !important;
+  border:0 !important;
+  border-radius:6px !important;
+  background:#dbeafe !important;
+  color:#1d4ed8 !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  line-height:1.2 !important;
+  text-align:center;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+body.dark-mode #page-marker .marker-table thead th:nth-child(7),
+body.dark-mode #page-marker .marker-table thead th:nth-child(8){
+  background:#172338 !important;
+  color:#cbd5e1 !important;
+  border-bottom-color:#294056 !important;
+}
+body.dark-mode #page-marker .marker-table .marker-result-pill{
+  background:#243f60 !important;
+  color:#bfdbfe !important;
+}
+@media(max-width:600px){
+  #page-marker .marker-table thead th:nth-child(7),
+  #page-marker .marker-table thead th:nth-child(8),
+  #page-marker .marker-table tbody td.marker-row-result[data-r="pc"],
+  #page-marker .marker-table tbody td.marker-row-result[data-r="order"]{
+    width:100px;
+    min-width:100px !important;
+  }
+}
