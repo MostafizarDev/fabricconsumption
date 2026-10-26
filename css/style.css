@@ -3181,29 +3181,34 @@ body.dark-mode #page-marker #mk-qty.mk-qty-warning{
 }
 
 
-/* Marker Consumption: compact input fields and clearer result block */
-#page-marker .marker-table input{min-width:46px;padding:5px 6px;font-size:9px;border-radius:5px}
+
+/* Marker Consumption table — refined compact inputs and grouped result columns */
+#page-marker .marker-table{border-collapse:separate;border-spacing:0;font-size:10px}
+#page-marker .marker-table th{padding:9px 7px;background:var(--soft-bg,#f8fafc);font-size:9px;font-weight:750;letter-spacing:.01em}
+#page-marker .marker-table td{padding:5px 6px;vertical-align:middle}
+#page-marker .marker-table td input{min-width:42px;padding:5px 6px;font-size:9px;border-radius:5px}
 #page-marker .marker-table th:nth-child(7),
-#page-marker .marker-table th:nth-child(8){font-size:10px;font-weight:800;padding:11px 12px;background:#e0f2fe;color:#075985}
+#page-marker .marker-table th:nth-child(8){min-width:100px;padding:11px 12px;background:#1e293b;color:#fff;font-size:10px;font-weight:800;letter-spacing:.01em}
+#page-marker .marker-table th:nth-child(7){border-left:1px solid #334155;border-radius:8px 0 0 0}
+#page-marker .marker-table th:nth-child(8){border-radius:0 8px 0 0}
 #page-marker .marker-table td:nth-child(7),
-#page-marker .marker-table td:nth-child(8){padding:10px 12px;background:#f0f9ff;border-top:1px solid #bae6fd;border-bottom:1px solid #bae6fd}
-#page-marker .marker-table th:nth-child(7),
-#page-marker .marker-table td:nth-child(7){border-left:2px solid #7dd3fc}
-#page-marker .marker-table th:nth-child(8),
-#page-marker .marker-table td:nth-child(8){border-right:2px solid #7dd3fc}
+#page-marker .marker-table td:nth-child(8){min-width:100px;padding:11px 12px;background:#f1f7fc;border-top:1px solid #d7e5f2;border-bottom:1px solid #d7e5f2}
+#page-marker .marker-table td:nth-child(7){border-left:1px solid #d7e5f2}
+#page-marker .marker-table td:nth-child(8){border-right:1px solid #d7e5f2}
+#page-marker .marker-table tbody tr:last-child td:nth-child(7){border-radius:0 0 0 8px}
+#page-marker .marker-table tbody tr:last-child td:nth-child(8){border-radius:0 0 8px 0}
 #page-marker .marker-table td:nth-child(7) .marker-row-result,
-#page-marker .marker-table td:nth-child(8) .marker-row-result{font-size:12px;font-weight:900;color:#0369a1}
-#page-marker .marker-table td:nth-child(7) input,
-#page-marker .marker-table td:nth-child(8) input{font-size:9px}
+#page-marker .marker-table td:nth-child(8) .marker-row-result{display:block;font-size:12px;font-weight:800;line-height:1.4;color:#075985;font-variant-numeric:tabular-nums}
+#page-marker .marker-table td:nth-child(9){padding-left:8px;padding-right:8px}
 body.dark-mode #page-marker .marker-table th:nth-child(7),
-body.dark-mode #page-marker .marker-table th:nth-child(8){background:#123047;color:#bae6fd}
+body.dark-mode #page-marker .marker-table th:nth-child(8){background:#24364b;color:#f1f5f9}
 body.dark-mode #page-marker .marker-table td:nth-child(7),
-body.dark-mode #page-marker .marker-table td:nth-child(8){background:#102638;border-color:#164e63}
+body.dark-mode #page-marker .marker-table td:nth-child(8){background:#13283a;border-color:#2a455a}
 body.dark-mode #page-marker .marker-table td:nth-child(7) .marker-row-result,
-body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{color:#7dd3fc}
+body.dark-mode #page-marker .marker-table td:nth-child(8) .marker-row-result{color:#bae6fd}
 @media(max-width:600px){
-  #page-marker .marker-table th:nth-child(7),
-  #page-marker .marker-table th:nth-child(8),
-  #page-marker .marker-table td:nth-child(7),
-  #page-marker .marker-table td:nth-child(8){padding:8px 10px}
+ #page-marker .marker-table th:nth-child(7),
+ #page-marker .marker-table th:nth-child(8),
+ #page-marker .marker-table td:nth-child(7),
+ #page-marker .marker-table td:nth-child(8){min-width:92px;padding:9px 10px}
 }
