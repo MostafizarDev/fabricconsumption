@@ -3775,7 +3775,8 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-tool .conv-group { padding:0; border:0; border-radius:0; background:transparent; }
 #page-converter .conv-label { margin:0 0 7px; color:#475569; font-size:10px; font-weight:700; }
 #page-converter .conv-row { display:flex; align-items:flex-end; gap:9px; flex-wrap:nowrap; }
-#page-converter .converter-layout-swap { flex:0 0 34px; align-self:center; display:grid; place-items:center; width:34px; height:34px; padding:0; border:1px solid #bfdbfe; border-radius:9px; color:#0369a1; background:#eff6ff; font:700 18px/1 Inter,Arial,sans-serif; cursor:pointer; transition:background .15s,border-color .15s,transform .15s; }
+#page-converter .converter-layout-swap { flex:0 0 34px; align-self:center; display:grid; place-items:center; width:34px; height:34px; padding:0; border:1px solid #bfdbfe; border-radius:9px; color:#0369a1; background:#eff6ff; cursor:pointer; transition:background .15s,border-color .15s,transform .15s; }
+#page-converter .converter-layout-swap svg { display:block; width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
 #page-converter .converter-layout-swap:hover { background:#dbeafe; border-color:#93c5fd; }
 #page-converter .converter-layout-swap:active { transform:scale(.94); }
 #page-converter .conv-row.is-reversed > .converter-field:first-of-type { order:3; }
