@@ -3793,6 +3793,7 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-operator { flex:0 0 24px; align-self:center; color:#64748b; text-align:center; font-size:16px; font-weight:700; }
 #page-converter .converter-field .conv-result { display:flex; align-items:center; justify-content:center; width:100%; min-width:0; min-height:39px; padding:8px 10px; border:1px solid #bfdbfe; border-radius:8px; color:#1d4ed8; background:#eff6ff; text-align:left; font-size:13px; font-weight:800; overflow-wrap:anywhere; }
 #page-converter .converter-field-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+#page-converter .converter-order-fields { grid-template-columns:repeat(4,minmax(0,1fr)); }
 #page-converter .converter-subconversion { display:grid; grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr); align-items:end; gap:8px; padding:0 0 10px; margin:0 0 10px; border-bottom:1px solid #edf2f7; }
 #page-converter .converter-subconversion .converter-layout-swap { justify-self:center; }
 #page-converter .converter-subconversion.is-reversed > .converter-field:first-of-type { grid-column:3; grid-row:1; }
