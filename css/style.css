@@ -3617,23 +3617,36 @@ body.dark-mode #page-marker .marker-table .marker-result-pill{
   }
 }
 
-/* Marker Consumption: Calculate and PDF buttons */
+/* Marker Consumption: compact Calculate and PDF actions */
+#page-marker .marker-actions {
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 0;
+}
 #page-marker #mk-calc,
 #page-marker #mk-pdf {
-  width: 100%;
-  flex: 0 0 100%;
-  padding: 11px;
-  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  width: auto;
+  flex: 0 0 auto;
+  padding: 11px 16px;
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: 12px;
   transition: opacity 0.15s ease;
+  white-space: nowrap;
 }
+#page-marker #mk-calc { background: linear-gradient(90deg, #0ea5e9, #6366f1); }
+#page-marker #mk-pdf { background: linear-gradient(90deg, #10b981, #059669); }
 #page-marker #mk-calc:hover,
 #page-marker #mk-pdf:hover { opacity: 0.9; }
 #page-marker #mk-calc:focus-visible,
 #page-marker #mk-pdf:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+@media (max-width: 360px) {
+  #page-marker #mk-calc,
+  #page-marker #mk-pdf { padding: 9px 10px; font-size: 12px; }
+}
