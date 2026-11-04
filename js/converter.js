@@ -21,6 +21,7 @@ function initConverters() {
     initOrderConsumptionPlanner();
     initThreadConverters();
     initProductionConverters();
+    initConverterInputSwaps();
     initConverterSearch();
 }
 
@@ -74,6 +75,7 @@ function initLengthConverters() {
     bindPair('cv-cm', 'cv-inch', value => value / 2.54, value => value * 2.54, 3);
     bindPair('cv-m', 'cv-yd', value => value / 0.9144, value => value * 0.9144, 3);
     bindPair('cv-m-ft', 'cv-ft', value => value / 0.3048, value => value * 0.3048, 3);
+    bindPair('cv-mm-cm', 'cv-cm-mm', value => value / 10, value => value * 10, 3, 1);
 }
 
 function initWeightConverters() {
@@ -266,6 +268,7 @@ function initFabricConsumptionConverters() {
     bindPair('cv-ydsdz', 'cv-ydspc', value => value / 12, value => value * 12, 4, 3);
     bindPair('cv-msdz', 'cv-mspc', value => value / 12, value => value * 12, 4, 3);
     bindPair('cv-pcs', 'cv-dozen', value => value / 12, value => value * 12, 2, 0);
+    bindPair('cv-cons-kgpc', 'cv-cons-gpc', value => value * 1000, value => value / 1000, 3, 6);
 }
 
 function initOrderConsumptionPlanner() {
@@ -354,6 +357,29 @@ function initThreadConverters() {
 function initProductionConverters() {
     bindPair('cv-rpm', 'cv-spo', value => value, value => value, 0);
     bindPair('cv-cmps', 'cv-mpmin', value => value * 0.6, value => value / 0.6, 2);
+}
+
+function initConverterInputSwaps() {
+    const buttons = document.querySelectorAll('#page-converter .converter-layout-swap');
+    buttons.forEach(button => {
+        const row = button.closest('.conv-row');
+        const fields = row ? row.querySelectorAll('.converter-field') : [];
+        if (!row || fields.length < 2) return;
+
+        function updateButton() {
+            const reversed = row.classList.contains('is-reversed');
+            const nextFirst = fields[reversed ? 0 : 1].querySelector('span')?.textContent.trim() || 'other unit';
+            button.setAttribute('aria-label', 'Switch input order; show ' + nextFirst + ' first');
+            button.title = 'Show ' + nextFirst + ' first';
+            button.setAttribute('aria-pressed', String(reversed));
+        }
+
+        button.addEventListener('click', () => {
+            row.classList.toggle('is-reversed');
+            updateButton();
+        });
+        updateButton();
+    });
 }
 
 function initConverterSearch() {
