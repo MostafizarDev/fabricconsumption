@@ -363,7 +363,7 @@ function initProductionConverters() {
 function initConverterInputSwaps() {
     const buttons = document.querySelectorAll('#page-converter .converter-layout-swap');
     buttons.forEach(button => {
-        const row = button.closest('.conv-row');
+        const row = button.closest('.conv-row, .converter-subconversion');
         const fields = row ? row.querySelectorAll('.converter-field') : [];
         if (!row || fields.length < 2) return;
 
