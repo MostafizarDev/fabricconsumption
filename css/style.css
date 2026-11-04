@@ -3802,6 +3802,10 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-output-row>span:first-child { color:#334155; font-weight:700; }
 #page-converter .converter-output-row>span:nth-of-type(2) { color:#64748b; font-size:10px; font-weight:500; }
 #page-converter .converter-output-row strong { display:inline-flex; align-items:center; min-height:28px; padding:5px 9px; border:1px solid #bfdbfe; border-radius:7px; background:#fff; color:#1d4ed8; font-size:15px; line-height:1.15; font-weight:800; }
+#page-converter .converter-formula-hint { display:grid; gap:3px; margin-top:2px; padding:9px 10px; border:1px dashed #bfdbfe; border-radius:8px; color:#64748b; background:#f8fbff; font-size:10px; line-height:1.45; }
+#page-converter .converter-formula-hint>strong { color:#1d4ed8; font-size:9px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; }
+#page-converter .converter-formula-hint>span { color:#334155; font-size:11px; font-weight:700; }
+#page-converter .converter-formula-hint>small { color:#64748b; font-size:9px; }
 #page-converter .converter-inline-hint { margin:0; color:#64748b; font-size:9px; line-height:1.45; }
 #page-converter .converter-secondary-row { padding-top:10px; border-top:1px solid #edf2f7; }
 #page-converter .converter-order-results { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:13px; }
@@ -3875,6 +3879,10 @@ body.dark-mode #page-converter .converter-output-row strong,
 body.dark-mode #page-converter .converter-field .conv-result,
 body.dark-mode #page-converter .converter-order-results .converter-order-primary strong { color:#93c5fd; }
 body.dark-mode #page-converter .converter-output-row strong { color:#93c5fd; background:#0b1120; border-color:#1e40af; }
+body.dark-mode #page-converter .converter-formula-hint { color:#cbd5e1; background:#0f172a; border-color:#1e40af; }
+body.dark-mode #page-converter .converter-formula-hint>strong { color:#93c5fd; }
+body.dark-mode #page-converter .converter-formula-hint>span { color:#e2e8f0; }
+body.dark-mode #page-converter .converter-formula-hint>small { color:#aebed1; }
 body.dark-mode #page-converter .converter-order-results span,
 body.dark-mode #page-converter .converter-order-results strong,
 body.dark-mode #page-converter .converter-reference-strip span { color:#cbd5e1; }
