@@ -3722,10 +3722,11 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-quick-card,
 #page-converter .converter-category { border:1px solid #dbe4ee; border-radius:14px; background:#fff; box-shadow:0 5px 18px rgba(15,23,42,.045); }
 #page-converter .converter-quick-card { padding:18px 20px; margin:0 0 14px; }
-#page-converter .converter-quick-intro { display:flex; flex-wrap:wrap; align-items:baseline; gap:5px 12px; margin-bottom:14px; }
+#page-converter .converter-quick-intro { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
 #page-converter .converter-kicker,
 #page-converter .converter-category-kicker { color:#2563eb; font-size:9px; font-weight:800; letter-spacing:1.15px; }
-#page-converter .converter-quick-intro h2 { margin:0; color:#0f172a; font-size:17px; font-weight:800; letter-spacing:-.2px; }
+#page-converter .converter-quick-intro h2 { margin:0; color:#0f172a; font-size:18px; font-weight:800; letter-spacing:-.25px; }
+#page-converter .converter-quick-intro .converter-kicker { display:inline-flex; align-items:center; padding:4px 8px; border:1px solid #dbeafe; border-radius:999px; background:#eff6ff; font-size:8px; letter-spacing:.8px; }
 #page-converter .converter-quick-intro p { flex-basis:100%; margin:0; color:#64748b; font-size:11px; line-height:1.5; }
 #page-converter .converter-quick-controls { display:grid; grid-template-columns:minmax(100px,.75fr) minmax(130px,1fr) 38px minmax(130px,1fr) minmax(170px,1.25fr); align-items:end; gap:10px; }
 #page-converter .converter-field { display:grid; gap:6px; min-width:0; color:#475569; font-size:11px; font-weight:700; line-height:1.4; }
@@ -3847,6 +3848,7 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 body.dark-mode #page-converter { color:#e2e8f0; }
 body.dark-mode #page-converter .converter-quick-card,
 body.dark-mode #page-converter .converter-category { color:#e2e8f0; background:#111c2e; border-color:#334155; }
+body.dark-mode #page-converter .converter-quick-intro .converter-kicker { color:#93c5fd; background:#172554; border-color:#1e40af; }
 body.dark-mode #page-converter .converter-quick-intro h2,
 body.dark-mode #page-converter .converter-category-heading h2,
 body.dark-mode #page-converter .converter-tool-heading h3,
