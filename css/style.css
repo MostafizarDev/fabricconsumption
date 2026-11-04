@@ -3894,6 +3894,9 @@ body.dark-mode #page-converter .converter-output-row,
 body.dark-mode #page-converter .converter-field .conv-result,
 body.dark-mode #page-converter .converter-order-results .converter-order-primary { color:#bfdbfe; background:#172554; border-color:#1e40af; }
 body.dark-mode #page-converter .converter-quick-formula { color:#e2e8f0; background:#0f172a; border-color:#1e40af; }
+body.dark-mode #page-converter .converter-quick-side-label { color:#93c5fd; }
+body.dark-mode #page-converter .converter-quick-equals { color:#7dd3fc; }
+body.dark-mode #page-converter .converter-quick-output { color:#93c5fd!important; background:#172554!important; border-color:#1e40af!important; }
 body.dark-mode #page-converter .converter-quick-formula>span { color:#aebed1; }
 body.dark-mode #page-converter .converter-quick-formula>strong { color:#e2e8f0; }
 body.dark-mode #page-converter .converter-output-row span { color:#cbd5e1; }
