@@ -271,6 +271,7 @@ function initFabricConsumptionConverters() {
     bindPair('cv-msdz', 'cv-mspc', value => value / 12, value => value * 12, 4, 3);
     bindPair('cv-pcs', 'cv-dozen', value => value / 12, value => value * 12, 2, 0);
     bindPair('cv-cons-kgpc', 'cv-cons-gpc', value => value * 1000, value => value / 1000, 3, 6);
+    bindPair('cv-gpc-kgdz', 'cv-kgdz-gpc', value => value * 12 / 1000, value => value * 1000 / 12, 3, 3);
 }
 
 function initOrderConsumptionPlanner() {
