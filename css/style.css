@@ -3764,6 +3764,10 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-category-kicker { display:block; margin-bottom:3px; }
 #page-converter .converter-category-heading h2 { margin:0; color:#0f172a; font-size:16px; font-weight:800; letter-spacing:-.2px; }
 #page-converter .converter-category-heading p { margin:4px 0 0; color:#64748b; font-size:10px; line-height:1.5; }
+#page-converter .converter-subsection-heading { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 10px; margin:14px 0 8px; }
+#page-converter .converter-subsection-heading span { color:#2563eb; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+#page-converter .converter-subsection-heading p { margin:0; color:#64748b; font-size:10px; line-height:1.45; }
+#page-converter .converter-tool-featured { border-color:#bfdbfe; background:#f8fbff; }
 #page-converter .converter-tool-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch; gap:11px; }
 #page-converter .converter-tool { min-width:0; margin:0; padding:13px; border:1px solid #e2e8f0; border-radius:11px; background:#fbfdff; }
 #page-converter .converter-tool-wide { grid-column:1/-1; }
@@ -3857,6 +3861,9 @@ body.dark-mode #page-converter .converter-search-control input:focus { border-co
 body.dark-mode #page-converter .converter-jump-nav a { color:#cbd5e1; background:#111827; border-color:#334155; }
 body.dark-mode #page-converter .converter-jump-nav a:hover { color:#e0f2fe; background:#0c2538; border-color:#0ea5e9; }
 body.dark-mode #page-converter .converter-tool-tag { color:#93c5fd; background:#172554; border-color:#1e3a8a; }
+body.dark-mode #page-converter .converter-subsection-heading span { color:#93c5fd; }
+body.dark-mode #page-converter .converter-subsection-heading p { color:#aebed1; }
+body.dark-mode #page-converter .converter-tool-featured { border-color:#1e40af; background:#111c2e; }
 body.dark-mode #page-converter .converter-quick-result,
 body.dark-mode #page-converter .converter-output-row,
 body.dark-mode #page-converter .converter-field .conv-result,
