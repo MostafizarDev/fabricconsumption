@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261105-quick-original">
+<link rel="stylesheet" href="css/style.css?v=20261105-quick-universal">
 </head>
 <body>
 
@@ -891,16 +891,24 @@
     <div class="converter-quick-intro">
       <span class="converter-kicker">QUICK CONVERSION</span>
       <h2 id="cv-quick-title">Convert a measurement</h2>
-      <p>Choose any garment length unit. The result updates as you type.</p>
+      <p>Choose a category and units. The result updates as you type.</p>
     </div>
+    <label class="converter-field converter-quick-category"><span>Unit category</span><select id="cv-quick-category" aria-label="Unit category">
+      <option>Area</option><option>Data Transfer Rate</option><option>Digital Storage</option><option>Energy</option><option>Frequency</option><option>Fuel Economy</option><option selected>Length</option><option>Mass</option><option>Plane Angle</option><option>Pressure</option><option>Speed</option><option>Temperature</option><option>Time</option><option>Volume</option>
+    </select></label>
     <div class="converter-quick-controls">
-      <label class="converter-field"><span>Value</span><input id="cv-quick-value" type="number" step="any" inputmode="decimal" value="1" aria-describedby="cv-quick-hint"></label>
-      <label class="converter-field"><span>From</span><select id="cv-quick-from"><option value="m" selected>Meter (m)</option><option value="cm">Centimeter (cm)</option><option value="mm">Millimeter (mm)</option><option value="yd">Yard (yd)</option><option value="in">Inch (in)</option><option value="ft">Foot (ft)</option></select></label>
-      <button class="converter-swap-btn" id="cv-quick-swap" type="button" aria-label="Switch from and to units" title="Switch units"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h13l-3-3m3 3-3 3M17 17H4l3 3m-3-3 3-3"/></svg></button>
-      <label class="converter-field"><span>To</span><select id="cv-quick-to"><option value="m">Meter (m)</option><option value="cm">Centimeter (cm)</option><option value="mm">Millimeter (mm)</option><option value="yd" selected>Yard (yd)</option><option value="in">Inch (in)</option><option value="ft">Foot (ft)</option></select></label>
-      <div class="converter-quick-result" aria-live="polite"><span id="cv-quick-equation">1 m =</span><strong id="cv-quick-result">1.0936 yd</strong></div>
+      <div class="converter-quick-side">
+        <label class="converter-field"><span>Value</span><input id="cv-quick-value" type="number" step="any" inputmode="decimal" value="1" aria-describedby="cv-quick-hint"></label>
+        <label class="converter-field"><span>From</span><select id="cv-quick-from" aria-label="Source unit"></select></label>
+      </div>
+      <div class="converter-quick-equals" aria-hidden="true">=</div>
+      <div class="converter-quick-side">
+        <label class="converter-field"><span>Result</span><input class="converter-quick-output" id="cv-quick-result" type="text" readonly aria-label="Converted result"></label>
+        <label class="converter-field"><span>To</span><select id="cv-quick-to" aria-label="Converted unit"></select></label>
+      </div>
     </div>
-    <p class="converter-quick-hint" id="cv-quick-hint">Includes mm, cm, meter, yard, inch and foot.</p>
+    <div class="converter-quick-formula" aria-live="polite"><span>Formula</span><strong id="cv-quick-equation">Choose units to see the formula.</strong></div>
+    <p class="converter-quick-hint" id="cv-quick-hint">Includes common garment and factory unit conversions.</p>
   </section>
 
   <div class="converter-toolbar">
@@ -1111,7 +1119,7 @@
 <script src="js/trims.js"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js"></script>
-<script src="js/converter.js?v=20261104-stock-full-width"></script>
+<script src="js/converter.js?v=20261105-quick-universal"></script>
 <script src="js/my-formulas.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="js/fabric-groups.js"></script>
