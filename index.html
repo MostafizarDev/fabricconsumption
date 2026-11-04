@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261104-converter-swap-animation">
+<link rel="stylesheet" href="css/style.css?v=20261104-material-gsm-refresh">
 </head>
 <body>
 
@@ -951,15 +951,10 @@
   </section>
 
   <section class="converter-category" id="converter-fabric" aria-labelledby="converter-fabric-title">
-    <div class="converter-category-heading"><div class="converter-category-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M8 12c2-5 8-5 8 0s-6 5-8 0Z"></path></svg></div><div><span class="converter-category-kicker">02 / MATERIALS</span><h2 id="converter-fabric-title">Fabric weight &amp; GSM</h2><p>Estimate fabric length or weight from GSM and usable width.</p></div></div>
+    <div class="converter-category-heading"><div class="converter-category-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M8 12c2-5 8-5 8 0s-6 5-8 0Z"></path></svg></div><div><span class="converter-category-kicker">02 / MATERIALS</span><h2 id="converter-fabric-title">Fabric weight &amp; GSM</h2><p>Convert roll weight, fabric length and GSM using usable width.</p></div></div>
+    <div class="converter-subsection-heading"><span>YIELD CALCULATORS</span><p>Enter GSM and usable width with the roll weight or fabric length.</p></div>
     <div class="converter-tool-grid">
-      <article class="conv-group converter-tool" data-search="kilogram kg gram g pound lb ounce oz fabric weight">
-        <div class="converter-tool-heading"><div><h3>Fabric weight units</h3><p>Convert kilograms, grams, pounds and ounces.</p></div><span class="converter-tool-tag">WEIGHT</span></div>
-        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-g" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Gram (g)</span><input class="conv-inp" id="cv-g" type="number" step="any" inputmode="decimal" placeholder="Enter grams"></label></div>
-        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-lb" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label></div>
-        <div class="converter-subconversion"><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb-oz" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Ounce (oz)</span><input class="conv-inp" id="cv-oz-lb" type="number" step="any" inputmode="decimal" placeholder="Enter oz"></label></div>
-      </article>
-      <article class="conv-group converter-tool" data-search="kg meter fabric length gsm width yield">
+      <article class="conv-group converter-tool converter-tool-wide converter-tool-featured" data-search="kg meter fabric length gsm width yield">
         <div class="converter-tool-heading"><div><h3>Fabric weight → length</h3><p>Use fabric weight, GSM and usable width.</p></div><span class="converter-tool-tag">YIELD</span></div>
         <div class="converter-field-grid"><label class="converter-field"><span>Weight (kg)</span><input class="conv-inp" id="cv-kg" type="number" step="any" inputmode="decimal" placeholder="Fabric kg"></label><label class="converter-field"><span>GSM</span><input class="conv-inp" id="cv-gsm2" type="number" step="any" inputmode="decimal" placeholder="Fabric GSM"></label><label class="converter-field"><span>Usable width (m)</span><input class="conv-inp" id="cv-wid" type="number" step="any" inputmode="decimal" placeholder="Width in meters"></label></div>
         <div class="converter-output-row"><span>Estimated length</span><strong id="cv-kg-res">—</strong><span>or</span><strong id="cv-kg-res-yd">—</strong></div>
@@ -973,6 +968,15 @@
         <div class="converter-tool-heading"><div><h3>Yard → fabric weight</h3><p>Estimate kilograms from yardage, GSM and width.</p></div><span class="converter-tool-tag">YIELD</span></div>
         <div class="converter-field-grid"><label class="converter-field"><span>Length (yd)</span><input class="conv-inp" id="cv-yd-kg" type="number" step="any" inputmode="decimal" placeholder="Enter yards"></label><label class="converter-field"><span>GSM</span><input class="conv-inp" id="cv-gsm-yd" type="number" step="any" inputmode="decimal" placeholder="Fabric GSM"></label><label class="converter-field"><span>Usable width (m)</span><input class="conv-inp" id="cv-width-yd" type="number" step="any" inputmode="decimal" placeholder="Width in meters"></label></div>
         <div class="converter-output-row"><span>Estimated fabric weight</span><strong id="cv-yd-kg-res">—</strong></div>
+      </article>
+    </div>
+    <div class="converter-subsection-heading"><span>WEIGHT &amp; GSM CONVERSIONS</span><p>Convert fabric weight units and compare common fabric specifications.</p></div>
+    <div class="converter-tool-grid">
+      <article class="conv-group converter-tool" data-search="kilogram kg gram g pound lb ounce oz fabric weight">
+        <div class="converter-tool-heading"><div><h3>Fabric weight units</h3><p>Convert kilograms, grams, pounds and ounces.</p></div><span class="converter-tool-tag">WEIGHT</span></div>
+        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-g" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Gram (g)</span><input class="conv-inp" id="cv-g" type="number" step="any" inputmode="decimal" placeholder="Enter grams"></label></div>
+        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-lb" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label></div>
+        <div class="converter-subconversion"><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb-oz" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Ounce (oz)</span><input class="conv-inp" id="cv-oz-lb" type="number" step="any" inputmode="decimal" placeholder="Enter oz"></label></div>
       </article>
       <article class="conv-group converter-tool" data-search="gsm oz square yard fabric weight conversion">
         <div class="converter-tool-heading"><div><h3>GSM ↔ oz/yd²</h3><p>Convert metric fabric weight to ounces per square yard.</p></div><span class="converter-tool-tag">FABRIC SPEC</span></div>
@@ -989,6 +993,7 @@
         <p class="converter-inline-hint">Change width to match the usable fabric width.</p>
       </article>
     </div>
+
   </section>
 
   <section class="converter-category" id="converter-consumption" aria-labelledby="converter-consumption-title">
