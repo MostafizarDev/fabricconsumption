@@ -3712,7 +3712,7 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 /* ========== CONVERTER PAGE REFRESH ========== */
 #page-converter [hidden] { display:none!important; }
 #page-converter { color:#0f172a; }
-#page-converter .converter-hero { margin-bottom:14px; }
+#page-converter .converter-hero { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:24px 28px; margin-bottom:14px; border-radius:14px; color:#eaf4ff; background:linear-gradient(120deg,#0f172a,#172554,#164e63); }
 #page-converter .converter-hero-copy { min-width:0; flex:1; }
 #page-converter .converter-hero-copy>span { color:#67e8f9; font-size:10px; font-weight:800; letter-spacing:1.5px; }
 #page-converter .converter-hero-copy h1 { margin:7px 0; color:#f8fafc; font-size:clamp(24px,3vw,32px); font-weight:800; line-height:1.15; }
