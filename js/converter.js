@@ -19,6 +19,7 @@ function initConverters() {
     initTemperatureConverters();
     initFabricConsumptionConverters();
     initOrderConsumptionPlanner();
+    initFabricStockToPieces();
     initThreadConverters();
     initProductionConverters();
     initConverterInputSwaps();
@@ -271,7 +272,7 @@ function initFabricConsumptionConverters() {
     bindPair('cv-msdz', 'cv-mspc', value => value / 12, value => value * 12, 4, 3);
     bindPair('cv-pcs', 'cv-dozen', value => value / 12, value => value * 12, 2, 0);
     bindPair('cv-cons-kgpc', 'cv-cons-gpc', value => value * 1000, value => value / 1000, 3, 6);
-    bindPair('cv-gpc-kgdz', 'cv-kgdz-gpc', value => value * 12 / 1000, value => value * 1000 / 12, 3, 3);
+
 }
 
 function initOrderConsumptionPlanner() {
@@ -319,6 +320,55 @@ function initOrderConsumptionPlanner() {
         }
     }
     [pcInput,qtyInput,wasteInput].forEach(input => input.addEventListener('input', update));
+    unitSelect.addEventListener('change', update);
+    update();
+}
+
+function initFabricStockToPieces() {
+    const stockInput = el('cv-stock-fabric');
+    const unitSelect = el('cv-stock-unit');
+    const perPieceInput = el('cv-stock-per-pc');
+    const wasteInput = el('cv-stock-waste');
+    if (!stockInput || !unitSelect || !perPieceInput || !wasteInput) return;
+
+    const outputIds = ['cv-stock-pieces','cv-stock-leftover'];
+    const status = el('cv-stock-status');
+    function clearOutputs() {
+        outputIds.forEach(id => set(id, '—'));
+    }
+    function update() {
+        const stock = readNumber(stockInput);
+        const perPiece = readNumber(perPieceInput);
+        const waste = readNumber(wasteInput);
+        if (status) status.className = 'converter-order-status';
+
+        if (stock === null || perPiece === null || waste === null) {
+            clearOutputs();
+            if (status) status.textContent = 'Enter fabric stock, per-piece use and wastage.';
+            return;
+        }
+        if (stock < 0 || perPiece <= 0 || waste < 0 || waste > 100) {
+            clearOutputs();
+            if (status) {
+                status.classList.add('is-error');
+                status.textContent = 'Use non-negative stock, positive per-piece use and wastage from 0% to 100%.';
+            }
+            return;
+        }
+
+        const unit = unitSelect.value;
+        const allowancePerPiece = perPiece * (1 + waste / 100);
+        const garments = Math.floor(stock / allowancePerPiece + Number.EPSILON * Math.max(1, stock / allowancePerPiece));
+        const leftover = Math.max(0, stock - garments * allowancePerPiece);
+        set('cv-stock-pieces', formatConverterNumber(garments, 0) + ' pcs');
+        set('cv-stock-leftover', formatConverterNumber(leftover, 6) + ' ' + unit);
+        if (status) {
+            status.classList.add('is-success');
+            status.textContent = 'Wastage is included; the result counts whole garments only.';
+        }
+    }
+
+    [stockInput,perPieceInput,wasteInput].forEach(input => input.addEventListener('input', update));
     unitSelect.addEventListener('change', update);
     update();
 }
