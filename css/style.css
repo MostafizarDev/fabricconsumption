@@ -3809,6 +3809,7 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-inline-hint { margin:0; color:#64748b; font-size:9px; line-height:1.45; }
 #page-converter .converter-secondary-row { padding-top:10px; border-top:1px solid #edf2f7; }
 #page-converter .converter-order-results { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:13px; }
+#page-converter .converter-order-results-two { grid-template-columns:repeat(2,minmax(0,1fr)); }
 #page-converter .converter-order-results>div { display:grid; align-content:center; gap:5px; min-width:0; padding:10px; border:1px solid #e2e8f0; border-radius:9px; background:#fff; }
 #page-converter .converter-order-results span { color:#64748b; font-size:9px; line-height:1.4; }
 #page-converter .converter-order-results strong { color:#0f172a; font-size:14px; line-height:1.25; overflow-wrap:anywhere; }
