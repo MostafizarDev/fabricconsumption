@@ -13,7 +13,75 @@ function mkSaveRecent(showPanel=false){const state=markerCaptureState(),f=state.
 function mkRenderRecent(){const panel=$('mk-recent-panel'),items=mkReadRecent();if(!panel)return;panel.innerHTML='<div class="knit-recent-head"><span>Recent Calculations · Last 5</span><button type="button" class="knit-recent-load" id="mk-save-current">Save Current</button></div>'+(items.length?items.map(x=>'<div class="knit-recent-item"><div class="knit-recent-info"><strong>'+esc(x.title||'Marker calculation')+(x.garment?' · '+esc(x.garment):'')+'</strong><small>'+(x.buyer?esc(x.buyer)+' · ':'')+esc(x.po?'PO: '+x.po:'No PO')+' · '+esc(x.quantity?x.quantity+' pcs':'Quantity not set')+' · '+esc(x.state&&x.state.savedAt?new Date(x.state.savedAt).toLocaleString():'Saved')+'</small></div><div class="knit-recent-actions"><button type="button" class="knit-recent-load" data-load-marker-recent="'+esc(x.id)+'">Load</button><button type="button" class="knit-recent-delete" data-delete-marker-recent="'+esc(x.id)+'" aria-label="Delete '+esc(x.title||'marker calculation')+'">×</button></div></div>').join(''):'<div class="knit-recent-empty">No saved calculations yet. Click “Save Current” to keep this calculation.</div>');panel.querySelector('#mk-save-current')?.addEventListener('click',()=>mkSaveRecent(true));panel.querySelectorAll('[data-load-marker-recent]').forEach(btn=>btn.addEventListener('click',()=>{const item=mkReadRecent().find(x=>x.id===btn.getAttribute('data-load-marker-recent'));if(item){markerDemoSnapshot=null;markerApplyState(item.state);$('mk-demo').classList.remove('is-active');$('mk-demo').setAttribute('aria-pressed','false');panel.hidden=true;$('mk-recent-open').classList.remove('is-active');$('mk-recent-open').setAttribute('aria-expanded','false')}}));panel.querySelectorAll('[data-delete-marker-recent]').forEach(btn=>btn.addEventListener('click',()=>{try{localStorage.setItem(MARKER_RECENT_KEY,JSON.stringify(mkReadRecent().filter(x=>x.id!==btn.getAttribute('data-delete-marker-recent'))));mkRenderRecent()}catch(_){alert('Could not update Recent calculations in browser storage.')}}))}
 function markerSetDemo(on){const btn=$('mk-demo');if(on){if(!markerDemoSnapshot)markerDemoSnapshot=markerCaptureState();$('mk-buyer').value='Demo Buyer';$('mk-style').value='Basic Jogger';$('mk-po').value='DEMO-001';$('mk-type').value='Jogger';$('mk-qty').value='1000';document.querySelector('input[name="mk-method"][value="weight"]').checked=true;$('mk-length-unit').value='yd';$('mk-rows').innerHTML='';addRow({part:'Main Body Marker',fabric:'Main Fleece',length:255.91,width:70.87,gsm:280,waste:0});addRow({part:'Pocket Marker',fabric:'Pocketing',length:70.87,width:35.43,gsm:140,waste:3});syncMethodUI();calc()}else if(markerDemoSnapshot){const state=markerDemoSnapshot;markerDemoSnapshot=null;markerApplyState(state)}if(btn){btn.classList.toggle('is-active',on);btn.setAttribute('aria-pressed',String(on))}}
 function reset(){markerDemoSnapshot=null;$('mk-demo')?.classList.remove('is-active');$('mk-demo')?.setAttribute('aria-pressed','false');['mk-buyer','mk-style','mk-po'].forEach(id=>$(id).value='');$('mk-type').value='';$('mk-qty').value='';$('mk-unit').value='inch';$('mk-length-unit').value='yd';$('mk-rows').innerHTML='';addRow({});['mk-pc','mk-dz','mk-order'].forEach(id=>$(id).textContent='—');$('mk-order-qty').textContent='—';$('mk-fabrics').innerHTML='<div class="marker-empty-state">Calculate after entering marker data to see the breakdown.</div>';$('mk-status').className='marker-status';$('mk-status').textContent='Enter approved marker data.';last=null}
-function pdf(){calc();if(!last){alert('Please enter valid marker data first.');return}const r=last,rows=r.items.map(x=>'<tr><td>'+esc(x.part)+'</td><td>'+esc(x.fabric)+'</td><td>'+(r.method==='weight'?x.W+' in':'—')+'</td><td>'+x.L+(r.method==='weight'?' in':' yd')+'</td><td>'+(r.method==='weight'?x.G:'—')+'</td><td>'+x.w+'%</td><td>'+fmt(x.kg,4)+' '+r.unit+'</td><td>'+fmt(x.orderKg,3)+' '+r.unit+'</td></tr>').join(''),html='<div class="header"><h1>Marker Consumption Report</h1><div class="date">Generated: '+new Date().toLocaleString()+'</div></div><h2>Order Information</h2><p>Buyer: '+esc(r.buyer||'—')+' | Style: '+esc(r.style||'—')+' | PO: '+esc(r.po||'—')+'</p><p>Garment: '+esc(r.type)+' | Order Qty: '+r.qty+' pcs | Method: '+(r.method==='weight'?'Weight-based / Knit GSM':'Length-based / Woven')+' | Result unit: '+r.unit+'</p><div class="box"><div>Total per garment</div><div class="box-value">'+fmt(r.pc,4)+' '+r.unit+'</div><div>'+fmt(r.pc*12,3)+' '+r.unit+'/dozen · '+fmt(r.order,3)+' '+r.unit+'/order</div></div><h2>Marker Breakdown</h2><table><thead><tr><th>Part</th><th>Fabric</th><th>Width</th><th>Length</th><th>GSM</th><th>Waste</th><th>'+ (r.method==='weight'?'kg/pc':r.unit+'/pc') +'</th><th>'+ (r.method==='weight'?'Order kg':'Order '+r.unit) +'</th></tr></thead><tbody>'+rows+'</tbody></table><p>Validate against approved CAD marker and cutting-room consumption.</p>';if(typeof generatePDF==='function')generatePDF('Marker Consumption Report',html);else window.print()}
+function pdf(){
+ calc();
+ if(!last){alert('Please enter valid marker data first.');return}
+ const r=last,now=new Date(),weightMode=r.method==='weight';
+ const iconPaths={
+  info:'<circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path>',
+  components:'<path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="7" cy="7" r="1.5"></circle><circle cx="7" cy="12" r="1.5"></circle><circle cx="7" cy="17" r="1.5"></circle>',
+  summary:'<path d="M5 19V9M12 19V5M19 19v-7"></path>',
+  warning:'<path d="M12 3 2.5 20h19z"></path><path d="M12 9v5M12 17h.01"></path>',
+  formula:'<path d="M7 4h10M7 20h10M9 7l6 10M15 7l-6 10"></path>'
+ };
+ const icon=name=>'<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">'+(iconPaths[name]||iconPaths.info)+'</svg>';
+ const dateCode=now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
+ const sequenceKey='markerConsumption.reportSequence.'+dateCode;
+ let sequence=0;
+ try{sequence=parseInt(localStorage.getItem(sequenceKey)||'0',10)||0}catch(_){}
+ sequence+=1;
+ try{localStorage.setItem(sequenceKey,String(sequence))}catch(_){}
+ const reportId='FC-MARKER-'+dateCode+'-'+String(sequence).padStart(3,'0');
+ const dateText=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+ const timeText=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+ const quantity=Number(r.qty).toLocaleString('en-US');
+ const rows=r.items.map((x,i)=>{
+  const measureCells=weightMode
+   ?'<td>'+fmt(x.L,2)+' in</td><td>'+fmt(x.W,2)+' in</td><td>'+fmt(x.G,0)+'</td>'
+   :'<td>'+fmt(x.L,2)+' yd</td>';
+  return '<tr><td>'+(i+1)+'</td><td><strong>'+esc(x.part)+'</strong></td><td>'+esc(x.fabric)+'</td>'+measureCells+'<td>'+fmt(x.w,1)+'%</td><td>'+fmt(x.kg,4)+' '+r.unit+'/pc</td><td><strong>'+fmt(x.orderKg,3)+' '+r.unit+'</strong></td></tr>';
+ }).join('');
+ const tableHead=weightMode
+  ?'<tr><th style="width:4%">SL</th><th style="width:17%">Marker / Part</th><th style="width:15%">Fabric</th><th style="width:10%">Length</th><th style="width:10%">Width</th><th style="width:7%">GSM</th><th style="width:8%">Waste</th><th style="width:14%">Final / pc</th><th style="width:15%">Order total</th></tr>'
+  :'<tr><th style="width:5%">SL</th><th style="width:20%">Marker / Part</th><th style="width:20%">Fabric</th><th style="width:18%">Total marker length</th><th style="width:10%">Waste</th><th style="width:14%">Final / pc</th><th style="width:13%">Order total</th></tr>';
+ const groups=new Map();
+ r.items.forEach(x=>{
+  const name=String(x.fabric||'Unspecified').trim()||'Unspecified',key=name.toLowerCase();
+  if(!groups.has(key))groups.set(key,{name,parts:[],pc:0,order:0,waste:0});
+  const group=groups.get(key);
+  group.parts.push(x.part);
+  group.pc+=x.kg;
+  group.order+=x.orderKg;
+  group.waste+=(x.kg-x.base)*r.qty;
+ });
+ const fabricRows=[...groups.values()].map((g,i)=>{
+  const share=r.order>0?g.order/r.order*100:0;
+  return '<tr><td>'+(i+1)+'</td><td><strong>'+esc(g.name)+'</strong></td><td>'+esc(g.parts.join(', '))+'</td><td>'+fmt(g.waste,3)+' '+r.unit+'</td><td>'+fmt(g.pc,4)+' '+r.unit+'/pc</td><td><strong>'+fmt(g.order,3)+' '+r.unit+'</strong></td><td>'+fmt(share,1)+'%</td></tr>';
+ }).join('');
+ const net=r.items.reduce((sum,x)=>sum+x.base*r.qty,0);
+ const wasteAdded=r.items.reduce((sum,x)=>sum+(x.kg-x.base)*r.qty,0);
+ const methodName=weightMode?'Weight-based - Knit / GSM':'Length-based - Woven / Length';
+ const formulaText=weightMode
+  ?'For each marker row, base per garment = Length (in) × Width (in) × GSM ÷ (1,550,000 × Order Qty). Final consumption adds that row\'s wastage: base × (1 + waste % ÷ 100).'
+  :'For each marker row, base per garment = Total Marker Length (yd) ÷ Order Qty. Final consumption adds that row\'s wastage: base × (1 + waste % ÷ 100).'+(r.unit==='m'?' Yard input is converted to meters using × 0.9144.':'');
+ const html='<div class="report">'+
+  '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Marker Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
+  '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Result Unit</span><strong>'+r.unit.toUpperCase()+'</strong></div><div><span>Order Quantity</span><strong>'+quantity+' pcs</strong></div></div>'+
+  '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
+  '<div><span>Buyer Name</span><strong>'+(esc(r.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(r.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(r.po)||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(esc(r.type)||'________________')+'</strong></div></div></section>'+
+  '<section class="section"><div class="section-head">'+icon('components')+'<span>MARKER-WISE CONSUMPTION</span></div><table class="consumption-table"><thead>'+tableHead+'</thead><tbody>'+rows+'</tbody></table></section>'+
+  '<section class="section"><div class="section-head">'+icon('summary')+'<span>FABRIC-WISE SUMMARY</span></div><table class="fabric-type-table"><thead><tr><th style="width:4%">SL</th><th style="width:17%">Fabric Type</th><th style="width:29%">Markers / Parts</th><th style="width:15%">Waste / Order</th><th style="width:16%">Final / pc</th><th style="width:15%">Order Total</th><th style="width:8%">Share</th></tr></thead><tbody>'+fabricRows+'</tbody></table></section>'+
+  '<section class="section"><div class="section-head">'+icon('formula')+'<span>CALCULATION METHOD</span></div><div style="padding:10px 12px;font-size:9px;line-height:1.6"><strong>'+methodName+'</strong><div style="margin-top:4px;color:#475569">'+formulaText+'</div></div></section>'+
+  '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>NET CONSUMPTION</span></div><strong>'+fmt(net,3)+' '+r.unit+'</strong><small>Before wastage - whole order</small></div><div class="summary-card"><div class="metric-head">'+icon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(wasteAdded,3)+' '+r.unit+'</strong><small>Applied row by row</small></div><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(r.order,3)+' '+r.unit+'</strong><small>Including wastage</small></div><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER GARMENT</span></div><strong>'+fmt(r.pc,4)+' '+r.unit+'/pc</strong><small>Per dozen: '+fmt(r.pc*12,3)+' '+r.unit+'/dozen</small></div></div>'+
+  '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
+  '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Consumption estimate only. Verify marker measurements, GSM where applicable, wastage, and order quantity against the approved CAD marker and actual cutting-room consumption.</div></div>'+
+  '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
+  '<div class="report-footer"><span>Fabrics Consumption - Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+ const filePart=value=>String(value||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
+ const poPart=filePart(r.po);
+ const fileName=['FC',filePart(r.buyer),filePart(r.style),poPart?'PO'+poPart.replace(/^PO[_-]?/i,''):'',reportId].filter(Boolean).join('_');
+ if(typeof generatePDF==='function')generatePDF(fileName,html);else window.print()
+}
 document.addEventListener('DOMContentLoaded',()=>{
  document.querySelectorAll('input[name="mk-method"]').forEach(x=>x.addEventListener('change',()=>{syncMethodUI();calc()}));$('mk-length-unit').addEventListener('change',()=>{syncMethodUI();calc()});syncMethodUI();
 $('mk-type').addEventListener('input',calc);
