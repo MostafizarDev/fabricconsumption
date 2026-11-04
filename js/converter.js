@@ -27,49 +27,304 @@ function initConverters() {
 }
 
 function initQuickLengthConverter() {
+    const categorySelect = el('cv-quick-category');
     const valueInput = el('cv-quick-value');
     const fromSelect = el('cv-quick-from');
     const toSelect = el('cv-quick-to');
-    const result = el('cv-quick-result');
-    const equation = el('cv-quick-equation');
-    const swapButton = el('cv-quick-swap');
-    if (!valueInput || !fromSelect || !toSelect || !result || !equation) return;
+    const resultInput = el('cv-quick-result');
+    const formula = el('cv-quick-equation');
+    if (!categorySelect || !valueInput || !fromSelect || !toSelect || !resultInput || !formula) return;
 
-    const metersPerUnit = { mm:0.001, cm:0.01, m:1, km:1000, in:0.0254, ft:0.3048, yd:0.9144 };
-    const unitNames = { mm:'mm', cm:'cm', m:'m', km:'km', in:'in', ft:'ft', yd:'yd' };
-    const formatter = new Intl.NumberFormat('en-US', { maximumFractionDigits:6 });
+    const categories = {
+        Area: {
+            from:'m2', to:'yd2',
+            units:[
+                {id:'mm2',label:'Square millimeter (mm²)',factor:0.000001},
+                {id:'cm2',label:'Square centimeter (cm²)',factor:0.0001},
+                {id:'m2',label:'Square meter (m²)',factor:1},
+                {id:'km2',label:'Square kilometer (km²)',factor:1000000},
+                {id:'in2',label:'Square inch (in²)',factor:0.00064516},
+                {id:'ft2',label:'Square foot (ft²)',factor:0.09290304},
+                {id:'yd2',label:'Square yard (yd²)',factor:0.83612736},
+                {id:'acre',label:'Acre',factor:4046.8564224},
+                {id:'ha',label:'Hectare (ha)',factor:10000},
+                {id:'mi2',label:'Square mile (mi²)',factor:2589988.110336}
+            ]
+        },
+        'Data Transfer Rate': {
+            from:'mbps', to:'MBps',
+            units:[
+                {id:'bps',label:'Bit per second (bit/s)',factor:1},
+                {id:'kbps',label:'Kilobit per second (kbit/s)',factor:1000},
+                {id:'mbps',label:'Megabit per second (Mbit/s)',factor:1000000},
+                {id:'gbps',label:'Gigabit per second (Gbit/s)',factor:1000000000},
+                {id:'Bps',label:'Byte per second (byte/s)',factor:8},
+                {id:'kBps',label:'Kilobyte per second (kB/s)',factor:8000},
+                {id:'MBps',label:'Megabyte per second (MB/s)',factor:8000000},
+                {id:'GBps',label:'Gigabyte per second (GB/s)',factor:8000000000}
+            ]
+        },
+        'Digital Storage': {
+            from:'GB', to:'GiB',
+            units:[
+                {id:'bit',label:'Bit (b)',factor:1},
+                {id:'byte',label:'Byte (B)',factor:8},
+                {id:'kbit',label:'Kilobit (kbit)',factor:1000},
+                {id:'Mbit',label:'Megabit (Mbit)',factor:1000000},
+                {id:'Gbit',label:'Gigabit (Gbit)',factor:1000000000},
+                {id:'Tbit',label:'Terabit (Tbit)',factor:1000000000000},
+                {id:'kB',label:'Kilobyte (kB)',factor:8000},
+                {id:'MB',label:'Megabyte (MB)',factor:8000000},
+                {id:'GB',label:'Gigabyte (GB)',factor:8000000000},
+                {id:'TB',label:'Terabyte (TB)',factor:8000000000000},
+                {id:'KiB',label:'Kibibyte (KiB)',factor:8192},
+                {id:'MiB',label:'Mebibyte (MiB)',factor:8388608},
+                {id:'GiB',label:'Gibibyte (GiB)',factor:8589934592},
+                {id:'TiB',label:'Tebibyte (TiB)',factor:8796093022208}
+            ]
+        },
+        Energy: {
+            from:'kWh', to:'MJ',
+            units:[
+                {id:'J',label:'Joule (J)',factor:1},
+                {id:'kJ',label:'Kilojoule (kJ)',factor:1000},
+                {id:'cal',label:'Calorie (cal)',factor:4.184},
+                {id:'kcal',label:'Kilocalorie (kcal)',factor:4184},
+                {id:'Wh',label:'Watt-hour (Wh)',factor:3600},
+                {id:'kWh',label:'Kilowatt-hour (kWh)',factor:3600000},
+                {id:'MJ',label:'Megajoule (MJ)',factor:1000000},
+                {id:'BTU',label:'British thermal unit (BTU)',factor:1055.05585262}
+            ]
+        },
+        Frequency: {
+            from:'Hz', to:'kHz',
+            units:[
+                {id:'Hz',label:'Hertz (Hz)',factor:1},
+                {id:'kHz',label:'Kilohertz (kHz)',factor:1000},
+                {id:'MHz',label:'Megahertz (MHz)',factor:1000000},
+                {id:'GHz',label:'Gigahertz (GHz)',factor:1000000000},
+                {id:'rpm',label:'Revolutions per minute (rpm)',factor:1/60}
+            ]
+        },
+        'Fuel Economy': {
+            from:'kmL', to:'L100km',
+            units:[
+                {id:'kmL',label:'Kilometers per liter (km/L)'},
+                {id:'L100km',label:'Liters per 100 kilometers (L/100 km)'},
+                {id:'mpgUS',label:'Miles per US gallon (mpg US)'},
+                {id:'mpgUK',label:'Miles per Imperial gallon (mpg UK)'}
+            ]
+        },
+        Length: {
+            from:'m', to:'yd',
+            units:[
+                {id:'mm',label:'Millimeter (mm)',factor:0.001},
+                {id:'cm',label:'Centimeter (cm)',factor:0.01},
+                {id:'m',label:'Meter (m)',factor:1},
+                {id:'km',label:'Kilometer (km)',factor:1000},
+                {id:'in',label:'Inch (in)',factor:0.0254},
+                {id:'ft',label:'Foot (ft)',factor:0.3048},
+                {id:'yd',label:'Yard (yd)',factor:0.9144},
+                {id:'mi',label:'Mile (mi)',factor:1609.344}
+            ]
+        },
+        Mass: {
+            from:'kg', to:'lb',
+            units:[
+                {id:'mg',label:'Milligram (mg)',factor:0.000001},
+                {id:'g',label:'Gram (g)',factor:0.001},
+                {id:'kg',label:'Kilogram (kg)',factor:1},
+                {id:'tonne',label:'Metric ton (t)',factor:1000},
+                {id:'oz',label:'Ounce (oz)',factor:0.028349523125},
+                {id:'lb',label:'Pound (lb)',factor:0.45359237},
+                {id:'st',label:'Stone (st)',factor:6.35029318}
+            ]
+        },
+        'Plane Angle': {
+            from:'deg', to:'rad',
+            units:[
+                {id:'deg',label:'Degree (°)',factor:Math.PI/180},
+                {id:'rad',label:'Radian (rad)',factor:1},
+                {id:'grad',label:'Gradian (gon)',factor:Math.PI/200},
+                {id:'arcmin',label:'Arcminute (′)',factor:Math.PI/10800},
+                {id:'arcsec',label:'Arcsecond (″)',factor:Math.PI/648000},
+                {id:'turn',label:'Turn',factor:2*Math.PI}
+            ]
+        },
+        Pressure: {
+            from:'kPa', to:'psi',
+            units:[
+                {id:'Pa',label:'Pascal (Pa)',factor:1},
+                {id:'kPa',label:'Kilopascal (kPa)',factor:1000},
+                {id:'MPa',label:'Megapascal (MPa)',factor:1000000},
+                {id:'bar',label:'Bar',factor:100000},
+                {id:'psi',label:'Pound per square inch (psi)',factor:6894.757293168},
+                {id:'atm',label:'Standard atmosphere (atm)',factor:101325},
+                {id:'mmHg',label:'Millimeter of mercury (mmHg)',factor:133.322387415}
+            ]
+        },
+        Speed: {
+            from:'kmh', to:'mph',
+            units:[
+                {id:'ms',label:'Meter per second (m/s)',factor:1},
+                {id:'kmh',label:'Kilometer per hour (km/h)',factor:1/3.6},
+                {id:'mph',label:'Mile per hour (mph)',factor:0.44704},
+                {id:'fts',label:'Foot per second (ft/s)',factor:0.3048},
+                {id:'knot',label:'Knot (kn)',factor:0.514444444444}
+            ]
+        },
+        Temperature: {
+            from:'C', to:'F',
+            units:[
+                {id:'C',label:'Celsius (°C)'},
+                {id:'F',label:'Fahrenheit (°F)'},
+                {id:'K',label:'Kelvin (K)'}
+            ]
+        },
+        Time: {
+            from:'min', to:'h',
+            units:[
+                {id:'ms',label:'Millisecond (ms)',factor:0.001},
+                {id:'s',label:'Second (s)',factor:1},
+                {id:'min',label:'Minute (min)',factor:60},
+                {id:'h',label:'Hour (h)',factor:3600},
+                {id:'day',label:'Day (d)',factor:86400},
+                {id:'week',label:'Week (wk)',factor:604800}
+            ]
+        },
+        Volume: {
+            from:'L', to:'USgal',
+            units:[
+                {id:'USgal',label:'US liquid gallon',factor:0.003785411784},
+                {id:'USqt',label:'US liquid quart',factor:0.000946352946},
+                {id:'USpt',label:'US liquid pint',factor:0.000473176473},
+                {id:'UScup',label:'US legal cup',factor:0.00024},
+                {id:'USfloz',label:'US fluid ounce',factor:0.0000295735295625},
+                {id:'UStbsp',label:'US tablespoon',factor:0.00001478676478125},
+                {id:'UStsp',label:'US teaspoon',factor:0.00000492892159375},
+                {id:'m3',label:'Cubic meter (m³)',factor:1},
+                {id:'L',label:'Litre (L)',factor:0.001},
+                {id:'mL',label:'Milliliter (mL)',factor:0.000001},
+                {id:'UKgal',label:'Imperial gallon',factor:0.00454609},
+                {id:'UKqt',label:'Imperial quart',factor:0.0011365225},
+                {id:'UKpt',label:'Imperial pint',factor:0.00056826125},
+                {id:'UKcup',label:'Imperial cup',factor:0.000284130625},
+                {id:'UKfloz',label:'Imperial fluid ounce',factor:0.0000284130625},
+                {id:'UKtbsp',label:'Imperial tablespoon',factor:0.0000177581640625},
+                {id:'UKtsp',label:'Imperial teaspoon',factor:0.000005919388020833333},
+                {id:'ft3',label:'Cubic foot (ft³)',factor:0.028316846592},
+                {id:'in3',label:'Cubic inch (in³)',factor:0.000016387064}
+            ]
+        }
+    };
 
+    const formatter = new Intl.NumberFormat('en-US', { maximumFractionDigits:8 });
+    function formatNumber(value) {
+        return Number.isFinite(value) ? formatter.format(value) : '—';
+    }
+    function formatFactor(value) {
+        if (!Number.isFinite(value)) return '—';
+        const magnitude = Math.abs(value);
+        return magnitude !== 0 && (magnitude >= 1e9 || magnitude < 1e-5)
+            ? value.toExponential(4)
+            : formatter.format(value);
+    }
+    function unitFor(category, id) {
+        return categories[category]?.units.find(unit => unit.id === id) || null;
+    }
+    function fillSelect(select, units, selectedId) {
+        select.textContent = '';
+        units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = unit.label;
+            select.appendChild(option);
+        });
+        select.value = selectedId;
+        if (!select.value && units.length) select.value = units[0].id;
+    }
+    function toBase(value, category, unit) {
+        if (category === 'Temperature') {
+            if (unit.id === 'C') return value + 273.15;
+            if (unit.id === 'F') return (value - 32) * 5 / 9 + 273.15;
+            return value;
+        }
+        if (category === 'Fuel Economy') {
+            if (unit.id === 'kmL') return value;
+            if (unit.id === 'L100km') return value > 0 ? 100 / value : NaN;
+            if (unit.id === 'mpgUS') return value * 1.609344 / 3.785411784;
+            return value * 1.609344 / 4.54609;
+        }
+        return value * unit.factor;
+    }
+    function fromBase(value, category, unit) {
+        if (category === 'Temperature') {
+            if (unit.id === 'C') return value - 273.15;
+            if (unit.id === 'F') return (value - 273.15) * 9 / 5 + 32;
+            return value;
+        }
+        if (category === 'Fuel Economy') {
+            if (unit.id === 'kmL') return value;
+            if (unit.id === 'L100km') return value > 0 ? 100 / value : NaN;
+            if (unit.id === 'mpgUS') return value * 3.785411784 / 1.609344;
+            return value * 4.54609 / 1.609344;
+        }
+        return value / unit.factor;
+    }
+    function formulaText(category, from, to) {
+        if (from.id === to.id) return 'The value stays the same because both units match.';
+        if (category === 'Temperature') {
+            const pairs = {
+                'C-F':'°F = (°C × 9/5) + 32',
+                'F-C':'°C = (°F − 32) × 5/9',
+                'C-K':'K = °C + 273.15',
+                'K-C':'°C = K − 273.15',
+                'F-K':'K = (°F − 32) × 5/9 + 273.15',
+                'K-F':'°F = (K − 273.15) × 9/5 + 32'
+            };
+            return pairs[from.id+'-'+to.id] || 'Convert through the Kelvin scale.';
+        }
+        if (category === 'Fuel Economy') return 'Uses the selected fuel economy standard.';
+        return 'Multiply the value by ' + formatFactor(from.factor / to.factor) + '.';
+    }
     function update() {
-        const raw = valueInput.value.trim();
-        if (!raw) {
-            equation.textContent = 'Enter a value to convert';
-            result.textContent = 'Result appears here';
+        const category = categorySelect.value;
+        const value = Number(valueInput.value);
+        const from = unitFor(category, fromSelect.value);
+        const to = unitFor(category, toSelect.value);
+        if (!valueInput.value.trim() || !from || !to) {
+            resultInput.value = '';
+            formula.textContent = 'Enter a value to see the conversion.';
             return;
         }
-        const value = Number(raw);
-        const from = fromSelect.value;
-        const to = toSelect.value;
-        if (!Number.isFinite(value) || !metersPerUnit[from] || !metersPerUnit[to]) {
-            equation.textContent = 'Enter a valid measurement';
-            result.textContent = '—';
+        const base = toBase(value, category, from);
+        const converted = fromBase(base, category, to);
+        if (!Number.isFinite(value) || !Number.isFinite(converted)
+            || (category === 'Temperature' && base < 0)) {
+            resultInput.value = '';
+            formula.textContent = 'Check the value and selected units.';
             return;
         }
-        const converted = value * metersPerUnit[from] / metersPerUnit[to];
-        equation.textContent = formatter.format(value) + ' ' + unitNames[from] + ' =';
-        result.textContent = formatter.format(converted) + ' ' + unitNames[to];
+        resultInput.value = formatNumber(converted);
+        formula.textContent = formulaText(category, from, to);
+    }
+    function updateCategory() {
+        const category = categorySelect.value;
+        const config = categories[category];
+        if (!config) return;
+        fillSelect(fromSelect, config.units, config.from);
+        fillSelect(toSelect, config.units, config.to);
+        const hint = el('cv-quick-hint');
+        if (hint) hint.textContent = category + ' converter';
+        update();
     }
 
-    [valueInput, fromSelect, toSelect].forEach(input => {
+    categorySelect.addEventListener('change', updateCategory);
+    [valueInput,fromSelect,toSelect].forEach(input => {
         input.addEventListener('input', update);
         input.addEventListener('change', update);
     });
-    if (swapButton) swapButton.addEventListener('click', () => {
-        const previousFrom = fromSelect.value;
-        fromSelect.value = toSelect.value;
-        toSelect.value = previousFrom;
-        update();
-    });
-    update();
+    updateCategory();
 }
 
 function initLengthConverters() {
