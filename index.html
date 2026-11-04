@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261105-quick-universal">
+<link rel="stylesheet" href="css/style.css?v=20261105-quick-choice">
 </head>
 <body>
 
@@ -888,23 +888,31 @@
   </section>
 
   <section class="converter-quick-card" aria-labelledby="cv-quick-title">
-    <div class="converter-quick-intro">
-      <span class="converter-kicker">QUICK CONVERSION</span>
-      <h2 id="cv-quick-title">Convert a measurement</h2>
-      <p>Choose a category and units. The result updates as you type.</p>
+    <div class="converter-quick-header">
+      <div class="converter-quick-intro">
+        <span class="converter-kicker">QUICK CONVERSION</span>
+        <h2 id="cv-quick-title">Convert a measurement</h2>
+        <p>Choose a category and units. The result updates as you type.</p>
+      </div>
+      <label class="converter-field converter-quick-category"><span>Unit category</span><select id="cv-quick-category" aria-label="Unit category">
+        <option>Area</option><option>Data Transfer Rate</option><option>Digital Storage</option><option>Energy</option><option>Frequency</option><option>Fuel Economy</option><option selected>Length</option><option>Mass</option><option>Plane Angle</option><option>Pressure</option><option>Speed</option><option>Temperature</option><option>Time</option><option>Volume</option>
+      </select></label>
     </div>
-    <label class="converter-field converter-quick-category"><span>Unit category</span><select id="cv-quick-category" aria-label="Unit category">
-      <option>Area</option><option>Data Transfer Rate</option><option>Digital Storage</option><option>Energy</option><option>Frequency</option><option>Fuel Economy</option><option selected>Length</option><option>Mass</option><option>Plane Angle</option><option>Pressure</option><option>Speed</option><option>Temperature</option><option>Time</option><option>Volume</option>
-    </select></label>
     <div class="converter-quick-controls">
       <div class="converter-quick-side">
-        <label class="converter-field"><span>Value</span><input id="cv-quick-value" type="number" step="any" inputmode="decimal" value="1" aria-describedby="cv-quick-hint"></label>
-        <label class="converter-field"><span>From</span><select id="cv-quick-from" aria-label="Source unit"></select></label>
+        <span class="converter-quick-side-label">FROM</span>
+        <div class="converter-quick-side-fields">
+          <input id="cv-quick-value" type="number" step="any" inputmode="decimal" value="1" aria-label="Value to convert" aria-describedby="cv-quick-hint">
+          <select id="cv-quick-from" aria-label="Source unit"></select>
+        </div>
       </div>
       <div class="converter-quick-equals" aria-hidden="true">=</div>
       <div class="converter-quick-side">
-        <label class="converter-field"><span>Result</span><input class="converter-quick-output" id="cv-quick-result" type="text" readonly aria-label="Converted result"></label>
-        <label class="converter-field"><span>To</span><select id="cv-quick-to" aria-label="Converted unit"></select></label>
+        <span class="converter-quick-side-label">TO</span>
+        <div class="converter-quick-side-fields">
+          <input class="converter-quick-output" id="cv-quick-result" type="text" readonly aria-label="Converted result">
+          <select id="cv-quick-to" aria-label="Converted unit"></select>
+        </div>
       </div>
     </div>
     <div class="converter-quick-formula" aria-live="polite"><span>Formula</span><strong id="cv-quick-equation">Choose units to see the formula.</strong></div>
