@@ -3617,8 +3617,9 @@ body.dark-mode #page-marker .marker-table .marker-result-pill{
   }
 }
 
-/* Marker Consumption: Calculate button only */
-#page-marker #mk-calc {
+/* Marker Consumption: Calculate and PDF buttons */
+#page-marker #mk-calc,
+#page-marker #mk-pdf {
   width: 100%;
   flex: 0 0 100%;
   padding: 11px;
@@ -3632,5 +3633,7 @@ body.dark-mode #page-marker .marker-table .marker-result-pill{
   margin-top: 6px;
   transition: opacity 0.15s ease;
 }
-#page-marker #mk-calc:hover { opacity: 0.9; }
-#page-marker #mk-calc:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+#page-marker #mk-calc:hover,
+#page-marker #mk-pdf:hover { opacity: 0.9; }
+#page-marker #mk-calc:focus-visible,
+#page-marker #mk-pdf:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
