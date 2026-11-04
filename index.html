@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261104-material-flat-results">
+<link rel="stylesheet" href="css/style.css?v=20261104-weight-swap">
 </head>
 <body>
 
@@ -954,9 +954,9 @@
     <div class="converter-tool-grid">
       <article class="conv-group converter-tool" data-search="kilogram kg gram g pound lb ounce oz fabric weight">
         <div class="converter-tool-heading"><div><h3>Fabric weight units</h3><p>Convert kilograms, grams, pounds and ounces.</p></div><span class="converter-tool-tag">WEIGHT</span></div>
-        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-g" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Gram (g)</span><input class="conv-inp" id="cv-g" type="number" step="any" inputmode="decimal" placeholder="Enter grams"></label></div>
-        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-lb" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label></div>
-        <div class="converter-subconversion"><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb-oz" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label><span class="converter-operator" aria-hidden="true">=</span><label class="converter-field"><span>Ounce (oz)</span><input class="conv-inp" id="cv-oz-lb" type="number" step="any" inputmode="decimal" placeholder="Enter oz"></label></div>
+        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-g" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Gram (g)</span><input class="conv-inp" id="cv-g" type="number" step="any" inputmode="decimal" placeholder="Enter grams"></label></div>
+        <div class="converter-subconversion"><label class="converter-field"><span>Kilogram (kg)</span><input class="conv-inp" id="cv-kg-lb" type="number" step="any" inputmode="decimal" placeholder="Enter kg"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label></div>
+        <div class="converter-subconversion"><label class="converter-field"><span>Pound (lb)</span><input class="conv-inp" id="cv-lb-oz" type="number" step="any" inputmode="decimal" placeholder="Enter lb"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Ounce (oz)</span><input class="conv-inp" id="cv-oz-lb" type="number" step="any" inputmode="decimal" placeholder="Enter oz"></label></div>
       </article>
       <article class="conv-group converter-tool" data-search="kg meter fabric length gsm width yield">
         <div class="converter-tool-heading"><div><h3>Fabric weight → length</h3><p>Use fabric weight, GSM and usable width.</p></div><span class="converter-tool-tag">YIELD</span></div>
@@ -1102,7 +1102,7 @@
 <script src="js/trims.js"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js"></script>
-<script src="js/converter.js?v=20261104-fabric-width-converter"></script>
+<script src="js/converter.js?v=20261104-weight-swap"></script>
 <script src="js/my-formulas.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="js/fabric-groups.js"></script>
