@@ -83,6 +83,7 @@ function initWeightConverters() {
     bindPair('cv-kg-g', 'cv-g', value => value * 1000, value => value / 1000, 0, 3);
     bindPair('cv-kg-lb', 'cv-lb', value => value / 0.45359237, value => value * 0.45359237, 3);
     bindPair('cv-lb-oz', 'cv-oz-lb', value => value * 16, value => value / 16, 2, 3);
+    bindPair('cv-fabric-oz-g', 'cv-fabric-g-oz', value => value * 28.349523125, value => value / 28.349523125, 2, 3);
 }
 
 function initFabricConverters() {
