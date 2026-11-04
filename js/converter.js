@@ -1,173 +1,107 @@
 // ============================================
-// CONVERTER.JS - Complete Garments Industry Unit Converter
-// Includes: Length, Weight, Area, Temperature, Fabric, Button, Yarn Count, etc.
+// Garment industry unit and consumption converters
 // ============================================
 
-// ========== INITIALIZE ALL CONVERTERS ==========
+let converterPageInitialized = false;
+
 function initConverters() {
-    // 1. LENGTH CONVERTERS
+    if (converterPageInitialized) return;
+    converterPageInitialized = true;
+
+    initQuickLengthConverter();
     initLengthConverters();
-    
-    // 2. WEIGHT CONVERTERS
     initWeightConverters();
-    
-    // 3. FABRIC SPECIFIC CONVERTERS
     initFabricConverters();
-    
-    // 4. GSM & FABRIC WEIGHT CONVERTERS
     initGSMConverters();
-    
-    // 5. BUTTON & ACCESSORIES CONVERTERS
+    initAreaConverter();
     initButtonConverters();
-    
-    // 6. YARN COUNT CONVERTERS (Tex, Denier, Ne, Nm)
-    initYarnCountConverters();
-    
-    // 7. TEMPERATURE CONVERTERS (Celsius ↔ Fahrenheit)
+    initYarnCountConverter();
     initTemperatureConverters();
-    
-    // 8. FABRIC CONSUMPTION CONVERTERS
     initFabricConsumptionConverters();
-    
-    // 9. SEWING THREAD CONVERTERS
+    initOrderConsumptionPlanner();
     initThreadConverters();
-    
-    // 10. SPEED & PRODUCTION CONVERTERS
     initProductionConverters();
+    initConverterSearch();
 }
 
-// ========== 1. LENGTH CONVERTERS ==========
+function initQuickLengthConverter() {
+    const valueInput = el('cv-quick-value');
+    const fromSelect = el('cv-quick-from');
+    const toSelect = el('cv-quick-to');
+    const result = el('cv-quick-result');
+    const equation = el('cv-quick-equation');
+    const swapButton = el('cv-quick-swap');
+    if (!valueInput || !fromSelect || !toSelect || !result || !equation) return;
+
+    const metersPerUnit = { mm:0.001, cm:0.01, m:1, km:1000, in:0.0254, ft:0.3048, yd:0.9144 };
+    const unitNames = { mm:'mm', cm:'cm', m:'m', km:'km', in:'in', ft:'ft', yd:'yd' };
+    const formatter = new Intl.NumberFormat('en-US', { maximumFractionDigits:6 });
+
+    function update() {
+        const raw = valueInput.value.trim();
+        if (!raw) {
+            equation.textContent = 'Enter a value to convert';
+            result.textContent = 'Result appears here';
+            return;
+        }
+        const value = Number(raw);
+        const from = fromSelect.value;
+        const to = toSelect.value;
+        if (!Number.isFinite(value) || !metersPerUnit[from] || !metersPerUnit[to]) {
+            equation.textContent = 'Enter a valid measurement';
+            result.textContent = '—';
+            return;
+        }
+        const converted = value * metersPerUnit[from] / metersPerUnit[to];
+        equation.textContent = formatter.format(value) + ' ' + unitNames[from] + ' =';
+        result.textContent = formatter.format(converted) + ' ' + unitNames[to];
+    }
+
+    [valueInput, fromSelect, toSelect].forEach(input => {
+        input.addEventListener('input', update);
+        input.addEventListener('change', update);
+    });
+    if (swapButton) swapButton.addEventListener('click', () => {
+        const previousFrom = fromSelect.value;
+        fromSelect.value = toSelect.value;
+        toSelect.value = previousFrom;
+        update();
+    });
+    update();
+}
+
 function initLengthConverters() {
-    // CM ↔ Inch
-    const cmInput = el('cv-cm');
-    const inchInput = el('cv-inch');
-    if (cmInput && inchInput) {
-        cmInput.addEventListener('input', () => {
-            inchInput.value = (cmInput.value / 2.54).toFixed(3);
-        });
-        inchInput.addEventListener('input', () => {
-            cmInput.value = (inchInput.value * 2.54).toFixed(3);
-        });
-    }
-    
-    // Meter ↔ Yard
-    const meterInput = el('cv-m');
-    const yardInput = el('cv-yd');
-    if (meterInput && yardInput) {
-        meterInput.addEventListener('input', () => {
-            yardInput.value = (meterInput.value * 1.09361).toFixed(3);
-        });
-        yardInput.addEventListener('input', () => {
-            meterInput.value = (yardInput.value / 1.09361).toFixed(3);
-        });
-    }
-    
-    // Meter ↔ Feet
-    const meterFeetInput = el('cv-m-ft');
-    const feetInput = el('cv-ft');
-    if (meterFeetInput && feetInput) {
-        meterFeetInput.addEventListener('input', () => {
-            feetInput.value = (meterFeetInput.value * 3.28084).toFixed(3);
-        });
-        feetInput.addEventListener('input', () => {
-            meterFeetInput.value = (feetInput.value / 3.28084).toFixed(3);
-        });
-    }
-    
-    // Inch ↔ Centimeter (additional)
-    const inchCmInput = el('cv-inch-cm');
-    const cmInchInput = el('cv-cm-inch');
-    if (inchCmInput && cmInchInput) {
-        inchCmInput.addEventListener('input', () => {
-            cmInchInput.value = (inchCmInput.value * 2.54).toFixed(2);
-        });
-        cmInchInput.addEventListener('input', () => {
-            inchCmInput.value = (cmInchInput.value / 2.54).toFixed(2);
-        });
-    }
+    bindPair('cv-cm', 'cv-inch', value => value / 2.54, value => value * 2.54, 3);
+    bindPair('cv-m', 'cv-yd', value => value / 0.9144, value => value * 0.9144, 3);
+    bindPair('cv-m-ft', 'cv-ft', value => value / 0.3048, value => value * 0.3048, 3);
 }
 
-// ========== 2. WEIGHT CONVERTERS ==========
 function initWeightConverters() {
-    // KG ↔ Gram
-    const kgInput = el('cv-kg-g');
-    const gramInput = el('cv-g');
-    if (kgInput && gramInput) {
-        kgInput.addEventListener('input', () => {
-            gramInput.value = (kgInput.value * 1000).toFixed(0);
-        });
-        gramInput.addEventListener('input', () => {
-            kgInput.value = (gramInput.value / 1000).toFixed(3);
-        });
-    }
-    
-    // KG ↔ Pound (lb)
-    const kgLbInput = el('cv-kg-lb');
-    const lbInput = el('cv-lb');
-    if (kgLbInput && lbInput) {
-        kgLbInput.addEventListener('input', () => {
-            lbInput.value = (kgLbInput.value * 2.20462).toFixed(3);
-        });
-        lbInput.addEventListener('input', () => {
-            kgLbInput.value = (lbInput.value / 2.20462).toFixed(3);
-        });
-    }
-    
-    // Pound ↔ Ounce
-    const lbOzInput = el('cv-lb-oz');
-    const ozLbInput = el('cv-oz-lb');
-    if (lbOzInput && ozLbInput) {
-        lbOzInput.addEventListener('input', () => {
-            ozLbInput.value = (lbOzInput.value * 16).toFixed(2);
-        });
-        ozLbInput.addEventListener('input', () => {
-            lbOzInput.value = (ozLbInput.value / 16).toFixed(3);
-        });
-    }
+    bindPair('cv-kg-g', 'cv-g', value => value * 1000, value => value / 1000, 0, 3);
+    bindPair('cv-kg-lb', 'cv-lb', value => value / 0.45359237, value => value * 0.45359237, 3);
+    bindPair('cv-lb-oz', 'cv-oz-lb', value => value * 16, value => value / 16, 2, 3);
 }
 
-// ========== 3. FABRIC SPECIFIC CONVERTERS ==========
 function initFabricConverters() {
-    // kg to Meter (Fabric) - Main
-    const kgInput = el('cv-kg');
-    const gsm2Input = el('cv-gsm2');
-    const widInput = el('cv-wid');
-    if (kgInput && gsm2Input && widInput) {
-        [kgInput, gsm2Input, widInput].forEach(inp => {
-            inp.addEventListener('input', calcKgToMeter);
-        });
-    }
-    
-    // Meter to kg (Fabric) - Reverse
-    const meterInput = el('cv-m-kg');
-    const gsmMeterInput = el('cv-gsm-m');
-    const widthMeterInput = el('cv-width-m');
-    if (meterInput && gsmMeterInput && widthMeterInput) {
-        [meterInput, gsmMeterInput, widthMeterInput].forEach(inp => {
-            inp.addEventListener('input', calcMeterToKg);
-        });
-    }
-    
-    // Yard to kg (Fabric)
-    const yardKgInput = el('cv-yd-kg');
-    const gsmYdInput = el('cv-gsm-yd');
-    const widthYdInput = el('cv-width-yd');
-    if (yardKgInput && gsmYdInput && widthYdInput) {
-        [yardKgInput, gsmYdInput, widthYdInput].forEach(inp => {
-            inp.addEventListener('input', calcYardToKg);
-        });
-    }
+    const inputs = ['cv-kg','cv-gsm2','cv-wid'];
+    inputs.forEach(id => el(id)?.addEventListener('input', calcKgToMeter));
+
+    ['cv-m-kg','cv-gsm-m','cv-width-m'].forEach(id => el(id)?.addEventListener('input', calcMeterToKg));
+    ['cv-yd-kg','cv-gsm-yd','cv-width-yd'].forEach(id => el(id)?.addEventListener('input', calcYardToKg));
+
+    calcKgToMeter();
+    calcMeterToKg();
+    calcYardToKg();
 }
 
 function calcKgToMeter() {
     const kg = v('cv-kg');
     const gsm = v('cv-gsm2');
     const width = v('cv-wid');
-    
-    if (gsm && width && kg && gsm > 0 && width > 0) {
-        const meter = (kg * 1000) / (gsm * width);
+    if (kg > 0 && gsm > 0 && width > 0) {
+        const meter = kg * 1000 / (gsm * width);
         set('cv-kg-res', meter.toFixed(2) + ' m');
-        set('cv-kg-res-yd', (meter * 1.09361).toFixed(2) + ' yd');
+        set('cv-kg-res-yd', (meter / 0.9144).toFixed(2) + ' yd');
     } else {
         set('cv-kg-res', '—');
         set('cv-kg-res-yd', '—');
@@ -178,306 +112,340 @@ function calcMeterToKg() {
     const meter = v('cv-m-kg');
     const gsm = v('cv-gsm-m');
     const width = v('cv-width-m');
-    
-    if (gsm && width && meter && gsm > 0 && width > 0) {
-        const kg = (meter * gsm * width) / 1000;
-        set('cv-m-kg-res', kg.toFixed(3) + ' kg');
-    } else {
-        set('cv-m-kg-res', '—');
-    }
+    set('cv-m-kg-res', meter > 0 && gsm > 0 && width > 0
+        ? ((meter * gsm * width) / 1000).toFixed(3) + ' kg'
+        : '—');
 }
 
 function calcYardToKg() {
     const yard = v('cv-yd-kg');
     const gsm = v('cv-gsm-yd');
     const width = v('cv-width-yd');
-    
-    if (gsm && width && yard && gsm > 0 && width > 0) {
-        // Convert yard to meter first
-        const meter = yard * 0.9144;
-        const kg = (meter * gsm * width) / 1000;
-        set('cv-yd-kg-res', kg.toFixed(3) + ' kg');
-    } else {
-        set('cv-yd-kg-res', '—');
-    }
+    set('cv-yd-kg-res', yard > 0 && gsm > 0 && width > 0
+        ? ((yard * 0.9144 * gsm * width) / 1000).toFixed(3) + ' kg'
+        : '—');
 }
 
-// ========== 4. GSM & FABRIC WEIGHT CONVERTERS ==========
 function initGSMConverters() {
-    // GSM ↔ OZ/yd²
-    const gsmInput = el('cv-gsm');
-    const ozInput = el('cv-oz');
-    if (gsmInput && ozInput) {
-        gsmInput.addEventListener('input', () => {
-            ozInput.value = (gsmInput.value / 33.9057).toFixed(3);
-        });
-        ozInput.addEventListener('input', () => {
-            gsmInput.value = (ozInput.value * 33.9057).toFixed(2);
-        });
-    }
-    
-    // GSM ↔ kg/yard
-    const gsmKgYdInput = el('cv-gsm-kgyd');
-    const kgYdInput = el('cv-kgyd');
-    const widthKgYd = el('cv-width-kgyd');
-    if (gsmKgYdInput && kgYdInput && widthKgYd) {
-        gsmKgYdInput.addEventListener('input', () => {
-            const width = parseFloat(widthKgYd.value) || 1;
-            const kgPerYd = (gsmKgYdInput.value * width * 0.9144) / 1000;
-            kgYdInput.value = kgPerYd.toFixed(4);
-        });
-        kgYdInput.addEventListener('input', () => {
-            const width = parseFloat(widthKgYd.value) || 1;
-            const gsm = (kgYdInput.value * 1000) / (width * 0.9144);
-            gsmKgYdInput.value = gsm.toFixed(0);
-        });
-    }
-    
-    // OZ/yd² ↔ kg/yard
-    const ozKgYdInput = el('cv-oz-kgyd');
-    const kgYdOzInput = el('cv-kgyd-oz');
-    const widthOzYd = el('cv-width-ozyd');
-    if (ozKgYdInput && kgYdOzInput && widthOzYd) {
-        ozKgYdInput.addEventListener('input', () => {
-            const width = parseFloat(widthOzYd.value) || 1;
-            const gsm = ozKgYdInput.value * 33.9057;
-            const kgPerYd = (gsm * width * 0.9144) / 1000;
-            kgYdOzInput.value = kgPerYd.toFixed(4);
-        });
-    }
+    bindPair('cv-gsm', 'cv-oz', value => value / 33.905747, value => value * 33.905747, 3, 2);
+    bindGsmFabricWeight('cv-gsm-kgm', 'cv-width-kgm', 'cv-kgm', 1);
+    bindGsmFabricWeight('cv-gsm-kgyd', 'cv-width-kgyd', 'cv-kgyd', 0.9144);
 }
 
-// ========== 5. BUTTON & ACCESSORIES CONVERTERS ==========
+function bindGsmFabricWeight(gsmId, widthId, weightId, lengthInMeters) {
+    const gsmInput = el(gsmId);
+    const widthInput = el(widthId);
+    const weightInput = el(weightId);
+    if (!gsmInput || !widthInput || !weightInput) return;
+    let lastEdited = 'gsm';
+
+    function update() {
+        const width = Number(widthInput.value);
+        if (!widthInput.value.trim() || !Number.isFinite(width) || width <= 0) {
+            if (lastEdited === 'gsm') weightInput.value = '';
+            else gsmInput.value = '';
+            return;
+        }
+        if (lastEdited === 'gsm') {
+            if (!gsmInput.value.trim()) { weightInput.value = ''; return; }
+            const gsm = Number(gsmInput.value);
+            weightInput.value = Number.isFinite(gsm) && gsm >= 0
+                ? (gsm * width * lengthInMeters / 1000).toFixed(4)
+                : '';
+        } else {
+            if (!weightInput.value.trim()) { gsmInput.value = ''; return; }
+            const weight = Number(weightInput.value);
+            gsmInput.value = Number.isFinite(weight) && weight >= 0
+                ? (weight * 1000 / (width * lengthInMeters)).toFixed(2)
+                : '';
+        }
+    }
+
+    gsmInput.addEventListener('input', () => { lastEdited = 'gsm'; update(); });
+    weightInput.addEventListener('input', () => { lastEdited = 'weight'; update(); });
+    widthInput.addEventListener('input', update);
+}
+
+function initAreaConverter() {
+    const squareYardInSquareMeters = 0.83612736;
+    bindPair('cv-area-m2', 'cv-area-yd2',
+        value => value / squareYardInSquareMeters,
+        value => value * squareYardInSquareMeters,
+        4);
+}
+
 function initButtonConverters() {
-    // mm ↔ Ligne (Button)
     const mmInput = el('cv-btmm');
-    if (mmInput) {
+    const ligneResult = el('cv-btln');
+    if (mmInput && ligneResult) {
         mmInput.addEventListener('input', () => {
-            const ligne = mmInput.value / 0.635;
-            set('cv-btln', ligne.toFixed(1) + ' L');
+            const value = readNumber(mmInput);
+            ligneResult.textContent = value === null ? '—' : (value / 0.635).toFixed(1) + ' L';
         });
     }
-    
-    // Ligne ↔ mm (Reverse)
+
     const ligneInput = el('cv-btln-in');
-    if (ligneInput) {
+    const mmResult = el('cv-btmm-out');
+    if (ligneInput && mmResult) {
         ligneInput.addEventListener('input', () => {
-            const mm = ligneInput.value * 0.635;
-            set('cv-btmm-out', mm.toFixed(2) + ' mm');
+            const value = readNumber(ligneInput);
+            mmResult.textContent = value === null ? '—' : (value * 0.635).toFixed(2) + ' mm';
         });
     }
-    
-    // Button Size Chart (Common sizes)
     updateButtonSizeChart();
 }
 
 function updateButtonSizeChart() {
     const commonSizes = [
-        { ligne: 14, mm: 8.9, name: 'Shirt Button' },
-        { ligne: 16, mm: 10.2, name: 'Shirt Button' },
-        { ligne: 18, mm: 11.4, name: 'Shirt/Pant Button' },
-        { ligne: 20, mm: 12.7, name: 'Pant Button' },
-        { ligne: 22, mm: 14.0, name: 'Jacket Button' },
-        { ligne: 24, mm: 15.2, name: 'Jacket/ Coat Button' },
-        { ligne: 28, mm: 17.8, name: 'Winter Coat Button' },
-        { ligne: 32, mm: 20.3, name: 'Heavy Coat Button' },
-        { ligne: 36, mm: 22.9, name: 'Blazer Button' },
-        { ligne: 40, mm: 25.4, name: 'Overcoat Button' }
+        { ligne:14, mm:8.9, name:'Shirt button' },
+        { ligne:16, mm:10.2, name:'Shirt button' },
+        { ligne:18, mm:11.4, name:'Shirt / pant button' },
+        { ligne:20, mm:12.7, name:'Pant button' },
+        { ligne:22, mm:14.0, name:'Jacket button' },
+        { ligne:24, mm:15.2, name:'Jacket / coat button' },
+        { ligne:28, mm:17.8, name:'Winter coat button' },
+        { ligne:32, mm:20.3, name:'Heavy coat button' },
+        { ligne:36, mm:22.9, name:'Blazer button' },
+        { ligne:40, mm:25.4, name:'Overcoat button' }
     ];
-    
-    const chartContainer = el('button-chart');
-    if (chartContainer) {
-        let html = '<table style="width:100%; font-size:11px; border-collapse:collapse">';
-        html += '<tr style="background:#f8fafc"><th>Ligne (L)</th><th>mm</th><th>Common Use</th></tr>';
-        commonSizes.forEach(size => {
-            html += `<tr><td>${size.ligne} L</td><td>${size.mm} mm</td><td>${size.name}</td></tr>`;
-        });
-        html += '</table>';
-        chartContainer.innerHTML = html;
-    }
+    const chart = el('button-chart');
+    if (!chart) return;
+    let html = '<table class="converter-reference-table"><thead><tr><th scope="col">Ligne (L)</th><th scope="col">Diameter</th><th scope="col">Common use</th></tr></thead><tbody>';
+    commonSizes.forEach(size => {
+        html += '<tr><td>' + size.ligne + ' L</td><td>' + size.mm.toFixed(1) + ' mm</td><td>' + size.name + '</td></tr>';
+    });
+    chart.innerHTML = html + '</tbody></table>';
 }
 
-// ========== 6. YARN COUNT CONVERTERS ==========
-function initYarnCountConverters() {
-    // Tex ↔ Denier
-    const texInput = el('cv-tex');
-    const denierInput = el('cv-denier');
-    if (texInput && denierInput) {
-        texInput.addEventListener('input', () => {
-            denierInput.value = (texInput.value * 9).toFixed(1);
-        });
-        denierInput.addEventListener('input', () => {
-            texInput.value = (denierInput.value / 9).toFixed(1);
-        });
+function initYarnCountConverter() {
+    const valueInput = el('cv-yarn-value');
+    const fromSelect = el('cv-yarn-from');
+    const toSelect = el('cv-yarn-to');
+    const result = el('cv-yarn-result');
+    if (!valueInput || !fromSelect || !toSelect || !result) return;
+
+    function toTex(value, unit) {
+        if (unit === 'tex') return value;
+        if (unit === 'denier') return value / 9;
+        if (unit === 'ne') return 590.5 / value;
+        if (unit === 'nm') return 1000 / value;
+        return NaN;
     }
-    
-    // Ne (Cotton Count) ↔ Tex
-    const neInput = el('cv-ne');
-    const texNeInput = el('cv-tex-ne');
-    if (neInput && texNeInput) {
-        neInput.addEventListener('input', () => {
-            if (neInput.value > 0) {
-                texNeInput.value = (590.5 / neInput.value).toFixed(1);
-            } else {
-                texNeInput.value = '';
-            }
-        });
-        texNeInput.addEventListener('input', () => {
-            if (texNeInput.value > 0) {
-                neInput.value = (590.5 / texNeInput.value).toFixed(1);
-            } else {
-                neInput.value = '';
-            }
-        });
+    function fromTex(tex, unit) {
+        if (unit === 'tex') return tex;
+        if (unit === 'denier') return tex * 9;
+        if (unit === 'ne') return 590.5 / tex;
+        if (unit === 'nm') return 1000 / tex;
+        return NaN;
     }
-    
-    // Nm (Metric Count) ↔ Tex
-    const nmInput = el('cv-nm');
-    const texNmInput = el('cv-tex-nm');
-    if (nmInput && texNmInput) {
-        nmInput.addEventListener('input', () => {
-            if (nmInput.value > 0) {
-                texNmInput.value = (1000 / nmInput.value).toFixed(1);
-            } else {
-                texNmInput.value = '';
-            }
-        });
-        texNmInput.addEventListener('input', () => {
-            if (texNmInput.value > 0) {
-                nmInput.value = (1000 / texNmInput.value).toFixed(1);
-            } else {
-                nmInput.value = '';
-            }
-        });
+    function update() {
+        const value = readNumber(valueInput);
+        if (value === null) { result.textContent = 'Enter a count to see the result.'; return; }
+        if (value <= 0) { result.textContent = 'Count must be greater than zero.'; return; }
+        const tex = toTex(value, fromSelect.value);
+        const converted = fromTex(tex, toSelect.value);
+        result.textContent = Number.isFinite(converted)
+            ? formatConverterNumber(converted, 3) + ' ' + toSelect.options[toSelect.selectedIndex].text
+            : 'Check the selected count units.';
     }
-    
-    // Denier ↔ Ne
-    const denierNeInput = el('cv-denier-ne');
-    const neDenierInput = el('cv-ne-denier');
-    if (denierNeInput && neDenierInput) {
-        denierNeInput.addEventListener('input', () => {
-            if (denierNeInput.value > 0) {
-                neDenierInput.value = (5315 / denierNeInput.value).toFixed(1);
-            }
-        });
-        neDenierInput.addEventListener('input', () => {
-            if (neDenierInput.value > 0) {
-                denierNeInput.value = (5315 / neDenierInput.value).toFixed(0);
-            }
-        });
-    }
+    valueInput.addEventListener('input', update);
+    fromSelect.addEventListener('change', update);
+    toSelect.addEventListener('change', update);
+    update();
 }
 
-// ========== 7. TEMPERATURE CONVERTERS ==========
 function initTemperatureConverters() {
-    // Celsius ↔ Fahrenheit
-    const celsiusInput = el('cv-celsius');
-    const fahrenheitInput = el('cv-fahrenheit');
-    if (celsiusInput && fahrenheitInput) {
-        celsiusInput.addEventListener('input', () => {
-            fahrenheitInput.value = (celsiusInput.value * 9/5 + 32).toFixed(1);
-        });
-        fahrenheitInput.addEventListener('input', () => {
-            celsiusInput.value = ((fahrenheitInput.value - 32) * 5/9).toFixed(1);
-        });
-    }
+    bindPair('cv-celsius', 'cv-fahrenheit',
+        value => value * 9 / 5 + 32,
+        value => (value - 32) * 5 / 9,
+        1);
 }
 
-// ========== 8. FABRIC CONSUMPTION CONVERTERS ==========
 function initFabricConsumptionConverters() {
-    // kg/dz ↔ kg/pc
-    const kgDzInput = el('cv-kgdz');
-    const kgPcInput = el('cv-kgpc');
-    if (kgDzInput && kgPcInput) {
-        kgDzInput.addEventListener('input', () => {
-            kgPcInput.value = (kgDzInput.value / 12).toFixed(4);
-        });
-        kgPcInput.addEventListener('input', () => {
-            kgDzInput.value = (kgPcInput.value * 12).toFixed(3);
-        });
-    }
-    
-    // yards/dz ↔ yards/pc
-    const ydsDzInput = el('cv-ydsdz');
-    const ydsPcInput = el('cv-ydspc');
-    if (ydsDzInput && ydsPcInput) {
-        ydsDzInput.addEventListener('input', () => {
-            ydsPcInput.value = (ydsDzInput.value / 12).toFixed(4);
-        });
-        ydsPcInput.addEventListener('input', () => {
-            ydsDzInput.value = (ydsPcInput.value * 12).toFixed(3);
-        });
-    }
+    bindPair('cv-kgdz', 'cv-kgpc', value => value / 12, value => value * 12, 4, 3);
+    bindPair('cv-ydsdz', 'cv-ydspc', value => value / 12, value => value * 12, 4, 3);
+    bindPair('cv-msdz', 'cv-mspc', value => value / 12, value => value * 12, 4, 3);
+    bindPair('cv-pcs', 'cv-dozen', value => value / 12, value => value * 12, 2, 0);
 }
 
-// ========== 9. SEWING THREAD CONVERTERS ==========
+function initOrderConsumptionPlanner() {
+    const pcInput = el('cv-order-pc');
+    const qtyInput = el('cv-order-qty');
+    const wasteInput = el('cv-order-waste');
+    const unitSelect = el('cv-order-unit');
+    if (!pcInput || !qtyInput || !wasteInput || !unitSelect) return;
+
+    const outputIds = ['cv-order-base','cv-order-waste-out','cv-order-total','cv-order-dozen'];
+    function clearOutputs() {
+        outputIds.forEach(id => set(id, '—'));
+    }
+    function update() {
+        const pc = readNumber(pcInput);
+        const qty = readNumber(qtyInput);
+        const waste = readNumber(wasteInput);
+        const status = el('cv-order-status');
+        if (status) status.className = 'converter-order-status';
+
+        if (pc === null || qty === null) {
+            clearOutputs();
+            if (status) status.textContent = 'Enter per-piece consumption and order quantity.';
+            return;
+        }
+        if (pc < 0 || qty < 1 || !Number.isInteger(qty) || waste === null || waste < 0 || waste > 100) {
+            clearOutputs();
+            if (status) {
+                status.classList.add('is-error');
+                status.textContent = 'Use a whole-number order quantity and wastage from 0% to 100%.';
+            }
+            return;
+        }
+        const unit = unitSelect.value;
+        const base = pc * qty;
+        const addedWaste = base * waste / 100;
+        const total = base + addedWaste;
+        set('cv-order-base', formatConverterNumber(base, 3) + ' ' + unit);
+        set('cv-order-waste-out', formatConverterNumber(addedWaste, 3) + ' ' + unit);
+        set('cv-order-total', formatConverterNumber(total, 3) + ' ' + unit);
+        set('cv-order-dozen', formatConverterNumber(pc * 12 * (1 + waste / 100), 3) + ' ' + unit + '/dozen');
+        if (status) {
+            status.classList.add('is-success');
+            status.textContent = 'Wastage is applied to the full-order base consumption.';
+        }
+    }
+    [pcInput,qtyInput,wasteInput].forEach(input => input.addEventListener('input', update));
+    unitSelect.addEventListener('change', update);
+    update();
+}
+
 function initThreadConverters() {
-    // Thread Count (meters) ↔ Cone Weight
-    const threadMeterInput = el('cv-thread-m');
-    const threadKgInput = el('cv-thread-kg');
-    const threadCountInput = el('cv-thread-count');
-    
-    if (threadMeterInput && threadKgInput && threadCountInput) {
-        threadMeterInput.addEventListener('input', () => {
-            const count = parseFloat(threadCountInput.value) || 40;
-            // Thread consumption calculation
-            if (threadMeterInput.value > 0) {
-                const kg = threadMeterInput.value / (count * 1000);
-                threadKgInput.value = kg.toFixed(3);
-            }
-        });
-        threadKgInput.addEventListener('input', () => {
-            const count = parseFloat(threadCountInput.value) || 40;
-            if (threadKgInput.value > 0) {
-                const meters = threadKgInput.value * count * 1000;
-                threadMeterInput.value = meters.toFixed(0);
-            }
-        });
+    const metersInput = el('cv-thread-m');
+    const kgInput = el('cv-thread-kg');
+    const countInput = el('cv-thread-count');
+    const plyInput = el('cv-thread-ply');
+    if (!metersInput || !kgInput || !countInput || !plyInput) return;
+    let lastEdited = 'meters';
+
+    function update() {
+        const count = readNumber(countInput);
+        const ply = readNumber(plyInput);
+        if (count === null || count <= 0 || ply === null || ply <= 0) {
+            kgInput.value = '';
+            metersInput.value = '';
+            return;
+        }
+        const tex = 590.5 / count;
+        if (lastEdited === 'meters') {
+            const meters = readNumber(metersInput);
+            if (meters === null || meters < 0) { kgInput.value = ''; return; }
+            kgInput.value = (meters * tex * ply / 1000000).toFixed(5);
+        } else {
+            const kg = readNumber(kgInput);
+            if (kg === null || kg < 0) { metersInput.value = ''; return; }
+            metersInput.value = (kg * 1000000 / (tex * ply)).toFixed(0);
+        }
     }
+
+    metersInput.addEventListener('input', () => { lastEdited = 'meters'; update(); });
+    kgInput.addEventListener('input', () => { lastEdited = 'kg'; update(); });
+    countInput.addEventListener('input', update);
+    plyInput.addEventListener('input', update);
 }
 
-// ========== 10. SPEED & PRODUCTION CONVERTERS ==========
 function initProductionConverters() {
-    // RPM ↔ SPO (Stitches Per Minute)
-    const rpmInput = el('cv-rpm');
-    const spoInput = el('cv-spo');
-    if (rpmInput && spoInput) {
-        rpmInput.addEventListener('input', () => {
-            spoInput.value = (rpmInput.value * 1).toFixed(0);
-        });
-        spoInput.addEventListener('input', () => {
-            rpmInput.value = (spoInput.value * 1).toFixed(0);
-        });
-    }
-    
-    // Machine Speed (cm/s) ↔ m/min
-    const cmpsInput = el('cv-cmps');
-    const mpminInput = el('cv-mpmin');
-    if (cmpsInput && mpminInput) {
-        cmpsInput.addEventListener('input', () => {
-            mpminInput.value = (cmpsInput.value * 0.6).toFixed(2);
-        });
-        mpminInput.addEventListener('input', () => {
-            cmpsInput.value = (mpminInput.value / 0.6).toFixed(2);
-        });
-    }
+    bindPair('cv-rpm', 'cv-spo', value => value, value => value, 0);
+    bindPair('cv-cmps', 'cv-mpmin', value => value * 0.6, value => value / 0.6, 2);
 }
 
-// ========== HELPER FUNCTIONS ==========
+function initConverterSearch() {
+    const search = el('converter-search');
+    const clearButton = el('converter-search-clear');
+    const status = el('converter-search-status');
+    const tools = [...document.querySelectorAll('#page-converter .converter-tool')];
+    const navLinks = [...document.querySelectorAll('#converter-jump-nav a[data-target]')];
+    const categories = [...document.querySelectorAll('#page-converter .converter-category')];
+    if (!search) return;
+
+    function applyFilter() {
+        const query = search.value.trim().toLowerCase();
+        let visibleCount = 0;
+        tools.forEach(tool => {
+            const haystack = (tool.dataset.search || '') + ' ' + tool.textContent;
+            const visible = !query || haystack.toLowerCase().includes(query);
+            tool.hidden = !visible;
+            if (visible) visibleCount += 1;
+        });
+        categories.forEach(category => {
+            const hasVisibleTool = category.querySelector('.converter-tool:not([hidden])');
+            category.hidden = Boolean(query) && !hasVisibleTool;
+        });
+        navLinks.forEach(link => {
+            const category = el(link.dataset.target);
+            link.hidden = Boolean(query) && (!category || category.hidden);
+        });
+        if (clearButton) clearButton.hidden = !query;
+        if (status) {
+            status.textContent = query
+                ? (visibleCount ? visibleCount + ' matching converter' + (visibleCount === 1 ? '' : 's') + '.'
+                    : 'No matching converters. Try a different search.')
+                : tools.length + ' garment and factory converters in 6 categories.';
+        }
+    }
+    search.addEventListener('input', applyFilter);
+    if (clearButton) clearButton.addEventListener('click', () => {
+        search.value = '';
+        applyFilter();
+        search.focus();
+    });
+    applyFilter();
+}
+
+function readNumber(input) {
+    if (!input || !input.value.trim()) return null;
+    const value = Number(input.value);
+    return Number.isFinite(value) ? value : null;
+}
+
+function bindPair(firstId, secondId, firstToSecond, secondToFirst, firstDecimals = 3, secondDecimals = firstDecimals) {
+    const first = el(firstId);
+    const second = el(secondId);
+    if (!first || !second) return;
+
+    function transfer(source, target, convert, decimals) {
+        const value = readNumber(source);
+        if (value === null) { target.value = ''; return; }
+        const result = convert(value);
+        target.value = Number.isFinite(result) ? result.toFixed(decimals) : '';
+    }
+    first.addEventListener('input', () => transfer(first, second, firstToSecond, firstDecimals));
+    second.addEventListener('input', () => transfer(second, first, secondToFirst, secondDecimals));
+}
+
+function formatConverterNumber(value, decimals = 3) {
+    if (!Number.isFinite(value)) return '—';
+    return new Intl.NumberFormat('en-US', { minimumFractionDigits:0, maximumFractionDigits:decimals }).format(value);
+}
+
 function v(id) {
-    return parseFloat(document.getElementById(id)?.value) || 0;
+    const input = el(id);
+    const value = readNumber(input);
+    return value === null ? 0 : value;
 }
 
-function set(id, val) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
+function set(id, value) {
+    const node = el(id);
+    if (node) node.textContent = value;
 }
 
 function el(id) {
     return document.getElementById(id);
 }
 
-// ========== EXPORT FUNCTIONS ==========
 window.calcKgToMeter = calcKgToMeter;
 window.calcMeterToKg = calcMeterToKg;
 window.calcYardToKg = calcYardToKg;
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initConverters, { once:true });
+} else {
+    initConverters();
+}
