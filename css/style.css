@@ -3624,6 +3624,8 @@ body.dark-mode #page-marker .marker-table .marker-result-pill{
   width: max-content;
   max-width: 100%;
   margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 #page-marker #mk-calc,
 #page-marker #mk-pdf {
