@@ -76,7 +76,7 @@ function initLengthConverters() {
     bindPair('cv-m', 'cv-yd', value => value / 0.9144, value => value * 0.9144, 3);
     bindPair('cv-m-ft', 'cv-ft', value => value / 0.3048, value => value * 0.3048, 3);
     bindPair('cv-mm-cm', 'cv-cm-mm', value => value / 10, value => value * 10, 3, 1);
-    bindPair('cv-mm-in', 'cv-in-mm', value => value / 25.4, value => value * 25.4, 4, 2);
+    bindPair('cv-fabric-width-in', 'cv-fabric-width-m', value => value * 0.0254, value => value / 0.0254, 4, 2);
 }
 
 function initWeightConverters() {
