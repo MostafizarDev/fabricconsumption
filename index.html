@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261104-order-inverse">
+<link rel="stylesheet" href="css/style.css?v=20261104-order-core">
 </head>
 <body>
 
@@ -1014,16 +1014,11 @@
         <div class="converter-tool-heading"><div><h3>Pieces ↔ dozens</h3><p>Convert order quantity into dozens.</p></div><span class="converter-tool-tag">QTY</span></div>
         <div class="conv-row"><label class="converter-field"><span>Pieces (pcs)</span><input class="conv-inp" id="cv-pcs" type="number" step="any" inputmode="decimal" placeholder="Enter pieces"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Dozens (dz)</span><input class="conv-inp" id="cv-dozen" type="number" step="any" inputmode="decimal" placeholder="Enter dozens"></label></div>
       </article>
-      <article class="conv-group converter-tool" data-search="kg g grams per garment piece consumption fabric kg pc">
+      <article class="conv-group converter-tool converter-tool-wide converter-tool-centered" data-search="kg g grams per garment piece consumption fabric kg pc">
         <div class="converter-tool-heading"><div><h3>Kg/pc ↔ g/pc</h3><p>Read small per-garment fabric amounts more easily.</p></div><span class="converter-tool-tag">CONSUMPTION</span></div>
         <div class="conv-row"><label class="converter-field"><span>Kilograms per piece (kg/pc)</span><input class="conv-inp" id="cv-cons-kgpc" type="number" step="any" inputmode="decimal" placeholder="Enter kg/pc"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Grams per piece (g/pc)</span><input class="conv-inp" id="cv-cons-gpc" type="number" step="any" inputmode="decimal" placeholder="Enter g/pc"></label></div>
       </article>
-            <article class="conv-group converter-tool" data-search="total full order fabric per piece dozen consumption kg meter yard quantity">
-        <div class="converter-tool-heading"><div><h3>Order total → per-piece</h3><p>Find average consumption from total fabric and order quantity.</p></div><span class="converter-tool-tag">REVERSE</span></div>
-        <div class="converter-field-grid"><label class="converter-field"><span>Total fabric</span><input class="conv-inp" id="cv-total-fabric" type="number" min="0" step="any" inputmode="decimal" placeholder="Enter total"></label><label class="converter-field"><span>Unit</span><select id="cv-total-unit"><option value="kg">kg</option><option value="m">m</option><option value="yd">yd</option></select></label><label class="converter-field"><span>Order quantity (pcs)</span><input class="conv-inp" id="cv-total-qty" type="number" min="1" step="1" inputmode="numeric" placeholder="Enter pieces"></label></div>
-        <div class="converter-order-results converter-order-results-two"><div><span>Consumption per piece</span><strong id="cv-total-per-pc">—</strong></div><div class="converter-order-primary"><span>Consumption per dozen</span><strong id="cv-total-per-dozen">—</strong></div></div>
-        <p class="converter-order-status" id="cv-total-status" role="status" aria-live="polite">Enter total fabric and order quantity.</p>
-      </article>
+            
 <article class="conv-group converter-tool converter-tool-wide" data-search="order consumption wastage waste qty quantity garment fabric per piece">
         <div class="converter-tool-heading"><div><h3>Order consumption planner</h3><p>Estimate total fabric and wastage from per-piece consumption.</p></div><span class="converter-tool-tag">ORDER TOTAL</span></div>
         <div class="converter-field-grid converter-order-fields"><label class="converter-field"><span>Consumption per piece</span><input class="conv-inp" id="cv-order-pc" type="number" min="0" step="any" inputmode="decimal" placeholder="Example: 0.35"></label><label class="converter-field"><span>Unit</span><select id="cv-order-unit"><option value="kg">kg / pc</option><option value="m">m / pc</option><option value="yd">yd / pc</option></select></label><label class="converter-field"><span>Order quantity (pcs)</span><input class="conv-inp" id="cv-order-qty" type="number" min="1" step="1" inputmode="numeric" placeholder="Example: 1200"></label><label class="converter-field"><span>Wastage (%)</span><input class="conv-inp" id="cv-order-waste" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label></div>
@@ -1113,7 +1108,7 @@
 <script src="js/trims.js"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js"></script>
-<script src="js/converter.js?v=20261104-order-inverse"></script>
+<script src="js/converter.js?v=20261104-order-core"></script>
 <script src="js/my-formulas.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="js/fabric-groups.js"></script>
