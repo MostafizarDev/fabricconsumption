@@ -3764,10 +3764,6 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-category-kicker { display:block; margin-bottom:3px; }
 #page-converter .converter-category-heading h2 { margin:0; color:#0f172a; font-size:16px; font-weight:800; letter-spacing:-.2px; }
 #page-converter .converter-category-heading p { margin:4px 0 0; color:#64748b; font-size:10px; line-height:1.5; }
-#page-converter .converter-subsection-heading { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 10px; margin:14px 0 8px; }
-#page-converter .converter-subsection-heading span { color:#2563eb; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
-#page-converter .converter-subsection-heading p { margin:0; color:#64748b; font-size:10px; line-height:1.45; }
-#page-converter .converter-tool-featured { border-color:#bfdbfe; background:#f8fbff; }
 #page-converter .converter-tool-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch; gap:11px; }
 #page-converter .converter-tool { min-width:0; margin:0; padding:13px; border:1px solid #e2e8f0; border-radius:11px; background:#fbfdff; }
 #page-converter .converter-tool-wide { grid-column:1/-1; }
@@ -3797,8 +3793,10 @@ body.dark-mode #page-marker .marker-summary-primary .marker-result-main strong{c
 #page-converter .converter-field-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
 #page-converter .converter-subconversion { display:grid; grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr); align-items:end; gap:8px; padding:0 0 10px; margin:0 0 10px; border-bottom:1px solid #edf2f7; }
 #page-converter .converter-subconversion:last-child { padding-bottom:0; margin-bottom:0; border-bottom:0; }
-#page-converter .converter-output-row { display:flex; flex-wrap:wrap; align-items:center; gap:7px; padding:9px 10px; border:1px solid #dbeafe; border-radius:8px; background:#eff6ff; color:#475569; font-size:10px; }
-#page-converter .converter-output-row strong { color:#1d4ed8; font-size:12px; font-weight:800; }
+#page-converter .converter-output-row { display:flex; flex-wrap:wrap; align-items:center; gap:8px; min-height:48px; padding:10px 12px; border:1px solid #93c5fd; border-radius:9px; background:linear-gradient(135deg,#eff6ff,#f0f9ff); color:#334155; font-size:11px; font-weight:600; }
+#page-converter .converter-output-row>span:first-child { color:#334155; font-weight:700; }
+#page-converter .converter-output-row>span:nth-of-type(2) { color:#64748b; font-size:10px; font-weight:500; }
+#page-converter .converter-output-row strong { display:inline-flex; align-items:center; min-height:28px; padding:5px 9px; border:1px solid #bfdbfe; border-radius:7px; background:#fff; color:#1d4ed8; font-size:15px; line-height:1.15; font-weight:800; }
 #page-converter .converter-inline-hint { margin:0; color:#64748b; font-size:9px; line-height:1.45; }
 #page-converter .converter-secondary-row { padding-top:10px; border-top:1px solid #edf2f7; }
 #page-converter .converter-order-results { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:13px; }
@@ -3861,9 +3859,6 @@ body.dark-mode #page-converter .converter-search-control input:focus { border-co
 body.dark-mode #page-converter .converter-jump-nav a { color:#cbd5e1; background:#111827; border-color:#334155; }
 body.dark-mode #page-converter .converter-jump-nav a:hover { color:#e0f2fe; background:#0c2538; border-color:#0ea5e9; }
 body.dark-mode #page-converter .converter-tool-tag { color:#93c5fd; background:#172554; border-color:#1e3a8a; }
-body.dark-mode #page-converter .converter-subsection-heading span { color:#93c5fd; }
-body.dark-mode #page-converter .converter-subsection-heading p { color:#aebed1; }
-body.dark-mode #page-converter .converter-tool-featured { border-color:#1e40af; background:#111c2e; }
 body.dark-mode #page-converter .converter-quick-result,
 body.dark-mode #page-converter .converter-output-row,
 body.dark-mode #page-converter .converter-field .conv-result,
@@ -3874,6 +3869,7 @@ body.dark-mode #page-converter .converter-quick-result strong,
 body.dark-mode #page-converter .converter-output-row strong,
 body.dark-mode #page-converter .converter-field .conv-result,
 body.dark-mode #page-converter .converter-order-results .converter-order-primary strong { color:#93c5fd; }
+body.dark-mode #page-converter .converter-output-row strong { color:#93c5fd; background:#0b1120; border-color:#1e40af; }
 body.dark-mode #page-converter .converter-order-results span,
 body.dark-mode #page-converter .converter-order-results strong,
 body.dark-mode #page-converter .converter-reference-strip span { color:#cbd5e1; }
