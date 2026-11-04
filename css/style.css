@@ -3688,3 +3688,10 @@ body.dark-mode #page-marker .marker-fabric-bar{background:#334155}
 body.dark-mode #page-marker .marker-empty-state{border-color:#475569;background:#0f172a}
 @media(max-width:700px){#page-marker #mk-fabrics{grid-template-columns:1fr}}
 @media(max-width:560px){#page-marker .marker-summary-primary{grid-template-columns:1fr 1fr}#page-marker .marker-summary-primary .marker-result-main{grid-column:1/-1}#page-marker .marker-summary-extra{grid-template-columns:1fr 1fr}}
+
+/* Marker page Demo and Recent controls reuse the Knit action pattern */
+#page-marker .marker-head-actions .knit-action-btn{min-height:32px;padding:6px 10px;border-radius:9px;font:600 11px/1.2 Inter,sans-serif}
+#page-marker .marker-head-actions .knit-action-btn svg{width:16px;height:16px}
+#page-marker .marker-recent-panel{position:relative;z-index:2;margin:10px 0 14px auto;max-width:520px}
+body.dark-mode #page-marker .marker-recent-panel{border-color:#334155;background:#111c2e}
+@media(max-width:560px){#page-marker .marker-head-actions{width:100%;justify-content:flex-start}#page-marker .marker-recent-panel{max-width:100%}}
