@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261104-weight-swap-grid-fix">
+<link rel="stylesheet" href="css/style.css?v=20261104-weight-cards">
 </head>
 <body>
 
@@ -962,6 +962,7 @@
         <div class="converter-tool-heading"><div><h3>Fabric weight → length</h3><p>Use fabric weight, GSM and usable width.</p></div><span class="converter-tool-tag">YIELD</span></div>
         <div class="converter-field-grid"><label class="converter-field"><span>Weight (kg)</span><input class="conv-inp" id="cv-kg" type="number" step="any" inputmode="decimal" placeholder="Fabric kg"></label><label class="converter-field"><span>GSM</span><input class="conv-inp" id="cv-gsm2" type="number" step="any" inputmode="decimal" placeholder="Fabric GSM"></label><label class="converter-field"><span>Usable width (m)</span><input class="conv-inp" id="cv-wid" type="number" step="any" inputmode="decimal" placeholder="Width in meters"></label></div>
         <div class="converter-output-row" role="status" aria-live="polite"><span>Estimated length</span><strong id="cv-kg-res">—</strong><span>or</span><strong id="cv-kg-res-yd">—</strong></div>
+        <div class="converter-formula-hint"><strong>Formula</strong><span>Length (m) = kg × 1,000 ÷ (GSM × width in m)</span><small>Yard result is converted from meters.</small></div>
       </article>
       <article class="conv-group converter-tool" data-search="meter m kg gsm fabric weight length">
         <div class="converter-tool-heading"><div><h3>Meter → fabric weight</h3><p>Estimate kilograms from length, GSM and width.</p></div><span class="converter-tool-tag">YIELD</span></div>
@@ -986,6 +987,10 @@
         <div class="converter-tool-heading"><div><h3>GSM ↔ kg per yard</h3><p>Enter usable width to estimate fabric weight per yard.</p></div><span class="converter-tool-tag">FABRIC SPEC</span></div>
         <div class="converter-field-grid"><label class="converter-field"><span>GSM (g/m²)</span><input class="conv-inp" id="cv-gsm-kgyd" type="number" step="any" inputmode="decimal" placeholder="Enter GSM"></label><label class="converter-field"><span>Usable width (m)</span><input class="conv-inp" id="cv-width-kgyd" type="number" step="any" inputmode="decimal" value="1" placeholder="Width in meters"></label><label class="converter-field"><span>Fabric weight (kg/yd)</span><input class="conv-inp" id="cv-kgyd" type="number" step="any" inputmode="decimal" placeholder="Enter kg/yd"></label></div>
         <p class="converter-inline-hint">Change width to match the usable fabric width.</p>
+      </article>
+      <article class="conv-group converter-tool" data-search="ounce oz gram g fabric sample swatch trim weight">
+        <div class="converter-tool-heading"><div><h3>Ounce ↔ gram</h3><p>Convert fabric sample and trim weights.</p></div><span class="converter-tool-tag">WEIGHT</span></div>
+        <div class="conv-row"><label class="converter-field"><span>Ounce (oz)</span><input class="conv-inp" id="cv-fabric-oz-g" type="number" step="any" inputmode="decimal" placeholder="Enter oz"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Gram (g)</span><input class="conv-inp" id="cv-fabric-g-oz" type="number" step="any" inputmode="decimal" placeholder="Enter grams"></label></div>
       </article>
     </div>
   </section>
@@ -1102,7 +1107,7 @@
 <script src="js/trims.js"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js"></script>
-<script src="js/converter.js?v=20261104-weight-swap"></script>
+<script src="js/converter.js?v=20261104-weight-cards"></script>
 <script src="js/my-formulas.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="js/fabric-groups.js"></script>
