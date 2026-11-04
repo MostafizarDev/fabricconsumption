@@ -1014,11 +1014,8 @@
         <div class="converter-tool-heading"><div><h3>Pieces ↔ dozens</h3><p>Convert order quantity into dozens.</p></div><span class="converter-tool-tag">QTY</span></div>
         <div class="conv-row"><label class="converter-field"><span>Pieces (pcs)</span><input class="conv-inp" id="cv-pcs" type="number" step="any" inputmode="decimal" placeholder="Enter pieces"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Dozens (dz)</span><input class="conv-inp" id="cv-dozen" type="number" step="any" inputmode="decimal" placeholder="Enter dozens"></label></div>
       </article>
-      <article class="conv-group converter-tool" data-search="kg g grams per garment piece consumption fabric kg pc">
-        <div class="converter-tool-heading"><div><h3>Kg/pc ↔ g/pc</h3><p>Read small per-garment fabric amounts more easily.</p></div><span class="converter-tool-tag">CONSUMPTION</span></div>
-        <div class="conv-row"><label class="converter-field"><span>Kilograms per piece (kg/pc)</span><input class="conv-inp" id="cv-cons-kgpc" type="number" step="any" inputmode="decimal" placeholder="Enter kg/pc"></label><button class="converter-layout-swap" type="button" aria-label="Switch input positions" title="Switch input sides" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-5-5 5 5-5 5M20 17H5m5-5-5 5 5 5"/></svg></button><label class="converter-field"><span>Grams per piece (g/pc)</span><input class="conv-inp" id="cv-cons-gpc" type="number" step="any" inputmode="decimal" placeholder="Enter g/pc"></label></div>
-      </article>
-            <article class="conv-group converter-tool" data-search="available fabric stock kg meter yard per piece consumption wastage garment pieces output">
+      
+            <article class="conv-group converter-tool converter-tool-wide" data-search="available fabric stock kg meter yard per piece consumption wastage garment pieces output">
         <div class="converter-tool-heading"><div><h3>Fabric stock → pieces</h3><p>Estimate whole garments from available fabric.</p></div><span class="converter-tool-tag">STOCK PLAN</span></div>
         <div class="converter-field-grid converter-stock-fields"><label class="converter-field"><span>Available fabric</span><input class="conv-inp" id="cv-stock-fabric" type="number" min="0" step="any" inputmode="decimal" placeholder="Enter stock"></label><label class="converter-field"><span>Unit</span><select id="cv-stock-unit"><option value="kg">kg</option><option value="m">m</option><option value="yd">yd</option></select></label><label class="converter-field"><span>Consumption per piece</span><input class="conv-inp" id="cv-stock-per-pc" type="number" min="0" step="any" inputmode="decimal" placeholder="Enter per-piece use"></label><label class="converter-field"><span>Wastage (%)</span><input class="conv-inp" id="cv-stock-waste" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label></div>
         <div class="converter-order-results converter-order-results-two"><div class="converter-order-primary"><span>Estimated garments</span><strong id="cv-stock-pieces">—</strong></div><div><span>Fabric remaining</span><strong id="cv-stock-leftover">—</strong></div></div>
@@ -1114,7 +1111,7 @@
 <script src="js/trims.js"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js"></script>
-<script src="js/converter.js?v=20261104-stock-to-pcs"></script>
+<script src="js/converter.js?v=20261104-stock-full-width"></script>
 <script src="js/my-formulas.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="js/fabric-groups.js"></script>
