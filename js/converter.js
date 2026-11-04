@@ -19,7 +19,6 @@ function initConverters() {
     initTemperatureConverters();
     initFabricConsumptionConverters();
     initOrderConsumptionPlanner();
-    initTotalToPerPieceConverter();
     initThreadConverters();
     initProductionConverters();
     initConverterInputSwaps();
@@ -319,51 +318,6 @@ function initOrderConsumptionPlanner() {
         }
     }
     [pcInput,qtyInput,wasteInput].forEach(input => input.addEventListener('input', update));
-    unitSelect.addEventListener('change', update);
-    update();
-}
-
-function initTotalToPerPieceConverter() {
-    const totalInput = el('cv-total-fabric');
-    const unitSelect = el('cv-total-unit');
-    const qtyInput = el('cv-total-qty');
-    if (!totalInput || !unitSelect || !qtyInput) return;
-
-    const outputIds = ['cv-total-per-pc','cv-total-per-dozen'];
-    const status = el('cv-total-status');
-    function clearOutputs() {
-        outputIds.forEach(id => set(id, '—'));
-    }
-    function update() {
-        const total = readNumber(totalInput);
-        const qty = readNumber(qtyInput);
-        if (status) status.className = 'converter-order-status';
-
-        if (total === null || qty === null) {
-            clearOutputs();
-            if (status) status.textContent = 'Enter total fabric and order quantity.';
-            return;
-        }
-        if (total < 0 || qty < 1 || !Number.isInteger(qty)) {
-            clearOutputs();
-            if (status) {
-                status.classList.add('is-error');
-                status.textContent = 'Use a non-negative total and a whole-number quantity above zero.';
-            }
-            return;
-        }
-
-        const unit = unitSelect.value;
-        const perPiece = total / qty;
-        set('cv-total-per-pc', formatConverterNumber(perPiece, 6) + ' ' + unit + '/pc');
-        set('cv-total-per-dozen', formatConverterNumber(perPiece * 12, 6) + ' ' + unit + '/dozen');
-        if (status) {
-            status.classList.add('is-success');
-            status.textContent = 'Average consumption is calculated from the full-order total.';
-        }
-    }
-
-    [totalInput,qtyInput].forEach(input => input.addEventListener('input', update));
     unitSelect.addEventListener('change', update);
     update();
 }
