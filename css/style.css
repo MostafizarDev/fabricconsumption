@@ -3616,3 +3616,21 @@ body.dark-mode #page-marker .marker-table .marker-result-pill{
     min-width:100px !important;
   }
 }
+
+/* Marker Consumption: Calculate button only */
+#page-marker #mk-calc {
+  width: 100%;
+  flex: 0 0 100%;
+  padding: 11px;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: opacity 0.15s ease;
+}
+#page-marker #mk-calc:hover { opacity: 0.9; }
+#page-marker #mk-calc:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
