@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261104-stock-to-pcs">
+<link rel="stylesheet" href="css/style.css?v=20261104-quick-result">
 </head>
 <body>
 
@@ -890,17 +890,17 @@
   <section class="converter-quick-card" aria-labelledby="cv-quick-title">
     <div class="converter-quick-intro">
       <span class="converter-kicker">QUICK CONVERSION</span>
-      <h2 id="cv-quick-title">Convert a measurement</h2>
-      <p>Choose any garment length unit. The result updates as you type.</p>
+      <h2 id="cv-quick-title">Length converter</h2>
+      <p>Enter a value, choose the units, and see the result instantly.</p>
     </div>
     <div class="converter-quick-controls">
-      <label class="converter-field"><span>Value</span><input id="cv-quick-value" type="number" step="any" inputmode="decimal" value="1" aria-describedby="cv-quick-hint"></label>
-      <label class="converter-field"><span>From</span><select id="cv-quick-from"><option value="m" selected>Meter (m)</option><option value="cm">Centimeter (cm)</option><option value="mm">Millimeter (mm)</option><option value="yd">Yard (yd)</option><option value="in">Inch (in)</option><option value="ft">Foot (ft)</option></select></label>
+      <label class="converter-field"><span>Measurement</span><input id="cv-quick-value" type="number" step="any" inputmode="decimal" value="1" aria-describedby="cv-quick-hint"></label>
+      <label class="converter-field"><span>From unit</span><select id="cv-quick-from"><option value="m" selected>Meter (m)</option><option value="cm">Centimeter (cm)</option><option value="mm">Millimeter (mm)</option><option value="yd">Yard (yd)</option><option value="in">Inch (in)</option><option value="ft">Foot (ft)</option></select></label>
       <button class="converter-swap-btn" id="cv-quick-swap" type="button" aria-label="Switch from and to units" title="Switch units"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h13l-3-3m3 3-3 3M17 17H4l3 3m-3-3 3-3"/></svg></button>
-      <label class="converter-field"><span>To</span><select id="cv-quick-to"><option value="m">Meter (m)</option><option value="cm">Centimeter (cm)</option><option value="mm">Millimeter (mm)</option><option value="yd" selected>Yard (yd)</option><option value="in">Inch (in)</option><option value="ft">Foot (ft)</option></select></label>
-      <div class="converter-quick-result" aria-live="polite"><span id="cv-quick-equation">1 m =</span><strong id="cv-quick-result">1.0936 yd</strong></div>
+      <label class="converter-field"><span>To unit</span><select id="cv-quick-to"><option value="m">Meter (m)</option><option value="cm">Centimeter (cm)</option><option value="mm">Millimeter (mm)</option><option value="yd" selected>Yard (yd)</option><option value="in">Inch (in)</option><option value="ft">Foot (ft)</option></select></label>
+      <div class="converter-quick-result" aria-live="polite"><span class="converter-quick-result-label">Converted result</span><strong id="cv-quick-result">1.0936 yd</strong><span class="converter-quick-equation" id="cv-quick-equation">1 m =</span></div>
     </div>
-    <p class="converter-quick-hint" id="cv-quick-hint">Includes mm, cm, meter, yard, inch and foot.</p>
+    <p class="converter-quick-hint" id="cv-quick-hint">Available units: mm, cm, m, yd, in and ft.</p>
   </section>
 
   <div class="converter-toolbar">
