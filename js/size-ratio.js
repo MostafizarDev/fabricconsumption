@@ -129,7 +129,7 @@ function report(data,sections){
   return '<tr><td><strong>'+esc(list[i].name)+'</strong></td><td>'+fmt(x.perLay)+'</td><td>'+fmt(d[i])+'</td><td>'+(Number.isFinite(x.required)?fmt(x.required):'Set per lay')+'</td><td>'+fmt(planned)+'</td><td>'+fmt(over)+'</td></tr>';
  }).join('');
  const markerPlanned=markerData.reduce((sum,x)=>sum+markerLays*x.perLay,0);
- const markerOver=markerData.reduce((sum,x)=>sum+Math.max(0,markerLays*x.perLay-d[i]),0);
+ const markerOver=markerData.reduce((sum,x,i)=>sum+Math.max(0,markerLays*x.perLay-d[i]),0);
  const markerFooter='<tr class="total-row"><td>Total</td><td>—</td><td>'+fmt(qty)+'</td><td>'+fmt(markerLays)+' lays</td><td>'+fmt(markerPlanned)+' pcs</td><td>'+fmt(markerOver)+' pcs</td></tr>';
  const capacity=q($('#sr-carton-capacity').value),mixed=st.cartonMode==='mixed';
  const sharedCartons=capacity?Math.floor(qty/capacity):0;
