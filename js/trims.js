@@ -36,7 +36,7 @@
     put('tr-status',q>0?'Calculated for '+q.toLocaleString('en-US')+' garments. Results include the existing button spare allowance.':'Enter a valid order quantity greater than zero.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
     if(window.lucide?.createIcons) window.lucide.createIcons();
-    return last;
+    return { thread: t, button: b, interlining: i };
   }
   function selectCalculator(mode) {
     const modes = ['thread','button','interlining'];
@@ -59,6 +59,8 @@
   function pdfButton(){const r=button();report('Button Consumption Report','Button Consumption Report',[['Buttons per piece',r.perPc],['Extra / Spare',r.extra+'%'],['Requirement per dozen',r.dz+' pcs'],['Order quantity',qty()+' pcs']],r.order+' pcs','Buttons per Piece × Order Qty × (1 + Extra % ÷ 100), rounded up');}
   function pdfInterlining(){const r=interlining();report('Interlining Consumption Report','Interlining Consumption Report',[['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per piece',r.pieces],['Area per piece',fmt(r.pc,4)+' m²'],['Area per dozen',fmt(r.dz,3)+' m²']],fmt(r.order,3)+' m²','Length × Width × Quantity ÷ 10,000 × Order Qty');}
   document.addEventListener('DOMContentLoaded', function () {
+    // Remove legacy Recent panel markup if an older cached HTML page still contains it.
+    document.querySelectorAll('#page-trims #tr-recent-panel, #page-trims .trims-recent-panel').forEach(node => node.remove());
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
     ['th-seam','th-layer','th-spi','th-tps','bt-pp','bt-ex','il-len','il-wid','il-qty','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
