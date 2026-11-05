@@ -3971,11 +3971,11 @@ body.dark-mode #page-converter .converter-toolbar { background:#0b1120; border-b
 
 /* Size Ratio & Assortment Planner — scoped styles */
 #page-sizeratio{display:none;color:var(--text,#0f172a)}#page-sizeratio.active{display:block}
-#page-sizeratio .sr-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 28px;margin:0 0 16px;border:1px solid #bfdbfe;border-radius:16px;background:linear-gradient(115deg,#eff6ff,#f8fafc 62%,#eef2ff)}
-#page-sizeratio .sr-hero-copy>span{display:block;margin-bottom:7px;color:#0369a1;font-size:9px;font-weight:800;letter-spacing:1.5px}
-#page-sizeratio .sr-hero h1{margin:0;color:#0f172a;font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.7px}
-#page-sizeratio .sr-hero p{max-width:650px;margin:7px 0 0;color:#64748b;font-size:12px;line-height:1.6}
-#page-sizeratio .sr-hero-icon{display:grid;place-items:center;flex:0 0 76px;width:76px;height:76px;border:1px solid #bfdbfe;border-radius:18px;color:#0284c7;background:#fff}
+#page-sizeratio .sr-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 28px;margin:0 0 16px;border:1px solid rgba(103,232,249,.28);border-radius:16px;color:#eaf4ff;background:linear-gradient(120deg,#0f172a,#172554,#164e63)}
+#page-sizeratio .sr-hero-copy>span{display:block;margin-bottom:7px;color:#67e8f9;font-size:9px;font-weight:800;letter-spacing:1.5px}
+#page-sizeratio .sr-hero h1{margin:0;color:#f8fafc;font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.7px}
+#page-sizeratio .sr-hero p{max-width:650px;margin:7px 0 0;color:#cbd5e1;font-size:12px;line-height:1.6}
+#page-sizeratio .sr-hero-icon{display:grid;place-items:center;flex:0 0 76px;width:76px;height:76px;border:1px solid rgba(103,232,249,.28);border-radius:18px;color:#67e8f9;background:rgba(103,232,249,.09)}
 #page-sizeratio .sr-hero-icon svg{width:44px;height:44px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #page-sizeratio .sr-section,#page-sizeratio .sr-results-section{padding:18px;margin:0 0 14px;border:1px solid var(--border,#e2e8f0);border-radius:13px;background:var(--card-bg,#fff);box-shadow:0 3px 12px rgba(15,23,42,.035)}
 #page-sizeratio .sr-section-heading{display:flex;align-items:center;gap:11px;margin-bottom:15px}
@@ -4048,11 +4048,11 @@ body.dark-mode #page-converter .converter-toolbar { background:#0b1120; border-b
 #page-sizeratio .sr-formula-grid>div{display:grid;gap:6px;padding:11px;border:1px solid var(--border,#e2e8f0);border-radius:8px;background:var(--soft-bg,#f8fafc)}
 #page-sizeratio .sr-formula-grid strong{color:var(--text,#334155);font-size:10px}#page-sizeratio .sr-formula-grid code{color:#0369a1;font-size:10px;white-space:normal}
 #page-sizeratio [hidden]{display:none!important}
-body.dark-mode #page-sizeratio .sr-hero{border-color:#1e40af;background:linear-gradient(115deg,#10243c,#111c2e 62%,#1c1d3b)}
-body.dark-mode #page-sizeratio .sr-hero h1,body.dark-mode #page-sizeratio .sr-section-heading h2{color:#e2e8f0}
-body.dark-mode #page-sizeratio .sr-hero p,body.dark-mode #page-sizeratio .sr-section-heading p{color:#aebed1}
+body.dark-mode #page-sizeratio .sr-hero{border-color:rgba(103,232,249,.28);background:linear-gradient(120deg,#0f172a,#172554,#164e63)}
+body.dark-mode #page-sizeratio .sr-hero h1{color:#f8fafc}body.dark-mode #page-sizeratio .sr-section-heading h2{color:#e2e8f0}
+body.dark-mode #page-sizeratio .sr-hero p{color:#cbd5e1}body.dark-mode #page-sizeratio .sr-section-heading p{color:#aebed1}
 body.dark-mode #page-sizeratio .sr-section,body.dark-mode #page-sizeratio .sr-results-section{border-color:#334155;background:#111c2e}
-body.dark-mode #page-sizeratio .sr-hero-icon,body.dark-mode #page-sizeratio .sr-mode-btn{color:#bfdbfe;border-color:#334155;background:#0f172a}
+body.dark-mode #page-sizeratio .sr-hero-icon{color:#67e8f9;border-color:rgba(103,232,249,.28);background:rgba(103,232,249,.09)}body.dark-mode #page-sizeratio .sr-mode-btn{color:#bfdbfe;border-color:#334155;background:#0f172a}
 body.dark-mode #page-sizeratio .sr-mode-btn.active{color:#bfdbfe;border-color:#0ea5e9;background:#102b43}
 body.dark-mode #page-sizeratio label,body.dark-mode #page-sizeratio .sr-table th,body.dark-mode #page-sizeratio .sr-table td{color:#cbd5e1}
 body.dark-mode #page-sizeratio input,body.dark-mode #page-sizeratio select{color:#e2e8f0;border-color:#475569;background:#0b1120}
