@@ -7,34 +7,6 @@
   const qty = () => Math.floor(num('tr-order-qty'));
   const val = id => $(id)?.value ?? '';
   const put = (id, value) => { if ($(id)) $(id).textContent = value; };
-  const stateIds = ['tr-buyer','tr-style','tr-po','tr-order-qty','th-seam','th-layer','th-spi','th-tps','bt-pp','bt-ex','il-len','il-wid','il-qty'];
-  const defaults = {'tr-buyer':'','tr-style':'','tr-po':'','tr-order-qty':'1200','th-seam':'10','th-layer':'2','th-spi':'12','th-tps':'3','bt-pp':'8','bt-ex':'5','il-len':'30','il-wid':'10','il-qty':'2'};
-  const recentKey = 'fc-trims-recent-v1';
-  let last = null;
-  function values() { return Object.fromEntries(stateIds.map(id => [id, val(id)])); }
-  function restore(data) { stateIds.forEach(id => { if ($(id) && data[id] !== undefined) $(id).value = data[id]; }); calculateAll(false); }
-  function saveRecent() {
-    try {
-      const list = JSON.parse(localStorage.getItem(recentKey) || '[]');
-      const snapshot = values();
-      const key = JSON.stringify(snapshot);
-      const next = [snapshot, ...list.filter(item => JSON.stringify(item) !== key)].slice(0,5);
-      localStorage.setItem(recentKey, JSON.stringify(next));
-    } catch (_) {}
-  }
-  function escapeHTML(value) {
-    return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-  function renderRecent() {
-    const panel = $('tr-recent-panel');
-    if (!panel) return;
-    let list = [];
-    try { list = JSON.parse(localStorage.getItem(recentKey) || '[]'); } catch (_) {}
-    panel.innerHTML = list.length ? list.map((item,i) => '<button type="button" class="trims-recent-item" data-recent-index="'+i+'"><strong>'+escapeHTML(item['tr-style'] || item['tr-po'] || 'Calculation '+(i+1))+'</strong><span>'+Number(item['tr-order-qty']||0).toLocaleString('en-US')+' pcs · '+escapeHTML(item['tr-buyer']||'No buyer')+'</span></button>').join('') : '<p class="trims-recent-empty">No recent calculations saved yet. Calculate your trims to save a recent entry.</p>';
-    panel.hidden = false;
-    $('tr-recent')?.setAttribute('aria-expanded','true');
-    panel.querySelectorAll('[data-recent-index]').forEach(btn => btn.addEventListener('click', () => { restore(list[Number(btn.dataset.recentIndex)]); panel.hidden = true; $('tr-recent')?.setAttribute('aria-expanded','false'); }));
-  }
   function thread() {
     const seam = num('th-seam'), layers = num('th-layer'), spi = num('th-spi'), tps = num('th-tps');
     // Preserve the existing project formula and its current unit convention.
@@ -61,10 +33,8 @@
   function calculateAll(save=true) {
     const q=qty();
     const t=thread(), b=button(), i=interlining();
-    last={qty:q,thread:t,button:b,interlining:i,values:values()};
     put('tr-status',q>0?'Calculated for '+q.toLocaleString('en-US')+' garments. Results include the existing button spare allowance.':'Enter a valid order quantity greater than zero.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
-    if(save && q>0) saveRecent();
     if(window.lucide?.createIcons) window.lucide.createIcons();
     return last;
   }
@@ -79,16 +49,7 @@
     });
     if (window.lucide?.createIcons) window.lucide.createIcons();
   }
-  function reset() {
-    if (!window.confirm('Reset all current order and trims inputs to the default values?')) return;
-    restore(defaults);
-    const p=$('tr-recent-panel'); if(p)p.hidden=true;
-    $('tr-recent')?.setAttribute('aria-expanded','false');
-    selectCalculator('thread');
-    put('tr-status','Inputs reset. Enter your order details to start a new calculation.');
-  }
-  function demo() { restore({...defaults,'tr-buyer':'DEMO BUYER','tr-style':'DEMO-TRIMS-001','tr-po':'PO-2026-001','tr-order-qty':'10000','th-seam':'10','th-layer':'2','th-spi':'12','th-tps':'3','bt-pp':'8','bt-ex':'5','il-len':'30','il-wid':'10','il-qty':'2'}); saveRecent(); selectCalculator('thread'); put('tr-status','Demo values loaded. Change any input to match your actual order.'); const p=$('tr-recent-panel'); if(p)p.hidden=true; $('tr-recent')?.setAttribute('aria-expanded','false'); }
-  function report(title, heading, rows, result, formula) {
+    function report(title, heading, rows, result, formula) {
     const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const meta=[['Buyer',val('tr-buyer')],['Style',val('tr-style')],['PO Number',val('tr-po')],['Order Qty',qty()+' pcs']];
     const html='<div class="header"><h1>'+esc(heading)+'</h1><div class="date">Generated: '+new Date().toLocaleString()+'</div></div><div class="box"><div>Order Requirement</div><div class="box-value">'+esc(result)+'</div><div>Full order</div></div><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>'+meta.concat(rows).map(r=>'<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>').join('')+'</tbody></table><div style="margin-top:20px;padding:12px;background:#f8fafc;border-radius:8px"><strong>Formula reference:</strong><br>'+esc(formula)+'</div>';
@@ -108,9 +69,6 @@
     $('btn-pdf-thread')?.addEventListener('click',pdfThread);
     $('btn-pdf-button')?.addEventListener('click',pdfButton);
     $('btn-pdf-interlining')?.addEventListener('click',pdfInterlining);
-    $('tr-demo')?.addEventListener('click',demo);
-    $('tr-reset')?.addEventListener('click',reset);
-    $('tr-recent')?.addEventListener('click',()=>{ const panel=$('tr-recent-panel'); if(panel?.hidden) renderRecent(); else { panel.hidden=true; $('tr-recent')?.setAttribute('aria-expanded','false'); } });
     calculateAll(false);
   });
 })();
