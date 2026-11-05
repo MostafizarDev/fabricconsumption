@@ -32,7 +32,8 @@
     try { list = JSON.parse(localStorage.getItem(recentKey) || '[]'); } catch (_) {}
     panel.innerHTML = list.length ? list.map((item,i) => '<button type="button" class="trims-recent-item" data-recent-index="'+i+'"><strong>'+escapeHTML(item['tr-style'] || item['tr-po'] || 'Calculation '+(i+1))+'</strong><span>'+Number(item['tr-order-qty']||0).toLocaleString('en-US')+' pcs · '+escapeHTML(item['tr-buyer']||'No buyer')+'</span></button>').join('') : '<p class="trims-recent-empty">No recent calculations saved yet. Calculate your trims to save a recent entry.</p>';
     panel.hidden = false;
-    panel.querySelectorAll('[data-recent-index]').forEach(btn => btn.addEventListener('click', () => { restore(list[Number(btn.dataset.recentIndex)]); panel.hidden = true; }));
+    $('tr-recent')?.setAttribute('aria-expanded','true');
+    panel.querySelectorAll('[data-recent-index]').forEach(btn => btn.addEventListener('click', () => { restore(list[Number(btn.dataset.recentIndex)]); panel.hidden = true; $('tr-recent')?.setAttribute('aria-expanded','false'); }));
   }
   function thread() {
     const seam = num('th-seam'), layers = num('th-layer'), spi = num('th-spi'), tps = num('th-tps');
@@ -78,8 +79,15 @@
     });
     if (window.lucide?.createIcons) window.lucide.createIcons();
   }
-  function reset() { restore(defaults); const p=$('tr-recent-panel'); if(p)p.hidden=true; }
-  function demo() { restore({...defaults,'tr-buyer':'DEMO BUYER','tr-style':'DEMO-TRIMS-001','tr-po':'PO-2026-001','tr-order-qty':'10000','th-seam':'10','th-layer':'2','th-spi':'12','th-tps':'3','bt-pp':'8','bt-ex':'5','il-len':'30','il-wid':'10','il-qty':'2'}); saveRecent(); }
+  function reset() {
+    if (!window.confirm('Reset all current order and trims inputs to the default values?')) return;
+    restore(defaults);
+    const p=$('tr-recent-panel'); if(p)p.hidden=true;
+    $('tr-recent')?.setAttribute('aria-expanded','false');
+    selectCalculator('thread');
+    put('tr-status','Inputs reset. Enter your order details to start a new calculation.');
+  }
+  function demo() { restore({...defaults,'tr-buyer':'DEMO BUYER','tr-style':'DEMO-TRIMS-001','tr-po':'PO-2026-001','tr-order-qty':'10000','th-seam':'10','th-layer':'2','th-spi':'12','th-tps':'3','bt-pp':'8','bt-ex':'5','il-len':'30','il-wid':'10','il-qty':'2'}); saveRecent(); selectCalculator('thread'); put('tr-status','Demo values loaded. Change any input to match your actual order.'); const p=$('tr-recent-panel'); if(p)p.hidden=true; $('tr-recent')?.setAttribute('aria-expanded','false'); }
   function report(title, heading, rows, result, formula) {
     const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const meta=[['Buyer',val('tr-buyer')],['Style',val('tr-style')],['PO Number',val('tr-po')],['Order Qty',qty()+' pcs']];
@@ -102,7 +110,7 @@
     $('btn-pdf-interlining')?.addEventListener('click',pdfInterlining);
     $('tr-demo')?.addEventListener('click',demo);
     $('tr-reset')?.addEventListener('click',reset);
-    $('tr-recent')?.addEventListener('click',renderRecent);
+    $('tr-recent')?.addEventListener('click',()=>{ const panel=$('tr-recent-panel'); if(panel?.hidden) renderRecent(); else { panel.hidden=true; $('tr-recent')?.setAttribute('aria-expanded','false'); } });
     calculateAll(false);
   });
 })();
