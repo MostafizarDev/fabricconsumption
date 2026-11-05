@@ -858,20 +858,112 @@
 
 <!-- ==================== PAGE 9: SIZE RATIO ==================== -->
 <div class="page" id="page-sizeratio">
-  <p class="page-title">📐 Size Ratio Calculator</p>
-  <div class="panel">
-    <div class="field-row"><div class="f-group"><label>Total Order Qty</label><input class="inp-plain" id="sr-total" value="1200"></div></div>
-    <table class="sr-table">
-      <tr><th>Size</th><th>Ratio</th><th>Qty</th></tr>
-      <tr><td><input class="sr-input" id="sr-s1" value="S"></td><td><input class="sr-input" type="number" id="sr-r1" value="1"></td><td style="color:#0ea5e9;font-weight:700" id="sr-q1">—</td></tr>
-      <tr><td><input class="sr-input" id="sr-s2" value="M"></td><td><input class="sr-input" type="number" id="sr-r2" value="2"></td><td style="color:#0ea5e9;font-weight:700" id="sr-q2">—</td></tr>
-      <tr><td><input class="sr-input" id="sr-s3" value="L"></td><td><input class="sr-input" type="number" id="sr-r3" value="3"></td><td style="color:#0ea5e9;font-weight:700" id="sr-q3">—</td></tr>
-      <tr><td><input class="sr-input" id="sr-s4" value="XL"></td><td><input class="sr-input" type="number" id="sr-r4" value="2"></td><td style="color:#0ea5e9;font-weight:700" id="sr-q4">—</td></tr>
-      <tr><td><input class="sr-input" id="sr-s5" value="XXL"></td><td><input class="sr-input" type="number" id="sr-r5" value="1"></td><td style="color:#0ea5e9;font-weight:700" id="sr-q5">—</td></tr>
-      <tr class="tot-row"><td colspan="2">Total Ratio</td><td id="sr-totrat">—</td></tr>
-    </table>
-    <button class="calc-btn" id="btn-calc-sizeratio">Calculate</button>
-  </div>
+  <section class="sr-hero consumption-hero">
+    <div class="sr-hero-copy">
+      <span>GARMENT INDUSTRY TOOLKIT</span>
+      <h1>Size Ratio &amp; Assortment Planner</h1>
+      <p>Plan buyer size ratios, color-wise quantities, cutting marker assortment and carton packing in one workspace.</p>
+    </div>
+    <div class="sr-hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M12 12h40v40H12z" stroke="currentColor" stroke-width="2.5" rx="7"/><path d="M21 22h22M21 31h22M21 40h9m5 0h8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="m39 38 4 4 8-10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </section>
+
+  <section class="sr-section">
+    <div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="clipboard-list"></i></div><div><span class="sr-kicker">01 / ORDER SETUP</span><h2>Order Information</h2><p>Enter buyer and order details for your size breakdown.</p></div></div>
+    <div class="sr-order-grid">
+      <label>Buyer Name<input id="sr-buyer" type="text" placeholder="Enter buyer name"></label>
+      <label>Style Number<input id="sr-style" type="text" placeholder="Enter style number"></label>
+      <label>PO Number<input id="sr-po" type="text" placeholder="Enter PO number"></label>
+      <label>Order Date<input id="sr-date" type="date"></label>
+      <label class="sr-order-qty">Total Order Quantity (pcs)<input id="sr-total" type="number" min="1" step="1" value="1200"></label>
+      <label>Remarks<input id="sr-remarks" type="text" placeholder="Optional notes"></label>
+    </div>
+  </section>
+
+  <section class="sr-section">
+    <div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="ruler"></i></div><div><span class="sr-kicker">02 / SIZE BREAKDOWN</span><h2>Size Ratio Calculator</h2><p>Choose a calculation method, load a size preset or create your own buyer-specific sizes.</p></div></div>
+    <div class="sr-mode-switch" role="group" aria-label="Calculation method">
+      <button type="button" class="sr-mode-btn active" data-sr-mode="ratio"><i data-lucide="scale"></i><span><strong>Ratio Based</strong><small>1 : 2 : 3 : 2 : 1</small></span></button>
+      <button type="button" class="sr-mode-btn" data-sr-mode="percent"><i data-lucide="percent"></i><span><strong>Percentage Based</strong><small>10% : 20% : 30%</small></span></button>
+    </div>
+    <div class="sr-size-tools">
+      <label class="sr-preset-field">Size Preset
+        <select id="sr-preset">
+          <option value="adult">Standard Adult (XS–5XL)</option>
+          <option value="kids">Kids (2T–7T)</option>
+          <option value="age">Age / Combined (2/3–7/8)</option>
+          <option value="numeric">Numeric (28–40)</option>
+          <option value="custom">Custom / Empty</option>
+        </select>
+      </label>
+      <div class="sr-size-add">
+        <label for="sr-new-size">Add custom size</label>
+        <div><input id="sr-new-size" type="text" maxlength="24" placeholder="e.g. 2T, 4/5, 30"><button type="button" class="sr-small-btn" id="sr-add-size"><i data-lucide="plus"></i> Add Size</button></div>
+      </div>
+    </div>
+    <div class="sr-table-wrap">
+      <table class="sr-table">
+        <thead><tr><th>Size</th><th class="sr-ratio-col">Ratio</th><th class="sr-percent-col">Percentage (%)</th><th>Order Qty (pcs)</th><th>Share</th><th>Manage</th></tr></thead>
+        <tbody id="sr-size-rows"></tbody>
+        <tfoot><tr><th>Total</th><th id="sr-total-ratio" class="sr-ratio-col">9</th><th id="sr-total-percent" class="sr-percent-col" hidden>100%</th><th id="sr-total-size-qty">1,200</th><th id="sr-total-share">100%</th><th></th></tr></tfoot>
+      </table>
+    </div>
+    <p class="sr-hint" id="sr-size-hint">Size labels are fully editable. Use standard, kids, numeric or any buyer-specific format.</p>
+    <div class="sr-inline-status" id="sr-size-status" aria-live="polite">Ready to calculate.</div>
+  </section>
+
+  <section class="sr-section">
+    <div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="palette"></i></div><div><span class="sr-kicker">03 / COLOR ASSORTMENT</span><h2>Color-wise Size Distribution</h2><p>Split the order by color and calculate the size quantity inside each color.</p></div></div>
+    <div class="sr-subtoolbar">
+      <div class="sr-choice-group" role="group" aria-label="Color ratio mode">
+        <label><input type="radio" name="sr-color-mode" value="shared" checked> Same size ratio for all colors</label>
+        <label><input type="radio" name="sr-color-mode" value="independent"> Independent ratio per color</label>
+      </div>
+      <button type="button" class="sr-small-btn" id="sr-add-color"><i data-lucide="plus"></i> Add Color</button>
+    </div>
+    <div id="sr-color-list" class="sr-color-list"></div>
+    <div class="sr-color-total-row"><span>Color quantity total</span><strong id="sr-color-total">1,200 / 1,200 pcs</strong><span id="sr-color-status" class="sr-status-pill is-neutral">Ready</span></div>
+    <div class="sr-table-wrap sr-matrix-wrap"><table class="sr-table sr-matrix"><thead id="sr-color-matrix-head"></thead><tbody id="sr-color-matrix-body"></tbody></table></div>
+  </section>
+
+  <section class="sr-section">
+    <div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="scissors"></i></div><div><span class="sr-kicker">04 / CUTTING PLAN</span><h2>Marker Size Ratio</h2><p>Enter how many garments of each size are included in one marker. The planner estimates marker lays and over/under quantities.</p></div></div>
+    <div class="sr-table-wrap"><table class="sr-table sr-marker-table"><thead><tr><th>Size</th><th>Garments / Marker</th><th>Order Qty</th><th>Marker Lays</th><th>Planned Qty</th><th>Balance</th></tr></thead><tbody id="sr-marker-rows"></tbody><tfoot><tr><th colspan="3">Marker plan</th><th id="sr-marker-lays">—</th><th id="sr-marker-planned">—</th><th id="sr-marker-balance">—</th></tr></tfoot></table></div>
+    <p class="sr-hint">Marker lays are calculated using the highest size-specific requirement. Planned quantity may exceed the order quantity; the difference is shown as overcut.</p>
+    <div class="sr-summary-strip"><div><span>Required marker lays</span><strong id="sr-marker-count">—</strong></div><div><span>Total planned cutting</span><strong id="sr-marker-total">—</strong></div><div><span>Estimated overcut</span><strong id="sr-marker-overcut">—</strong></div></div>
+  </section>
+
+  <section class="sr-section">
+    <div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="package"></i></div><div><span class="sr-kicker">05 / PACKING PLAN</span><h2>Carton Assortment</h2><p>Plan mixed-size assortment cartons or solid-size cartons.</p></div></div>
+    <div class="sr-mode-switch sr-carton-switch" role="group" aria-label="Carton packing method">
+      <button type="button" class="sr-mode-btn active" data-sr-carton="mixed"><i data-lucide="package-open"></i><span><strong>Mixed Size Carton</strong><small>Multiple sizes per carton</small></span></button>
+      <button type="button" class="sr-mode-btn" data-sr-carton="solid"><i data-lucide="boxes"></i><span><strong>Solid Size Carton</strong><small>One size per carton</small></span></button>
+    </div>
+    <div class="sr-carton-controls">
+      <label>Carton capacity (pcs)<input id="sr-carton-capacity" type="number" min="1" step="1" value="12"></label>
+      <label>Carton assortment name<input id="sr-carton-name" type="text" placeholder="e.g. 2:2:2:1 assortment" value="Standard assortment"></label>
+    </div>
+    <div class="sr-table-wrap"><table class="sr-table"><thead id="sr-carton-head"></thead><tbody id="sr-carton-rows"></tbody><tfoot id="sr-carton-foot"></tfoot></table></div>
+    <div class="sr-summary-strip sr-carton-summary"><div><span>Full cartons</span><strong id="sr-cartons-full">—</strong></div><div><span>Loose / balance pcs</span><strong id="sr-cartons-loose">—</strong></div><div><span>Total packed pcs</span><strong id="sr-cartons-packed">—</strong></div></div>
+    <p class="sr-hint" id="sr-carton-hint">Mixed carton assortment quantity must match the carton capacity.</p>
+  </section>
+
+  <section class="sr-results-section">
+    <div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="sr-kicker">06 / CALCULATION RESULTS</span><h2>Order Distribution Summary</h2><p>Review the final size distribution and verify the totals before exporting.</p></div></div>
+    <div class="sr-result-cards">
+      <article class="sr-result-primary"><span>Total Order Quantity</span><strong id="sr-result-total">1,200</strong><small>pcs</small></article>
+      <article><span>Total Sizes</span><strong id="sr-result-sizes">5</strong><small>active size labels</small></article>
+      <article><span>Total Ratio</span><strong id="sr-result-ratio">9</strong><small>ratio units</small></article>
+      <article><span>Colorways</span><strong id="sr-result-colors">1</strong><small>color entries</small></article>
+    </div>
+    <div class="sr-validation" id="sr-validation" aria-live="polite"><i data-lucide="check-circle-2"></i><span>Quantity distribution is balanced.</span></div>
+    <div id="sr-result-breakdown" class="sr-result-breakdown"></div>
+    <div class="sr-action-row">
+      <button type="button" class="sr-calculate-btn" id="btn-calc-sizeratio"><i data-lucide="calculator"></i> Calculate Size Ratio</button>
+      <button type="button" class="sr-pdf-btn" id="btn-pdf-sizeratio"><i data-lucide="file-text"></i> Download Full Report (PDF)</button>
+      <button type="button" class="sr-reset-btn" id="sr-reset"><i data-lucide="rotate-ccw"></i> Reset</button>
+    </div>
+  </section>
+  <section class="sr-section sr-formula-section"><div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="book-open"></i></div><div><span class="sr-kicker">REFERENCE</span><h2>Calculation Formula</h2><p>Quantity distribution uses proportional allocation with automatic rounding correction.</p></div></div><div class="sr-formula-grid"><div><strong>Ratio Based</strong><code>Size Qty = Order Qty × Size Ratio ÷ Total Ratio</code></div><div><strong>Percentage Based</strong><code>Size Qty = Order Qty × Size % ÷ 100</code></div><div><strong>Marker Planning</strong><code>Marker Lays = MAX(CEIL(Size Order Qty ÷ Qty per Marker))</code></div><div><strong>Carton Planning</strong><code>Cartons = FLOOR(Order Qty ÷ Carton Capacity)</code></div></div></section>
 </div>
 
 <!-- ==================== PAGE 10: CONVERTER ==================== -->
