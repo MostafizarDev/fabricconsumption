@@ -964,6 +964,59 @@
     </div>
   </section>
   <section class="sr-section sr-formula-section"><div class="sr-section-heading"><div class="sr-heading-icon"><i data-lucide="book-open"></i></div><div><span class="sr-kicker">REFERENCE</span><h2>Calculation Formula</h2><p>Quantity distribution uses proportional allocation with automatic rounding correction.</p></div></div><div class="sr-formula-grid"><div><strong>Ratio Based</strong><code>Size Qty = Order Qty × Size Ratio ÷ Total Ratio</code></div><div><strong>Percentage Based</strong><code>Size Qty = Order Qty × Size % ÷ 100</code></div><div><strong>Marker Planning</strong><code>Marker Lays = MAX(CEIL(Size Order Qty ÷ Qty per Marker))</code></div><div><strong>Carton Planning</strong><code>Cartons = FLOOR(Order Qty ÷ Carton Capacity)</code></div></div></section>
+
+  <dialog class="sr-pdf-dialog" id="sr-pdf-dialog" aria-labelledby="sr-pdf-dialog-title">
+    <div class="sr-pdf-dialog-shell">
+      <div class="sr-pdf-dialog-heading">
+        <div>
+          <span class="sr-kicker">REPORT CONTENT</span>
+          <h2 id="sr-pdf-dialog-title">Choose PDF sections</h2>
+          <p>01 / ORDER SETUP is always included. Choose which other sections to add.</p>
+        </div>
+        <button type="button" class="sr-pdf-dialog-close" id="sr-pdf-dialog-close" aria-label="Close">×</button>
+      </div>
+      <div class="sr-pdf-dialog-tools">
+        <button type="button" id="sr-pdf-select-all">Select all</button>
+        <button type="button" id="sr-pdf-clear-optional">Clear optional</button>
+        <span id="sr-pdf-selection-count" aria-live="polite">6 of 6 sections included</span>
+      </div>
+      <div class="sr-pdf-options">
+        <label class="sr-pdf-option is-required">
+          <input type="checkbox" checked disabled>
+          <span class="sr-pdf-option-copy"><strong>01 / ORDER SETUP</strong><small>Buyer, style, PO, order date and remarks</small></span>
+          <span class="sr-pdf-required-badge">Always included</span>
+        </label>
+        <label class="sr-pdf-option">
+          <input type="checkbox" data-pdf-section="sizes" checked>
+          <span class="sr-pdf-option-copy"><strong>02 / SIZE BREAKDOWN</strong><small>Ratios, quantities and order share by size</small></span>
+        </label>
+        <label class="sr-pdf-option">
+          <input type="checkbox" data-pdf-section="colors" checked>
+          <span class="sr-pdf-option-copy"><strong>03 / COLOR ASSORTMENT</strong><small>Color-wise quantities for each size</small></span>
+        </label>
+        <label class="sr-pdf-option">
+          <input type="checkbox" data-pdf-section="cutting" checked>
+          <span class="sr-pdf-option-copy"><strong>04 / CUTTING PLAN</strong><small>Marker lays, planned cutting and overcut</small></span>
+        </label>
+        <label class="sr-pdf-option">
+          <input type="checkbox" data-pdf-section="packing" checked>
+          <span class="sr-pdf-option-copy"><strong>05 / PACKING PLAN</strong><small>Carton capacity, packed quantities and balance</small></span>
+        </label>
+        <label class="sr-pdf-option">
+          <input type="checkbox" data-pdf-section="results" checked>
+          <span class="sr-pdf-option-copy"><strong>06 / CALCULATION RESULTS</strong><small>Final order totals and calculation notes</small></span>
+        </label>
+      </div>
+      <div class="sr-pdf-dialog-footer">
+        <span>Your choices are remembered for the next PDF.</span>
+        <div>
+          <button type="button" class="sr-pdf-cancel" id="sr-pdf-cancel">Cancel</button>
+          <button type="button" class="sr-pdf-generate" id="sr-pdf-generate"><i data-lucide="file-text"></i> Generate PDF</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
 </div>
 
 <!-- ==================== PAGE 10: CONVERTER ==================== -->

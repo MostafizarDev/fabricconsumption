@@ -80,7 +80,8 @@ function calculate(){
 function addSize(name){name=String(name||'').trim();if(!name)return msg('Enter a size name first.','error');if(st.sizes.some(s=>s.name.toLowerCase()===name.toLowerCase()))return msg('This size already exists.','error');if(st.sizes.length>=20)return msg('Maximum 20 sizes are supported.','error');st.sizes.push({id:'s'+uid++,name,ratio:1,percent:100/(st.sizes.length+1),marker:1,carton:0});renderAll();msg('Size '+name+' added.','success');}
 function loadPreset(key){const a=presets[key]||[];st.sizes=a.map((name,i)=>({id:'s'+uid++,name,ratio:key==='adult'?([1,2,3,3,2,1,1,1,1][i]||1):key==='kids'?([1,2,3,3,2,1][i]||1):1,percent:100/(a.length||1),marker:1,carton:0}));st.colors.forEach(c=>c.ratios={});renderAll();msg('Preset loaded. You can edit every size label.','success');}
 function renderAll(){renderSizes();renderColors();renderMarker();renderCartons();calculate();}
-function report(data){
+function report(data,sections){
+ const include=Object.assign({sizes:true,colors:true,cutting:true,packing:true,results:true},sections||{});
  const list=data.list,d=data.d,qty=data.qty,now=new Date();
  const dateCode=now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
  const dateText=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
@@ -127,8 +128,8 @@ function report(data){
   const planned=markerLays*x.perLay,over=Math.max(0,planned-d[i]);
   return '<tr><td><strong>'+esc(list[i].name)+'</strong></td><td>'+fmt(x.perLay)+'</td><td>'+fmt(d[i])+'</td><td>'+(Number.isFinite(x.required)?fmt(x.required):'Set per lay')+'</td><td>'+fmt(planned)+'</td><td>'+fmt(over)+'</td></tr>';
  }).join('');
- const markerPlanned=markerData.reduce((sum,x,i)=>sum+markerLays*x.perLay,0);
- const markerOver=markerData.reduce((sum,x,i)=>sum+Math.max(0,markerLays*x.perLay-d[i]),0);
+ const markerPlanned=markerData.reduce((sum,x)=>sum+markerLays*x.perLay,0);
+ const markerOver=markerData.reduce((sum,x)=>sum+Math.max(0,markerLays*x.perLay-d[i]),0);
  const markerFooter='<tr class="total-row"><td>Total</td><td>—</td><td>'+fmt(qty)+'</td><td>'+fmt(markerLays)+' lays</td><td>'+fmt(markerPlanned)+' pcs</td><td>'+fmt(markerOver)+' pcs</td></tr>';
  const capacity=q($('#sr-carton-capacity').value),mixed=st.cartonMode==='mixed';
  const sharedCartons=capacity?Math.floor(qty/capacity):0;
@@ -152,18 +153,18 @@ function report(data){
  const modeLabel=st.mode==='ratio'?'Ratio-based':'Percentage-based';
  const mixLabel=st.colorMode==='independent'?'Independent mix per color':'Shared size mix';
  const buyer=$('#sr-buyer').value.trim(),style=$('#sr-style').value.trim(),po=$('#sr-po').value.trim(),orderDate=$('#sr-date').value,remarks=$('#sr-remarks').value.trim();
+ const orderSection='<section class="section"><div class="section-head">'+icon('info')+'<span>01 / ORDER SETUP</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(esc(buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(po)||'________________')+'</strong></div><div><span>Order Date</span><strong>'+(esc(orderDate)||'________________')+'</strong></div></div><div class="comments-section" style="margin:10px;padding:7px 10px"><div class="comments-title">ORDER REMARKS:</div><div style="min-height:20px;font-size:9px;line-height:1.5;color:#334155">'+(esc(remarks)||'—')+'</div></div></section>';
+ const sizeSection='<section class="section"><div class="section-head">'+icon('sizes')+'<span>02 / SIZE BREAKDOWN</span></div><table class="fabric-type-table"><thead><tr><th>Size</th><th>Ratio / Percentage</th><th>Quantity</th><th>Share</th></tr></thead><tbody>'+sizeRows+sizeFooter+'</tbody></table></section>';
+ const colorSection='<section class="section"><div class="section-head">'+icon('colors')+'<span>03 / COLOR ASSORTMENT</span></div><div style="padding:8px 10px;font-size:8px;line-height:1.5;color:#475569">Mix: '+mixLabel+' · Color quantity total: '+fmt(colorGrand)+' / '+fmt(qty)+' pcs · '+colorOrderState+'.</div><table class="fabric-type-table" style="font-size:7px;table-layout:fixed"><thead>'+colorHeader+'</thead><tbody>'+colorRows+colorTotalRow+'</tbody></table></section>';
+ const cuttingSection='<section class="section"><div class="section-head">'+icon('marker')+'<span>04 / CUTTING PLAN</span></div><table class="fabric-type-table"><thead><tr><th>Size</th><th>Pcs / lay</th><th>Required qty</th><th>Lays needed</th><th>Planned cut</th><th>Overcut</th></tr></thead><tbody>'+markerRows+markerFooter+'</tbody></table></section>';
+ const packingSection='<section class="section"><div class="section-head">'+icon('cartons')+'<span>05 / PACKING PLAN</span></div><div class="meta-grid"><div><span>Packing Mode</span><strong>'+cartonMode+'</strong></div><div><span>Carton Capacity</span><strong>'+(capacity?fmt(capacity)+' pcs':'Not set')+'</strong></div><div><span>Full Cartons</span><strong>'+(capacity?fmt(cartonFull):'—')+'</strong></div><div><span>Loose Balance</span><strong>'+(capacity?fmt(cartonLoose)+' pcs':'—')+'</strong></div></div><table class="fabric-type-table"><thead>'+cartonHeader+'</thead><tbody>'+cartonRows+cartonFoot+'</tbody></table>'+(capacity?'':'<div style="padding:8px 10px;font-size:8px;color:#475569">Set carton capacity in the planner to calculate packing quantities.</div>')+'</section>';
+ const resultsSection='<section class="section"><div class="section-head">'+icon('summary')+'<span>06 / CALCULATION RESULTS</span></div><div class="summary-grid"><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>TOTAL ORDER QTY</span></div><strong>'+fmt(qty)+' pcs</strong><small>Planned garment quantity</small></div><div class="summary-card"><div class="metric-head">'+icon('sizes')+'<span>TOTAL SIZES</span></div><strong>'+fmt(list.length)+'</strong><small>Active size labels</small></div><div class="summary-card"><div class="metric-head">'+icon('formula')+'<span>TOTAL '+(st.mode==='ratio'?'RATIO':'PERCENTAGE')+'</span></div><strong>'+(st.mode==='ratio'?fmt(ratioTotal):ratioTotal.toFixed(2)+'%')+'</strong><small>'+modeLabel+'</small></div><div class="summary-card"><div class="metric-head">'+icon('colors')+'<span>COLORWAYS</span></div><strong>'+fmt(st.colors.length)+'</strong><small>Color entries</small></div></div><div style="padding:10px 12px;font-size:9px;line-height:1.6;color:#475569">Order quantities use the selected size ratio or percentage. Rounding assigns remaining pieces by largest fractional share so allocated quantities equal the order total.</div></section>';
+ const optionalSections=[include.sizes?sizeSection:'',include.colors?colorSection:'',include.cutting?cuttingSection:'',include.packing?packingSection:'',include.results?resultsSection:''].join('');
  const html='<div class="report">'+
   '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Size Ratio &amp; Assortment Planner</h1><div class="report-id">'+reportId+'</div></div></div>'+
   '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Order Quantity</span><strong>'+fmt(qty)+' pcs</strong></div><div><span>Distribution Mode</span><strong>'+modeLabel+'</strong></div></div>'+
-  '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(esc(buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(po)||'________________')+'</strong></div><div><span>Order Date</span><strong>'+(esc(orderDate)||'________________')+'</strong></div></div></section>'+
-  '<section class="section"><div class="section-head">'+icon('sizes')+'<span>SIZE-WISE ORDER BREAKDOWN</span></div><table class="fabric-type-table"><thead><tr><th>Size</th><th>Ratio / Percentage</th><th>Quantity</th><th>Share</th></tr></thead><tbody>'+sizeRows+sizeFooter+'</tbody></table></section>'+
-  '<section class="section"><div class="section-head">'+icon('colors')+'<span>COLOR-WISE SIZE MATRIX</span></div><div style="padding:8px 10px;font-size:8px;line-height:1.5;color:#475569">Mix: '+mixLabel+' · Color quantity total: '+fmt(colorGrand)+' / '+fmt(qty)+' pcs · '+colorOrderState+'.</div><table class="fabric-type-table" style="font-size:7px;table-layout:fixed"><thead>'+colorHeader+'</thead><tbody>'+colorRows+colorTotalRow+'</tbody></table></section>'+
-  '<section class="section"><div class="section-head">'+icon('marker')+'<span>MARKER LAY PLAN</span></div><table class="fabric-type-table"><thead><tr><th>Size</th><th>Pcs / lay</th><th>Required qty</th><th>Lays needed</th><th>Planned cut</th><th>Overcut</th></tr></thead><tbody>'+markerRows+markerFooter+'</tbody></table></section>'+
-  '<section class="section"><div class="section-head">'+icon('cartons')+'<span>CARTON PACKING PLAN</span></div><div class="meta-grid"><div><span>Packing Mode</span><strong>'+cartonMode+'</strong></div><div><span>Carton Capacity</span><strong>'+(capacity?fmt(capacity)+' pcs':'Not set')+'</strong></div><div><span>Full Cartons</span><strong>'+(capacity?fmt(cartonFull):'—')+'</strong></div><div><span>Loose Balance</span><strong>'+(capacity?fmt(cartonLoose)+' pcs':'—')+'</strong></div></div><table class="fabric-type-table"><thead>'+cartonHeader+'</thead><tbody>'+cartonRows+cartonFoot+'</tbody></table>'+(capacity?'':'<div style="padding:8px 10px;font-size:8px;color:#475569">Set carton capacity in the planner to calculate packing quantities.</div>')+'</section>'+
-  '<section class="section"><div class="section-head">'+icon('formula')+'<span>CALCULATION METHOD</span></div><div style="padding:10px 12px;font-size:9px;line-height:1.6"><div>Order quantities use the selected size ratio or percentage. Remaining pieces are allocated by largest fractional share so the total matches the order quantity.</div><div style="margin-top:4px">Marker lays use the highest full-lay count required by any size. Carton totals follow the selected packing mode and capacity.</div></div></section>'+
-  '<div class="summary-grid"><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>TOTAL ORDER</span></div><strong>'+fmt(qty)+' pcs</strong><small>Planned garment quantity</small></div><div class="summary-card"><div class="metric-head">'+icon('sizes')+'<span>SIZE OPTIONS</span></div><strong>'+fmt(list.length)+'</strong><small>Sizes in this assortment</small></div><div class="summary-card"><div class="metric-head">'+icon('colors')+'<span>COLORS</span></div><strong>'+fmt(st.colors.length)+'</strong><small>Color entries</small></div><div class="summary-card"><div class="metric-head">'+icon('info')+'<span>COLOR QTY CHECK</span></div><strong>'+colorOrderState+'</strong><small>'+fmt(colorGrand)+' pcs across all colors</small></div></div>'+
-  '<section class="comments-section"><div class="comments-title">ORDER REMARKS:</div><div style="min-height:28px;font-size:9px;line-height:1.5;color:#334155">'+(esc(remarks)||'—')+'</div></section>'+
-  '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Planning report only. Confirm the buyer-approved size mix, marker lay settings and carton capacity before production.</div></div>'+
+  orderSection+optionalSections+
+  '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Planning report only. Confirm the buyer-approved information before production.</div></div>'+
   '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
   '<div class="report-footer"><span>Fabrics Consumption - Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
  const filePart=value=>String(value||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
@@ -171,9 +172,31 @@ function report(data){
  const fileName=['FC',filePart(buyer),filePart(style),poPart?'PO'+poPart.replace(/^PO[_-]?/i,''):'',reportId].filter(Boolean).join('_');
  if(typeof generatePDF==='function')generatePDF(fileName,html);else window.print();
 }
+
+function pdfDialog(){return $('#sr-pdf-dialog',root());}
+function pdfSectionChoices(){const dialog=pdfDialog();return Object.fromEntries($$('[data-pdf-section]',dialog||document).map(input=>[input.dataset.pdfSection,input.checked]));}
+function updatePdfSelectionCount(){const dialog=pdfDialog();if(!dialog)return;const selected=1+$$('[data-pdf-section]',dialog).filter(input=>input.checked).length;const status=$('#sr-pdf-selection-count',dialog);if(status)status.textContent=selected+' of 6 sections included';}
+function openPdfSectionDialog(data){const dialog=pdfDialog();if(dialog&&typeof dialog.showModal==='function'){updatePdfSelectionCount();dialog.showModal();return;}report(data);}
+function initPdfSectionDialog(){
+ const dialog=pdfDialog();if(!dialog||dialog.dataset.srReady)return;dialog.dataset.srReady='1';
+ const inputs=$$('[data-pdf-section]',dialog);
+ try{const saved=JSON.parse(localStorage.getItem('sizeRatio.pdfSectionSelection.v1')||'null');if(saved&&typeof saved==='object')inputs.forEach(input=>{if(typeof saved[input.dataset.pdfSection]==='boolean')input.checked=saved[input.dataset.pdfSection];});}catch(_){}
+ const saveChoices=()=>{try{localStorage.setItem('sizeRatio.pdfSectionSelection.v1',JSON.stringify(pdfSectionChoices()));}catch(_){}};
+ dialog.addEventListener('change',e=>{if(e.target.matches('[data-pdf-section]'))updatePdfSelectionCount();});
+ $('#sr-pdf-select-all',dialog)?.addEventListener('click',()=>{inputs.forEach(input=>input.checked=true);updatePdfSelectionCount();});
+ $('#sr-pdf-clear-optional',dialog)?.addEventListener('click',()=>{inputs.forEach(input=>input.checked=false);updatePdfSelectionCount();});
+ $('#sr-pdf-dialog-close',dialog)?.addEventListener('click',()=>dialog.close());
+ $('#sr-pdf-cancel',dialog)?.addEventListener('click',()=>dialog.close());
+ $('#sr-pdf-generate',dialog)?.addEventListener('click',()=>{
+  const data=calculate();if(!data)return;
+  const choices=pdfSectionChoices();saveChoices();dialog.close();report(data,choices);
+ });
+ updatePdfSelectionCount();
+}
+
 function reset(){st.mode='ratio';st.cartonMode='mixed';st.colorMode='shared';st.sizes=[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2}));st.colors=[{id:'c0',name:'Black',qty:1200,ratios:{}}];$('#sr-total').value=1200;$('#sr-carton-capacity').value=10;$('#sr-preset').value='custom';$('input[name="sr-color-mode"][value="shared"]').checked=true;renderAll();msg('Default size ratio restored.','success');}
 function init(){
- if(!root()||root().dataset.srReady)return;root().dataset.srReady='1';$('#sr-date').value=new Date().toISOString().slice(0,10);renderAll();
+ if(!root()||root().dataset.srReady)return;root().dataset.srReady='1';$('#sr-date').value=new Date().toISOString().slice(0,10);renderAll();initPdfSectionDialog();
  root().addEventListener('input',e=>{
   const tr=e.target.closest('[data-size-id]');if(tr&&e.target.dataset.sizeField){const s=st.sizes.find(x=>x.id===tr.dataset.sizeId),f=e.target.dataset.sizeField;if(s){s[f]=f==='name'?e.target.value:n(e.target.value);if(f!=='name')calculate();}return;}
   const cr=e.target.closest('[data-color-id]');if(cr&&e.target.dataset.colorField){const c=st.colors.find(x=>x.id===cr.dataset.colorId);if(c){c[e.target.dataset.colorField]=e.target.dataset.colorField==='name'?e.target.value:q(e.target.value);calculate();}return;}
@@ -192,11 +215,11 @@ function init(){
   if(e.target.closest('#sr-add-color')){if(st.colors.length>=20)return msg('Maximum 20 colors are supported.','error');st.colors.push({id:'c'+uid++,name:'New Color',qty:0,ratios:{}});renderColors();calculate();return;}
   if(e.target.closest('[data-color-remove]')){if(st.colors.length===1)return msg('At least one color is required.','error');const card=e.target.closest('[data-color-id]');st.colors=st.colors.filter(c=>c.id!==card.dataset.colorId);renderColors();calculate();return;}
   if(e.target.closest('#btn-calc-sizeratio')){const r=calculate();if(r)msg('Calculation complete. Quantities reconcile to the order total.','success');return;}
-  if(e.target.closest('#btn-pdf-sizeratio')){const r=calculate();if(r)report(r);return;}
+  if(e.target.closest('#btn-pdf-sizeratio')){const r=calculate();if(r)openPdfSectionDialog(r);return;}
   if(e.target.closest('#sr-reset'))reset();
  });
  renderAll();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.calcSizeRatio=calculate;window.updateSizeRatio=calculate;window.downloadSizeRatioReport=()=>{const d=calculate();if(d)report(d);};
+window.calcSizeRatio=calculate;window.updateSizeRatio=calculate;window.downloadSizeRatioReport=()=>{const d=calculate();if(d)openPdfSectionDialog(d);};
 })();
