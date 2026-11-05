@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261105-size-ratio-planner">
+<link rel="stylesheet" href="css/style.css?v=20261105-trims-workspace">
 </head>
 <body>
 
@@ -821,24 +821,102 @@
 
 <!-- ==================== PAGE 7: TRIMS ==================== -->
 <div class="page" id="page-trims">
-  <p class="page-title">🧶 Trims Consumption</p>
-  <div class="panel"><div class="panel-title">🪡 Thread</div>
-    <div class="field-row"><div class="f-group"><label>Seam Length (m/pcs)</label><input class="inp-plain" id="th-seam" value="10"></div><div class="f-group"><label>No. of Layers</label><input class="inp-plain" id="th-layer" value="2"></div></div>
-    <div class="field-row"><div class="f-group"><label>Stitch Density (spi)</label><input class="inp-plain" id="th-spi" value="12"></div><div class="f-group"><label>Thread Per Stitch</label><input class="inp-plain" id="th-tps" value="3"></div></div>
-    <button class="calc-btn" id="btn-calc-thread">Calculate Thread</button>
-    <div class="r-row"><span>Thread / Dozen</span><span id="th-dz" class="badge badge-green">—</span></div>
-  </div>
-  <div class="panel"><div class="panel-title">🔘 Button</div>
-    <div class="field-row"><div class="f-group"><label>Buttons per Piece</label><input class="inp-plain" id="bt-pp" value="8"></div><div class="f-group"><label>Extra / Spare (%)</label><input class="inp-plain" id="bt-ex" value="5"></div></div>
-    <button class="calc-btn" id="btn-calc-button">Calculate Button</button>
-    <div class="r-row"><span>Buttons / Dozen</span><span id="bt-dz" class="badge badge-green">—</span></div>
-  </div>
-  <div class="panel"><div class="panel-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fc-svg-icon"><circle cx="12" cy="12" r="8"></circle><path d="M8 12c2-5 8-5 8 0s-6 5-8 0Z"></path></svg> Interlining</div>
-    <div class="field-row"><div class="f-group"><label>Length (cm)</label><input class="inp-plain" id="il-len" value="30"></div><div class="f-group"><label>Width (cm)</label><input class="inp-plain" id="il-wid" value="10"></div></div>
-    <div class="field-row"><div class="f-group"><label>Qty per pcs</label><input class="inp-plain" id="il-qty" value="2"></div></div>
-    <button class="calc-btn" id="btn-calc-interlining">Calculate Interlining</button>
-    <div class="r-row"><span>Interlining / Dozen (m²)</span><span id="il-dz" class="badge badge-green">—</span></div>
-  </div>
+  <section class="trims-hero consumption-hero">
+    <div class="trims-hero-copy">
+      <span>GARMENT INDUSTRY TOOLKIT</span>
+      <h1>Trims Consumption Planner</h1>
+      <p>Calculate sewing thread, buttons and interlining requirements for your garment order in one workspace.</p>
+    </div>
+    <div class="trims-hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M18 9h28v46H18z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M25 18h14M25 26h14M25 34h8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="42" cy="42" r="9" stroke="currentColor" stroke-width="2.5"/><path d="m48 48 7 7M38 42h8m-4-4v8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+  </section>
+
+  <section class="trims-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="clipboard-list"></i></div><div><span class="trims-kicker">01 / ORDER SETUP</span><h2>Order Information</h2><p>Enter order details to calculate trims requirements for the full order.</p></div></div>
+    <div class="trims-order-grid">
+      <label>Buyer Name<input id="tr-buyer" type="text" placeholder="Enter buyer name"></label>
+      <label>Style Number<input id="tr-style" type="text" placeholder="Enter style number"></label>
+      <label>PO Number<input id="tr-po" type="text" placeholder="Enter PO number"></label>
+      <label>Total Order Quantity (pcs)<input id="tr-order-qty" type="number" min="1" step="1" value="1200" placeholder="Enter order quantity"></label>
+    </div>
+    <div class="trims-toolbar">
+      <div class="trims-toolbar-note"><i data-lucide="info"></i><span>Results update automatically when you change an input.</span></div>
+      <div class="trims-toolbar-actions">
+        <button type="button" class="trims-action-btn" id="tr-demo"><i data-lucide="flask-conical"></i> Demo</button>
+        <button type="button" class="trims-action-btn" id="tr-recent"><i data-lucide="history"></i> Recent</button>
+        <button type="button" class="trims-action-btn" id="tr-reset"><i data-lucide="rotate-ccw"></i> Reset</button>
+      </div>
+    </div>
+    <div class="trims-recent-panel" id="tr-recent-panel" hidden></div>
+  </section>
+
+  <section class="trims-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="calculator"></i></div><div><span class="trims-kicker">02 / CONSUMPTION CALCULATORS</span><h2>Trims Calculation</h2><p>Calculate each trims component independently using its approved production inputs.</p></div></div>
+    <div class="trims-calculator-grid">
+      <article class="trims-card" id="tr-thread-card">
+        <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
+        <div class="trims-input-grid">
+          <label>Seam Length (m/pc)<input class="inp-plain" id="th-seam" type="number" min="0" step="any" value="10"></label>
+          <label>Number of Layers<input class="inp-plain" id="th-layer" type="number" min="0" step="any" value="2"></label>
+          <label>Stitch Density (SPI)<input class="inp-plain" id="th-spi" type="number" min="0" step="any" value="12"></label>
+          <label>Thread Per Stitch<input class="inp-plain" id="th-tps" type="number" min="0" step="any" value="3"></label>
+        </div>
+        <div class="trims-result-grid">
+          <div><span>Per Piece</span><strong id="th-pc">—</strong></div>
+          <div><span>Per Dozen</span><strong id="th-dz">—</strong></div>
+          <div class="trims-result-primary"><span>Full Order</span><strong id="th-order">—</strong></div>
+        </div>
+        <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-thread"><i data-lucide="calculator"></i> Calculate Thread</button><button type="button" class="trims-secondary-btn" id="btn-pdf-thread"><i data-lucide="file-down"></i> PDF</button></div>
+      </article>
+
+      <article class="trims-card" id="tr-button-card">
+        <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="circle-dot"></i></div><div><span class="trims-card-tag">GARMENT ACCESSORY</span><h3>Button Consumption</h3><p>Calculate button quantities including spare allowance.</p></div></div>
+        <div class="trims-input-grid">
+          <label>Buttons per Piece<input class="inp-plain" id="bt-pp" type="number" min="0" step="any" value="8"></label>
+          <label>Extra / Spare (%)<input class="inp-plain" id="bt-ex" type="number" min="0" step="any" value="5"></label>
+        </div>
+        <div class="trims-result-grid">
+          <div><span>Per Piece</span><strong id="bt-pc">—</strong></div>
+          <div><span>Per Dozen</span><strong id="bt-dz" class="badge badge-green">—</strong></div>
+          <div class="trims-result-primary"><span>Full Order</span><strong id="bt-order">—</strong></div>
+        </div>
+        <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-button"><i data-lucide="calculator"></i> Calculate Button</button><button type="button" class="trims-secondary-btn" id="btn-pdf-button"><i data-lucide="file-down"></i> PDF</button></div>
+      </article>
+
+      <article class="trims-card" id="tr-interlining-card">
+        <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="layers"></i></div><div><span class="trims-card-tag">FUSING MATERIAL</span><h3>Interlining Consumption</h3><p>Calculate interlining area from cut-piece dimensions.</p></div></div>
+        <div class="trims-input-grid">
+          <label>Length (cm)<input class="inp-plain" id="il-len" type="number" min="0" step="any" value="30"></label>
+          <label>Width (cm)<input class="inp-plain" id="il-wid" type="number" min="0" step="any" value="10"></label>
+          <label>Quantity per Piece<input class="inp-plain" id="il-qty" type="number" min="0" step="any" value="2"></label>
+        </div>
+        <div class="trims-result-grid">
+          <div><span>Per Piece</span><strong id="il-pc">—</strong></div>
+          <div><span>Per Dozen</span><strong id="il-dz" class="badge badge-green">—</strong></div>
+          <div class="trims-result-primary"><span>Full Order</span><strong id="il-order">—</strong></div>
+        </div>
+        <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-interlining"><i data-lucide="calculator"></i> Calculate Interlining</button><button type="button" class="trims-secondary-btn" id="btn-pdf-interlining"><i data-lucide="file-down"></i> PDF</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="trims-results-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="trims-kicker">03 / ORDER OVERVIEW</span><h2>Consumption Summary</h2><p>Review calculated trims quantities for one garment and the complete order.</p></div></div>
+    <div class="trims-summary-grid">
+      <article><span>Thread / Order</span><strong id="tr-summary-thread">—</strong><small>meters</small></article>
+      <article><span>Buttons / Order</span><strong id="tr-summary-button">—</strong><small>pieces</small></article>
+      <article><span>Interlining / Order</span><strong id="tr-summary-interlining">—</strong><small>m²</small></article>
+    </div>
+    <p class="trims-status" id="tr-status" role="status" aria-live="polite">Enter your order quantity and trims details to view the summary.</p>
+  </section>
+
+  <section class="trims-section trims-formula-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="book-open-check"></i></div><div><span class="trims-kicker">04 / REFERENCE</span><h2>Formula Reference</h2><p>Review the calculation methods used by each trims calculator.</p></div></div>
+    <div class="trims-formula-grid">
+      <article><h3>Thread Consumption</h3><p>Thread (m/pc) = Seam Length × Layers × SPI × Thread Per Stitch ÷ 39.37</p><small>Existing formula retained. Confirm the unit convention with your production standard before using it for bulk purchasing.</small></article>
+      <article><h3>Button Consumption</h3><p>Buttons = Buttons per Piece × Order Qty × (1 + Extra % ÷ 100)</p><small>Purchase quantity is rounded up to the next whole piece.</small></article>
+      <article><h3>Interlining Consumption</h3><p>Area (m²/pc) = Length × Width × Qty ÷ 10,000</p><small>Full-order area = Area per Piece × Order Qty.</small></article>
+    </div>
+  </section>
 </div>
 
 <!-- ==================== PAGE 8: FOB COSTING ==================== -->
