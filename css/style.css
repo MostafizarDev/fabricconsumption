@@ -4232,3 +4232,37 @@ body.dark-mode #page-trims .trims-toolbar-actions .trims-reset-btn>svg{color:#fc
  #page-trims .trims-toolbar-actions .trims-action-btn strong{font-size:9px}
  #page-trims .trims-toolbar-actions .trims-action-btn small{font-size:7px}
 }
+
+
+/* Final Trims calculator layout: full-width, clear workflow, no demo/recent/reset */
+#page-trims .trims-guidance{display:flex;align-items:flex-start;gap:9px;margin-top:16px;padding:12px 14px;border:1px solid #bae6fd;border-radius:10px;color:#075985;background:#f0f9ff;font-size:11px;line-height:1.65}
+#page-trims .trims-guidance svg{flex:0 0 16px;width:16px;height:16px;margin-top:1px;color:#0284c7}
+#page-trims .trims-calculator-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+#page-trims .trims-card{width:100%;max-width:none;padding:22px 24px;border-radius:14px}
+#page-trims .trims-card-head{margin-bottom:20px}
+#page-trims .trims-card-head>div:last-child{min-width:0}
+#page-trims .trims-card h3{font-size:16px}
+#page-trims .trims-card-head p{font-size:11px}
+#page-trims .trims-input-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#page-trims #tr-interlining-card .trims-input-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#page-trims .trims-input-grid label{font-size:11px}
+#page-trims .trims-input-grid input{min-height:46px;font-size:13px}
+#page-trims .trims-result-grid{gap:12px;margin-top:20px}
+#page-trims .trims-result-grid>div{min-height:76px;align-content:center;padding:14px 16px}
+#page-trims .trims-result-grid span{font-size:10px}
+#page-trims .trims-result-grid strong{font-size:19px}
+#page-trims .trims-card-actions{margin-top:18px}
+#page-trims .trims-primary-btn{min-height:44px;font-size:12px}
+#page-trims .trims-secondary-btn{min-height:44px;min-width:82px}
+#page-trims .trims-status{line-height:1.6}
+body.dark-mode #page-trims .trims-guidance{border-color:#155e75;color:#bae6fd;background:#102b43}
+body.dark-mode #page-trims .trims-guidance svg{color:#67e8f9}
+@media(max-width:620px){
+ #page-trims .trims-card{padding:16px}
+ #page-trims .trims-input-grid,#page-trims #tr-interlining-card .trims-input-grid{grid-template-columns:1fr 1fr}
+ #page-trims .trims-result-grid{grid-template-columns:1fr}
+ #page-trims .trims-result-grid>div{min-height:64px}
+}
+@media(max-width:390px){
+ #page-trims .trims-input-grid,#page-trims #tr-interlining-card .trims-input-grid{grid-template-columns:1fr}
+}
