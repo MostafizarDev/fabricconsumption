@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261105-trims-workspace">
+<link rel="stylesheet" href="css/style.css?v=20261105-trims-button-mode">
 </head>
 <body>
 
@@ -851,8 +851,13 @@
 
   <section class="trims-section">
     <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="calculator"></i></div><div><span class="trims-kicker">02 / CONSUMPTION CALCULATORS</span><h2>Trims Calculation</h2><p>Calculate each trims component independently using its approved production inputs.</p></div></div>
+    <div class="trims-mode-tabs" role="tablist" aria-label="Choose trims calculator">
+      <button type="button" class="trims-mode-btn is-active" id="tr-mode-thread" role="tab" aria-selected="true" aria-controls="tr-thread-card" data-tr-mode="thread"><i data-lucide="scissors"></i><span><strong>Thread</strong><small>Consumption</small></span><b>01</b></button>
+      <button type="button" class="trims-mode-btn" id="tr-mode-button" role="tab" aria-selected="false" aria-controls="tr-button-card" data-tr-mode="button"><i data-lucide="circle-dot"></i><span><strong>Button</strong><small>Requirements</small></span><b>02</b></button>
+      <button type="button" class="trims-mode-btn" id="tr-mode-interlining" role="tab" aria-selected="false" aria-controls="tr-interlining-card" data-tr-mode="interlining"><i data-lucide="layers"></i><span><strong>Interlining</strong><small>Fabric area</small></span><b>03</b></button>
+    </div>
     <div class="trims-calculator-grid">
-      <article class="trims-card" id="tr-thread-card">
+      <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
         <div class="trims-input-grid">
           <label>Seam Length (m/pc)<input class="inp-plain" id="th-seam" type="number" min="0" step="any" value="10"></label>
@@ -868,7 +873,7 @@
         <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-thread"><i data-lucide="calculator"></i> Calculate Thread</button><button type="button" class="trims-secondary-btn" id="btn-pdf-thread"><i data-lucide="file-down"></i> PDF</button></div>
       </article>
 
-      <article class="trims-card" id="tr-button-card">
+      <article class="trims-card" id="tr-button-card" role="tabpanel" aria-labelledby="tr-mode-button" hidden>
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="circle-dot"></i></div><div><span class="trims-card-tag">GARMENT ACCESSORY</span><h3>Button Consumption</h3><p>Calculate button quantities including spare allowance.</p></div></div>
         <div class="trims-input-grid">
           <label>Buttons per Piece<input class="inp-plain" id="bt-pp" type="number" min="0" step="any" value="8"></label>
@@ -882,7 +887,7 @@
         <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-button"><i data-lucide="calculator"></i> Calculate Button</button><button type="button" class="trims-secondary-btn" id="btn-pdf-button"><i data-lucide="file-down"></i> PDF</button></div>
       </article>
 
-      <article class="trims-card" id="tr-interlining-card">
+      <article class="trims-card" id="tr-interlining-card" role="tabpanel" aria-labelledby="tr-mode-interlining" hidden>
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="layers"></i></div><div><span class="trims-card-tag">FUSING MATERIAL</span><h3>Interlining Consumption</h3><p>Calculate interlining area from cut-piece dimensions.</p></div></div>
         <div class="trims-input-grid">
           <label>Length (cm)<input class="inp-plain" id="il-len" type="number" min="0" step="any" value="30"></label>
