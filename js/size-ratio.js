@@ -81,11 +81,95 @@ function addSize(name){name=String(name||'').trim();if(!name)return msg('Enter a
 function loadPreset(key){const a=presets[key]||[];st.sizes=a.map((name,i)=>({id:'s'+uid++,name,ratio:key==='adult'?([1,2,3,3,2,1,1,1,1][i]||1):key==='kids'?([1,2,3,3,2,1][i]||1):1,percent:100/(a.length||1),marker:1,carton:0}));st.colors.forEach(c=>c.ratios={});renderAll();msg('Preset loaded. You can edit every size label.','success');}
 function renderAll(){renderSizes();renderColors();renderMarker();renderCartons();calculate();}
 function report(data){
- const list=data.list,d=data.d,qty=data.qty,rows=list.map((s,i)=>'<tr><td>'+esc(s.name)+'</td><td>'+ (st.mode==='ratio'?n(s.ratio):n(s.percent).toFixed(2)+'%')+'</td><td>'+fmt(d[i])+'</td><td>'+(d[i]/qty*100).toFixed(2)+'%</td></tr>').join('');
- const colorRows=st.colors.map(c=>{const x=allocate(q(c.qty),st.colorMode==='independent'?list.map(s=>n(c.ratios[s.id]??s.ratio)):weights());return '<tr><td>'+esc(c.name)+'</td>'+x.map(v=>'<td>'+fmt(v)+'</td>').join('')+'<td>'+fmt(x.reduce((a,b)=>a+b,0))+'</td></tr>';}).join('');
- const meta=[['Buyer',$('#sr-buyer').value],['Style',$('#sr-style').value],['PO Number',$('#sr-po').value],['Order Date',$('#sr-date').value]];
- const html='<div class="report"><h1>Size Ratio &amp; Assortment Report</h1><p>Generated: '+new Date().toLocaleString()+'</p><div class="meta-grid">'+meta.map(x=>'<div><span>'+esc(x[0])+'</span><strong>'+esc(x[1]||'—')+'</strong></div>').join('')+'<div><span>Total Order</span><strong>'+fmt(qty)+' pcs</strong></div><div><span>Mode</span><strong>'+st.mode+'</strong></div></div><h2>Size-wise Breakdown</h2><table><thead><tr><th>Size</th><th>Ratio / Percentage</th><th>Quantity</th><th>Share</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr class="total-row"><td>Total</td><td>'+ (st.mode==='ratio'?fmt(list.reduce((a,s)=>a+n(s.ratio),0)):'100%')+'</td><td>'+fmt(qty)+'</td><td>100%</td></tr></tfoot></table><h2>Color-wise Size Matrix</h2><table><thead><tr><th>Color</th>'+list.map(s=>'<th>'+esc(s.name)+'</th>').join('')+'<th>Total</th></tr></thead><tbody>'+colorRows+'</tbody></table><h2>Marker Plan</h2><p>Lays: '+esc($('#sr-marker-count').textContent)+' · Planned cutting: '+esc($('#sr-marker-total').textContent)+' · Overcut: '+esc($('#sr-marker-overcut').textContent)+'</p><h2>Carton Plan</h2><p>Mode: '+st.cartonMode+' · Full cartons: '+esc($('#sr-cartons-full').textContent)+' · Loose balance: '+esc($('#sr-cartons-loose').textContent)+'</p><p>Remarks: '+esc($('#sr-remarks').value||'—')+'</p></div>';
- if(typeof generatePDF==='function')generatePDF('Size Ratio & Assortment Report',html);else window.print();
+ const list=data.list,d=data.d,qty=data.qty,now=new Date();
+ const dateCode=now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
+ const dateText=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+ const timeText=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+ const sequenceKey='sizeRatio.reportSequence.'+dateCode;
+ let sequence=0;
+ try{sequence=parseInt(localStorage.getItem(sequenceKey)||'0',10)||0}catch(_){}
+ sequence+=1;
+ try{localStorage.setItem(sequenceKey,String(sequence))}catch(_){}
+ const reportId='FC-SR-'+dateCode+'-'+String(sequence).padStart(3,'0');
+ const iconPaths={
+  info:'<circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path>',
+  sizes:'<path d="M4 5h16M4 12h16M4 19h16"></path><path d="M8 3v4M15 10v4M11 17v4"></path>',
+  colors:'<path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.5-3.3 1.5 1.5 0 0 1 1.1-2.5H18a3 3 0 0 0 3-3c0-5.1-4-9.2-9-9.2Z"></path><path d="M7.5 10h.01M10 7.5h.01M15 8h.01"></path>',
+  marker:'<path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 6-7"></path>',
+  cartons:'<path d="m3 7 9-4 9 4-9 4-9-4Z"></path><path d="M3 7v10l9 4 9-4V7M12 11v10"></path>',
+  summary:'<path d="M5 19V9M12 19V5M19 19v-7"></path>',
+  warning:'<path d="M12 3 2.5 20h19z"></path><path d="M12 9v5M12 17h.01"></path>',
+  formula:'<path d="M7 4h10M7 20h10M9 7l6 10M15 7l-6 10"></path>'
+ };
+ const icon=name=>'<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">'+(iconPaths[name]||iconPaths.info)+'</svg>';
+ const ratioTotal=list.reduce((sum,s)=>sum+n(st.mode==='ratio'?s.ratio:s.percent),0);
+ const sizeRows=list.map((s,i)=>'<tr><td><strong>'+esc(s.name)+'</strong></td><td>'+(st.mode==='ratio'?fmt(s.ratio):n(s.percent).toFixed(2)+'%')+'</td><td>'+fmt(d[i])+' pcs</td><td>'+(d[i]/qty*100).toFixed(2)+'%</td></tr>').join('');
+ const sizeFooterValue=st.mode==='ratio'?fmt(ratioTotal):ratioTotal.toFixed(2)+'%';
+ const sizeFooter='<tr class="total-row"><td>Total</td><td>'+sizeFooterValue+'</td><td>'+fmt(qty)+' pcs</td><td>100%</td></tr>';
+ const colorData=st.colors.map(c=>{
+  const ws=st.colorMode==='independent'?list.map(s=>n(c.ratios[s.id]??s.ratio)):weights();
+  const quantities=allocate(q(c.qty),ws);
+  return {name:c.name,quantities,total:quantities.reduce((sum,value)=>sum+value,0)};
+ });
+ const colorTotals=list.map((_,i)=>colorData.reduce((sum,c)=>sum+c.quantities[i],0));
+ const colorGrand=colorData.reduce((sum,c)=>sum+c.total,0);
+ const colorRows=colorData.map(c=>'<tr><td><strong>'+esc(c.name||'Unspecified')+'</strong></td>'+c.quantities.map(value=>'<td>'+fmt(value)+'</td>').join('')+'<td><strong>'+fmt(c.total)+'</strong></td></tr>').join('');
+ const colorTotalRow='<tr class="total-row"><td>All colors</td>'+colorTotals.map(value=>'<td>'+fmt(value)+'</td>').join('')+'<td>'+fmt(colorGrand)+'</td></tr>';
+ const colorColumnWidth=(82/(list.length+1)).toFixed(2)+'%';
+ const colorHeader='<tr><th style="width:13%">Color</th>'+list.map(s=>'<th style="width:'+colorColumnWidth+'">'+esc(s.name)+'</th>').join('')+'<th style="width:'+colorColumnWidth+'">Total</th></tr>';
+ const colorOrderState=colorGrand===qty?'Balanced':'Check quantities';
+ const markerData=list.map((s,i)=>{
+  const perLay=q(s.marker),required=perLay>0?Math.ceil(d[i]/perLay):(d[i]?Infinity:0);
+  return {perLay,required};
+ });
+ const markerLays=Math.max(0,...markerData.map(x=>Number.isFinite(x.required)?x.required:0));
+ const markerRows=markerData.map((x,i)=>{
+  const planned=markerLays*x.perLay,over=Math.max(0,planned-d[i]);
+  return '<tr><td><strong>'+esc(list[i].name)+'</strong></td><td>'+fmt(x.perLay)+'</td><td>'+fmt(d[i])+'</td><td>'+(Number.isFinite(x.required)?fmt(x.required):'Set per lay')+'</td><td>'+fmt(planned)+'</td><td>'+fmt(over)+'</td></tr>';
+ }).join('');
+ const markerPlanned=markerData.reduce((sum,x,i)=>sum+markerLays*x.perLay,0);
+ const markerOver=markerData.reduce((sum,x,i)=>sum+Math.max(0,markerLays*x.perLay-d[i]),0);
+ const markerFooter='<tr class="total-row"><td>Total</td><td>—</td><td>'+fmt(qty)+'</td><td>'+fmt(markerLays)+' lays</td><td>'+fmt(markerPlanned)+' pcs</td><td>'+fmt(markerOver)+' pcs</td></tr>';
+ const capacity=q($('#sr-carton-capacity').value),mixed=st.cartonMode==='mixed';
+ const sharedCartons=capacity?Math.floor(qty/capacity):0;
+ const cartonData=list.map((s,i)=>{
+  const full=capacity?(mixed?sharedCartons:Math.floor(d[i]/capacity)):0;
+  const perCarton=mixed?q(s.carton):capacity;
+  const packed=capacity?(mixed?Math.min(d[i],perCarton*sharedCartons):full*capacity):0;
+  return {perCarton,full,packed,loose:capacity?d[i]-packed:0};
+ });
+ const cartonFull=capacity?(mixed?sharedCartons:cartonData.reduce((sum,x)=>sum+x.full,0)):null;
+ const cartonPacked=capacity?cartonData.reduce((sum,x)=>sum+x.packed,0):null;
+ const cartonLoose=capacity?cartonData.reduce((sum,x)=>sum+x.loose,0):null;
+ const cartonMode=mixed?'Assorted-size packing':'One size per carton';
+ const cartonHeader=mixed
+  ?'<tr><th>Size</th><th>Pcs / carton</th><th>Order qty</th><th>Packed qty</th><th>Loose pcs</th></tr>'
+  :'<tr><th>Size</th><th>Capacity / carton</th><th>Order qty</th><th>Full cartons</th><th>Packed qty</th><th>Loose pcs</th></tr>';
+ const cartonRows=cartonData.map((x,i)=>'<tr><td><strong>'+esc(list[i].name)+'</strong></td><td>'+fmt(x.perCarton)+'</td><td>'+fmt(d[i])+'</td>'+(mixed?'':'<td>'+(capacity?fmt(x.full):'—')+'</td>')+'<td>'+(capacity?fmt(x.packed):'—')+'</td><td>'+(capacity?fmt(x.loose):'—')+'</td></tr>').join('');
+ const cartonFoot=mixed
+  ?'<tr class="total-row"><td>Total / carton</td><td>'+fmt(list.reduce((sum,s)=>sum+q(s.carton),0))+'</td><td>'+fmt(qty)+'</td><td>'+(capacity?fmt(cartonPacked):'—')+'</td><td>'+(capacity?fmt(cartonLoose):'—')+'</td></tr>'
+  :'<tr class="total-row"><td>Total</td><td>—</td><td>'+fmt(qty)+'</td><td>'+(capacity?fmt(cartonFull):'—')+'</td><td>'+(capacity?fmt(cartonPacked):'—')+'</td><td>'+(capacity?fmt(cartonLoose):'—')+'</td></tr>';
+ const modeLabel=st.mode==='ratio'?'Ratio-based':'Percentage-based';
+ const mixLabel=st.colorMode==='independent'?'Independent mix per color':'Shared size mix';
+ const buyer=$('#sr-buyer').value.trim(),style=$('#sr-style').value.trim(),po=$('#sr-po').value.trim(),orderDate=$('#sr-date').value,remarks=$('#sr-remarks').value.trim();
+ const html='<div class="report">'+
+  '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Size Ratio &amp; Assortment Planner</h1><div class="report-id">'+reportId+'</div></div></div>'+
+  '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Order Quantity</span><strong>'+fmt(qty)+' pcs</strong></div><div><span>Distribution Mode</span><strong>'+modeLabel+'</strong></div></div>'+
+  '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(esc(buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(po)||'________________')+'</strong></div><div><span>Order Date</span><strong>'+(esc(orderDate)||'________________')+'</strong></div></div></section>'+
+  '<section class="section"><div class="section-head">'+icon('sizes')+'<span>SIZE-WISE ORDER BREAKDOWN</span></div><table class="fabric-type-table"><thead><tr><th>Size</th><th>Ratio / Percentage</th><th>Quantity</th><th>Share</th></tr></thead><tbody>'+sizeRows+sizeFooter+'</tbody></table></section>'+
+  '<section class="section"><div class="section-head">'+icon('colors')+'<span>COLOR-WISE SIZE MATRIX</span></div><div style="padding:8px 10px;font-size:8px;line-height:1.5;color:#475569">Mix: '+mixLabel+' · Color quantity total: '+fmt(colorGrand)+' / '+fmt(qty)+' pcs · '+colorOrderState+'.</div><table class="fabric-type-table" style="font-size:7px;table-layout:fixed"><thead>'+colorHeader+'</thead><tbody>'+colorRows+colorTotalRow+'</tbody></table></section>'+
+  '<section class="section"><div class="section-head">'+icon('marker')+'<span>MARKER LAY PLAN</span></div><table class="fabric-type-table"><thead><tr><th>Size</th><th>Pcs / lay</th><th>Required qty</th><th>Lays needed</th><th>Planned cut</th><th>Overcut</th></tr></thead><tbody>'+markerRows+markerFooter+'</tbody></table></section>'+
+  '<section class="section"><div class="section-head">'+icon('cartons')+'<span>CARTON PACKING PLAN</span></div><div class="meta-grid"><div><span>Packing Mode</span><strong>'+cartonMode+'</strong></div><div><span>Carton Capacity</span><strong>'+(capacity?fmt(capacity)+' pcs':'Not set')+'</strong></div><div><span>Full Cartons</span><strong>'+(capacity?fmt(cartonFull):'—')+'</strong></div><div><span>Loose Balance</span><strong>'+(capacity?fmt(cartonLoose)+' pcs':'—')+'</strong></div></div><table class="fabric-type-table"><thead>'+cartonHeader+'</thead><tbody>'+cartonRows+cartonFoot+'</tbody></table>'+(capacity?'':'<div style="padding:8px 10px;font-size:8px;color:#475569">Set carton capacity in the planner to calculate packing quantities.</div>')+'</section>'+
+  '<section class="section"><div class="section-head">'+icon('formula')+'<span>CALCULATION METHOD</span></div><div style="padding:10px 12px;font-size:9px;line-height:1.6"><div>Order quantities use the selected size ratio or percentage. Remaining pieces are allocated by largest fractional share so the total matches the order quantity.</div><div style="margin-top:4px">Marker lays use the highest full-lay count required by any size. Carton totals follow the selected packing mode and capacity.</div></div></section>'+
+  '<div class="summary-grid"><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>TOTAL ORDER</span></div><strong>'+fmt(qty)+' pcs</strong><small>Planned garment quantity</small></div><div class="summary-card"><div class="metric-head">'+icon('sizes')+'<span>SIZE OPTIONS</span></div><strong>'+fmt(list.length)+'</strong><small>Sizes in this assortment</small></div><div class="summary-card"><div class="metric-head">'+icon('colors')+'<span>COLORS</span></div><strong>'+fmt(st.colors.length)+'</strong><small>Color entries</small></div><div class="summary-card"><div class="metric-head">'+icon('info')+'<span>COLOR QTY CHECK</span></div><strong>'+colorOrderState+'</strong><small>'+fmt(colorGrand)+' pcs across all colors</small></div></div>'+
+  '<section class="comments-section"><div class="comments-title">ORDER REMARKS:</div><div style="min-height:28px;font-size:9px;line-height:1.5;color:#334155">'+(esc(remarks)||'—')+'</div></section>'+
+  '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Planning report only. Confirm the buyer-approved size mix, marker lay settings and carton capacity before production.</div></div>'+
+  '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
+  '<div class="report-footer"><span>Fabrics Consumption - Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+ const filePart=value=>String(value||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
+ const poPart=filePart(po);
+ const fileName=['FC',filePart(buyer),filePart(style),poPart?'PO'+poPart.replace(/^PO[_-]?/i,''):'',reportId].filter(Boolean).join('_');
+ if(typeof generatePDF==='function')generatePDF(fileName,html);else window.print();
 }
 function reset(){st.mode='ratio';st.cartonMode='mixed';st.colorMode='shared';st.sizes=[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2}));st.colors=[{id:'c0',name:'Black',qty:1200,ratios:{}}];$('#sr-total').value=1200;$('#sr-carton-capacity').value=10;$('#sr-preset').value='custom';$('input[name="sr-color-mode"][value="shared"]').checked=true;renderAll();msg('Default size ratio restored.','success');}
 function init(){
