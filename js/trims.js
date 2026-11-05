@@ -59,25 +59,6 @@
   function pdfButton(){const r=button();report('Button Consumption Report','Button Consumption Report',[['Buttons per piece',r.perPc],['Extra / Spare',r.extra+'%'],['Requirement per dozen',r.dz+' pcs'],['Order quantity',qty()+' pcs']],r.order+' pcs','Buttons per Piece × Order Qty × (1 + Extra % ÷ 100), rounded up');}
   function pdfInterlining(){const r=interlining();report('Interlining Consumption Report','Interlining Consumption Report',[['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per piece',r.pieces],['Area per piece',fmt(r.pc,4)+' m²'],['Area per dozen',fmt(r.dz,3)+' m²']],fmt(r.order,3)+' m²','Length × Width × Quantity ÷ 10,000 × Order Qty');}
   document.addEventListener('DOMContentLoaded', function () {
-    // Remove the unwanted quick actions from the Trims page only.
-    const trimsPage = document.getElementById('page-trims');
-    if (trimsPage) {
-      const removeTrimsQuickActions = () => {
-        trimsPage.querySelectorAll('[id*="recent" i], [class*="recent" i], [data-tr-recent-panel]').forEach(node => node.remove());
-        trimsPage.querySelectorAll('button').forEach(btn => {
-          const label = (btn.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-          if (/^(load\s+)?demo\b/.test(label) || /^recent\b/.test(label) || /^reset\b/.test(label)) {
-            const toolbar = btn.parentElement;
-            btn.remove();
-            if (toolbar && toolbar !== trimsPage && !toolbar.querySelector('button')) toolbar.remove();
-          }
-        });
-      };
-      removeTrimsQuickActions();
-      // Some deployed legacy markup is injected after page initialization.
-      const observer = new MutationObserver(() => removeTrimsQuickActions());
-      observer.observe(trimsPage, { childList: true, subtree: true });
-    }
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
     ['th-seam','th-layer','th-spi','th-tps','bt-pp','bt-ex','il-len','il-wid','il-qty','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
