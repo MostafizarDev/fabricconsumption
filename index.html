@@ -839,18 +839,18 @@
       <label>Total Order Quantity (pcs)<input id="tr-order-qty" type="number" min="1" step="1" value="1200" placeholder="Enter order quantity"></label>
     </div>
     <div class="trims-toolbar">
-      <div class="trims-toolbar-note"><i data-lucide="info"></i><span>Results update automatically when you change an input.</span></div>
+      <div class="trims-toolbar-note"><i data-lucide="info"></i><span>Enter order details, choose a trims type, then review the calculated requirement.</span></div>
       <div class="trims-toolbar-actions">
-        <button type="button" class="trims-action-btn" id="tr-demo"><i data-lucide="flask-conical"></i> Demo</button>
-        <button type="button" class="trims-action-btn" id="tr-recent"><i data-lucide="history"></i> Recent</button>
-        <button type="button" class="trims-action-btn" id="tr-reset"><i data-lucide="rotate-ccw"></i> Reset</button>
+        <button type="button" class="trims-action-btn trims-demo-btn" id="tr-demo" title="Load sample order and trims values"><i data-lucide="flask-conical"></i><span><strong>Load Demo</strong><small>Sample values</small></span></button>
+        <button type="button" class="trims-action-btn" id="tr-recent" aria-expanded="false" aria-controls="tr-recent-panel" title="Open your five most recent calculations"><i data-lucide="history"></i><span><strong>Recent</strong><small>Last 5 records</small></span></button>
+        <button type="button" class="trims-action-btn trims-reset-btn" id="tr-reset" title="Clear the current inputs and restore default values"><i data-lucide="rotate-ccw"></i><span><strong>Reset All</strong><small>Clear inputs</small></span></button>
       </div>
     </div>
     <div class="trims-recent-panel" id="tr-recent-panel" hidden></div>
   </section>
 
   <section class="trims-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="calculator"></i></div><div><span class="trims-kicker">02 / CONSUMPTION CALCULATORS</span><h2>Trims Calculation</h2><p>Calculate each trims component independently using its approved production inputs.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="calculator"></i></div><div><span class="trims-kicker">02 / SELECT A CALCULATOR</span><h2>Choose Trims Type</h2><p>Select one option below. The matching input fields and results will appear underneath.</p></div></div>
     <div class="trims-mode-tabs" role="tablist" aria-label="Choose trims calculator">
       <button type="button" class="trims-mode-btn is-active" id="tr-mode-thread" role="tab" aria-selected="true" aria-controls="tr-thread-card" data-tr-mode="thread"><i data-lucide="scissors"></i><span><strong>Thread</strong><small>Consumption</small></span><b>01</b></button>
       <button type="button" class="trims-mode-btn" id="tr-mode-button" role="tab" aria-selected="false" aria-controls="tr-button-card" data-tr-mode="button"><i data-lucide="circle-dot"></i><span><strong>Button</strong><small>Requirements</small></span><b>02</b></button>
@@ -905,7 +905,7 @@
   </section>
 
   <section class="trims-results-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="trims-kicker">03 / ORDER OVERVIEW</span><h2>Consumption Summary</h2><p>Review calculated trims quantities for one garment and the complete order.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="trims-kicker">03 / FINAL REQUIREMENT</span><h2>Order Summary</h2><p>See the total quantity or fabric area required for your full order.</p></div></div>
     <div class="trims-summary-grid">
       <article><span>Thread / Order</span><strong id="tr-summary-thread">—</strong><small>meters</small></article>
       <article><span>Buttons / Order</span><strong id="tr-summary-button">—</strong><small>pieces</small></article>
