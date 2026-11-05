@@ -39,8 +39,12 @@ function colorsCalc(list,qty){
  const pill=$('#sr-color-status');pill.textContent=ok?'Balanced':'Mismatch';pill.className='sr-status-pill '+(ok?'is-success':'is-warning');
  $('#sr-color-matrix-head').innerHTML='<tr><th>Color</th>'+list.map(s=>'<th>'+esc(s.name)+'</th>').join('')+'<th>Total</th></tr>';
  $('#sr-color-matrix-body').innerHTML=st.colors.map(c=>{const ws=st.colorMode==='independent'?list.map(s=>n(c.ratios[s.id]??s.ratio)):weights(),d=allocate(q(c.qty),ws);return '<tr><td>'+esc(c.name)+'</td>'+d.map(x=>'<td>'+fmt(x)+'</td>').join('')+'<td><strong>'+fmt(d.reduce((a,b)=>a+b,0))+'</strong></td></tr>';}).join('');
- $$('.sr-color-ratios',root()).forEach(e=>e.remove());
- if(st.colorMode==='independent')st.colors.forEach(c=>{const box=document.createElement('div');box.className='sr-color-ratios';box.dataset.colorRatios=c.id;box.innerHTML='<strong>'+esc(c.name)+' size ratios</strong><div>'+list.map(s=>'<label>'+esc(s.name)+'<input type="number" min="0" step="any" data-color-ratio="'+s.id+'" value="'+n(c.ratios[s.id]??s.ratio)+'"></label>').join('')+'</div>';$('#sr-color-list').appendChild(box);});
+ if(st.colorMode!=='independent'){$$('.sr-color-ratios',root()).forEach(e=>e.remove());}
+ else {
+  const blocks=$$('.sr-color-ratios',root());
+  const rebuild=blocks.length!==st.colors.length||blocks.some(b=>$$('[data-color-ratio]',b).length!==list.length||!list.every(s=>$('[data-color-ratio="'+s.id+'"]',b)));
+  if(rebuild){blocks.forEach(e=>e.remove());st.colors.forEach(c=>{const box=document.createElement('div');box.className='sr-color-ratios';box.dataset.colorRatios=c.id;box.innerHTML='<strong>'+esc(c.name)+' size ratios</strong><div>'+list.map(s=>'<label>'+esc(s.name)+'<input type="number" min="0" step="any" data-color-ratio="'+s.id+'" value="'+n(c.ratios[s.id]??s.ratio)+'"></label>').join('')+'</div>';$('#sr-color-list').appendChild(box);});}
+ }
 }
 function markerCalc(list,d){
  const req=list.map((s,i)=>n(s.marker)>0?Math.ceil(d[i]/n(s.marker)):(d[i]?Infinity:0)),lays=Math.max(0,...req.filter(Number.isFinite));let planned=0,over=0;
