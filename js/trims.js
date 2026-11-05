@@ -22,12 +22,15 @@
       localStorage.setItem(recentKey, JSON.stringify(next));
     } catch (_) {}
   }
+  function escapeHTML(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
   function renderRecent() {
     const panel = $('tr-recent-panel');
     if (!panel) return;
     let list = [];
     try { list = JSON.parse(localStorage.getItem(recentKey) || '[]'); } catch (_) {}
-    panel.innerHTML = list.length ? list.map((item,i) => '<button type="button" class="trims-recent-item" data-recent-index="'+i+'"><strong>'+((item['tr-style'] || item['tr-po'] || 'Calculation '+(i+1)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])))+'</strong><span>'+Number(item['tr-order-qty']||0).toLocaleString('en-US')+' pcs · '+(String(item['tr-buyer']||'No buyer').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c])))+'</span></button>').join('') : '<p class="trims-recent-empty">No recent calculations saved yet. Calculate your trims to save a recent entry.</p>';
+    panel.innerHTML = list.length ? list.map((item,i) => '<button type="button" class="trims-recent-item" data-recent-index="'+i+'"><strong>'+escapeHTML(item['tr-style'] || item['tr-po'] || 'Calculation '+(i+1))+'</strong><span>'+Number(item['tr-order-qty']||0).toLocaleString('en-US')+' pcs · '+escapeHTML(item['tr-buyer']||'No buyer')+'</span></button>').join('') : '<p class="trims-recent-empty">No recent calculations saved yet. Calculate your trims to save a recent entry.</p>';
     panel.hidden = false;
     panel.querySelectorAll('[data-recent-index]').forEach(btn => btn.addEventListener('click', () => { restore(list[Number(btn.dataset.recentIndex)]); panel.hidden = true; }));
   }
