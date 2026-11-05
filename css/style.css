@@ -4194,3 +4194,41 @@ body.dark-mode #page-trims .trims-card{box-shadow:0 8px 24px rgba(0,0,0,.16)}
  #page-trims .trims-mode-btn{align-items:center;flex-direction:row;min-height:54px;padding:9px 12px}
  #page-trims .trims-mode-btn>b{position:static;margin-left:auto}
 }
+
+
+/* Trims action controls — clear labels and safer reset affordance */
+#page-trims .trims-toolbar{align-items:center;gap:14px}
+#page-trims .trims-toolbar-note{max-width:390px;align-items:flex-start;line-height:1.55}
+#page-trims .trims-toolbar-note svg{flex:0 0 15px;margin-top:1px}
+#page-trims .trims-toolbar-actions{align-items:stretch;gap:8px}
+#page-trims .trims-toolbar-actions .trims-action-btn{min-width:112px;min-height:48px;justify-content:flex-start;padding:8px 11px;border-radius:10px;text-align:left}
+#page-trims .trims-toolbar-actions .trims-action-btn>svg{flex:0 0 17px;width:17px;height:17px}
+#page-trims .trims-toolbar-actions .trims-action-btn>span{display:grid;gap:2px}
+#page-trims .trims-toolbar-actions .trims-action-btn strong{font-size:10px;font-weight:800;line-height:1.2}
+#page-trims .trims-toolbar-actions .trims-action-btn small{color:var(--muted-color,#64748b);font-size:8px;font-weight:500;line-height:1.2}
+#page-trims .trims-toolbar-actions .trims-demo-btn{border-color:#bae6fd;color:#0369a1;background:#f0f9ff}
+#page-trims .trims-toolbar-actions .trims-demo-btn>svg{color:#0284c7}
+#page-trims .trims-toolbar-actions #tr-recent[aria-expanded="true"]{border-color:#0ea5e9;color:#075985;background:#e0f2fe}
+#page-trims .trims-toolbar-actions .trims-reset-btn{border-color:#fecaca;color:#b91c1c;background:#fff7f7}
+#page-trims .trims-toolbar-actions .trims-reset-btn>svg{color:#dc2626}
+#page-trims .trims-toolbar-actions .trims-action-btn:focus-visible,#page-trims .trims-mode-btn:focus-visible{outline:3px solid rgba(14,165,233,.35);outline-offset:2px}
+#page-trims .trims-recent-panel{padding:12px}
+#page-trims .trims-recent-item{align-items:center;min-height:44px;padding:10px 12px;border-radius:9px}
+#page-trims .trims-recent-item:hover{border-color:#38bdf8;background:rgba(14,165,233,.06)}
+#page-trims .trims-recent-empty{margin:0;padding:10px 4px;line-height:1.6}
+body.dark-mode #page-trims .trims-toolbar-actions .trims-demo-btn{border-color:#155e75;color:#bae6fd;background:#102b43}
+body.dark-mode #page-trims .trims-toolbar-actions .trims-demo-btn small{color:#a5d9e8}
+body.dark-mode #page-trims .trims-toolbar-actions #tr-recent[aria-expanded="true"]{border-color:#0891b2;color:#cffafe;background:#12354a}
+body.dark-mode #page-trims .trims-toolbar-actions .trims-reset-btn{border-color:#7f1d1d;color:#fecaca;background:#321b25}
+body.dark-mode #page-trims .trims-toolbar-actions .trims-reset-btn>svg{color:#fca5a5}
+@media(max-width:760px){
+ #page-trims .trims-toolbar{align-items:flex-start;flex-direction:column}
+ #page-trims .trims-toolbar-actions{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+ #page-trims .trims-toolbar-actions .trims-action-btn{min-width:0;justify-content:center}
+}
+@media(max-width:420px){
+ #page-trims .trims-toolbar-actions .trims-action-btn{gap:6px;padding:8px 6px}
+ #page-trims .trims-toolbar-actions .trims-action-btn>svg{width:15px;height:15px;flex-basis:15px}
+ #page-trims .trims-toolbar-actions .trims-action-btn strong{font-size:9px}
+ #page-trims .trims-toolbar-actions .trims-action-btn small{font-size:7px}
+}
