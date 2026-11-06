@@ -4570,3 +4570,16 @@ body.dark-mode #page-trims .trims-card-actions .trims-secondary-btn:hover{
 #page-trims .thread-wastage-grid{max-width:260px;margin-top:14px}
 #page-trims .thread-parts-toolbar .trims-secondary-btn{white-space:nowrap}
 @media(max-width:560px){#page-trims .thread-parts-toolbar{align-items:flex-start;flex-direction:column}#page-trims .thread-parts-toolbar .trims-secondary-btn{align-self:flex-start}}
+
+
+/* Thread calculator: keep technical guidance secondary to the input table */
+#page-trims #th-ratio-note{
+  margin:10px 0 0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--text-secondary,#64748b);
+  font-size:10px;
+  font-weight:400;
+  line-height:1.5;
+}
