@@ -94,11 +94,29 @@
     put('tr-summary-interlining',fmt(order,3));
     return {length,width,pieces,waste,netPc,pc,dz,order};
   }
+  function updateOrderQuantityState(){
+    const input=$('tr-order-qty');
+    if(!input)return false;
+    const label=input.closest('label');
+    const missing=input.value.trim()===''||!Number.isFinite(Number(input.value))||Number(input.value)<1||!Number.isInteger(Number(input.value));
+    input.classList.toggle('is-missing',missing);
+    input.setAttribute('aria-invalid',String(missing));
+    input.setAttribute('aria-required','true');
+    if(label){
+      label.classList.toggle('is-missing',missing);
+      let hint=label.querySelector('.tr-order-required-hint');
+      if(missing){
+        if(!hint){hint=document.createElement('small');hint.className='tr-order-required-hint';hint.textContent='Required — enter total order quantity';label.appendChild(hint);}
+      }else if(hint){hint.remove();}
+    }
+    return !missing;
+  }
   function calculateAll(save=true) {
+    const orderQtyValid=updateOrderQuantityState();
     const q=qty();
     const t=thread(), b=button(), i=interlining();
     const ready = q>0 && (t.valid || ['bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste'].some(id=>val(id).trim()!==''));
-    put('tr-status',ready?'Results update when you complete the required fields.':'Enter your order quantity and calculator values to see the results.');
+    put('tr-status',!orderQtyValid?'Order quantity is required. Enter the total quantity in Order Information above.':ready?'Results update when you complete the required fields.':'Enter your calculator values to see the results.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
     if(window.lucide?.createIcons) window.lucide.createIcons();
     return { thread: t, button: b, interlining: i };
@@ -194,7 +212,7 @@
     $('th-parts-body')?.addEventListener('change',e=>{if(e.target.matches('.th-part-stitch')){syncThreadPartRatio(e.target);calculateAll();}});
     $('th-parts-body')?.addEventListener('click',e=>{const btn=e.target.closest('.th-remove-part');if(btn){const rows=$('th-parts-body').querySelectorAll('tr');if(rows.length>1)btn.closest('tr').remove();else{btn.closest('tr').querySelectorAll('input').forEach(input=>input.value='');btn.closest('tr').querySelector('select').value='';}calculateAll();}});
     ['th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
-    ['tr-buyer','tr-style','tr-po'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
+    ['tr-buyer','tr-style','tr-po','tr-order-qty'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
     $('btn-calc-thread')?.addEventListener('click',()=>{calculateAll();});
     $('btn-calc-button')?.addEventListener('click',()=>{calculateAll();});
     $('btn-calc-interlining')?.addEventListener('click',()=>{calculateAll();});
