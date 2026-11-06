@@ -95,7 +95,7 @@
     };
     const icon=name=>'<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">'+(iconPaths[name]||iconPaths.info)+'</svg>';
     const safeRows=rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td></tr>').join('');
-    const formulaItems=String(formula||'').split(/(?<=[.!?])\\s+/).filter(Boolean);
+    const formulaItems=Array.isArray(formula)?formula:String(formula||'').split('|').filter(Boolean);
     const formulaList='<ul class="formula-points">'+formulaItems.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ul>';
     const filePart=value=>String(value||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
     const filename=['FC_TRIMS',filePart(val('tr-buyer')),filePart(val('tr-style')),filePart(val('tr-po')),heading.replace(/[^a-z0-9]+/gi,'_'),reportId].filter(Boolean).join('_');
