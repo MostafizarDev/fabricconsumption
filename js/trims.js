@@ -94,7 +94,7 @@
   function calculateAll(save=true) {
     const q=qty();
     const t=thread(), b=button(), i=interlining();
-    const ready = q>0 && ['th-seam','th-ratio','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste'].some(id=>val(id).trim()!=='');
+    const ready = q>0 && (t.valid || ['bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste'].some(id=>val(id).trim()!==''));
     put('tr-status',ready?'Results update when you complete the required fields.':'Enter your order quantity and calculator values to see the results.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
     if(window.lucide?.createIcons) window.lucide.createIcons();
