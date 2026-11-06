@@ -849,15 +849,10 @@
     <div class="trims-calculator-grid">
       <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
-        <div class="trims-input-grid">
-          <label>Seam Length (m/pc)<input class="inp-plain" id="th-seam" type="number" min="0" step="any" placeholder="e.g. 10"></label>
-          <label>Stitch Type / Class<select class="inp-plain" id="th-stitch"><option value="">Select stitch type</option><option value="301">301 · Lockstitch</option><option value="101">101 · Chainstitch</option><option value="401">401 · 2-Thread Chainstitch</option><option value="304">304 · Zigzag Lockstitch</option><option value="503">503 · 2-Thread Overedge</option><option value="504">504 · 3-Thread Overedge</option><option value="512">512 · 4-Thread Mock Safety</option><option value="516">516 · 5-Thread Safety Stitch</option><option value="406">406 · 3-Thread Coverstitch</option><option value="602">602 · 4-Thread Coverstitch</option><option value="605">605 · 5-Thread Coverstitch</option><option value="custom">Custom Ratio</option></select></label>
-          <label>Thread Consumption Ratio (m/m)<input class="inp-plain" id="th-ratio" type="number" min="0" step="any" placeholder="Choose stitch or enter ratio"></label>
-          <label>Stitch Density (SPI)<input class="inp-plain" id="th-spi" type="number" min="1" step="any" placeholder="e.g. 18"></label>
-          <label>Fabric Layers / Plies<input class="inp-plain" id="th-layers" type="number" min="1" step="1" placeholder="e.g. 2"></label>
-          <label>Wastage (%)<input class="inp-plain" id="th-waste" type="number" min="0" step="any" placeholder="e.g. 15"></label>
-        </div>
-        <p class="trims-field-note" id="th-ratio-note">Standard ratios are reference values at 18 SPI. Enter your actual SPI and fabric plies; edit the ratio if you have a measured production-sample ratio.</p>
+        <div class="thread-parts-toolbar"><div><strong>Part-wise Stitching Details</strong><small>Add each seam / garment part separately. Stitch count is calculated from seam length and SPI.</small></div><button type="button" class="trims-secondary-btn" id="th-add-part">+ Add Part</button></div>
+        <div class="thread-parts-scroll"><table class="thread-parts-table"><thead><tr><th>Garment Part / Seam</th><th>Seam Length (m/pc)</th><th>Stitch Class</th><th>SPI</th><th>Thread Ratio (m/m)</th><th>Stitch Count</th><th>Thread (m)</th><th></th></tr></thead><tbody id="th-parts-body"></tbody></table></div>
+        <div class="trims-input-grid thread-wastage-grid"><label>Thread Wastage (%)<input class="inp-plain" id="th-waste" type="number" min="0" step="any" placeholder="e.g. 15"></label></div>
+        <p class="trims-field-note" id="th-ratio-note">Add each garment seam separately. Stitch count = Seam Length (m) × 39.3701 × SPI. Standard thread ratios are Coats reference values at 18 SPI; use a measured ratio for production accuracy when available.</p>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="th-pc">—</strong></div>
           <div><span>Per Dozen</span><strong id="th-dz">—</strong></div>
@@ -911,7 +906,7 @@
   <section class="trims-section trims-formula-section">
     <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="book-open-check"></i></div><div><span class="trims-kicker">04 / REFERENCE</span><h2>Formula Reference</h2><p>Review the calculation methods used by each trims calculator.</p></div></div>
     <div class="trims-formula-grid">
-      <article><h3>Thread Consumption</h3><p>Thread (m/pc) = Σ (Seam Length × Thread Ratio) × (1 + Wastage % ÷ 100)</p><small>Reference ratios are based on Coats guidance at 18 SPI. SPI and fabric plies are recorded as production context; do not multiply consumption by plies. Use a measured ratio from the actual fabric, stitch and SPI when available.</small></article>
+      <article><h3>Thread Consumption</h3><p>Stitch Count = Seam Length (m) × 39.3701 × SPI. Thread (m/pc) = Σ (Part Seam Length × Part Thread Ratio) × (1 + Wastage % ÷ 100)</p><small>Enter each garment seam separately. Standard ratios are reference values at 18 SPI; use measured ratios from the actual fabric, stitch and SPI for production accuracy.</small></article>
       <article><h3>Button Consumption</h3><p>Buttons = Buttons per Piece × Order Qty × (1 + Extra % ÷ 100)</p><small>Purchase quantity is rounded up to the next whole piece.</small></article>
       <article><h3>Interlining Consumption</h3><p>Area (m²/pc) = Length × Width × Qty ÷ 10,000 × (1 + Wastage % ÷ 100)</p><small>Full-order area = Wastage-adjusted Area per Piece × Order Qty.</small></article>
     </div>
