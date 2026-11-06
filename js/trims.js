@@ -174,7 +174,6 @@
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
-    addThreadPartRow();
     ['th-length','th-layers','th-spi','th-thread-per-stitch','bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
     ['tr-buyer','tr-style','tr-po','tr-order-qty'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
     $('btn-calc-thread')?.addEventListener('click',()=>{calculateAll();});
