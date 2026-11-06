@@ -12,18 +12,32 @@
     if (!complete(ids) || qty() < 1) return true;
     return false;
   };
+  const THREAD_STANDARDS = {
+    '301':{name:'301 Lockstitch',ratio:2.5},'101':{name:'101 Chainstitch',ratio:4},
+    '401':{name:'401 Two-Thread Chainstitch',ratio:5.5},'304':{name:'304 Zigzag Lockstitch',ratio:7},
+    '503':{name:'503 Two-Thread Overedge',ratio:12},'504':{name:'504 Three-Thread Overedge',ratio:14},
+    '512':{name:'512 Four-Thread Mock Safety',ratio:18},'516':{name:'516 Five-Thread Safety Stitch',ratio:20},
+    '406':{name:'406 Three-Thread Coverstitch',ratio:18},'602':{name:'602 Four-Thread Coverstitch',ratio:25},
+    '605':{name:'605 Five-Thread Coverstitch',ratio:28}
+  };
+  function syncThreadStandard(){
+    const stitch=$('th-stitch'),ratio=$('th-ratio'),note=$('th-ratio-note');
+    if(!stitch||!ratio)return;
+    const standard=THREAD_STANDARDS[stitch.value];
+    if(standard){ratio.value=standard.ratio;ratio.readOnly=true;if(note)note.textContent='Coats reference ratio loaded. Choose Custom Ratio to enter your own measured value.';}
+    else if(stitch.value==='custom'){ratio.value='';ratio.readOnly=false;if(note)note.textContent='Enter your measured ratio: metres of thread per metre of seam.';}
+    else{ratio.value='';ratio.readOnly=false;if(note)note.textContent='Select a standard stitch class or Custom Ratio.';}
+  }
   function thread() {
-    if (blankResults(['th-seam','th-layer','th-spi','th-tps','tr-order-qty'])) {
+    if (blankResults(['th-seam','th-ratio','th-waste','tr-order-qty'])) {
       ['th-pc','th-dz','th-order','tr-summary-thread'].forEach(id=>put(id,'—'));
-      return {seam:0,layers:0,spi:0,tps:0,pc:0,dz:0,order:0};
+      return {seam:0,stitch:val('th-stitch'),ratio:0,waste:0,netPc:0,pc:0,dz:0,order:0};
     }
-    const seam = num('th-seam'), layers = num('th-layer'), spi = num('th-spi'), tps = num('th-tps');
-    // Preserve the existing project formula and its current unit convention.
-    const pc = (seam * layers * spi * tps) / 39.37;
-    const dz = pc * 12, order = pc * qty();
-    put('th-pc', fmt(pc,1)+' m'); put('th-dz',fmt(dz,1)+' m'); put('th-order',fmt(order,1)+' m');
-    put('tr-summary-thread',fmt(order,1));
-    return {seam,layers,spi,tps,pc,dz,order};
+    const seam=num('th-seam'),ratio=num('th-ratio'),waste=num('th-waste');
+    const netPc=seam*ratio,pc=netPc*(1+waste/100),dz=pc*12,order=pc*qty();
+    put('th-pc',fmt(pc,2)+' m');put('th-dz',fmt(dz,2)+' m');put('th-order',fmt(order,2)+' m');
+    put('tr-summary-thread',fmt(order,2));
+    return {seam,stitch:val('th-stitch'),ratio,waste,netPc,pc,dz,order};
   }
   function button() {
     if (blankResults(['bt-pp','bt-ex','tr-order-qty'])) {
@@ -50,7 +64,7 @@
   function calculateAll(save=true) {
     const q=qty();
     const t=thread(), b=button(), i=interlining();
-    const ready = q>0 && ['th-seam','th-layer','th-spi','th-tps','bt-pp','bt-ex','il-len','il-wid','il-qty'].some(id=>val(id).trim()!=='');
+    const ready = q>0 && ['th-seam','th-ratio','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty'].some(id=>val(id).trim()!=='');
     put('tr-status',ready?'Results update when you complete the required fields.':'Enter your order quantity and calculator values to see the results.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
     if(window.lucide?.createIcons) window.lucide.createIcons();
@@ -119,10 +133,10 @@
   }
   function pdfThread(){
     const r=thread();
-    if(blankResults(['th-seam','th-layer','th-spi','th-tps','tr-order-qty'])){alert('Please complete all Thread inputs and enter a valid order quantity before downloading the report.');return;}
+    if(blankResults(['th-seam','th-ratio','th-waste','tr-order-qty'])){alert('Please complete the Thread inputs and enter a valid order quantity before downloading the report.');return;}
     report('Thread Consumption Report','Thread Consumption Report',[
-      ['Seam Length',r.seam+' m/pc'],['Number of Layers',r.layers],['Stitch Density',r.spi+' SPI'],['Thread Per Stitch',r.tps]
-    ],{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},'Seam Length × Layers × Stitch Density × Thread Per Stitch ÷ 39.37. Per dozen = per piece × 12. Full order = per piece × order quantity.','THREAD CONSUMPTION DETAILS');
+      ['Seam Length',r.seam+' m/pc'],['Stitch Type / Class',THREAD_STANDARDS[r.stitch]?.name||'Custom Ratio'],['Thread Consumption Ratio',r.ratio+' m/m'],['Wastage',r.waste+'%'],['Net Thread per Piece',fmt(r.netPc,2)+' m'],['Final Thread per Piece',fmt(r.pc,2)+' m']
+    ],{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},['Net thread per piece = Seam length × Thread ratio','Final thread per piece = Net thread × (1 + Wastage % ÷ 100)','Per dozen = Final per piece × 12','Full order = Final per piece × Order quantity'],'THREAD CONSUMPTION DETAILS');
   }
   function pdfButton(){
     const r=button();
@@ -141,7 +155,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
-    ['th-seam','th-layer','th-spi','th-tps','bt-pp','bt-ex','il-len','il-wid','il-qty','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
+    $('th-stitch')?.addEventListener('change',()=>{syncThreadStandard();calculateAll();});
+    syncThreadStandard();
+    ['th-seam','th-ratio','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
     ['tr-buyer','tr-style','tr-po'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
     $('btn-calc-thread')?.addEventListener('click',()=>{calculateAll();});
     $('btn-calc-button')?.addEventListener('click',()=>{calculateAll();});
