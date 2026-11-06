@@ -4470,29 +4470,6 @@ body.dark-mode #page-trims .trims-result-grid .trims-result-primary{
   border-color:#0e7490;background:linear-gradient(140deg,#10354a,#10283e);
 }
 body.dark-mode #page-trims .trims-result-grid .trims-result-primary strong{color:#67e8f9}
-/* The per-dozen values use the shared .badge-green class; override its bright
-   global green pill so the number remains readable in the dark theme. */
-body.dark-mode #page-trims .trims-result-grid strong.badge-green,
-body.dark-mode #page-trims .trims-result-grid .badge-green{
-  display:inline-flex;align-items:center;width:max-content;max-width:100%;
-  padding:2px 9px;border:1px solid #166534;border-radius:999px;
-  color:#bbf7d0!important;background:#123526!important;
-  line-height:1.35;white-space:normal;
-}
-body.dark-mode #page-trims .trims-status{
-  border-color:#155e75;color:#c7f0ff;
-  background:linear-gradient(100deg,#102b43,#11263c);
-}
-body.dark-mode #page-trims .trims-formula-grid article{
-  border-color:#34465e;background:#0e1a2b;
-}
-body.dark-mode #page-trims .trims-formula-grid p{color:#d4dfed}
-body.dark-mode #page-trims .trims-secondary-btn{
-  border-color:#49617d;color:#dceafa;background:#132238;
-}
-body.dark-mode #page-trims .trims-secondary-btn:hover{
-  border-color:#0ea5e9;color:#7dd3fc;background:#123047;
-}
 @media(max-width:560px){
   #page-trims .trims-card-actions{gap:9px}
   #page-trims .trims-card-actions .trims-primary-btn{min-width:165px;max-width:220px}
