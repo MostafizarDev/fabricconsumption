@@ -836,7 +836,7 @@
       <label>Buyer Name<input id="tr-buyer" type="text" placeholder="Enter buyer name"></label>
       <label>Style Number<input id="tr-style" type="text" placeholder="Enter style number"></label>
       <label>PO Number<input id="tr-po" type="text" placeholder="Enter PO number"></label>
-      <label>Total Order Quantity (pcs)<input id="tr-order-qty" type="number" min="1" step="1" value="1200" placeholder="Enter order quantity"></label>
+      <label>Total Order Quantity (pcs)<input id="tr-order-qty" type="number" min="1" step="1" placeholder="Enter order quantity" placeholder="e.g. 1200"></label>
     </div>
     <div class="trims-guidance"><i data-lucide="info"></i><span>Step 1: Enter your order quantity above. Step 2: Select Thread, Button or Interlining. Step 3: Enter the details and review your requirement below.</span></div>
   </section>
@@ -852,10 +852,10 @@
       <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
         <div class="trims-input-grid">
-          <label>Seam Length (m/pc)<input class="inp-plain" id="th-seam" type="number" min="0" step="any" value="10"></label>
-          <label>Number of Layers<input class="inp-plain" id="th-layer" type="number" min="0" step="any" value="2"></label>
-          <label>Stitch Density (SPI)<input class="inp-plain" id="th-spi" type="number" min="0" step="any" value="12"></label>
-          <label>Thread Per Stitch<input class="inp-plain" id="th-tps" type="number" min="0" step="any" value="3"></label>
+          <label>Seam Length (m/pc)<input class="inp-plain" id="th-seam" type="number" min="0" step="any" placeholder="e.g. 10"></label>
+          <label>Number of Layers<input class="inp-plain" id="th-layer" type="number" min="0" step="any" placeholder="e.g. 2"></label>
+          <label>Stitch Density (SPI)<input class="inp-plain" id="th-spi" type="number" min="0" step="any" placeholder="e.g. 12"></label>
+          <label>Thread Per Stitch<input class="inp-plain" id="th-tps" type="number" min="0" step="any" placeholder="e.g. 3"></label>
         </div>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="th-pc">—</strong></div>
@@ -868,8 +868,8 @@
       <article class="trims-card" id="tr-button-card" role="tabpanel" aria-labelledby="tr-mode-button" hidden>
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="circle-dot"></i></div><div><span class="trims-card-tag">GARMENT ACCESSORY</span><h3>Button Consumption</h3><p>Calculate button quantities including spare allowance.</p></div></div>
         <div class="trims-input-grid">
-          <label>Buttons per Piece<input class="inp-plain" id="bt-pp" type="number" min="0" step="any" value="8"></label>
-          <label>Extra / Spare (%)<input class="inp-plain" id="bt-ex" type="number" min="0" step="any" value="5"></label>
+          <label>Buttons per Piece<input class="inp-plain" id="bt-pp" type="number" min="0" step="any" placeholder="e.g. 8"></label>
+          <label>Extra / Spare (%)<input class="inp-plain" id="bt-ex" type="number" min="0" step="any" placeholder="e.g. 5"></label>
         </div>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="bt-pc">—</strong></div>
@@ -882,9 +882,9 @@
       <article class="trims-card" id="tr-interlining-card" role="tabpanel" aria-labelledby="tr-mode-interlining" hidden>
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="layers"></i></div><div><span class="trims-card-tag">FUSING MATERIAL</span><h3>Interlining Consumption</h3><p>Calculate interlining area from cut-piece dimensions.</p></div></div>
         <div class="trims-input-grid">
-          <label>Length (cm)<input class="inp-plain" id="il-len" type="number" min="0" step="any" value="30"></label>
-          <label>Width (cm)<input class="inp-plain" id="il-wid" type="number" min="0" step="any" value="10"></label>
-          <label>Quantity per Piece<input class="inp-plain" id="il-qty" type="number" min="0" step="any" value="2"></label>
+          <label>Length (cm)<input class="inp-plain" id="il-len" type="number" min="0" step="any" placeholder="e.g. 30"></label>
+          <label>Width (cm)<input class="inp-plain" id="il-wid" type="number" min="0" step="any" placeholder="e.g. 10"></label>
+          <label>Quantity per Piece<input class="inp-plain" id="il-qty" type="number" min="0" step="any" placeholder="e.g. 2"></label>
         </div>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="il-pc">—</strong></div>
