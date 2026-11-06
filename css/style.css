@@ -4226,3 +4226,167 @@ body.dark-mode #page-trims .trims-guidance svg{color:#67e8f9}
 @media(max-width:390px){
  #page-trims .trims-input-grid,#page-trims #tr-interlining-card .trims-input-grid{grid-template-columns:1fr}
 }
+
+
+/* Trims page — professional visual polish (layout and functionality unchanged) */
+#page-trims{
+  --tr-accent:#0284c7;
+  --tr-accent-strong:#0369a1;
+  --tr-border:#dbe5f0;
+}
+#page-trims .trims-hero{
+  min-height:142px;
+  padding:28px 32px;
+  border-radius:17px;
+  background:linear-gradient(112deg,#0b1830 0%,#132c4d 58%,#0d4355 100%);
+  box-shadow:0 14px 34px rgba(15,35,65,.13);
+}
+#page-trims .trims-hero-copy>span{font-size:9px;letter-spacing:1.7px}
+#page-trims .trims-hero h1{font-size:clamp(25px,3vw,33px);letter-spacing:-.9px}
+#page-trims .trims-hero p{font-size:12px;line-height:1.7}
+#page-trims .trims-section,
+#page-trims .trims-results-section{
+  margin-bottom:16px;
+  padding:23px;
+  border-color:var(--tr-border);
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(15,35,65,.045);
+}
+#page-trims .trims-section-heading{gap:13px;margin-bottom:20px}
+#page-trims .trims-heading-icon{
+  width:42px;height:42px;flex-basis:42px;
+  border-color:#c7e8fb;border-radius:12px;
+  background:linear-gradient(145deg,#f0f9ff,#e7f5ff);
+}
+#page-trims .trims-kicker{font-size:9px;letter-spacing:1.35px}
+#page-trims .trims-section-heading h2{font-size:18px;letter-spacing:-.25px}
+#page-trims .trims-section-heading p{font-size:11px}
+#page-trims .trims-order-grid{gap:15px}
+#page-trims .trims-order-grid label,
+#page-trims .trims-input-grid label{gap:8px;font-size:10px;font-weight:750;color:#334155}
+#page-trims .trims-order-grid input,
+#page-trims .trims-input-grid input{
+  min-height:44px;padding:10px 13px;
+  border:1px solid #cbd8e7;border-radius:10px;
+  background:#fff;font-size:12px;
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+#page-trims .trims-order-grid input:hover,
+#page-trims .trims-input-grid input:hover{border-color:#94b8d2}
+#page-trims .trims-order-grid input:focus,
+#page-trims .trims-input-grid input:focus{
+  border-color:#0ea5e9;
+  box-shadow:0 0 0 3px rgba(14,165,233,.13);
+}
+#page-trims .trims-guidance{
+  margin-top:17px;padding:11px 14px;
+  border-color:#c8e9fa;border-radius:10px;
+  background:linear-gradient(90deg,#f0f9ff,#f7fcff);
+  font-size:10px;
+}
+#page-trims .trims-mode-tabs{gap:12px;margin-bottom:17px}
+#page-trims .trims-mode-btn{
+  min-height:72px;padding:13px 16px;
+  border-color:#d8e3ef;border-radius:13px;
+  background:linear-gradient(145deg,#fbfdff,#f5f8fc);
+}
+#page-trims .trims-mode-btn>i{
+  width:39px;height:39px;flex-basis:39px;
+  border-color:#dce8f2;border-radius:11px;
+}
+#page-trims .trims-mode-btn strong{font-size:12px;letter-spacing:.1px}
+#page-trims .trims-mode-btn small{font-size:9px}
+#page-trims .trims-mode-btn.is-active{
+  border-color:#0ea5e9;
+  background:linear-gradient(120deg,#eaf7ff,#f0fbff);
+  box-shadow:inset 0 0 0 1px rgba(14,165,233,.12),0 7px 18px rgba(14,165,233,.09);
+}
+#page-trims .trims-card{
+  padding:24px;
+  border-color:#dce6f0;border-radius:14px;
+  box-shadow:0 7px 22px rgba(15,35,65,.045);
+}
+#page-trims .trims-card-head{gap:13px;margin-bottom:21px}
+#page-trims .trims-card-icon{
+  width:44px;height:44px;flex-basis:44px;
+  border-radius:13px;
+  background:linear-gradient(145deg,#eff9ff,#e8f5ff);
+}
+#page-trims .trims-card-tag{font-size:8px;letter-spacing:1.25px}
+#page-trims .trims-card h3{font-size:16px;letter-spacing:-.2px}
+#page-trims .trims-card-head p{font-size:11px}
+#page-trims .trims-input-grid{gap:15px}
+#page-trims .trims-result-grid{gap:11px;margin-top:20px}
+#page-trims .trims-result-grid>div{
+  min-height:78px;padding:14px 15px;
+  border-color:#e0e8f1;border-radius:11px;
+  background:#f8fafc;
+}
+#page-trims .trims-result-grid span{font-size:10px;letter-spacing:.1px}
+#page-trims .trims-result-grid strong{font-size:19px;letter-spacing:-.35px}
+#page-trims .trims-result-grid .trims-result-primary{
+  border-color:#b9e3f8;
+  background:linear-gradient(145deg,#eff9ff,#e8f6ff);
+}
+#page-trims .trims-card-actions{gap:10px;margin-top:18px}
+#page-trims .trims-primary-btn,
+#page-trims .trims-secondary-btn{
+  min-height:43px;padding:10px 14px;
+  border-radius:10px;font-size:11px;font-weight:750;
+}
+#page-trims .trims-primary-btn{
+  border-color:#0284c7;
+  background:linear-gradient(105deg,#0284c7,#2563eb);
+  box-shadow:0 4px 10px rgba(2,132,199,.14);
+}
+#page-trims .trims-primary-btn:focus-visible,
+#page-trims .trims-secondary-btn:focus-visible,
+#page-trims .trims-mode-btn:focus-visible{
+  outline:3px solid rgba(14,165,233,.28);outline-offset:2px;
+}
+#page-trims .trims-secondary-btn{
+  border:1px solid #cbd8e7;color:#334155;background:#fff;
+}
+#page-trims .trims-secondary-btn:hover{border-color:#7dd3fc;color:#0369a1;background:#f0f9ff}
+#page-trims .trims-summary-grid{gap:13px}
+#page-trims .trims-summary-grid article{
+  min-height:112px;padding:17px;
+  border-color:#dce6f0;border-radius:13px;
+  background:linear-gradient(145deg,#fff,#f8fbff);
+}
+#page-trims .trims-summary-grid span{font-size:10px;letter-spacing:.35px}
+#page-trims .trims-summary-grid strong{font-size:clamp(21px,2.3vw,27px)}
+#page-trims .trims-summary-grid small{font-size:9px}
+#page-trims .trims-status{
+  padding:12px 14px;border-radius:10px;font-size:10px;
+}
+#page-trims .trims-formula-grid{gap:12px}
+#page-trims .trims-formula-grid article{
+  padding:15px;border-color:#e0e8f1;border-radius:11px;
+}
+#page-trims .trims-formula-grid h3{font-size:11px}
+#page-trims .trims-formula-grid p{font-size:10px;line-height:1.7}
+#page-trims .trims-formula-grid small{font-size:9px;line-height:1.6}
+body.dark-mode #page-trims .trims-section,
+body.dark-mode #page-trims .trims-results-section{border-color:#2b3b52;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+body.dark-mode #page-trims .trims-heading-icon{border-color:#164e63;background:#102b43}
+body.dark-mode #page-trims .trims-order-grid label,
+body.dark-mode #page-trims .trims-input-grid label{color:#d5e1ef}
+body.dark-mode #page-trims .trims-order-grid input,
+body.dark-mode #page-trims .trims-input-grid input{border-color:#40516a;background:#0b1627}
+body.dark-mode #page-trims .trims-guidance{border-color:#155e75;background:#102b43}
+body.dark-mode #page-trims .trims-mode-btn{border-color:#33465f;background:#111f33}
+body.dark-mode #page-trims .trims-mode-btn.is-active{border-color:#0891b2;background:linear-gradient(120deg,#12364a,#172b4b)}
+body.dark-mode #page-trims .trims-card{border-color:#2b3b52;background:#111c2e}
+body.dark-mode #page-trims .trims-card-icon{border-color:#164e63;background:#102b43}
+body.dark-mode #page-trims .trims-result-grid>div,
+body.dark-mode #page-trims .trims-summary-grid article,
+body.dark-mode #page-trims .trims-formula-grid article{border-color:#33465f;background:#0d192b}
+body.dark-mode #page-trims .trims-result-grid .trims-result-primary{border-color:#155e75;background:#102b43}
+body.dark-mode #page-trims .trims-secondary-btn{border-color:#475569;color:#e2e8f0;background:#0f172a}
+@media(max-width:650px){
+  #page-trims .trims-section,#page-trims .trims-results-section{padding:16px}
+  #page-trims .trims-card{padding:17px}
+  #page-trims .trims-mode-tabs{gap:8px}
+  #page-trims .trims-mode-btn{padding:10px}
+}
