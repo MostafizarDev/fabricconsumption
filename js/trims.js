@@ -7,7 +7,16 @@
   const qty = () => Math.floor(num('tr-order-qty'));
   const val = id => $(id)?.value ?? '';
   const put = (id, value) => { if ($(id)) $(id).textContent = value; };
+  const complete = ids => ids.every(id => val(id).trim() !== '' && Number.isFinite(Number(val(id))) && Number(val(id)) >= 0);
+  const blankResults = ids => {
+    if (!complete(ids) || qty() < 1) return true;
+    return false;
+  };
   function thread() {
+    if (blankResults(['th-seam','th-layer','th-spi','th-tps','tr-order-qty'])) {
+      ['th-pc','th-dz','th-order','tr-summary-thread'].forEach(id=>put(id,'—'));
+      return {seam:0,layers:0,spi:0,tps:0,pc:0,dz:0,order:0};
+    }
     const seam = num('th-seam'), layers = num('th-layer'), spi = num('th-spi'), tps = num('th-tps');
     // Preserve the existing project formula and its current unit convention.
     const pc = (seam * layers * spi * tps) / 39.37;
@@ -17,6 +26,10 @@
     return {seam,layers,spi,tps,pc,dz,order};
   }
   function button() {
+    if (blankResults(['bt-pp','bt-ex','tr-order-qty'])) {
+      ['bt-pc','bt-dz','bt-order','tr-summary-button'].forEach(id=>put(id,'—'));
+      return {perPc:0,extra:0,rawPc:0,dz:0,order:0};
+    }
     const perPc = num('bt-pp'), extra = num('bt-ex');
     const rawPc = perPc * (1 + extra / 100), dz = Math.ceil(rawPc * 12), order = Math.ceil(rawPc * qty());
     put('bt-pc',fmt(rawPc,2)+' pcs'); put('bt-dz',dz.toLocaleString('en-US')+' pcs'); put('bt-order',order.toLocaleString('en-US')+' pcs');
@@ -24,6 +37,10 @@
     return {perPc,extra,rawPc,dz,order};
   }
   function interlining() {
+    if (blankResults(['il-len','il-wid','il-qty','tr-order-qty'])) {
+      ['il-pc','il-dz','il-order','tr-summary-interlining'].forEach(id=>put(id,'—'));
+      return {length:0,width:0,pieces:0,pc:0,dz:0,order:0};
+    }
     const length=num('il-len'), width=num('il-wid'), pieces=num('il-qty');
     const pc=(length*width*pieces)/10000, dz=pc*12, order=pc*qty();
     put('il-pc',fmt(pc,4)+' m²'); put('il-dz',fmt(dz,3)+' m²'); put('il-order',fmt(order,3)+' m²');
@@ -33,7 +50,8 @@
   function calculateAll(save=true) {
     const q=qty();
     const t=thread(), b=button(), i=interlining();
-    put('tr-status',q>0?'Calculated for '+q.toLocaleString('en-US')+' garments. Results include the existing button spare allowance.':'Enter a valid order quantity greater than zero.');
+    const ready = q>0 && ['th-seam','th-layer','th-spi','th-tps','bt-pp','bt-ex','il-len','il-wid','il-qty'].some(id=>val(id).trim()!=='');
+    put('tr-status',ready?'Results update when you complete the required fields.':'Enter your order quantity and calculator values to see the results.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
     if(window.lucide?.createIcons) window.lucide.createIcons();
     return { thread: t, button: b, interlining: i };
