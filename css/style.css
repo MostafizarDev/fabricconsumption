@@ -4533,3 +4533,23 @@ body.dark-mode #page-trims .trims-card-actions .trims-secondary-btn:hover{
     padding:9px 13px;
   }
 }
+
+
+/* Align the Trims SVG icon vertically with the navigation label */
+.tab-btn[data-page="trims"]{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  line-height:1;
+}
+.tab-btn[data-page="trims"] svg{
+  display:block;
+  flex:0 0 15px;
+  width:15px;
+  height:15px;
+  margin:0;
+  position:static;
+  vertical-align:middle;
+  transform:none;
+}
