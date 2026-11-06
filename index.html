@@ -850,9 +850,9 @@
       <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
         <div class="thread-parts-toolbar"><div><strong>Part-wise Stitching Details</strong><small>Add each seam / garment part separately. Stitch count is calculated from seam length and SPI.</small></div><button type="button" class="trims-secondary-btn" id="th-add-part">+ Add Part</button></div>
-        <div class="thread-parts-scroll"><table class="thread-parts-table"><thead><tr><th>Garment Part / Seam</th><th>Seam Length (m/pc)</th><th>Stitch Class</th><th>SPI</th><th>Thread Ratio (m/m)</th><th>Stitch Count</th><th>Thread (m)</th><th></th></tr></thead><tbody id="th-parts-body"></tbody></table></div>
+        <div class="thread-parts-scroll"><table class="thread-parts-table"><thead><tr><th>Garment Part / Seam</th><th>Seam Length (m/pc)</th><th>Stitch Class</th><th>SPI</th><th>Thread Ratio (m thread / m seam)</th><th>Stitch Count</th><th>Thread (m)</th><th></th></tr></thead><tbody id="th-parts-body"></tbody></table></div>
         <div class="trims-input-grid thread-wastage-grid"><label>Thread Wastage (%)<input class="inp-plain" id="th-waste" type="number" min="0" step="any" placeholder="e.g. 15"></label></div>
-        <p class="trims-field-note" id="th-ratio-note">Enter each garment seam as a separate row. Standard ratios are reference values at 18 SPI; use a measured ratio when available.</p>
+        <p class="trims-field-note" id="th-ratio-note">Coats ratios are estimates at 18 SPI. For production accuracy, measure the ratio on the actual fabric at the actual SPI.</p>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="th-pc">—</strong></div>
           <div><span>Per Dozen</span><strong id="th-dz">—</strong></div>
