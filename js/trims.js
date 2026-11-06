@@ -67,15 +67,63 @@
     });
     if (window.lucide?.createIcons) window.lucide.createIcons();
   }
-    function report(title, heading, rows, result, formula) {
-    const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    const meta=[['Buyer',val('tr-buyer')],['Style',val('tr-style')],['PO Number',val('tr-po')],['Order Qty',qty()+' pcs']];
-    const html='<div class="header"><h1>'+esc(heading)+'</h1><div class="date">Generated: '+new Date().toLocaleString()+'</div></div><div class="box"><div>Order Requirement</div><div class="box-value">'+esc(result)+'</div><div>Full order</div></div><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>'+meta.concat(rows).map(r=>'<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>').join('')+'</tbody></table><div style="margin-top:20px;padding:12px;background:#f8fafc;border-radius:8px"><strong>Formula reference:</strong><br>'+esc(formula)+'</div>';
-    if(typeof generatePDF==='function') generatePDF(title,html); else window.print();
+    function report(title, heading, rows, result, formula, sectionLabel, statusNote) {
+    const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const now=new Date();
+    const dateText=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+    const timeText=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    const reportId='FC-TRIMS-'+now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0');
+    const iconPaths={
+      info:'<circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path>',
+      components:'<rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>',
+      summary:'<path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 6-7"></path>',
+      warning:'<path d="M12 3 2.5 20h19z"></path><path d="M12 9v5M12 17h.01"></path>',
+      formula:'<path d="M7 4h10M7 20h10M9 7l6 10M15 7l-6 10"></path>'
+    };
+    const icon=name=>'<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">'+(iconPaths[name]||iconPaths.info)+'</svg>';
+    const safeRows=rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td></tr>').join('');
+    const filePart=value=>String(value||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
+    const filename=['FC_TRIMS',filePart(val('tr-buyer')),filePart(val('tr-style')),filePart(val('tr-po')),heading.replace(/[^a-z0-9]+/gi,'_'),reportId].filter(Boolean).join('_');
+    const reportHtml='<div class="report">'+
+      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>'+esc(heading)+'</h1><div class="report-id">'+reportId+'</div></div></div>'+
+      '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Report Type</span><strong>TRIMS</strong></div><div><span>Order Quantity</span><strong>'+qty().toLocaleString('en-US')+' pcs</strong></div></div>'+
+      '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
+      '<div><span>Buyer Name</span><strong>'+(esc(val('tr-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(val('tr-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(val('tr-po'))||'________________')+'</strong></div><div><span>Trims Category</span><strong>'+esc(title)+'</strong></div></div></section>'+
+      '<section class="section"><div class="section-head">'+icon('components')+'<span>'+esc(sectionLabel)+'</span></div><table class="consumption-table"><thead><tr><th style="width:6%">SL</th><th style="width:34%">Parameter</th><th style="width:60%">Input / Result</th></tr></thead><tbody>'+safeRows+'</tbody></table></section>'+
+      '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER PIECE</span></div><strong>'+esc(result.pc)+'</strong><small>Consumption for one garment</small></div><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER DOZEN</span></div><strong>'+esc(result.dz)+'</strong><small>Consumption for 12 garments</small></div><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>FULL ORDER TOTAL</span></div><strong>'+esc(result.order)+'</strong><small>For '+qty().toLocaleString('en-US')+' garments</small></div></div>'+
+      '<section class="section"><div class="section-head">'+icon('formula')+'<span>CALCULATION METHOD</span></div><div style="padding:10px 12px;font-size:9px;line-height:1.65"><strong>'+esc(sectionLabel)+'</strong><div style="margin-top:4px;color:#475569">'+esc(formula)+'</div></div></section>'+
+      '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
+      '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> '+esc(statusNote||'Consumption estimate only. Verify trims specifications, approved sample, order quantity and production requirements before bulk purchasing.')+'</div></div>'+
+      '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
+      '<div class="report-footer"><span>Fabrics Consumption - Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+    if(typeof generatePDF==='function')generatePDF(filename,reportHtml);else window.print();
   }
-  function pdfThread(){const r=thread();report('Thread Consumption Report','Thread Consumption Report',[['Seam Length',r.seam+' m/pc'],['Layers',r.layers],['Stitch Density',r.spi+' SPI'],['Thread Per Stitch',r.tps],['Consumption per piece',fmt(r.pc,2)+' m'],['Consumption per dozen',fmt(r.dz,2)+' m']],fmt(r.order,2)+' m','Seam Length × Layers × SPI × Thread Per Stitch ÷ 39.37');}
-  function pdfButton(){const r=button();report('Button Consumption Report','Button Consumption Report',[['Buttons per piece',r.perPc],['Extra / Spare',r.extra+'%'],['Requirement per dozen',r.dz+' pcs'],['Order quantity',qty()+' pcs']],r.order+' pcs','Buttons per Piece × Order Qty × (1 + Extra % ÷ 100), rounded up');}
-  function pdfInterlining(){const r=interlining();report('Interlining Consumption Report','Interlining Consumption Report',[['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per piece',r.pieces],['Area per piece',fmt(r.pc,4)+' m²'],['Area per dozen',fmt(r.dz,3)+' m²']],fmt(r.order,3)+' m²','Length × Width × Quantity ÷ 10,000 × Order Qty');}
+  function pdfThread(){
+    const r=thread();
+    if(blankResults(['th-seam','th-layer','th-spi','th-tps','tr-order-qty'])){alert('Please complete all Thread inputs and enter a valid order quantity before downloading the report.');return;}
+    report('Thread Consumption Report','Thread Consumption Report',[
+      ['Buyer Name',val('tr-buyer')||'—'],['Style Number',val('tr-style')||'—'],['PO Number',val('tr-po')||'—'],['Order Quantity',qty().toLocaleString('en-US')+' pcs'],
+      ['Seam Length',r.seam+' m/pc'],['Number of Layers',r.layers],['Stitch Density',r.spi+' SPI'],['Thread Per Stitch',r.tps],
+      ['Consumption per Piece',fmt(r.pc,2)+' m'],['Consumption per Dozen',fmt(r.dz,2)+' m'],['Full Order Requirement',fmt(r.order,2)+' m']
+    ],{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},'Seam Length × Layers × Stitch Density × Thread Per Stitch ÷ 39.37. Per dozen = per piece × 12. Full order = per piece × order quantity.','THREAD CONSUMPTION DETAILS');
+  }
+  function pdfButton(){
+    const r=button();
+    if(blankResults(['bt-pp','bt-ex','tr-order-qty'])){alert('Please complete all Button inputs and enter a valid order quantity before downloading the report.');return;}
+    report('Button Consumption Report','Button Consumption Report',[
+      ['Buyer Name',val('tr-buyer')||'—'],['Style Number',val('tr-style')||'—'],['PO Number',val('tr-po')||'—'],['Order Quantity',qty().toLocaleString('en-US')+' pcs'],
+      ['Buttons per Piece',r.perPc],['Extra / Spare',r.extra+'%'],['Adjusted Buttons per Piece',fmt(r.rawPc,2)+' pcs'],['Buttons per Dozen',r.dz.toLocaleString('en-US')+' pcs'],['Full Order Requirement',r.order.toLocaleString('en-US')+' pcs']
+    ],{pc:fmt(r.rawPc,2)+' pcs',dz:r.dz.toLocaleString('en-US')+' pcs',order:r.order.toLocaleString('en-US')+' pcs'},'Buttons per piece × (1 + Extra / Spare % ÷ 100). Per dozen and full-order quantities are rounded up to the next whole piece.','BUTTON CONSUMPTION DETAILS');
+  }
+  function pdfInterlining(){
+    const r=interlining();
+    if(blankResults(['il-len','il-wid','il-qty','tr-order-qty'])){alert('Please complete all Interlining inputs and enter a valid order quantity before downloading the report.');return;}
+    report('Interlining Consumption Report','Interlining Consumption Report',[
+      ['Buyer Name',val('tr-buyer')||'—'],['Style Number',val('tr-style')||'—'],['PO Number',val('tr-po')||'—'],['Order Quantity',qty().toLocaleString('en-US')+' pcs'],
+      ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces],
+      ['Area per Piece',fmt(r.pc,4)+' m²'],['Area per Dozen',fmt(r.dz,3)+' m²'],['Full Order Requirement',fmt(r.order,3)+' m²']
+    ],{pc:fmt(r.pc,4)+' m²',dz:fmt(r.dz,3)+' m²',order:fmt(r.order,3)+' m²'},'Length × Width × Quantity per Piece ÷ 10,000. Per dozen = per piece × 12. Full order = per piece × order quantity.','INTERLINING CONSUMPTION DETAILS');
+  }
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
