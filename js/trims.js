@@ -35,13 +35,16 @@
     body.appendChild(row);return row;
   }
   function threadParts(){
-    return Array.from(document.querySelectorAll('#th-parts-body tr')).map(row=>({
-      row,name:row.querySelector('.th-part-name')?.value.trim()||'Unnamed part',
-      length:Number(row.querySelector('.th-part-length')?.value)||0,
-      stitch:row.querySelector('.th-part-stitch')?.value||'',
-      spi:Number(row.querySelector('.th-part-spi')?.value)||0,
-      ratio:Number(row.querySelector('.th-part-ratio')?.value)||0
-    }));
+    return Array.from(document.querySelectorAll('#th-parts-body tr')).map(row=>{
+      const name=row.querySelector('.th-part-name')?.value.trim()||'';
+      const lengthValue=row.querySelector('.th-part-length')?.value.trim()||'';
+      const stitch=row.querySelector('.th-part-stitch')?.value||'';
+      const spiValue=row.querySelector('.th-part-spi')?.value.trim()||'';
+      const ratioValue=row.querySelector('.th-part-ratio')?.value.trim()||'';
+      // Ignore untouched extra rows; partially completed rows remain visible and must be completed.
+      if(!name&&!lengthValue&&!stitch&&!spiValue&&!ratioValue)return null;
+      return {row,name:name||'Unnamed part',length:Number(lengthValue)||0,stitch,spi:Number(spiValue)||0,ratio:Number(ratioValue)||0};
+    }).filter(Boolean);
   }
   function syncThreadPartRatio(select){
     const ratio=select.closest('tr')?.querySelector('.th-part-ratio');
@@ -51,7 +54,7 @@
   }
   function thread(){
     const parts=threadParts(),waste=num('th-waste'),orderQty=qty();
-    const valid=parts.length>0&&parts.every(p=>p.length>0&&p.stitch&&p.spi>0&&p.ratio>0)&&orderQty>0&&val('th-waste').trim()!=='';
+    const valid=parts.length>0&&parts.every(p=>p.length>0&&p.stitch&&p.spi>0&&p.ratio>0)&&orderQty>0&&val('th-waste').trim()!==''&&waste>=0;
     if(!valid){
       parts.forEach(p=>{p.row.querySelector('.th-part-count').textContent='—';p.row.querySelector('.th-part-thread').textContent='—';});
       ['th-pc','th-dz','th-order','tr-summary-thread'].forEach(id=>put(id,'—'));
@@ -166,7 +169,7 @@
     if(!r.valid){alert('Please complete every Thread part row (seam length, stitch class, SPI and thread ratio) and enter order quantity and wastage before downloading.');return;}
     const rows=r.parts.map((p,i)=>['Part '+(i+1)+' · '+p.name,'Seam: '+p.length+' m | Stitch: '+(THREAD_STANDARDS[p.stitch]?.name||'Custom')+' | SPI: '+p.spi+' | Ratio: '+p.ratio+' m/m | Stitch count: '+Math.round(p.stitchCount).toLocaleString('en-US')+' | Thread: '+fmt(p.thread,3)+' m']);
     rows.push(['Total stitch count',Math.round(r.stitchCount).toLocaleString('en-US')+' stitches'],['Thread wastage',r.waste+'%'],['Net thread per piece',fmt(r.netPc,3)+' m']);
-    report('Thread Consumption Report','Thread Consumption Report',rows,{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},['Stitch count per part = Seam length (m) × 39.3701 × SPI','Net thread per piece = Sum of (Part seam length × Part thread ratio)','Final thread per piece = Net thread × (1 + Wastage % ÷ 100)','Per dozen = Final per piece × 12','Full order = Final per piece × Order quantity'],'THREAD PART-WISE CONSUMPTION DETAILS','Thread ratios are reference estimates. Validate with an actual production sample using the same fabric, stitch construction and SPI.');
+    report('Thread Consumption Report','Thread Consumption Report',rows,{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},['Stitch count per part = Seam length (m) × 39.3701 × SPI (stitches/inch)','Net thread per piece (m) = Σ [Part seam length (m) × Thread ratio (m thread / m seam)]','Final thread per piece = Net thread × (1 + Wastage % ÷ 100)','Per dozen = Final per piece × 12','Full order = Final per piece × Order quantity'],'THREAD PART-WISE CONSUMPTION DETAILS','Coats reference ratios are based on 18 SPI and are estimates. For a different SPI or production fabric, enter a measured ratio from an actual seam sample; do not assume the 18-SPI ratio is exact.');
   }
   function pdfButton(){
     const r=button();
