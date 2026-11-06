@@ -86,9 +86,9 @@
     const filename=['FC_TRIMS',filePart(val('tr-buyer')),filePart(val('tr-style')),filePart(val('tr-po')),heading.replace(/[^a-z0-9]+/gi,'_'),reportId].filter(Boolean).join('_');
     const reportHtml='<div class="report">'+
       '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>'+esc(heading)+'</h1><div class="report-id">'+reportId+'</div></div></div>'+
-      '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Report Type</span><strong>TRIMS</strong></div><div><span>Order Quantity</span><strong>'+qty().toLocaleString('en-US')+' pcs</strong></div></div>'+
-      '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
-      '<div><span>Buyer Name</span><strong>'+(esc(val('tr-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(val('tr-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(val('tr-po'))||'________________')+'</strong></div><div><span>Trims Category</span><strong>'+esc(title)+'</strong></div></div></section>'+
+      '<section class="section order-information-section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
+      '<div><span>Buyer Name</span><strong>'+(esc(val('tr-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(val('tr-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(val('tr-po'))||'________________')+'</strong></div><div><span>Order Quantity</span><strong>'+qty().toLocaleString('en-US')+' pcs</strong></div></div></section>'+
+      '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Report Type</span><strong>TRIMS · '+esc(title.replace(' Consumption Report',''))+'</strong></div></div>'+
       '<section class="section"><div class="section-head">'+icon('components')+'<span>'+esc(sectionLabel)+'</span></div><table class="consumption-table"><thead><tr><th style="width:6%">SL</th><th style="width:34%">Parameter</th><th style="width:60%">Input / Result</th></tr></thead><tbody>'+safeRows+'</tbody></table></section>'+
       '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER PIECE</span></div><strong>'+esc(result.pc)+'</strong><small>Consumption for one garment</small></div><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER DOZEN</span></div><strong>'+esc(result.dz)+'</strong><small>Consumption for 12 garments</small></div><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>FULL ORDER TOTAL</span></div><strong>'+esc(result.order)+'</strong><small>For '+qty().toLocaleString('en-US')+' garments</small></div></div>'+
       '<section class="section"><div class="section-head">'+icon('formula')+'<span>CALCULATION METHOD</span></div><div style="padding:10px 12px;font-size:9px;line-height:1.65"><strong>'+esc(sectionLabel)+'</strong><div style="margin-top:4px;color:#475569">'+esc(formula)+'</div></div></section>'+
@@ -102,26 +102,21 @@
     const r=thread();
     if(blankResults(['th-seam','th-layer','th-spi','th-tps','tr-order-qty'])){alert('Please complete all Thread inputs and enter a valid order quantity before downloading the report.');return;}
     report('Thread Consumption Report','Thread Consumption Report',[
-      ['Buyer Name',val('tr-buyer')||'—'],['Style Number',val('tr-style')||'—'],['PO Number',val('tr-po')||'—'],['Order Quantity',qty().toLocaleString('en-US')+' pcs'],
-      ['Seam Length',r.seam+' m/pc'],['Number of Layers',r.layers],['Stitch Density',r.spi+' SPI'],['Thread Per Stitch',r.tps],
-      ['Consumption per Piece',fmt(r.pc,2)+' m'],['Consumption per Dozen',fmt(r.dz,2)+' m'],['Full Order Requirement',fmt(r.order,2)+' m']
+      ['Seam Length',r.seam+' m/pc'],['Number of Layers',r.layers],['Stitch Density',r.spi+' SPI'],['Thread Per Stitch',r.tps]
     ],{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},'Seam Length × Layers × Stitch Density × Thread Per Stitch ÷ 39.37. Per dozen = per piece × 12. Full order = per piece × order quantity.','THREAD CONSUMPTION DETAILS');
   }
   function pdfButton(){
     const r=button();
     if(blankResults(['bt-pp','bt-ex','tr-order-qty'])){alert('Please complete all Button inputs and enter a valid order quantity before downloading the report.');return;}
     report('Button Consumption Report','Button Consumption Report',[
-      ['Buyer Name',val('tr-buyer')||'—'],['Style Number',val('tr-style')||'—'],['PO Number',val('tr-po')||'—'],['Order Quantity',qty().toLocaleString('en-US')+' pcs'],
-      ['Buttons per Piece',r.perPc],['Extra / Spare',r.extra+'%'],['Adjusted Buttons per Piece',fmt(r.rawPc,2)+' pcs'],['Buttons per Dozen',r.dz.toLocaleString('en-US')+' pcs'],['Full Order Requirement',r.order.toLocaleString('en-US')+' pcs']
+      ['Buttons per Piece',r.perPc],['Extra / Spare',r.extra+'%'],['Adjusted Buttons per Piece',fmt(r.rawPc,2)+' pcs']
     ],{pc:fmt(r.rawPc,2)+' pcs',dz:r.dz.toLocaleString('en-US')+' pcs',order:r.order.toLocaleString('en-US')+' pcs'},'Buttons per piece × (1 + Extra / Spare % ÷ 100). Per dozen and full-order quantities are rounded up to the next whole piece.','BUTTON CONSUMPTION DETAILS');
   }
   function pdfInterlining(){
     const r=interlining();
     if(blankResults(['il-len','il-wid','il-qty','tr-order-qty'])){alert('Please complete all Interlining inputs and enter a valid order quantity before downloading the report.');return;}
     report('Interlining Consumption Report','Interlining Consumption Report',[
-      ['Buyer Name',val('tr-buyer')||'—'],['Style Number',val('tr-style')||'—'],['PO Number',val('tr-po')||'—'],['Order Quantity',qty().toLocaleString('en-US')+' pcs'],
-      ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces],
-      ['Area per Piece',fmt(r.pc,4)+' m²'],['Area per Dozen',fmt(r.dz,3)+' m²'],['Full Order Requirement',fmt(r.order,3)+' m²']
+      ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces]
     ],{pc:fmt(r.pc,4)+' m²',dz:fmt(r.dz,3)+' m²',order:fmt(r.order,3)+' m²'},'Length × Width × Quantity per Piece ÷ 10,000. Per dozen = per piece × 12. Full order = per piece × order quantity.','INTERLINING CONSUMPTION DETAILS');
   }
   document.addEventListener('DOMContentLoaded', function () {
