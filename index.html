@@ -831,22 +831,20 @@
   </section>
 
   <section class="trims-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="clipboard-list"></i></div><div><span class="trims-kicker">01 / ORDER SETUP</span><h2>Order Information</h2><p>Enter order details to calculate trims requirements for the full order.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="clipboard-list"></i></div><div><h2>Order Information</h2><p>Enter order details to calculate trims requirements for the full order.</p></div></div>
     <div class="trims-order-grid">
       <label>Buyer Name<input id="tr-buyer" type="text" placeholder="Enter buyer name"></label>
       <label>Style Number<input id="tr-style" type="text" placeholder="Enter style number"></label>
       <label>PO Number<input id="tr-po" type="text" placeholder="Enter PO number"></label>
       <label>Total Order Quantity (pcs)<input id="tr-order-qty" type="number" min="1" step="1" placeholder="e.g. 1200"></label>
-    </div>
-    <div class="trims-guidance"><i data-lucide="info"></i><span>Step 1: Enter your order quantity above. Step 2: Select Thread, Button or Interlining. Step 3: Enter the details and review your requirement below.</span></div>
-  </section>
+    </div></section>
 
   <section class="trims-section">
     <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="calculator"></i></div><div><span class="trims-kicker">02 / SELECT & CALCULATE</span><h2>Select Trims Type</h2><p>Choose the item you want to calculate. Only the relevant fields will be displayed.</p></div></div>
     <div class="trims-mode-tabs" role="tablist" aria-label="Choose trims calculator">
-      <button type="button" class="trims-mode-btn is-active" id="tr-mode-thread" role="tab" aria-selected="true" aria-controls="tr-thread-card" data-tr-mode="thread"><i data-lucide="scissors"></i><span><strong>Thread</strong><small>Consumption</small></span><b>01</b></button>
-      <button type="button" class="trims-mode-btn" id="tr-mode-button" role="tab" aria-selected="false" aria-controls="tr-button-card" data-tr-mode="button"><i data-lucide="circle-dot"></i><span><strong>Button</strong><small>Requirements</small></span><b>02</b></button>
-      <button type="button" class="trims-mode-btn" id="tr-mode-interlining" role="tab" aria-selected="false" aria-controls="tr-interlining-card" data-tr-mode="interlining"><i data-lucide="layers"></i><span><strong>Interlining</strong><small>Fabric area</small></span><b>03</b></button>
+      <button type="button" class="trims-mode-btn is-active" id="tr-mode-thread" role="tab" aria-selected="true" aria-controls="tr-thread-card" data-tr-mode="thread"><i data-lucide="scissors"></i><span><strong>Thread</strong><small>Consumption</small></span></button>
+      <button type="button" class="trims-mode-btn" id="tr-mode-button" role="tab" aria-selected="false" aria-controls="tr-button-card" data-tr-mode="button"><i data-lucide="circle-dot"></i><span><strong>Button</strong><small>Requirements</small></span></button>
+      <button type="button" class="trims-mode-btn" id="tr-mode-interlining" role="tab" aria-selected="false" aria-controls="tr-interlining-card" data-tr-mode="interlining"><i data-lucide="layers"></i><span><strong>Interlining</strong><small>Fabric area</small></span></button>
     </div>
     <div class="trims-calculator-grid">
       <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
@@ -873,7 +871,7 @@
         </div>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="bt-pc">—</strong></div>
-          <div><span>Per Dozen</span><strong id="bt-dz" class="badge badge-green">—</strong></div>
+          <div><span>Per Dozen</span><strong id="bt-dz" class="trims-result-value">—</strong></div>
           <div class="trims-result-primary"><span>Full Order</span><strong id="bt-order">—</strong></div>
         </div>
         <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-button"><i data-lucide="calculator"></i> Calculate Button</button><button type="button" class="trims-secondary-btn" id="btn-pdf-button"><i data-lucide="file-down"></i> Download PDF</button></div>
@@ -888,7 +886,7 @@
         </div>
         <div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="il-pc">—</strong></div>
-          <div><span>Per Dozen</span><strong id="il-dz" class="badge badge-green">—</strong></div>
+          <div><span>Per Dozen</span><strong id="il-dz" class="trims-result-value">—</strong></div>
           <div class="trims-result-primary"><span>Full Order</span><strong id="il-order">—</strong></div>
         </div>
         <div class="trims-card-actions"><button type="button" class="trims-primary-btn" id="btn-calc-interlining"><i data-lucide="calculator"></i> Calculate Interlining</button><button type="button" class="trims-secondary-btn" id="btn-pdf-interlining"><i data-lucide="file-down"></i> Download PDF</button></div>
@@ -897,7 +895,7 @@
   </section>
 
   <section class="trims-results-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="trims-kicker">03 / ORDER TOTALS</span><h2>Calculation Summary</h2><p>Your calculated requirements for the complete order are shown here.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><h2>Calculation Summary</h2><p>Your calculated requirements for the complete order are shown here.</p></div></div>
     <div class="trims-summary-grid">
       <article><span>Thread / Order</span><strong id="tr-summary-thread">—</strong><small>meters</small></article>
       <article><span>Buttons / Order</span><strong id="tr-summary-button">—</strong><small>pieces</small></article>
