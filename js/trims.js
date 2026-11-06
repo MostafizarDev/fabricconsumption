@@ -24,7 +24,7 @@
     const stitch=$('th-stitch'),ratio=$('th-ratio'),note=$('th-ratio-note');
     if(!stitch||!ratio)return;
     const standard=THREAD_STANDARDS[stitch.value];
-    if(standard){ratio.value=standard.ratio;ratio.readOnly=true;if(note)note.textContent='Coats reference ratio loaded. Choose Custom Ratio to enter your own measured value.';}
+    if(standard){ratio.value=standard.ratio;ratio.readOnly=false;if(note)note.textContent='Reference ratio loaded (18 SPI). Ratio is editable: use a measured value from your actual fabric, stitch and SPI when available.';}
     else if(stitch.value==='custom'){ratio.value='';ratio.readOnly=false;if(note)note.textContent='Enter your measured ratio: metres of thread per metre of seam.';}
     else{ratio.value='';ratio.readOnly=false;if(note)note.textContent='Select a standard stitch class or Custom Ratio.';}
   }
@@ -33,11 +33,11 @@
       ['th-pc','th-dz','th-order','tr-summary-thread'].forEach(id=>put(id,'—'));
       return {seam:0,stitch:val('th-stitch'),ratio:0,waste:0,netPc:0,pc:0,dz:0,order:0};
     }
-    const seam=num('th-seam'),ratio=num('th-ratio'),waste=num('th-waste');
+    const seam=num('th-seam'),ratio=num('th-ratio'),spi=num('th-spi'),layers=num('th-layers'),waste=num('th-waste');
     const netPc=seam*ratio,pc=netPc*(1+waste/100),dz=pc*12,order=pc*qty();
     put('th-pc',fmt(pc,2)+' m');put('th-dz',fmt(dz,2)+' m');put('th-order',fmt(order,2)+' m');
     put('tr-summary-thread',fmt(order,2));
-    return {seam,stitch:val('th-stitch'),ratio,waste,netPc,pc,dz,order};
+    return {seam,stitch:val('th-stitch'),ratio,spi,layers,waste,netPc,pc,dz,order};
   }
   function button() {
     if (blankResults(['bt-pp','bt-ex','tr-order-qty'])) {
@@ -55,16 +55,16 @@
       ['il-pc','il-dz','il-order','tr-summary-interlining'].forEach(id=>put(id,'—'));
       return {length:0,width:0,pieces:0,pc:0,dz:0,order:0};
     }
-    const length=num('il-len'), width=num('il-wid'), pieces=num('il-qty');
-    const pc=(length*width*pieces)/10000, dz=pc*12, order=pc*qty();
+    const length=num('il-len'), width=num('il-wid'), pieces=num('il-qty'), waste=num('il-waste');
+    const netPc=(length*width*pieces)/10000,pc=netPc*(1+waste/100),dz=pc*12,order=pc*qty();
     put('il-pc',fmt(pc,4)+' m²'); put('il-dz',fmt(dz,3)+' m²'); put('il-order',fmt(order,3)+' m²');
     put('tr-summary-interlining',fmt(order,3));
-    return {length,width,pieces,pc,dz,order};
+    return {length,width,pieces,waste,netPc,pc,dz,order};
   }
   function calculateAll(save=true) {
     const q=qty();
     const t=thread(), b=button(), i=interlining();
-    const ready = q>0 && ['th-seam','th-ratio','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty'].some(id=>val(id).trim()!=='');
+    const ready = q>0 && ['th-seam','th-ratio','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste'].some(id=>val(id).trim()!=='');
     put('tr-status',ready?'Results update when you complete the required fields.':'Enter your order quantity and calculator values to see the results.');
     if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
     if(window.lucide?.createIcons) window.lucide.createIcons();
@@ -135,7 +135,7 @@
     const r=thread();
     if(blankResults(['th-seam','th-ratio','th-waste','tr-order-qty'])){alert('Please complete the Thread inputs and enter a valid order quantity before downloading the report.');return;}
     report('Thread Consumption Report','Thread Consumption Report',[
-      ['Seam Length',r.seam+' m/pc'],['Stitch Type / Class',THREAD_STANDARDS[r.stitch]?.name||'Custom Ratio'],['Thread Consumption Ratio',r.ratio+' m/m'],['Wastage',r.waste+'%'],['Net Thread per Piece',fmt(r.netPc,2)+' m'],['Final Thread per Piece',fmt(r.pc,2)+' m']
+      ['Seam Length',r.seam+' m/pc'],['Stitch Type / Class',THREAD_STANDARDS[r.stitch]?.name||'Custom Ratio'],['Stitch Density',r.spi ? r.spi+' SPI' : 'Not specified'],['Fabric Layers / Plies',r.layers || 'Not specified'],['Thread Consumption Ratio',r.ratio+' m/m'],['Wastage',r.waste+'%'],['Net Thread per Piece',fmt(r.netPc,2)+' m'],['Final Thread per Piece',fmt(r.pc,2)+' m']
     ],{pc:fmt(r.pc,2)+' m',dz:fmt(r.dz,2)+' m',order:fmt(r.order,2)+' m'},['Net thread per piece = Seam length × Thread ratio','Final thread per piece = Net thread × (1 + Wastage % ÷ 100)','Per dozen = Final per piece × 12','Full order = Final per piece × Order quantity'],'THREAD CONSUMPTION DETAILS');
   }
   function pdfButton(){
@@ -149,15 +149,15 @@
     const r=interlining();
     if(blankResults(['il-len','il-wid','il-qty','tr-order-qty'])){alert('Please complete all Interlining inputs and enter a valid order quantity before downloading the report.');return;}
     report('Interlining Consumption Report','Interlining Consumption Report',[
-      ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces]
-    ],{pc:fmt(r.pc,4)+' m²',dz:fmt(r.dz,3)+' m²',order:fmt(r.order,3)+' m²'},'Length × Width × Quantity per Piece ÷ 10,000. Per dozen = per piece × 12. Full order = per piece × order quantity.','INTERLINING CONSUMPTION DETAILS');
+      ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces],['Wastage',r.waste+'%'],['Net Area per Piece',fmt(r.netPc,4)+' m²']
+    ],{pc:fmt(r.pc,4)+' m²',dz:fmt(r.dz,3)+' m²',order:fmt(r.order,3)+' m²'},'Net area = Length × Width × Quantity per Piece ÷ 10,000. Final area = Net area × (1 + Wastage % ÷ 100). Per dozen = final area × 12. Full order = final area × order quantity.','INTERLINING CONSUMPTION DETAILS');
   }
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
     $('th-stitch')?.addEventListener('change',()=>{syncThreadStandard();calculateAll();});
     syncThreadStandard();
-    ['th-seam','th-ratio','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
+    ['th-seam','th-ratio','th-spi','th-layers','th-waste','bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
     ['tr-buyer','tr-style','tr-po'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
     $('btn-calc-thread')?.addEventListener('click',()=>{calculateAll();});
     $('btn-calc-button')?.addEventListener('click',()=>{calculateAll();});
