@@ -4691,3 +4691,9 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
   #page-trims #tr-thread-card .thread-table-toolbar{align-items:center;flex-direction:row}
   #page-trims #tr-thread-card .thread-method-btn{padding:8px}
 }
+
+/* Only show a horizontal scroll area when a technical mode reveals its extra columns */
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible),
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible){overflow-x:auto}
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table,
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table{min-width:980px;table-layout:auto}
