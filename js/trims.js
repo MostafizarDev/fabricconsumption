@@ -94,10 +94,7 @@
     input.setAttribute('aria-required','true');
     if(label){
       label.classList.toggle('is-missing',missing);
-      let hint=label.querySelector('.tr-order-required-hint');
-      if(missing){
-        if(!hint){hint=document.createElement('small');hint.className='tr-order-required-hint';hint.textContent='Required — enter total order quantity';label.appendChild(hint);}
-      }else if(hint){hint.remove();}
+      label.querySelector('.tr-order-required-hint')?.remove();
     }
     return !missing;
   }
