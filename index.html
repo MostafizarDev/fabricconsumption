@@ -849,13 +849,33 @@
     <div class="trims-calculator-grid">
       <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
-        <div class="trims-input-grid" id="thread-legacy-inputs">
-          <label>Seam Length (m/pc)<input class="inp-plain" id="th-length" type="number" min="0" step="any" placeholder="e.g. 10"></label>
-          <label>Number of Layers<input class="inp-plain" id="th-layers" type="number" min="0" step="any" placeholder="e.g. 2"></label>
-          <label>Stitch Density (SPI)<input class="inp-plain" id="th-spi" type="number" min="0" step="any" placeholder="e.g. 12"></label>
-          <label>Thread Per Stitch<input class="inp-plain" id="th-thread-per-stitch" type="number" min="0" step="any" placeholder="e.g. 3"></label>
-        </div>
-        <div class="trims-result-grid">
+        <div class="thread-method-switch" role="group" aria-label="Thread calculation method">
+<button type="button" class="thread-method-btn is-active" data-thread-method="standard"><strong>Standard Ratio</strong><small>Reference stitch ratios</small></button>
+<button type="button" class="thread-method-btn" data-thread-method="actual"><strong>Actual Measurement</strong><small>Measured sample</small></button>
+<button type="button" class="thread-method-btn" data-thread-method="advanced"><strong>Advanced</strong><small>SPI and seam details</small></button>
+<button type="button" class="thread-method-btn" data-thread-method="custom"><strong>Custom Ratio</strong><small>Your factory ratio</small></button></div>
+<p class="trims-field-note" id="th-method-note">Reference ratios are estimates. Validate with an actual production sample.</p>
+<div class="thread-settings-grid">
+<label>Thread Wastage (%)<input class="inp-plain" id="th-waste" type="number" min="0" step="any" value="15"></label>
+<label>Output Unit<select class="inp-plain" id="th-output-unit"><option value="m">Meters (m)</option><option value="yd">Yards (yd)</option></select></label></div>
+<div class="thread-table-toolbar"><div><strong>Sewing Operations</strong><small>Add every seam separately. Empty rows are ignored.</small></div><button type="button" class="trims-secondary-btn" id="th-add-operation">+ Add Operation</button></div>
+<div class="thread-table-wrap"><table class="thread-operation-table"><thead><tr><th>Garment Part / Operation</th><th>Stitch Class</th><th>Seam Length (m/row)</th><th>Rows</th><th class="th-advanced-col">SPI</th><th class="th-advanced-col">Thickness (in)</th><th>Thread Ratio (m/m)</th><th>Thread / pc (m)</th><th></th></tr></thead><tbody id="th-operations-body"></tbody></table></div>
+<div class="thread-component-panel"><div><strong>Thread Component Breakdown</strong><small>Optional measured ratios. Do not combine these with an all-in total ratio.</small></div>
+<div class="thread-component-grid">
+<label>Needle Ratio<input class="inp-plain th-component" data-component="Needle" type="number" min="0" step="any" placeholder="m/m"></label>
+<label>Bobbin Ratio<input class="inp-plain th-component" data-component="Bobbin" type="number" min="0" step="any" placeholder="Optional"></label>
+<label>Looper Ratio<input class="inp-plain th-component" data-component="Looper" type="number" min="0" step="any" placeholder="Optional"></label>
+<label>Cover Ratio<input class="inp-plain th-component" data-component="Cover" type="number" min="0" step="any" placeholder="Optional"></label></div>
+<label class="thread-check-label"><input type="checkbox" id="th-use-components"> Use component ratios instead of operation total ratio</label></div>
+<details class="thread-advanced-settings"><summary>Thread specification & costing (optional)</summary><div class="thread-component-grid">
+<label>Brand<input class="inp-plain" id="th-brand" type="text" placeholder="e.g. Coats"></label>
+<label>Thread Type / Tex<input class="inp-plain" id="th-tex" type="text" placeholder="e.g. Spun poly / Tex 27"></label>
+<label>SKU / Color<input class="inp-plain" id="th-sku" type="text" placeholder="Item code / color"></label>
+<label>Put-up per Cone (m)<input class="inp-plain" id="th-cone-length" type="number" min="0" step="any" placeholder="e.g. 5000"></label>
+<label>Cone Price<input class="inp-plain" id="th-cone-price" type="number" min="0" step="any" placeholder="Optional"></label>
+<label>Currency<input class="inp-plain" id="th-currency" type="text" value="BDT"></label></div></details>
+<div class="thread-results-breakdown" id="th-breakdown" aria-live="polite"></div>
+<div class="trims-result-grid">
           <div><span>Per Piece</span><strong id="th-pc">—</strong></div>
           <div><span>Per Dozen</span><strong id="th-dz">—</strong></div>
           <div class="trims-result-primary"><span>Full Order</span><strong id="th-order">—</strong></div>
