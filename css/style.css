@@ -4592,3 +4592,34 @@ body.dark-mode #page-trims .trims-card-actions .trims-secondary-btn:hover{
 #page-trims .tr-order-required-hint{display:block;margin-top:5px;color:#dc2626;font-size:10px;font-weight:650;line-height:1.4}
 body.dark-mode #page-trims .trims-order-grid input.is-missing{background:#321b24!important;color:#fee2e2}
 body.dark-mode #page-trims .tr-order-required-hint{color:#fca5a5}
+
+/* Professional Thread Consumption module */
+#page-trims .thread-method-switch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:18px 0 10px}
+#page-trims .thread-method-btn{display:flex;flex-direction:column;gap:5px;text-align:left;padding:12px;border:1px solid var(--border-color,#dbe3ed);border-radius:10px;background:var(--surface,#fff);color:var(--text-primary,#1e293b);cursor:pointer}
+#page-trims .thread-method-btn strong{font-size:12px}#page-trims .thread-method-btn small{font-size:10px;color:var(--text-secondary,#64748b)}
+#page-trims .thread-method-btn.is-active{border-color:#0284c7;background:rgba(14,165,233,.07);box-shadow:inset 0 0 0 1px rgba(14,165,233,.15)}
+#page-trims .thread-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:520px;margin:14px 0}
+#page-trims .thread-table-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 10px}
+#page-trims .thread-table-toolbar strong{display:block;font-size:14px}#page-trims .thread-table-toolbar small{display:block;color:var(--text-secondary,#64748b);font-size:11px;margin-top:3px}
+#page-trims .thread-table-wrap{width:100%;overflow:auto;border:1px solid var(--border-color,#dbe3ed);border-radius:10px}
+#page-trims .thread-operation-table{width:100%;min-width:1080px;border-collapse:collapse;font-size:11px}
+#page-trims .thread-operation-table th{padding:10px 8px;text-align:left;background:var(--surface-secondary,#f8fafc);white-space:nowrap;color:var(--text-secondary,#64748b)}
+#page-trims .thread-operation-table td{padding:7px;border-top:1px solid var(--border-color,#e2e8f0)}
+#page-trims .thread-operation-table input,#page-trims .thread-operation-table select{width:100%;min-width:75px;box-sizing:border-box;padding:8px 6px;font-size:11px}
+#page-trims .thread-operation-table td:first-child input{min-width:135px}
+#page-trims .th-advanced-col{display:none}#page-trims .th-advanced-col.is-visible{display:table-cell}
+#page-trims .th-remove-operation{width:30px;height:30px;border:0;border-radius:7px;background:#fee2e2;color:#b91c1c;font-size:19px;cursor:pointer}
+#page-trims .thread-component-panel,#page-trims .thread-advanced-settings{margin-top:15px;padding:13px;border:1px solid var(--border-color,#dbe3ed);border-radius:10px}
+#page-trims .thread-component-panel>div:first-child strong{display:block;font-size:13px}#page-trims .thread-component-panel small{display:block;color:var(--text-secondary,#64748b);font-size:10px;margin-top:4px}
+#page-trims .thread-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:12px}
+#page-trims .thread-check-label{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px}#page-trims .thread-check-label input{width:auto}
+#page-trims .thread-advanced-settings summary{cursor:pointer;font-weight:700;font-size:12px}
+#page-trims .thread-results-breakdown{margin-top:12px;display:grid;gap:8px}
+#page-trims .thread-summary-line{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border:1px solid var(--border-color,#e2e8f0);border-radius:8px;font-size:12px}
+#page-trims .thread-component-results{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#page-trims .thread-component-results>div{padding:9px;border-radius:8px;background:var(--surface-secondary,#f8fafc);display:grid;gap:4px;font-size:11px}
+#page-trims .thread-component-results span{color:var(--text-secondary,#64748b)}#page-trims .thread-component-results strong{font-size:13px}
+body.dark-mode #page-trims .thread-method-btn,body.dark-mode #page-trims .thread-component-panel,body.dark-mode #page-trims .thread-advanced-settings{background:#0d192b;border-color:#344a65;color:#e5edf8}
+body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;border-color:#0891b2}
+@media(max-width:760px){#page-trims .thread-method-switch{grid-template-columns:repeat(2,minmax(0,1fr))}#page-trims .thread-component-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){#page-trims .thread-settings-grid,#page-trims .thread-component-grid{grid-template-columns:1fr}#page-trims .thread-table-toolbar{align-items:flex-start;flex-direction:column}}
