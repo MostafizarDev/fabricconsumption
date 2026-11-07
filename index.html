@@ -850,23 +850,22 @@
       <article class="trims-card is-current" id="tr-thread-card" role="tabpanel" aria-labelledby="tr-mode-thread">
         <div class="trims-card-head"><div class="trims-card-icon"><i data-lucide="scissors"></i></div><div><span class="trims-card-tag">SEWING ACCESSORY</span><h3>Thread Consumption</h3><p>Estimate sewing thread usage from seam and stitch details.</p></div></div>
         <div class="thread-method-switch" role="group" aria-label="Thread calculation method">
-<button type="button" class="thread-method-btn is-active" data-thread-method="standard"><strong>Standard Ratio</strong><small>Reference stitch ratios</small></button>
-<button type="button" class="thread-method-btn" data-thread-method="actual"><strong>Actual Measurement</strong><small>Measured sample</small></button>
-<button type="button" class="thread-method-btn" data-thread-method="advanced"><strong>Advanced</strong><small>SPI and seam details</small></button>
-<button type="button" class="thread-method-btn" data-thread-method="custom"><strong>Custom Ratio</strong><small>Your factory ratio</small></button></div>
-<p class="trims-field-note" id="th-method-note">Reference ratios are estimates. Validate with an actual production sample.</p>
+<button type="button" class="thread-method-btn is-active" data-thread-method="standard"><strong>Standard / Custom Ratio</strong><small>Use or edit a factory ratio</small></button>
+<button type="button" class="thread-method-btn" data-thread-method="actual"><strong>Actual Measurement</strong><small>Measure a sewn sample</small></button>
+<button type="button" class="thread-method-btn" data-thread-method="advanced"><strong>Advanced</strong><small>SPI and seam details</small></button></div>
+<p class="trims-field-note thread-info-note" id="th-method-note" data-note-type="info">Reference ratios are estimates. You can edit the ratio using your validated factory value.</p>
 <div class="thread-settings-grid">
 <label>Thread Wastage (%)<input class="inp-plain" id="th-waste" type="number" min="0" step="any" value="15"></label>
 <label>Output Unit<select class="inp-plain" id="th-output-unit"><option value="m">Meters (m)</option><option value="yd">Yards (yd)</option></select></label></div>
 <div class="thread-table-toolbar"><div><strong>Sewing Operations</strong><small>Add every seam separately. Empty rows are ignored.</small></div><button type="button" class="trims-secondary-btn" id="th-add-operation">+ Add Operation</button></div>
 <div class="thread-table-wrap"><table class="thread-operation-table"><thead><tr><th>Garment Part / Operation</th><th>Stitch Class</th><th>Seam Length (m/row)</th><th>Rows</th><th class="th-advanced-col">SPI</th><th class="th-advanced-col">Thickness (in)</th><th class="th-actual-col">Sample Seam (m)</th><th class="th-actual-col">Measured Thread (m)</th><th>Thread Ratio (m/m)</th><th>Thread / pc (m)</th><th></th></tr></thead><tbody id="th-operations-body"></tbody></table></div>
-<div class="thread-component-panel"><div><strong>Thread Component Breakdown</strong><small>Optional measured ratios. Do not combine these with an all-in total ratio.</small></div>
+<details class="thread-component-panel thread-optional-panel"><summary><strong>Thread Component Breakdown</strong><small>Optional — enter separate Needle, Bobbin, Looper or Cover ratios only when measured.</small></summary>
 <div class="thread-component-grid">
 <label>Needle Ratio<input class="inp-plain th-component" data-component="Needle" type="number" min="0" step="any" placeholder="m/m"></label>
 <label>Bobbin Ratio<input class="inp-plain th-component" data-component="Bobbin" type="number" min="0" step="any" placeholder="Optional"></label>
 <label>Looper Ratio<input class="inp-plain th-component" data-component="Looper" type="number" min="0" step="any" placeholder="Optional"></label>
 <label>Cover Ratio<input class="inp-plain th-component" data-component="Cover" type="number" min="0" step="any" placeholder="Optional"></label></div>
-<label class="thread-check-label"><input type="checkbox" id="th-use-components"> Use component ratios instead of operation total ratio</label></div>
+<label class="thread-check-label"><input type="checkbox" id="th-use-components"> Use component ratios instead of operation total ratio</label></details>
 <details class="thread-advanced-settings"><summary>Thread specification & costing (optional)</summary><div class="thread-component-grid">
 <label>Brand<input class="inp-plain" id="th-brand" type="text" placeholder="e.g. Coats"></label>
 <label>Thread Type / Tex<input class="inp-plain" id="th-tex" type="text" placeholder="e.g. Spun poly / Tex 27"></label>
