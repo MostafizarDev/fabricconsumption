@@ -4962,3 +4962,17 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
     grid-template-columns:1fr;
   }
 }
+
+
+/* Correct Standard-mode sewing table: visible columns must fill the full row */
+@media(min-width:761px){
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:nth-child(1){width:18%}
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:nth-child(2){width:20%}
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:nth-child(3){width:14%}
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:nth-child(4){width:16%}
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:nth-child(5){width:8%}
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:nth-child(10){width:20%}
+  #page-trims #tr-thread-card .thread-table-wrap:not(:has(.th-actual-col.is-visible)):not(:has(.th-advanced-col.is-visible)) .thread-operation-table th:last-child{width:4%}
+}
+/* Keep the two setup controls compact; the requested spacing adjustment is for Sewing Operations */
+#page-trims #tr-thread-card .thread-settings-grid{max-width:470px !important}
