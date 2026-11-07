@@ -4697,3 +4697,17 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
 #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible){overflow-x:auto}
 #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table,
 #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table{min-width:980px;table-layout:auto}
+
+/* Thread UI: clearer three-mode workflow and quiet, color-coded guidance */
+#page-trims #tr-thread-card .thread-method-switch{grid-template-columns:repeat(3,minmax(0,1fr))}
+#page-trims #tr-thread-card .thread-info-note{display:block;margin:8px 0 12px;padding:8px 10px;border:1px solid #bfdbfe;border-left:3px solid #3b82f6;border-radius:6px;background:#eff6ff;color:#1e40af;font-size:10px;line-height:1.45}
+#page-trims #tr-thread-card .thread-info-note[data-note-type="success"]{border-color:#a7f3d0;border-left-color:#10b981;background:#ecfdf5;color:#065f46}
+#page-trims #tr-thread-card .thread-info-note[data-note-type="warning"]{border-color:#fde68a;border-left-color:#f59e0b;background:#fffbeb;color:#92400e}
+#page-trims #tr-thread-card .thread-optional-panel{padding:0;overflow:hidden}
+#page-trims #tr-thread-card .thread-optional-panel>summary{display:flex;flex-direction:column;gap:3px;padding:10px 11px;cursor:pointer;list-style:revert}
+#page-trims #tr-thread-card .thread-optional-panel>summary strong{font-size:11px}
+#page-trims #tr-thread-card .thread-optional-panel>summary small{font-size:9px;color:var(--text-secondary,#64748b);line-height:1.4}
+#page-trims #tr-thread-card .thread-optional-panel[open]>.thread-component-grid,
+#page-trims #tr-thread-card .thread-optional-panel[open]>.thread-check-label{margin-left:11px;margin-right:11px}
+#page-trims #tr-thread-card .thread-optional-panel[open]>.thread-check-label{margin-bottom:11px}
+@media(max-width:760px){#page-trims #tr-thread-card .thread-method-switch{grid-template-columns:1fr}}
