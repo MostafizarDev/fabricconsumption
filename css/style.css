@@ -4711,3 +4711,52 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
 #page-trims #tr-thread-card .thread-optional-panel[open]>.thread-check-label{margin-left:11px;margin-right:11px}
 #page-trims #tr-thread-card .thread-optional-panel[open]>.thread-check-label{margin-bottom:11px}
 @media(max-width:760px){#page-trims #tr-thread-card .thread-method-switch{grid-template-columns:1fr}}
+
+
+/* Fix narrow technical inputs in Actual Measurement and Advanced modes */
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible),
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible){
+  overflow-x:auto;
+}
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table,
+#page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table{
+  width:100%;
+  min-width:1120px;
+  table-layout:fixed;
+}
+#page-trims #tr-thread-card .thread-operation-table .th-actual-col{
+  width:105px;
+  min-width:105px;
+}
+#page-trims #tr-thread-card .thread-operation-table .th-advanced-col{
+  width:82px;
+  min-width:82px;
+}
+#page-trims #tr-thread-card .thread-operation-table th.th-actual-col,
+#page-trims #tr-thread-card .thread-operation-table th.th-advanced-col{
+  padding:8px 7px;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:normal;
+  line-height:1.3;
+  font-size:10px;
+}
+#page-trims #tr-thread-card .thread-operation-table td.th-actual-col,
+#page-trims #tr-thread-card .thread-operation-table td.th-advanced-col{
+  padding:6px;
+}
+#page-trims #tr-thread-card .thread-operation-table td.th-actual-col input,
+#page-trims #tr-thread-card .thread-operation-table td.th-advanced-col input{
+  display:block;
+  width:100%;
+  min-width:0;
+  height:34px;
+  padding:7px 8px;
+  font-size:11px;
+}
+@media(max-width:760px){
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table,
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table{
+    min-width:1080px;
+  }
+}
