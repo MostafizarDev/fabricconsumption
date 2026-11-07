@@ -25,12 +25,13 @@
     return row;
   }
   function setThreadMethod(method){
-    threadMethod=['standard','actual','advanced','custom'].includes(method)?method:'standard';
+    threadMethod=['standard','actual','advanced','custom'].includes(method)?(method==='custom'?'standard':method):'standard';
     document.querySelectorAll('[data-thread-method]').forEach(btn=>btn.classList.toggle('is-active',btn.dataset.threadMethod===threadMethod));
     document.querySelectorAll('.th-advanced-col').forEach(el=>el.classList.toggle('is-visible',threadMethod==='advanced'));
     document.querySelectorAll('.th-actual-col').forEach(el=>el.classList.toggle('is-visible',threadMethod==='actual'));
-    const notes={standard:'Standard ratios are reference estimates, commonly based on 18 SPI. Edit a ratio when you have a validated factory value.',actual:'Enter sample seam length and measured total thread length. The calculator derives the ratio automatically.',advanced:'SPI and seam thickness are recorded as engineering inputs. Use a validated stitch-specific formula or measured ratio; no universal formula is assumed.',custom:'Select Custom stitch and enter your own verified factory ratio.'};
-    put('th-method-note',notes[threadMethod]);calculateAll();
+    const notes={standard:'Choose a stitch class to load its reference ratio. You can edit that ratio to match your validated factory value.',actual:'Enter sample seam length and measured total thread length. The calculator derives the ratio automatically.',advanced:'SPI and seam thickness are reference inputs only. Enter a validated stitch-specific ratio; no universal engineering formula is assumed.'};
+    const note=$('th-method-note');if(note){note.textContent=notes[threadMethod];note.dataset.noteType=threadMethod==='actual'?'success':threadMethod==='advanced'?'warning':'info';}
+    calculateAll();
   }
   function threadRows(){
     return Array.from(document.querySelectorAll('#th-operations-body tr')).map(row=>{
