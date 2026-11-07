@@ -4797,3 +4797,26 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
   #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible),
   #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible){overflow-x:auto}
 }
+
+
+/* Keep the four thread component ratio fields on one row */
+#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  align-items:end;
+}
+#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid label{
+  min-width:0;
+  white-space:nowrap;
+}
+#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid input{
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+@media(max-width:560px){
+  #page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
