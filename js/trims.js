@@ -127,7 +127,7 @@
     });
     if (window.lucide?.createIcons) window.lucide.createIcons();
   }
-    function report(title, heading, rows, result, formula, sectionLabel, statusNote) {
+    function report(title, heading, rows, result, formula, sectionLabel, statusNote, customSectionHtml) {
     const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const now=new Date();
     const dateText=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
@@ -156,6 +156,7 @@
       '.order-quantity-strip{display:grid;grid-template-columns:1.25fr 1fr 1fr;align-items:center;gap:14px;padding:12px 15px;margin:-2px 0 13px;border:1px solid #cfe1f6;border-radius:9px;background:#f7faff}.order-quantity-strip span{display:block;margin:0 0 5px;font-size:7px;letter-spacing:1px;color:#71819a;font-weight:800}.order-quantity-strip strong{display:block;font-size:10px;color:#253650;font-weight:750}.order-quantity-strip .quantity-main strong{font-size:16px;color:#1769bd;font-weight:850}.quantity-meta{border-left:1px solid #dce7f4;padding-left:14px;min-width:0}.quantity-meta strong{overflow-wrap:anywhere}'+
       '@media(max-width:600px){.order-quantity-strip{grid-template-columns:1fr 1fr;gap:10px}.order-quantity-strip .quantity-main{grid-column:1/-1}.quantity-meta{padding-left:0;border-left:0}}'+
       '.consumption-table{width:100%;border-collapse:collapse;font-size:9px}.consumption-table th{padding:8px;background:#f4f7fb;color:#4b5d75;text-align:left;font-size:8px;letter-spacing:.5px}.consumption-table td{padding:8px;border-top:1px solid #e2e8f0;color:#26364d}.consumption-table td:first-child,.consumption-table th:first-child{text-align:center}.consumption-table td:last-child{text-align:center}'+
+      '.thread-pdf-table{width:100%;border-collapse:collapse;font-size:8px}.thread-pdf-table th{padding:8px 6px;background:#edf4ff;color:#40536e;text-align:left;font-size:7px;letter-spacing:.3px;border-bottom:1px solid #d8e4f2}.thread-pdf-table td{padding:8px 6px;border-bottom:1px solid #e5ebf2;color:#26364d;vertical-align:top}.thread-pdf-table td.num,.thread-pdf-table th.num{text-align:right;font-variant-numeric:tabular-nums}.thread-pdf-table tbody tr:nth-child(even){background:#fafcff}.thread-pdf-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px 12px;background:#fbfdff;border-top:1px solid #e2e8f0}.thread-pdf-meta div{min-width:0}.thread-pdf-meta span{display:block;font-size:7px;color:#71819a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}.thread-pdf-meta strong{font-size:9px;color:#253650;overflow-wrap:anywhere}'+
       '.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.summary-card{border:1px solid #dce5ef;border-radius:9px;padding:12px;background:#fff;min-width:0}.summary-card.primary{border-color:#91bdff;background:#eff6ff}.metric-head{display:flex;align-items:center;gap:6px;font-size:8px;font-weight:800;letter-spacing:.8px;color:#60718a}.summary-card strong{display:block;margin:8px 0 3px;font-size:19px;line-height:1.1;color:#15233a;font-variant-numeric:tabular-nums}.summary-card.primary strong{color:#2563eb}.summary-card small{font-size:8px;color:#71819a}'+
       '.formula-content{padding:11px 13px;font-size:9px;line-height:1.6}.formula-points{margin:7px 0 0;padding:0;list-style:none;display:grid;gap:5px}.formula-points li{position:relative;padding:5px 8px 5px 20px;border-radius:5px;background:#f7f9fc;color:#475569}.formula-points li:before{content:"";position:absolute;left:9px;top:11px;width:4px;height:4px;border-radius:50%;background:#2563eb}'+
       '.comments-section{border:1px solid #d4deeb;border-radius:8px;padding:11px 13px;margin:12px 0 14px;min-height:52px;page-break-inside:avoid}.comments-title{font-size:8px;letter-spacing:1px;font-weight:800;color:#53647d}.comments-writing-area{height:35px}'+
@@ -168,7 +169,7 @@
       '<section class="section order-information-section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
       '<div><span>Buyer Name</span><strong>'+(esc(val('tr-buyer'))||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(val('tr-style'))||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(val('tr-po'))||'________________')+'</strong></div></div></section>'+
       '<div class="order-quantity-strip"><div class="quantity-main"><span>ORDER QUANTITY</span><strong>'+qty().toLocaleString('en-US')+' pcs</strong></div><div class="quantity-meta"><span>DATE</span><strong>'+dateText+'</strong></div><div class="quantity-meta"><span>CATEGORY</span><strong>TRIMS / '+esc(title.replace(' Consumption Report','').toUpperCase())+'</strong></div></div>'+
-      '<section class="section"><div class="section-head">'+icon('components')+'<span>'+esc(sectionLabel)+'</span></div><table class="consumption-table"><thead><tr><th style="width:6%">SL</th><th style="width:34%">Parameter</th><th style="width:60%">Input / Result</th></tr></thead><tbody>'+safeRows+'</tbody></table></section>'+
+      '<section class="section"><div class="section-head">'+icon('components')+'<span>'+esc(sectionLabel)+'</span></div>'+(customSectionHtml||('<table class="consumption-table"><thead><tr><th style="width:6%">SL</th><th style="width:34%">Parameter</th><th style="width:60%">Input / Result</th></tr></thead><tbody>'+safeRows+'</tbody></table>'))+'</section>'+
       '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER PIECE</span></div><strong>'+esc(result.pc)+'</strong><small>Consumption for one garment</small></div><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>PER DOZEN</span></div><strong>'+esc(result.dz)+'</strong><small>Consumption for 12 garments</small></div><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>FULL ORDER TOTAL</span></div><strong>'+esc(result.order)+'</strong><small>For '+qty().toLocaleString('en-US')+' garments</small></div></div>'+
       '<section class="section"><div class="section-head">'+icon('formula')+'<span>CALCULATION METHOD</span></div><div class="formula-content"><strong>'+esc(sectionLabel)+'</strong>'+formulaList+'</div></section>'+
       '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
@@ -179,11 +180,27 @@
   }
   function pdfThread(){
     const r=thread();if(!r.valid){alert('Complete each operation with name, stitch class, seam length, rows, ratio, wastage and order quantity.');return;}
-    const rows=r.operations.map((o,i)=>['Operation '+(i+1)+' — '+o.name,'Stitch: '+(THREAD_RATIO_REFERENCE[o.stitch]?.name||'Custom')+' | Seam: '+o.length+' m × '+o.rows+' row(s) | Ratio: '+o.ratio+' | Net thread: '+fmt(o.net,3)+' m']);
-    rows.push(['Thread wastage',r.waste+'%'],['Net thread per piece',fmt(r.netPc,3)+' m'],['Calculation method',threadMethod.toUpperCase()]);
-    if(r.cones!==null)rows.push(['Estimated cones',r.cones]);if(r.cost!==null)rows.push(['Estimated thread cost',fmt(r.cost,2)+' '+(val('th-currency')||'BDT')]);
-    report('Thread Consumption Report','Thread Consumption Report',rows,{pc:fmt(r.pc*r.factor,2)+' '+r.unit,dz:fmt(r.dz*r.factor,2)+' '+r.unit,order:fmt(r.order*r.factor,2)+' '+r.unit},
-    ['Operation net thread = Seam length (m) × Rows × Thread ratio (m thread / m seam)','Net per piece = Sum of all operation thread','Final per piece = Net per piece × (1 + Wastage % ÷ 100)','Per dozen = Final per piece × 12','Full order = Final per piece × Order quantity'],'SEWING OPERATION THREAD CONSUMPTION','Estimate only. Validate standard ratios with an actual production sample.');
+    const escPdf=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const unit=r.unit||'m',factor=r.factor||1,display=value=>fmt(value*factor,3)+' '+unit;
+    const methodLabels={standard:'Standard / Custom Ratio',actual:'Actual Measurement',advanced:'Advanced'};
+    const opRows=r.operations.map((o,i)=>{
+      const stitch=THREAD_RATIO_REFERENCE[o.stitch]?.name||'Custom';
+      const extra=threadMethod==='actual'?'<br><span class="muted">Sample: '+fmt(o.sample,3)+' m · Measured: '+fmt(o.measured,3)+' m</span>':threadMethod==='advanced'?'<br><span class="muted">SPI: '+(o.spi||'—')+' · Thickness: '+(o.thickness||'—')+' in</span>':'';
+      return '<tr><td>'+(i+1)+'</td><td><strong>'+escPdf(o.name||'Unnamed operation')+'</strong><br><span class="muted">'+escPdf(stitch)+'</span>'+extra+'</td><td class="num">'+fmt(o.ratio,3)+'</td><td class="num">'+fmt(o.length,3)+' m</td><td class="num">'+o.rows+'</td><td class="num">'+display(o.net)+'</td></tr>';
+    }).join('');
+    const components=Array.from(document.querySelectorAll('.th-component')).filter(el=>el.value.trim()).map(el=>({name:el.dataset.component,ratio:Number(el.value)||0}));
+    const modeText=methodLabels[threadMethod]||'Standard / Custom Ratio';
+    const meta=[['Calculation mode',modeText],['Thread wastage',fmt(r.waste,2)+'%'],['Output unit',unit==='yd'?'Yards (yd)':'Meters (m)']];
+    if(components.length)meta.push(['Component ratios',components.map(c=>c.name+': '+fmt(c.ratio,3)).join(' · ')]);
+    const brand=val('th-brand'),tex=val('th-tex'),sku=val('th-sku'),coneLength=val('th-cone-length'),conePrice=val('th-cone-price'),currency=val('th-currency')||'BDT';
+    if(brand||tex||sku)meta.push(['Thread specification',[brand,tex,sku].filter(Boolean).join(' · ')]);
+    if(coneLength)meta.push(['Cone put-up',coneLength+' m']);
+    if(r.cones!==null)meta.push(['Estimated cones',r.cones.toLocaleString('en-US')]);
+    if(r.cost!==null)meta.push(['Estimated thread cost',fmt(r.cost,2)+' '+currency]);
+    const detailHtml='<table class="thread-pdf-table"><thead><tr><th style="width:5%">SL</th><th style="width:34%">Garment Part / Stitch</th><th class="num" style="width:12%">Ratio<br>(m/m)</th><th class="num" style="width:15%">Seam<br>(m/row)</th><th class="num" style="width:8%">Rows</th><th class="num" style="width:26%">Thread / pc</th></tr></thead><tbody>'+opRows+'</tbody></table><div class="thread-pdf-meta">'+meta.map(([label,value])=>'<div><span>'+escPdf(label)+'</span><strong>'+escPdf(value)+'</strong></div>').join('')+'</div>';
+    report('Thread Consumption Report','Thread Consumption Report',[],{pc:display(r.pc),dz:display(r.dz),order:display(r.order)},
+    ['Operation thread = Seam length (m) × Rows × Thread ratio (m thread / m seam)','Actual Measurement ratio = Measured thread length ÷ Sample seam length','Net per piece = Sum of operation thread consumption','Final consumption = Net consumption × (1 + Wastage % ÷ 100)','Per dozen = Final per piece × 12','Full order = Final per piece × Order quantity'],
+    'SEWING OPERATION DETAILS','Estimate only. Validate standard ratios with an actual production sample.',detailHtml);
   }
   function pdfButton(){
     const r=button();
