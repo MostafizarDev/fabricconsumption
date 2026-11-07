@@ -45,7 +45,7 @@
     const operations=threadRows(),waste=num('th-waste'),orderQty=qty(),useComponents=$('th-use-components')?.checked||false;
     const components=Array.from(document.querySelectorAll('.th-component')).map(el=>({name:el.dataset.component,ratio:Number(el.value)||0,provided:el.value.trim()!==''}));
     const componentMode=useComponents&&components.some(c=>c.provided);
-    const valid=operations.length>0&&operations.every(o=>o.length>0&&o.rows>0&&o.ratio>0&&o.stitch&&(threadMethod!=='actual'||(o.sample>0&&o.measured>0)))&&orderQty>0&&val('th-waste').trim()!==''&&waste>=0&&(!componentMode||components.some(c=>c.provided));
+    const valid=operations.length>0&&operations.every(o=>o.length>0&&o.rows>0&&(componentMode||o.ratio>0)&&o.stitch&&(threadMethod!=='actual'||(o.sample>0&&o.measured>0)))&&orderQty>0&&val('th-waste').trim()!==''&&waste>=0&&(!componentMode||components.some(c=>c.provided));
     if(!valid){operations.forEach(o=>o.row.querySelector('.th-op-result').textContent='—');['th-pc','th-dz','th-order','tr-summary-thread'].forEach(id=>put(id,'—'));put('th-breakdown','');return {operations,waste,pc:0,dz:0,order:0,valid:false};}
     let netPc=0;const componentTotals={};
     operations.forEach(o=>{const base=o.length*o.rows;o.net=componentMode?components.reduce((sum,c)=>sum+(c.provided?base*c.ratio:0),0):base*o.ratio;netPc+=o.net;o.row.querySelector('.th-op-result').textContent=fmt(o.net,3)+' m';});
