@@ -4883,3 +4883,57 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
   #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(8){width:7%}
   #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(9){width:9%}
 }
+
+
+/* Balance sewing-operation table: distribute the full card width across visible columns */
+@media(min-width:761px){
+  #page-trims #tr-thread-card .thread-table-wrap{
+    width:100%;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+  #page-trims #tr-thread-card .thread-operation-table{
+    width:100% !important;
+    min-width:0 !important;
+    table-layout:fixed !important;
+  }
+  #page-trims #tr-thread-card .thread-operation-table th,
+  #page-trims #tr-thread-card .thread-operation-table td{
+    box-sizing:border-box;
+  }
+  /* Standard / Custom: name, stitch, ratio, seam, rows, result, remove */
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:nth-child(1){width:17%}
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:nth-child(2){width:18%}
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:nth-child(3){width:13%}
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:nth-child(4){width:15%}
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:nth-child(5){width:7%}
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:nth-child(10){width:26%}
+  #page-trims #tr-thread-card .thread-operation-table:not(:has(.th-advanced-col.is-visible)):not(:has(.th-actual-col.is-visible)) th:last-child{width:4%}
+  /* Actual: reserve balanced space for both sample measurement inputs */
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(1){width:15%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(2){width:16%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(3){width:11%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(4){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(5){width:6%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(6){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(7){width:13%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(10){width:11%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:last-child{width:4%}
+  /* Advanced: give SPI and thickness usable widths and fill remaining space */
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(1){width:15%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(2){width:16%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(3){width:11%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(4){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(5){width:6%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(8){width:8%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(9){width:10%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(10){width:18%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:last-child{width:4%}
+  #page-trims #tr-thread-card .thread-operation-table td input,
+  #page-trims #tr-thread-card .thread-operation-table td select{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+  }
+}
