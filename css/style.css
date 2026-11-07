@@ -4760,3 +4760,42 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
     min-width:1080px;
   }
 }
+
+
+/* Fit technical-mode columns into the card on desktop; avoid the horizontal scrollbar */
+@media(min-width:761px){
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible),
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible){overflow:hidden}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table,
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table{
+    width:100%;min-width:0;table-layout:fixed
+  }
+  /* Actual Measurement: keep sample inputs readable without squeezing them */
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(1){width:15%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(2){width:17%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(3){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(4){width:6%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(5){width:9%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(6){width:11%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(7){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:nth-child(8){width:10%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible) .thread-operation-table th:last-child{width:32px}
+  /* Advanced: reserve enough room for SPI and thickness while keeping the other inputs usable */
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(1){width:14%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(2){width:16%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(3){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(4){width:6%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(5){width:8%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(6){width:9%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(7){width:12%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:nth-child(8){width:10%}
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible) .thread-operation-table th:last-child{width:32px}
+  #page-trims #tr-thread-card .thread-operation-table th{padding:6px 4px;font-size:9px;line-height:1.25;overflow-wrap:normal;word-break:normal}
+  #page-trims #tr-thread-card .thread-operation-table td{padding:4px 3px}
+  #page-trims #tr-thread-card .thread-operation-table input,
+  #page-trims #tr-thread-card .thread-operation-table select{height:30px;padding:5px 4px;font-size:10px}
+}
+@media(max-width:760px){
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-actual-col.is-visible),
+  #page-trims #tr-thread-card .thread-table-wrap:has(.th-advanced-col.is-visible){overflow-x:auto}
+}
