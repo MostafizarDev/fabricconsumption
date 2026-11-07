@@ -4820,3 +4820,40 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
+
+
+/* Fix component ratio field alignment: label above its own input */
+#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  align-items:start;
+}
+#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid label{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  justify-content:flex-start;
+  gap:5px !important;
+  min-width:0;
+  white-space:normal;
+  line-height:1.3;
+}
+#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid label input{
+  display:block;
+  width:100%;
+  height:32px;
+  min-width:0;
+  margin:0;
+  box-sizing:border-box;
+}
+@media(max-width:760px){
+  #page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+@media(max-width:420px){
+  #page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
+    grid-template-columns:1fr;
+  }
+}
