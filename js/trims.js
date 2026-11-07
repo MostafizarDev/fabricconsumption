@@ -28,6 +28,7 @@
     threadMethod=['standard','actual','advanced','custom'].includes(method)?method:'standard';
     document.querySelectorAll('[data-thread-method]').forEach(btn=>btn.classList.toggle('is-active',btn.dataset.threadMethod===threadMethod));
     document.querySelectorAll('.th-advanced-col').forEach(el=>el.classList.toggle('is-visible',threadMethod==='advanced'));
+    document.querySelectorAll('.th-actual-col').forEach(el=>el.classList.toggle('is-visible',threadMethod==='actual'));
     const notes={standard:'Standard ratios are reference estimates, commonly based on 18 SPI. Edit a ratio when you have a validated factory value.',actual:'Use a ratio measured from an actual sample seam. Enter the measured ratio in each operation row.',advanced:'SPI and seam thickness are recorded as engineering inputs. Use a validated stitch-specific formula or measured ratio; no universal formula is assumed.',custom:'Select Custom stitch and enter your own verified factory ratio.'};
     put('th-method-note',notes[threadMethod]);calculateAll();
   }
@@ -35,14 +36,16 @@
     return Array.from(document.querySelectorAll('#th-operations-body tr')).map(row=>{
       const name=row.querySelector('.th-op-name').value.trim(),stitch=row.querySelector('.th-op-stitch').value,lengthText=row.querySelector('.th-op-length').value.trim(),ratioText=row.querySelector('.th-op-ratio').value.trim();
       if(!name&&!stitch&&!lengthText&&!ratioText)return null;
-      return {row,name:name||'Unnamed operation',stitch,length:Number(lengthText)||0,rows:Number(row.querySelector('.th-op-rows').value)||0,ratio:Number(ratioText)||0,spi:Number(row.querySelector('.th-op-spi').value)||0,thickness:Number(row.querySelector('.th-op-thickness').value)||0};
+      const sample=Number(row.querySelector('.th-op-sample').value)||0,measured=Number(row.querySelector('.th-op-measured').value)||0;
+      const actualRatio=sample>0&&measured>0?measured/sample:0;
+      return {row,name:name||'Unnamed operation',stitch,length:Number(lengthText)||0,rows:Number(row.querySelector('.th-op-rows').value)||0,ratio:threadMethod==='actual'?actualRatio:(Number(ratioText)||0),spi:Number(row.querySelector('.th-op-spi').value)||0,thickness:Number(row.querySelector('.th-op-thickness').value)||0,sample,measured};
     }).filter(Boolean);
   }
   function thread(){
     const operations=threadRows(),waste=num('th-waste'),orderQty=qty(),useComponents=$('th-use-components')?.checked||false;
     const components=Array.from(document.querySelectorAll('.th-component')).map(el=>({name:el.dataset.component,ratio:Number(el.value)||0,provided:el.value.trim()!==''}));
     const componentMode=useComponents&&components.some(c=>c.provided);
-    const valid=operations.length>0&&operations.every(o=>o.length>0&&o.rows>0&&o.ratio>0&&o.stitch)&&orderQty>0&&val('th-waste').trim()!==''&&waste>=0&&(!componentMode||components.some(c=>c.provided));
+    const valid=operations.length>0&&operations.every(o=>o.length>0&&o.rows>0&&o.ratio>0&&o.stitch&&(threadMethod!=='actual'||(o.sample>0&&o.measured>0)))&&orderQty>0&&val('th-waste').trim()!==''&&waste>=0&&(!componentMode||components.some(c=>c.provided));
     if(!valid){operations.forEach(o=>o.row.querySelector('.th-op-result').textContent='—');['th-pc','th-dz','th-order','tr-summary-thread'].forEach(id=>put(id,'—'));put('th-breakdown','');return {operations,waste,pc:0,dz:0,order:0,valid:false};}
     let netPc=0;const componentTotals={};
     operations.forEach(o=>{const base=o.length*o.rows;o.net=componentMode?components.reduce((sum,c)=>sum+(c.provided?base*c.ratio:0),0):base*o.ratio;netPc+=o.net;o.row.querySelector('.th-op-result').textContent=fmt(o.net,3)+' m';});
