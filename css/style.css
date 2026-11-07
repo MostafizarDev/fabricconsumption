@@ -4937,3 +4937,28 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
     box-sizing:border-box;
   }
 }
+
+
+/* Use the available card width for the wastage and output-unit controls */
+#page-trims #tr-thread-card .thread-settings-grid{
+  width:100%;
+  max-width:none !important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+#page-trims #tr-thread-card .thread-settings-grid label{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  min-width:0;
+}
+#page-trims #tr-thread-card .thread-settings-grid input,
+#page-trims #tr-thread-card .thread-settings-grid select{
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+@media(max-width:560px){
+  #page-trims #tr-thread-card .thread-settings-grid{
+    grid-template-columns:1fr;
+  }
+}
