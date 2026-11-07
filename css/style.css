@@ -4623,3 +4623,5 @@ body.dark-mode #page-trims .thread-method-btn,body.dark-mode #page-trims .thread
 body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;border-color:#0891b2}
 @media(max-width:760px){#page-trims .thread-method-switch{grid-template-columns:repeat(2,minmax(0,1fr))}#page-trims .thread-component-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){#page-trims .thread-settings-grid,#page-trims .thread-component-grid{grid-template-columns:1fr}#page-trims .thread-table-toolbar{align-items:flex-start;flex-direction:column}}
+
+#page-trims .th-actual-col{display:none}#page-trims .th-actual-col.is-visible{display:table-cell}
