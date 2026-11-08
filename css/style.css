@@ -5690,3 +5690,52 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
 #page-trims #tr-thread-card .thread-advanced-settings[open]>summary::before{
   transform:rotate(90deg);
 }
+
+
+/* Solid disclosure triangles for both Trims thread accordions */
+#page-trims #tr-thread-card .thread-component-panel>summary,
+#page-trims #tr-thread-card .thread-advanced-settings>summary{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  flex-wrap:wrap !important;
+  gap:0 7px !important;
+  text-align:left !important;
+  list-style:none !important;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary::before,
+#page-trims #tr-thread-card .thread-advanced-settings>summary::before{
+  content:"" !important;
+  display:inline-block !important;
+  flex:0 0 0 !important;
+  width:0 !important;
+  height:0 !important;
+  margin:0 1px 0 0 !important;
+  border-top:5px solid transparent !important;
+  border-bottom:5px solid transparent !important;
+  border-left:7px solid currentColor !important;
+  transform:rotate(0deg);
+  transform-origin:2px 5px;
+  transition:transform .2s ease;
+}
+#page-trims #tr-thread-card .thread-component-panel[open]>summary::before,
+#page-trims #tr-thread-card .thread-advanced-settings[open]>summary::before{
+  transform:rotate(90deg);
+}
+#page-trims #tr-thread-card .thread-component-panel>summary strong,
+#page-trims #tr-thread-card .thread-component-panel>summary small{
+  display:inline !important;
+  margin:0 !important;
+  grid-column:auto !important;
+  grid-row:auto !important;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary strong,
+#page-trims #tr-thread-card .thread-advanced-settings>summary{
+  font-size:12px;
+  line-height:1.4;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary small{
+  font-size:10px;
+  line-height:1.4;
+}
