@@ -14,6 +14,8 @@
   };
   const THREAD_RATIO_REFERENCE={'301':{name:'301 Lockstitch',ratio:2.5},'101':{name:'101 Chainstitch',ratio:4},'401':{name:'401 Two-thread Chainstitch',ratio:5.5},'304':{name:'304 Zigzag Lockstitch',ratio:7},'503':{name:'503 Two-thread Overedge',ratio:12},'504':{name:'504 Three-thread Overedge',ratio:14},'512':{name:'512 Four-thread Mock Safety',ratio:18},'516':{name:'516 Five-thread Safety',ratio:20},'406':{name:'406 Three-thread Coverstitch',ratio:18},'602':{name:'602 Four-thread Coverstitch',ratio:25},'605':{name:'605 Five-thread Coverstitch',ratio:28}};
   let threadMethod='standard',threadRowSequence=0;
+  const trimsValidationAttempted={thread:false,button:false,interlining:false};
+  const activeTrimsCalculator=()=>['thread','button','interlining'].find(mode=>$('tr-'+mode+'-card')&&!$('tr-'+mode+'-card').hidden)||'thread';
   const threadOptions='<option value="">Select stitch</option>'+Object.entries(THREAD_RATIO_REFERENCE).map(([code,item])=>'<option value="'+code+'">'+item.name+'</option>').join('')+'<option value="custom">Custom stitch</option>';
   function addThreadOperation(data={}){
     const body=$('th-operations-body');if(!body)return;
@@ -95,27 +97,72 @@
     put('tr-summary-interlining',fmt(order,3));
     return {length,width,pieces,waste,netPc,pc,dz,order};
   }
-  function updateOrderQuantityState(){
-    const input=$('tr-order-qty');
-    if(!input)return false;
-    const label=input.closest('label');
-    const missing=input.value.trim()===''||!Number.isFinite(Number(input.value))||Number(input.value)<1||!Number.isInteger(Number(input.value));
-    input.classList.toggle('is-missing',missing);
-    input.setAttribute('aria-invalid',String(missing));
-    input.setAttribute('aria-required','true');
-    if(label){
-      label.classList.toggle('is-missing',missing);
-      label.querySelector('.tr-order-required-hint')?.remove();
+  function clearTrimsValidation(mode){
+    const scope=mode==='thread'?$ ('tr-thread-card'):mode==='button'?$ ('tr-button-card'):$ ('tr-interlining-card');
+    const fields=[...document.querySelectorAll('#page-trims .is-missing')];
+    fields.forEach(field=>{
+      if(mode==='thread'&&field.closest('#tr-thread-card')||mode==='button'&&field.closest('#tr-button-card')||mode==='interlining'&&field.closest('#tr-interlining-card')||field.id==='tr-order-qty'){
+        field.classList.remove('is-missing');field.setAttribute('aria-invalid','false');
+        field.closest('label')?.classList.remove('is-missing','has-error');
+      }
+    });
+    if(mode==='thread')document.querySelectorAll('#th-operations-body tr').forEach(row=>row.classList.remove('has-validation-error'));
+  }
+  function validateTrimsCalculator(mode,focus=true){
+    const fields=[],invalidRows=[];
+    const add=(id,rule={})=>fields.push({field:$(id),...rule});
+    add('tr-order-qty',{min:1,integer:true});
+    if(mode==='thread'){
+      add('th-waste',{min:0,max:100,required:true});
+      const rows=Array.from(document.querySelectorAll('#th-operations-body tr'));
+      const entered=rows.filter(row=>Array.from(row.querySelectorAll('input,select')).some(el=>el.value.trim()!==''));
+      const componentMode=$('th-use-components')?.checked||false;
+      const components=Array.from(document.querySelectorAll('.th-component')).filter(el=>el.value.trim()!=='');
+      const componentValid=!componentMode||components.some(el=>Number.isFinite(Number(el.value))&&Number(el.value)>0);
+      if(!entered.length||!componentValid)invalidRows.push(entered[0]||rows[0]);
+      entered.forEach(row=>{
+        const get=selector=>row.querySelector(selector);
+        const stitch=get('.th-op-stitch'),length=get('.th-op-length'),count=get('.th-op-rows'),ratio=get('.th-op-ratio');
+        const operationFields=[{field:stitch,required:true},{field:length,min:0.000001,required:true},{field:count,min:1,integer:true,required:true}];
+        if(!componentMode&&threadMethod!=='actual')operationFields.push({field:ratio,min:0.000001,required:true});
+        if(threadMethod==='actual')operationFields.push({field:get('.th-op-sample'),min:0.000001,required:true},{field:get('.th-op-measured'),min:0.000001,required:true});
+        operationFields.forEach(rule=>fields.push(rule));
+      });
+      if(componentMode)components.forEach(field=>fields.push({field,min:0.000001,required:true}));
+    }else if(mode==='button'){
+      add('bt-pp',{min:0.000001,required:true});add('bt-ex',{min:0,max:100,required:true});
+    }else{
+      add('il-len',{min:0.000001,required:true});add('il-wid',{min:0.000001,required:true});add('il-qty',{min:0.000001,required:true});
+      add('il-waste',{min:0,max:100,required:false});
     }
-    return !missing;
+    let first=null;
+    fields.forEach(rule=>{
+      const field=rule.field;if(!field)return;
+      const raw=String(field.value??'').trim(),value=raw===''?NaN:Number(raw);
+      const bad=rule.required&&raw===''||raw!==''&&(!Number.isFinite(value)||(rule.min!==undefined&&value<rule.min)||(rule.max!==undefined&&value>rule.max)||(rule.integer&&!Number.isInteger(value)));
+      field.classList.toggle('is-missing',!!bad);field.setAttribute('aria-invalid',bad?'true':'false');
+      field.closest('label')?.classList.toggle('is-missing',!!bad);
+      if(bad&&!first)first=field;
+    });
+    invalidRows.forEach(row=>{if(row)row.classList.add('has-validation-error');});
+    const valid=!first&&!invalidRows.length;
+    if(!valid&&focus){
+      put('tr-status',mode==='thread'?'Complete the required sewing operation fields and order details.':mode==='button'?'Complete the required button inputs and order quantity.':'Complete the required interlining dimensions and order quantity.');
+      $('tr-status')?.classList.add('is-warning');
+      (first||invalidRows[0]?.querySelector('input,select'))?.focus({preventScroll:true});
+      (first||invalidRows[0])?.scrollIntoView?.({behavior:'smooth',block:'center'});
+    }
+    return valid;
+  }
+  function refreshTrimsValidation(){
+    const mode=activeTrimsCalculator();
+    if(trimsValidationAttempted[mode])validateTrimsCalculator(mode,false);
   }
   function calculateAll(save=true) {
-    const orderQtyValid=updateOrderQuantityState();
     const q=qty();
     const t=thread(), b=button(), i=interlining();
     const ready = q>0 && (t.valid || ['bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste'].some(id=>val(id).trim()!==''));
-    put('tr-status',!orderQtyValid?'Order quantity is required. Enter the total quantity in Order Information above.':ready?'Results update when you complete the required fields.':'Enter your calculator values to see the results.');
-    if ($('tr-status')) $('tr-status').classList.toggle('is-warning',q===0);
+    if(!Object.values(trimsValidationAttempted).some(Boolean))put('tr-status',ready?'Results update as you enter values.':'Enter your calculator values to see the results.');
     if(window.lucide?.createIcons) window.lucide.createIcons();
     return { thread: t, button: b, interlining: i };
   }
@@ -183,7 +230,8 @@
     if(typeof generatePDF==='function')generatePDF(filename,reportHtml);else window.print();
   }
   function pdfThread(){
-    const r=thread();if(!r.valid){alert('Complete each operation with name, stitch class, seam length, rows, ratio, wastage and order quantity.');return;}
+    if(!validateTrimsCalculator('thread'))return;
+    const r=thread();if(!r.valid){put('tr-status','Complete the required sewing operation fields before downloading the report.');return;}
     const escPdf=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const unit=r.unit||'m',factor=r.factor||1,display=value=>fmt(value*factor,3)+' '+unit;
     const methodLabels={standard:'Standard / Custom Ratio',actual:'Actual Measurement',advanced:'Advanced'};
@@ -207,6 +255,7 @@
     'SEWING OPERATION DETAILS','Estimate only. Validate standard ratios with an actual production sample.',detailHtml);
   }
   function pdfButton(){
+    if(!validateTrimsCalculator('button'))return;
     const r=button();
     if(blankResults(['bt-pp','bt-ex','tr-order-qty'])){alert('Please complete all Button inputs and enter a valid order quantity before downloading the report.');return;}
     report('Button Consumption Report','Button Consumption Report',[
@@ -214,6 +263,7 @@
     ],{pc:fmt(r.rawPc,2)+' pcs',dz:r.dz.toLocaleString('en-US')+' pcs',order:r.order.toLocaleString('en-US')+' pcs'},'Buttons per piece × (1 + Extra / Spare % ÷ 100). Per dozen and full-order quantities are rounded up to the next whole piece.','BUTTON CONSUMPTION DETAILS');
   }
   function pdfInterlining(){
+    if(!validateTrimsCalculator('interlining'))return;
     const r=interlining();
     if(blankResults(['il-len','il-wid','il-qty','tr-order-qty'])){alert('Please complete all Interlining inputs and enter a valid order quantity before downloading the report.');return;}
     report('Interlining Consumption Report','Interlining Consumption Report',[
@@ -284,6 +334,7 @@
     }
     setThreadMethod(state.threadMethod||'standard');
     selectCalculator(state.activeCalculator||'thread');
+    Object.keys(trimsValidationAttempted).forEach(mode=>trimsValidationAttempted[mode]=false);document.querySelectorAll('#page-trims .is-missing').forEach(el=>el.classList.remove('is-missing'));document.querySelectorAll('#page-trims [aria-invalid="true"]').forEach(el=>el.setAttribute('aria-invalid','false'));
     calculateAll();
     put('tr-status','Recent calculation loaded. You can edit the inputs and calculate again.');
     if($('tr-status'))$('tr-status').classList.remove('is-warning');
@@ -297,6 +348,7 @@
     });
     document.querySelectorAll('#page-trims select').forEach(el=>el.selectedIndex=0);
     const body=$('th-operations-body');if(body){body.innerHTML='';threadRowSequence=0;addThreadOperation();}
+    Object.keys(trimsValidationAttempted).forEach(mode=>trimsValidationAttempted[mode]=false);document.querySelectorAll('#page-trims .is-missing').forEach(el=>el.classList.remove('is-missing'));document.querySelectorAll('#page-trims [aria-invalid="true"]').forEach(el=>el.setAttribute('aria-invalid','false'));
     setThreadMethod('standard');selectCalculator('thread');
     if($('tr-recent-panel'))$('tr-recent-panel').hidden=true;
     $('tr-recent-toggle')?.setAttribute('aria-expanded','false');
@@ -363,12 +415,13 @@
     document.querySelectorAll('.th-component,#th-use-components,#th-cone-length,#th-cone-price,#th-currency,#th-waste,#th-output-unit').forEach(el=>{el.addEventListener('input',()=>calculateAll());el.addEventListener('change',()=>calculateAll());});
     ['bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
     ['tr-buyer','tr-style','tr-po','tr-order-qty'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
-    $('btn-calc-thread')?.addEventListener('click',()=>{const r=calculateAll();if(r.thread.valid)saveTrimsRecent('Thread calculation');});
-    $('btn-calc-button')?.addEventListener('click',()=>{calculateAll();if(qty()>0&&val('bt-pp').trim()!==''&&val('bt-ex').trim()!=='')saveTrimsRecent('Button calculation');});
-    $('btn-calc-interlining')?.addEventListener('click',()=>{calculateAll();if(qty()>0&&['il-len','il-wid','il-qty','il-waste'].every(id=>val(id).trim()!==''))saveTrimsRecent('Interlining calculation');});
+    $('btn-calc-thread')?.addEventListener('click',()=>{trimsValidationAttempted.thread=true;if(!validateTrimsCalculator('thread'))return;const r=calculateAll();if(r.thread.valid)saveTrimsRecent('Thread calculation');});
+    $('btn-calc-button')?.addEventListener('click',()=>{trimsValidationAttempted.button=true;if(!validateTrimsCalculator('button'))return;calculateAll();saveTrimsRecent('Button calculation');});
+    $('btn-calc-interlining')?.addEventListener('click',()=>{trimsValidationAttempted.interlining=true;if(!validateTrimsCalculator('interlining'))return;calculateAll();saveTrimsRecent('Interlining calculation');});
     $('btn-pdf-thread')?.addEventListener('click',pdfThread);
     $('btn-pdf-button')?.addEventListener('click',pdfButton);
     $('btn-pdf-interlining')?.addEventListener('click',pdfInterlining);
+    document.querySelectorAll('#page-trims input,#page-trims select').forEach(el=>{el.addEventListener('input',refreshTrimsValidation);el.addEventListener('change',refreshTrimsValidation);});
     calculateAll(false);
   });
 })();
