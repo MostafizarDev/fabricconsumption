@@ -237,8 +237,23 @@ function demo(){
  renderAll();setMode();saveRecent('Demo — full color-wise assortment');
  msg('Demo loaded: 1,200 pcs across 3 colors and 6 sizes, with size ratios, color-wise ratios, marker plan and carton assortment.','success');
 }
-function reset(){st.mode='ratio';st.cartonMode='mixed';st.colorMode='shared';if($('#sr-recent-panel'))$('#sr-recent-panel').hidden=true;$('#sr-recent-toggle')?.setAttribute('aria-expanded','false');st.sizes=[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2}));st.colors=[{id:'c0',name:'Black',qty:0,ratios:{}}];$('#sr-total').value='';$('#sr-buyer').value='';$('#sr-style').value='';$('#sr-po').value='';$('#sr-remarks').value='';$('#sr-date').value=new Date().toISOString().slice(0,10);$('#sr-carton-capacity').value=10;$('#sr-carton-name').value='Standard assortment';$('#sr-preset').value='custom';$('input[name="sr-color-mode"][value="shared"]').checked=true;renderAll();msg('Ready for a new order. Enter the order quantity and calculate.','neutral');}
-function init(){
+function reset(){
+ st.mode='ratio';st.cartonMode='mixed';st.colorMode='shared';st.sizes=[];st.colors=[];
+ if($('#sr-recent-panel'))$('#sr-recent-panel').hidden=true;
+ $('#sr-recent-toggle')?.setAttribute('aria-expanded','false');
+ ['#sr-total','#sr-buyer','#sr-style','#sr-po','#sr-remarks','#sr-date','#sr-carton-capacity','#sr-carton-name','#sr-preset','#sr-new-size'].forEach(sel=>{const el=$(sel);if(el)el.value='';});
+ const shared=$('input[name="sr-color-mode"][value="shared"]');if(shared)shared.checked=true;
+ renderSizes();renderColors();renderMarker();renderCartons();setMode();
+ ['#sr-total-ratio','#sr-total-percent','#sr-total-size-qty','#sr-total-share','#sr-color-total','#sr-marker-lays','#sr-marker-planned','#sr-marker-balance','#sr-marker-count','#sr-marker-total','#sr-marker-overcut','#sr-cartons-full','#sr-cartons-loose','#sr-cartons-packed'].forEach(sel=>text(sel,'—'));
+ $('#sr-color-status').textContent='Ready';$('#sr-color-status').className='sr-status-pill is-neutral';
+ $('#sr-color-matrix-head').innerHTML='';$('#sr-color-matrix-body').innerHTML='';
+ $('#sr-carton-hint').textContent='Enter order details and calculate to create a packing plan.';
+ $('#sr-result-total').textContent='—';$('#sr-result-sizes').textContent='—';$('#sr-result-ratio').textContent='—';$('#sr-result-colors').textContent='—';
+ $('#sr-result-breakdown').innerHTML='';
+ const validation=$('#sr-validation');validation.className='sr-validation';validation.innerHTML='<span>No calculation yet. Enter order details and calculate.</span>';
+ msg('All fields and calculation results have been cleared.','neutral');icons();
+ }
+ function init(){
  if(!root()||root().dataset.srReady)return;root().dataset.srReady='1';$('#sr-date').value=new Date().toISOString().slice(0,10);renderAll();renderRecent();initPdfSectionDialog();
  $('#sr-demo')?.addEventListener('click',demo);
  $('#sr-order-reset')?.addEventListener('click',reset);
