@@ -149,7 +149,12 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
   if(!root()||root().dataset.zipperInitialized==='true')return;
   root().dataset.zipperInitialized='true';
   updateMethod();updateUnits();
-  // All controls use the delegated handlers below to avoid duplicate click actions.
+  // Bind the primary actions directly so manual Calculate never depends on delegated click handling.
+  const calcButton=$('btn-calc-zipper'),demoButton=$('zp-demo'),resetButton=$('zp-reset'),pdfButton=$('btn-pdf-zipper');
+  if(calcButton)calcButton.onclick=e=>{e.preventDefault();calculate(true);};
+  if(demoButton)demoButton.onclick=e=>{e.preventDefault();demo();};
+  if(resetButton)resetButton.onclick=e=>{e.preventDefault();reset();};
+  if(pdfButton)pdfButton.onclick=e=>{e.preventDefault();downloadReport();};
   if(window.lucide?.createIcons)window.lucide.createIcons();
  }
  // Delegated controls: resilient to page re-rendering and script initialization order.
@@ -157,10 +162,6 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
   window.__zipperPlannerEvents=true;
   document.addEventListener('click',e=>{
    const t=e.target.closest('#page-zipper button');if(!t)return;
-   if(t.id==='zp-demo'){demo();return;}
-   if(t.id==='zp-reset'){reset();return;}
-   if(t.id==='btn-calc-zipper'){calculate(true);return;}
-   if(t.id==='btn-pdf-zipper'){downloadReport();return;}
    if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(hadResult)calculate(false);else clearResults();return;}
   });
   document.addEventListener('input',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(lastResult&&!applyingDemo){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}});
