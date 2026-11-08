@@ -5468,57 +5468,115 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
 }
 
 
-/* Thread component accordion: match the native triangle used by the costing panel */
-#page-trims .thread-component-panel>summary{
-  display:grid;
-  grid-template-columns:10px minmax(0,1fr);
-  grid-template-rows:auto auto;
-  column-gap:5px;
-  align-items:center;
-  cursor:pointer;
-  list-style:none;
-  transition:color .18s ease;
-}
-#page-trims .thread-component-panel>summary::-webkit-details-marker{display:none}
-#page-trims .thread-component-panel>summary::marker{content:""}
-#page-trims .thread-component-panel>summary::before{
-  content:"";
-  grid-column:1;
-  grid-row:1 / span 2;
-  justify-self:start;
-  width:0;
-  height:0;
-  border-top:4px solid transparent;
-  border-bottom:4px solid transparent;
-  border-left:5px solid currentColor;
-  transform:rotate(0deg);
-  transform-origin:2px 4px;
-  transition:transform .2s ease;
-}
-#page-trims .thread-component-panel[open]>summary::before{transform:rotate(90deg)}
-#page-trims .thread-component-panel>summary strong{
-  grid-column:2;
-  grid-row:1;
-  font-size:12px;
-}
-#page-trims .thread-component-panel>summary small{
-  grid-column:2;
-  grid-row:2;
-  margin-top:4px;
-}
-#page-trims .thread-component-panel,
-#page-trims .thread-advanced-settings{
+
+
+/* Trims Thread accordions — single source of truth */
+#page-trims #tr-thread-card .thread-component-panel,
+#page-trims #tr-thread-card .thread-advanced-settings{
   transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease;
 }
-#page-trims .thread-component-panel:hover,
-#page-trims .thread-advanced-settings:hover{
+#page-trims #tr-thread-card .thread-component-panel:hover,
+#page-trims #tr-thread-card .thread-advanced-settings:hover{
   border-color:var(--primary-color,#3b82f6);
   box-shadow:0 3px 12px rgba(15,23,42,.06);
 }
-#page-trims .thread-component-panel>summary:hover,
-#page-trims .thread-advanced-settings>summary:hover{
+
+/* Shared solid disclosure triangle */
+#page-trims #tr-thread-card .thread-component-panel>summary,
+#page-trims #tr-thread-card .thread-advanced-settings>summary{
+  cursor:pointer;
+  list-style:none !important;
+  text-align:left;
+  color:var(--text-primary,#1e293b);
+}
+#page-trims #tr-thread-card .thread-component-panel>summary::-webkit-details-marker,
+#page-trims #tr-thread-card .thread-advanced-settings>summary::-webkit-details-marker{
+  display:none !important;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary::marker,
+#page-trims #tr-thread-card .thread-advanced-settings>summary::marker{
+  content:"" !important;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary::before,
+#page-trims #tr-thread-card .thread-advanced-settings>summary::before{
+  content:"";
+  display:block;
+  width:0;
+  height:0;
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent;
+  border-left:7px solid currentColor;
+  transform:rotate(0deg);
+  transform-origin:3px 5px;
+  transition:transform .2s ease;
+}
+#page-trims #tr-thread-card .thread-component-panel[open]>summary::before,
+#page-trims #tr-thread-card .thread-advanced-settings[open]>summary::before{
+  transform:rotate(90deg);
+}
+
+/* Component breakdown: title on line one, helper text on line two */
+#page-trims #tr-thread-card .thread-component-panel>summary{
+  display:grid !important;
+  grid-template-columns:10px minmax(0,1fr);
+  grid-template-rows:auto auto;
+  column-gap:7px;
+  row-gap:3px;
+  align-items:center;
+  justify-content:start;
+  padding:0;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary::before{
+  grid-column:1;
+  grid-row:1;
+  align-self:center;
+  justify-self:start;
+  margin:0;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary strong{
+  grid-column:2;
+  grid-row:1;
+  display:block;
+  margin:0;
+  font-size:12px;
+  line-height:1.4;
+  text-align:left;
+}
+#page-trims #tr-thread-card .thread-component-panel>summary small{
+  grid-column:2;
+  grid-row:2;
+  display:block;
+  margin:0;
+  color:var(--text-secondary,#64748b);
+  font-size:10px;
+  line-height:1.4;
+  white-space:normal;
+  text-align:left;
+}
+
+/* Thread specification & costing: arrow and title stay on one line */
+#page-trims #tr-thread-card .thread-advanced-settings>summary{
+  display:flex !important;
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-start;
+  gap:7px;
+  padding:0;
+  font-size:12px;
+  line-height:1.4;
+  font-weight:700;
+}
+#page-trims #tr-thread-card .thread-advanced-settings>summary::before{
+  flex:0 0 7px;
+  margin:0;
+}
+
+#page-trims #tr-thread-card .thread-component-panel>summary:hover,
+#page-trims #tr-thread-card .thread-advanced-settings>summary:hover{
   color:var(--primary-color,#2563eb);
 }
+
+/* Subtle interactions within the Thread calculator */
 #page-trims #tr-thread-card button{
   transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease;
 }
@@ -5541,374 +5599,22 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
 #page-trims #tr-thread-card select:focus{
   box-shadow:0 0 0 3px rgba(59,130,246,.12);
 }
-#page-trims .thread-result-card{
+#page-trims #tr-thread-card .thread-result-card{
   transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
 }
-#page-trims .thread-result-card:hover{
+#page-trims #tr-thread-card .thread-result-card:hover{
   transform:translateY(-2px);
   box-shadow:0 5px 14px rgba(15,23,42,.08);
 }
 @media(prefers-reduced-motion:reduce){
-  #page-trims .thread-component-panel *,
-  #page-trims .thread-advanced-settings *,
+  #page-trims #tr-thread-card .thread-component-panel *,
+  #page-trims #tr-thread-card .thread-advanced-settings *,
   #page-trims #tr-thread-card button,
   #page-trims #tr-thread-card input,
   #page-trims #tr-thread-card select,
-  #page-trims .thread-result-card{
-    transition:none!important;
-    animation:none!important;
-    transform:none!important;
+  #page-trims #tr-thread-card .thread-result-card{
+    transition:none !important;
+    animation:none !important;
+    transform:none !important;
   }
-}
-
-
-/* Trims: remove the decorative chevron from Thread Component Breakdown only */
-#page-trims .thread-component-panel>summary{
-  display:block;
-  padding-left:0;
-}
-#page-trims .thread-component-panel>summary::before{
-  display:none;
-  content:none;
-}
-#page-trims .thread-component-panel>summary strong,
-#page-trims .thread-component-panel>summary small{
-  display:block;
-  grid-column:auto;
-  grid-row:auto;
-}
-
-
-/* Keep Thread specification arrow and title on a single horizontal line */
-#page-trims .thread-advanced-settings>summary{
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:7px;
-  min-height:16px;
-  list-style:none;
-}
-#page-trims .thread-advanced-settings>summary::before{
-  content:"";
-  display:inline-block;
-  flex:0 0 0;
-  width:0;
-  height:0;
-  margin:0;
-  border-top:4px solid transparent;
-  border-bottom:4px solid transparent;
-  border-left:5px solid currentColor;
-  transform:rotate(0deg);
-  transform-origin:2px 4px;
-}
-#page-trims .thread-advanced-settings[open]>summary::before{
-  transform:rotate(90deg);
-}
-
-
-/* Trims Thread accordions: keep arrow, title and helper text inline */
-#page-trims #tr-thread-card .thread-component-panel>summary{
-  display:flex !important;
-  flex-direction:row;
-  align-items:center;
-  justify-content:flex-start;
-  flex-wrap:wrap;
-  gap:0 7px;
-  padding:0;
-  text-align:left;
-  cursor:pointer;
-  list-style:none;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary::-webkit-details-marker,
-#page-trims #tr-thread-card .thread-component-panel>summary::marker{
-  display:none;
-  content:"";
-}
-#page-trims #tr-thread-card .thread-component-panel>summary::before{
-  content:"";
-  display:inline-block !important;
-  flex:0 0 0;
-  width:0;
-  height:0;
-  margin:0 1px 0 0;
-  border-top:4px solid transparent;
-  border-bottom:4px solid transparent;
-  border-left:5px solid currentColor;
-  transform:rotate(0deg);
-  transform-origin:2px 4px;
-  transition:transform .2s ease;
-}
-#page-trims #tr-thread-card .thread-component-panel[open]>summary::before{
-  transform:rotate(90deg);
-}
-#page-trims #tr-thread-card .thread-component-panel>summary strong{
-  display:inline;
-  grid-column:auto;
-  grid-row:auto;
-  font-size:12px;
-  line-height:1.4;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary small{
-  display:inline;
-  grid-column:auto;
-  grid-row:auto;
-  margin:0;
-  font-size:10px;
-  line-height:1.4;
-}
-#page-trims #tr-thread-card .thread-advanced-settings>summary{
-  display:flex !important;
-  flex-direction:row;
-  align-items:center;
-  justify-content:flex-start;
-  flex-wrap:nowrap;
-  gap:7px;
-  min-height:16px;
-  padding:0;
-  text-align:left;
-  list-style:none;
-}
-#page-trims #tr-thread-card .thread-advanced-settings>summary::-webkit-details-marker,
-#page-trims #tr-thread-card .thread-advanced-settings>summary::marker{
-  display:none;
-  content:"";
-}
-#page-trims #tr-thread-card .thread-advanced-settings>summary::before{
-  content:"";
-  display:inline-block !important;
-  flex:0 0 0;
-  width:0;
-  height:0;
-  margin:0 1px 0 0;
-  border-top:4px solid transparent;
-  border-bottom:4px solid transparent;
-  border-left:5px solid currentColor;
-  transform:rotate(0deg);
-  transform-origin:2px 4px;
-  transition:transform .2s ease;
-}
-#page-trims #tr-thread-card .thread-advanced-settings[open]>summary::before{
-  transform:rotate(90deg);
-}
-
-
-/* Solid disclosure triangles for both Trims thread accordions */
-#page-trims #tr-thread-card .thread-component-panel>summary,
-#page-trims #tr-thread-card .thread-advanced-settings>summary{
-  display:flex !important;
-  flex-direction:row !important;
-  align-items:center !important;
-  justify-content:flex-start !important;
-  flex-wrap:wrap !important;
-  gap:0 7px !important;
-  text-align:left !important;
-  list-style:none !important;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary::before,
-#page-trims #tr-thread-card .thread-advanced-settings>summary::before{
-  content:"" !important;
-  display:inline-block !important;
-  flex:0 0 0 !important;
-  width:0 !important;
-  height:0 !important;
-  margin:0 1px 0 0 !important;
-  border-top:5px solid transparent !important;
-  border-bottom:5px solid transparent !important;
-  border-left:7px solid currentColor !important;
-  transform:rotate(0deg);
-  transform-origin:2px 5px;
-  transition:transform .2s ease;
-}
-#page-trims #tr-thread-card .thread-component-panel[open]>summary::before,
-#page-trims #tr-thread-card .thread-advanced-settings[open]>summary::before{
-  transform:rotate(90deg);
-}
-#page-trims #tr-thread-card .thread-component-panel>summary strong,
-#page-trims #tr-thread-card .thread-component-panel>summary small{
-  display:inline !important;
-  margin:0 !important;
-  grid-column:auto !important;
-  grid-row:auto !important;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary strong,
-#page-trims #tr-thread-card .thread-advanced-settings>summary{
-  font-size:12px;
-  line-height:1.4;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary small{
-  font-size:10px;
-  line-height:1.4;
-}
-
-
-/* Final Trims thread accordion design: solid triangle + single-line labels */
-#page-trims #tr-thread-card .thread-component-panel>summary,
-#page-trims #tr-thread-card .thread-advanced-settings>summary{
-  display:flex !important;
-  flex-direction:row !important;
-  align-items:center !important;
-  justify-content:flex-start !important;
-  flex-wrap:nowrap !important;
-  gap:7px !important;
-  min-width:0;
-  padding:0 !important;
-  text-align:left !important;
-  list-style:none !important;
-  cursor:pointer;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary::-webkit-details-marker,
-#page-trims #tr-thread-card .thread-advanced-settings>summary::-webkit-details-marker{
-  display:none !important;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary::marker,
-#page-trims #tr-thread-card .thread-advanced-settings>summary::marker{
-  content:"" !important;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary::before,
-#page-trims #tr-thread-card .thread-advanced-settings>summary::before{
-  content:"" !important;
-  display:inline-block !important;
-  position:static !important;
-  flex:0 0 9px !important;
-  width:9px !important;
-  height:10px !important;
-  margin:0 !important;
-  padding:0 !important;
-  border:0 !important;
-  background:currentColor !important;
-  clip-path:polygon(10% 0, 100% 50%, 10% 100%) !important;
-  transform:rotate(0deg) !important;
-  transform-origin:center !important;
-  transition:transform .2s ease !important;
-}
-#page-trims #tr-thread-card .thread-component-panel[open]>summary::before,
-#page-trims #tr-thread-card .thread-advanced-settings[open]>summary::before{
-  transform:rotate(90deg) !important;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary strong{
-  display:inline !important;
-  flex:0 0 auto;
-  margin:0 !important;
-  font-size:12px !important;
-  line-height:1.4 !important;
-}
-#page-trims #tr-thread-card .thread-component-panel>summary small{
-  display:inline !important;
-  flex:0 1 auto;
-  margin:0 !important;
-  font-size:10px !important;
-  line-height:1.4 !important;
-  white-space:nowrap;
-}
-#page-trims #tr-thread-card .thread-advanced-settings>summary{
-  font-size:12px !important;
-  line-height:1.4 !important;
-  white-space:nowrap;
-}
-
-
-/* FIX: target the real Trims page markup (there is no #tr-thread-card wrapper) */
-#page-trims .thread-component-panel>summary,
-#page-trims .thread-advanced-settings>summary{
-  display:flex !important;
-  flex-direction:row !important;
-  align-items:center !important;
-  justify-content:flex-start !important;
-  flex-wrap:nowrap !important;
-  gap:7px !important;
-  width:100%;
-  min-width:0;
-  margin:0 !important;
-  padding:0 !important;
-  text-align:left !important;
-  list-style:none !important;
-  cursor:pointer;
-}
-#page-trims .thread-component-panel>summary::-webkit-details-marker,
-#page-trims .thread-advanced-settings>summary::-webkit-details-marker{
-  display:none !important;
-}
-#page-trims .thread-component-panel>summary::marker,
-#page-trims .thread-advanced-settings>summary::marker{
-  content:"" !important;
-}
-#page-trims .thread-component-panel>summary::before,
-#page-trims .thread-advanced-settings>summary::before{
-  content:"" !important;
-  display:inline-block !important;
-  position:static !important;
-  flex:0 0 9px !important;
-  width:9px !important;
-  height:10px !important;
-  margin:0 !important;
-  padding:0 !important;
-  border:0 !important;
-  background:currentColor !important;
-  clip-path:polygon(10% 0, 100% 50%, 10% 100%) !important;
-  transform:rotate(0deg) !important;
-  transform-origin:center !important;
-  transition:transform .2s ease !important;
-}
-#page-trims .thread-component-panel[open]>summary::before,
-#page-trims .thread-advanced-settings[open]>summary::before{
-  transform:rotate(90deg) !important;
-}
-#page-trims .thread-component-panel>summary strong{
-  display:inline !important;
-  flex:0 0 auto !important;
-  margin:0 !important;
-  font-size:12px !important;
-  line-height:1.4 !important;
-  text-align:left !important;
-}
-#page-trims .thread-component-panel>summary small{
-  display:inline !important;
-  flex:0 1 auto !important;
-  margin:0 !important;
-  font-size:10px !important;
-  line-height:1.4 !important;
-  white-space:nowrap !important;
-  text-align:left !important;
-}
-#page-trims .thread-advanced-settings>summary{
-  font-size:12px !important;
-  line-height:1.4 !important;
-  white-space:nowrap !important;
-  text-align:left !important;
-}
-
-
-/* Thread Component Breakdown: title first line, helper note on second line */
-#page-trims .thread-component-panel>summary{
-  display:grid !important;
-  grid-template-columns:9px minmax(0,1fr) !important;
-  grid-template-rows:auto auto !important;
-  column-gap:7px !important;
-  row-gap:3px !important;
-  align-items:center !important;
-  justify-content:start !important;
-  flex-wrap:initial !important;
-  width:100% !important;
-  text-align:left !important;
-}
-#page-trims .thread-component-panel>summary::before{
-  grid-column:1 !important;
-  grid-row:1 !important;
-  align-self:center !important;
-  justify-self:start !important;
-  margin:0 !important;
-}
-#page-trims .thread-component-panel>summary strong{
-  grid-column:2 !important;
-  grid-row:1 !important;
-  display:block !important;
-  text-align:left !important;
-}
-#page-trims .thread-component-panel>summary small{
-  grid-column:2 !important;
-  grid-row:2 !important;
-  display:block !important;
-  margin:0 !important;
-  white-space:normal !important;
-  text-align:left !important;
 }
