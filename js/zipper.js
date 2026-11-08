@@ -3,7 +3,7 @@
  'use strict';
  const $=id=>document.getElementById(id),root=()=>$('#page-zipper');
  const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price','zp-comments'];
-let method='formula',lastResult=null;
+let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
  const num=id=>Math.max(0,Number($(id)?.value)||0),val=id=>$(id)?.value??'',fmt=(n,d=1)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const cmToUnit=cm=>val('zp-unit')==='in'?cm/2.54:cm,unit=()=>val('zp-unit')||'cm',totalQty=()=>Math.floor(num('zp-order-qty')*Math.max(1,Math.floor(num('zp-per-garment'))));
  function status(message,type){const e=$('zp-status');if(e){e.textContent=message;e.className='zipper-inline-status'+(type?' is-'+type:'');}}
@@ -83,7 +83,9 @@ let method='formula',lastResult=null;
  function demo(){
    const selectedMethod=root()?.querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
    const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
+   applyingDemo=true;
    Object.entries(sample).forEach(([id,v])=>{const el=$(id);if(el){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}});
+   applyingDemo=false;
    method=selectedMethod;updateMethod();updateUnits();
    const result=calculate(true);
    if(!result){
@@ -163,10 +165,10 @@ let method='formula',lastResult=null;
    if(t.id==='zp-reset'){reset();return;}
    if(t.id==='btn-calc-zipper'){calculate(true);return;}
    if(t.id==='btn-pdf-zipper'){downloadReport();return;}
-   if(t.dataset.zpMethod){method=t.dataset.zpMethod;updateMethod();clearResults();return;}
+   if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(hadResult)calculate(false);else clearResults();return;}
   });
-  document.addEventListener('input',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(lastResult)clearResults();});
-  document.addEventListener('change',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(e.target.id==='zp-unit'){updateUnits();clearResults();}});
+  document.addEventListener('input',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(lastResult&&!applyingDemo){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}});
+  document.addEventListener('change',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}});
  }
  window.calcZipper=()=>calculate(false);
  window.updateZipper=()=>calculate(false);
