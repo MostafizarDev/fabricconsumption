@@ -220,6 +220,90 @@
       ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces],['Wastage',r.waste+'%'],['Net Area per Piece',fmt(r.netPc,4)+' m²']
     ],{pc:fmt(r.pc,4)+' m²',dz:fmt(r.dz,3)+' m²',order:fmt(r.order,3)+' m²'},'Net area = Length × Width × Quantity per Piece ÷ 10,000. Final area = Net area × (1 + Wastage % ÷ 100). Per dozen = final area × 12. Full order = final area × order quantity.','INTERLINING CONSUMPTION DETAILS');
   }
+  const TRIMS_RECENT_KEY='fabricConsumption.trims.recent.v1';
+  function readTrimsRecent(){
+    try{const data=JSON.parse(localStorage.getItem(TRIMS_RECENT_KEY)||'[]');return Array.isArray(data)?data.slice(0,5):[];}
+    catch(_){return [];}
+  }
+  function writeTrimsRecent(items){
+    try{localStorage.setItem(TRIMS_RECENT_KEY,JSON.stringify(items.slice(0,5)));}
+    catch(_){put('tr-status','Could not save Recent items. Check browser storage settings.');}
+    renderTrimsRecent();
+  }
+  function captureTrimsState(){
+    const fields={};
+    document.querySelectorAll('#page-trims input[id],#page-trims select[id],#page-trims textarea[id]').forEach(el=>{
+      fields[el.id]={value:el.value,type:el.type,checked:el.type==='checkbox'?el.checked:undefined};
+    });
+    const operations=Array.from(document.querySelectorAll('#th-operations-body tr')).map(row=>({
+      name:row.querySelector('.th-op-name')?.value||'',
+      stitch:row.querySelector('.th-op-stitch')?.value||'',
+      ratio:row.querySelector('.th-op-ratio')?.value||'',
+      length:row.querySelector('.th-op-length')?.value||'',
+      rows:row.querySelector('.th-op-rows')?.value||'1',
+      sample:row.querySelector('.th-op-sample')?.value||'',
+      measured:row.querySelector('.th-op-measured')?.value||'',
+      spi:row.querySelector('.th-op-spi')?.value||'',
+      thickness:row.querySelector('.th-op-thickness')?.value||''
+    }));
+    return {fields,operations,threadMethod,activeCalculator:['thread','button','interlining'].find(mode=>$('tr-'+mode+'-card')&&!$('tr-'+mode+'-card').hidden)||'thread'};
+  }
+  function saveTrimsRecent(label){
+    const state=captureTrimsState(),q=qty();
+    if(q<1){put('tr-status','Enter a valid order quantity before saving this calculation.');return;}
+    const buyer=val('tr-buyer').trim(),style=val('tr-style').trim(),po=val('tr-po').trim();
+    const item={id:Date.now(),savedAt:new Date().toISOString(),label:label||'Trims calculation',buyer,style,po,qty:q,state};
+    const items=readTrimsRecent().filter(x=>!(x.buyer===buyer&&x.style===style&&x.po===po&&x.label===item.label));
+    items.unshift(item);writeTrimsRecent(items);
+    put('tr-status','Calculation saved to Recent ('+Math.min(items.length,5)+'/5).');
+  }
+  function escapeRecentText(value){
+    return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function renderTrimsRecent(){
+    const panel=$('tr-recent-panel'),count=$('tr-recent-count');if(!panel)return;
+    const items=readTrimsRecent();if(count)count.textContent=items.length+'/5';
+    if(!items.length){panel.innerHTML='<p class="trims-recent-empty">No saved calculations yet. Complete a calculation and press Calculate to save it here.</p>';return;}
+    panel.innerHTML='<div class="trims-recent-heading"><strong>Recent Calculations</strong><button type="button" class="trims-recent-clear" data-tr-recent-clear>Clear all</button></div>'+items.map(item=>{
+      const date=new Date(item.savedAt),dateLabel=Number.isNaN(date.getTime())?'Saved calculation':date.toLocaleString();
+      const title=[item.buyer,item.style].filter(Boolean).join(' · ')||item.label||'Trims calculation';
+      return '<div class="trims-recent-item"><div class="trims-recent-info"><strong>'+escapeRecentText(title)+'</strong><small>'+escapeRecentText(item.po||'No PO')+' · '+Number(item.qty||0).toLocaleString('en-US')+' pcs · '+escapeRecentText(dateLabel)+'</small></div><div class="trims-recent-actions"><button type="button" class="trims-recent-load" data-tr-recent-load="'+item.id+'">Load</button><button type="button" class="trims-recent-delete" data-tr-recent-delete="'+item.id+'" aria-label="Delete saved calculation">×</button></div></div>';
+    }).join('');
+  }
+  function restoreTrimsState(state){
+    if(!state)return;
+    Object.entries(state.fields||{}).forEach(([id,data])=>{
+      const el=$(id);if(!el)return;
+      if(el.type==='checkbox')el.checked=!!data.checked;else el.value=data.value??'';
+    });
+    const body=$('th-operations-body');
+    if(body){
+      body.innerHTML='';threadRowSequence=0;
+      (state.operations||[]).forEach(data=>addThreadOperation(data));
+      if(!body.children.length)addThreadOperation();
+    }
+    setThreadMethod(state.threadMethod||'standard');
+    selectCalculator(state.activeCalculator||'thread');
+    calculateAll();
+    put('tr-status','Recent calculation loaded. You can edit the inputs and calculate again.');
+    if($('tr-status'))$('tr-status').classList.remove('is-warning');
+  }
+  function resetTrims(){
+    document.querySelectorAll('#page-trims input').forEach(el=>{
+      if(el.type==='checkbox')el.checked=false;
+      else if(el.id==='th-waste')el.value='15';
+      else if(el.id==='th-currency')el.value='BDT';
+      else el.value='';
+    });
+    document.querySelectorAll('#page-trims select').forEach(el=>el.selectedIndex=0);
+    const body=$('th-operations-body');if(body){body.innerHTML='';threadRowSequence=0;addThreadOperation();}
+    setThreadMethod('standard');selectCalculator('thread');
+    if($('tr-recent-panel'))$('tr-recent-panel').hidden=true;
+    $('tr-recent-toggle')?.setAttribute('aria-expanded','false');
+    calculateAll();
+    put('tr-status','All trims inputs and results have been reset. Enter a new order to begin.');
+    if($('tr-status'))$('tr-status').classList.remove('is-warning');
+  }
   function loadTrimsDemo(){
     const demoValues={
       'tr-buyer':'DEMO BUYER','tr-style':'DEMO-TS-001','tr-po':'DEMO-PO-1200','tr-order-qty':'1200',
@@ -249,9 +333,25 @@
     document.querySelectorAll('#page-trims input, #page-trims select').forEach(el=>el.dispatchEvent(new Event('change',{bubbles:true})));
     calculateAll();
     put('tr-status','Demo loaded: Thread, Button and Interlining calculations are all populated. Edit any value to test your own order.');
+    saveTrimsRecent('Demo calculation');
   }
   document.addEventListener('DOMContentLoaded', function () {
     $('tr-demo')?.addEventListener('click',loadTrimsDemo);
+    $('tr-reset')?.addEventListener('click',resetTrims);
+    $('tr-recent-toggle')?.addEventListener('click',()=>{
+      const panel=$('tr-recent-panel');if(!panel)return;
+      const opening=panel.hidden;panel.hidden=!opening;
+      $('tr-recent-toggle').setAttribute('aria-expanded',String(opening));
+      if(opening)renderTrimsRecent();
+    });
+    $('tr-recent-panel')?.addEventListener('click',e=>{
+      const load=e.target.closest('[data-tr-recent-load]');
+      const del=e.target.closest('[data-tr-recent-delete]');
+      if(load){const item=readTrimsRecent().find(x=>String(x.id)===load.dataset.trRecentLoad);if(item){restoreTrimsState(item.state);$('tr-recent-panel').hidden=true;$('tr-recent-toggle')?.setAttribute('aria-expanded','false');}}
+      if(del){writeTrimsRecent(readTrimsRecent().filter(x=>String(x.id)!==del.dataset.trRecentDelete));}
+      if(e.target.closest('[data-tr-recent-clear]')){writeTrimsRecent([]);}
+    });
+    renderTrimsRecent();
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
     addThreadOperation();
@@ -263,9 +363,9 @@
     document.querySelectorAll('.th-component,#th-use-components,#th-cone-length,#th-cone-price,#th-currency,#th-waste,#th-output-unit').forEach(el=>{el.addEventListener('input',()=>calculateAll());el.addEventListener('change',()=>calculateAll());});
     ['bt-pp','bt-ex','il-len','il-wid','il-qty','il-waste','tr-order-qty'].forEach(id=>$(id)?.addEventListener('input',()=>calculateAll()));
     ['tr-buyer','tr-style','tr-po','tr-order-qty'].forEach(id=>$(id)?.addEventListener('change',()=>calculateAll()));
-    $('btn-calc-thread')?.addEventListener('click',()=>{calculateAll();});
-    $('btn-calc-button')?.addEventListener('click',()=>{calculateAll();});
-    $('btn-calc-interlining')?.addEventListener('click',()=>{calculateAll();});
+    $('btn-calc-thread')?.addEventListener('click',()=>{const r=calculateAll();if(r.thread.valid)saveTrimsRecent('Thread calculation');});
+    $('btn-calc-button')?.addEventListener('click',()=>{calculateAll();if(qty()>0&&val('bt-pp').trim()!==''&&val('bt-ex').trim()!=='')saveTrimsRecent('Button calculation');});
+    $('btn-calc-interlining')?.addEventListener('click',()=>{calculateAll();if(qty()>0&&['il-len','il-wid','il-qty','il-waste'].every(id=>val(id).trim()!==''))saveTrimsRecent('Interlining calculation');});
     $('btn-pdf-thread')?.addEventListener('click',pdfThread);
     $('btn-pdf-button')?.addEventListener('click',pdfButton);
     $('btn-pdf-interlining')?.addEventListener('click',pdfInterlining);
