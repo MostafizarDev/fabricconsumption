@@ -198,7 +198,7 @@ const RECENT_KEY='fabricConsumption.sizeRatio.recent.v1';
 function recentItems(){try{const x=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');return Array.isArray(x)?x.slice(0,5):[];}catch(_){return [];}}
 function saveRecent(label){
  const result=calculate();if(!result)return;
- const fields={};$('#page-sizeratio input[id],#page-sizeratio select[id],#page-sizeratio textarea[id]').forEach(el=>{fields[el.id]={value:el.value,type:el.type,checked:el.type==='checkbox'?el.checked:undefined};});
+ const fields={};$$('#page-sizeratio input[id],#page-sizeratio select[id],#page-sizeratio textarea[id]').forEach(el=>{fields[el.id]={value:el.value,type:el.type,checked:el.type==='checkbox'?el.checked:undefined};});
  const snapshot={fields,st:JSON.parse(JSON.stringify(st))};
  const item={id:Date.now(),savedAt:new Date().toISOString(),label:label||'Size ratio calculation',buyer:$('#sr-buyer').value,style:$('#sr-style').value,po:$('#sr-po').value,qty:order(),snapshot};
  const items=recentItems();items.unshift(item);
