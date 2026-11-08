@@ -826,7 +826,7 @@
 
   <section class="zipper-section trims-section">
     <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="sliders-horizontal"></i></div><div><h2>Zipper Details</h2><p>Select the zipper type, material, gauge and color.</p></div></div>
-    <div class="zipper-fields-grid">
+    <div class="zipper-fields-grid zipper-details-grid">
       <label>Zipper Type<select id="zp-type"><option value="Closed-end">Closed-end</option><option value="Open-end / Separating">Open-end / Separating</option><option value="Two-way separating">Two-way separating</option><option value="Two-way non-separating">Two-way non-separating</option><option value="Invisible">Invisible</option><option value="Continuous chain">Continuous chain</option></select></label>
       <label>Material / Teeth<select id="zp-material"><option value="Nylon coil">Nylon coil</option><option value="Plastic molded">Plastic molded</option><option value="Metal">Metal</option><option value="Invisible coil">Invisible coil</option><option value="Other / Custom">Other / Custom</option></select></label>
       <label>Gauge / Size<input id="zp-gauge" type="text" placeholder="e.g. #3, #5, #8"></label>
@@ -836,9 +836,12 @@
 
   <section class="zipper-section trims-section">
     <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="ruler"></i></div><div><h2>Zipper Measurement</h2><p>Use the existing body/neck calculation or enter a directly measured finished zipper length.</p></div></div>
-    <div class="zipper-method-switch" role="group" aria-label="Zipper measurement method">
+    <div class="zipper-measurement-top">
+      <div class="zipper-method-switch" role="group" aria-label="Zipper measurement method">
       <button type="button" class="zipper-method-btn is-active" data-zp-method="formula"><strong>Body / Neck Formula</strong><small>Body length + high neck − front neck drop</small></button>
       <button type="button" class="zipper-method-btn" data-zp-method="direct"><strong>Direct Measurement</strong><small>Use finished zipper measurement</small></button>
+      </div>
+      <label class="zipper-unit-field">Measurement Unit<select id="zp-unit"><option value="cm">Centimeter (cm)</option><option value="in">Inch (in)</option></select></label>
     </div>
     <div class="zipper-fields-grid" id="zp-formula-fields">
       <label><span class="zipper-field-label">Body Length (<span class="zp-unit-label">cm</span>)</span><input class="zp-measure" id="zp-bl" type="number" min="0" step="any" placeholder="e.g. 75"></label>
@@ -851,7 +854,6 @@
       <label>Shrinkage Adjustment (%)<input id="zp-direct-shr" type="number" min="0" max="99" step="any" placeholder="e.g. 2"></label>
     </div>
     <div class="zipper-fields-grid zipper-consumption-fields">
-      <label>Measurement Unit<select id="zp-unit"><option value="cm">Centimeter (cm)</option><option value="in">Inch (in)</option></select></label>
       <label>Zippers per Garment (pcs)<input id="zp-per-garment" type="number" min="1" step="1" value="1"></label>
       <label>Wastage Allowance (%)<input id="zp-waste" type="number" min="0" max="100" step="any" value="2"></label>
       <label>Unit Price (optional)<input id="zp-unit-price" type="number" min="0" step="any" placeholder="Price per zipper"></label>
@@ -870,6 +872,7 @@
       <article><span>Estimated Total Cost</span><strong id="zp-total-cost">—</strong><small>optional costing</small></article>
     </div>
     <div class="zipper-result-note" id="zp-result-note">No calculation yet. Complete the order and measurement fields.</div>
+    <label class="zipper-comments-field">Comments / Production Notes<textarea id="zp-comments" rows="3" placeholder="Add comments or production instructions (optional)"></textarea></label>
     <div class="zipper-action-row"><button type="button" class="trims-primary-btn" id="btn-calc-zipper"><i data-lucide="calculator"></i> Calculate Zipper Consumption</button><button type="button" class="zipper-pdf-btn" id="btn-pdf-zipper"><i data-lucide="file-text"></i> Download Report (PDF)</button></div>
   </section>
 
