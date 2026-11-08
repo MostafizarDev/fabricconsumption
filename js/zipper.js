@@ -3,7 +3,7 @@
  'use strict';
  const $=id=>document.getElementById(id),root=()=> $('page-zipper');
  const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price','zp-comments'];
-let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,userStartedInput=false;
+let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,validationAttempted=false;
  const num=id=>Math.max(0,Number($(id)?.value)||0),val=id=>$(id)?.value??'',fmt=(n,d=1)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const cmToUnit=cm=>val('zp-unit')==='in'?cm/2.54:cm,unit=()=>val('zp-unit')||'cm',totalQty=()=>Math.floor(num('zp-order-qty')*Math.max(1,Math.floor(num('zp-per-garment'))));
  function status(message,type){const e=$('zp-status');if(e){e.textContent=message;e.className='zipper-inline-status'+(type?' is-'+type:'');}}
@@ -62,6 +62,7 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
  function calculate(save=true){
   if(!root())return null;
   method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
+  if(save)validationAttempted=true;
   if(!validateRequiredFields())return null;
   const qtyOrder=Math.floor(num('zp-order-qty'));
   const length=method==='direct'?num('zp-direct-length'):num('zp-bl')+num('zp-hn')-num('zp-fnd');
