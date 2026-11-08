@@ -39,12 +39,12 @@
   if(r.finishedCm<=0){status('Adjusted zipper length must be greater than zero.','error');return null;}
   setText('zp-result',fmt(cmToUnit(r.finishedCm),1)+' '+u);
   setText('zp-result-cm',fmt(r.finishedCm,2)+' cm reference');
-  setText('zp-with-waste',fmt(cmToUnit(r.withWasteCm),1)+' '+u);
+  setText('zp-with-waste',r.extraQty.toLocaleString('en-US')+' pcs');
   setText('zp-total-qty',Math.round(r.qty).toLocaleString('en-US')+' pcs');
   setText('zp-total-length',fmt(cmToUnit(r.totalLengthCm),2));
   setText('zp-total-length-unit',u+' total incl. wastage');
   setText('zp-total-cost',r.price?fmt(r.totalCost,2):'Not entered');
-  setText('zp-result-note','Order: '+qtyOrder.toLocaleString('en-US')+' pcs × '+r.perGarment+' zipper(s) per garment. Wastage is included in total length.');
+  setText('zp-result-note','Order: '+qtyOrder.toLocaleString('en-US')+' pcs × '+r.perGarment+' zipper(s) per garment. Includes '+r.extraQty.toLocaleString('en-US')+' extra zipper(s) for wastage.');
   lastResult=r;status('Calculation complete. Review the result before exporting.','success');
   if(save)saveRecent('Zipper calculation');return r;
  }
@@ -75,10 +75,10 @@
  }
  function downloadReport(){
   const r=lastResult||calculate(false);if(!r)return;
-  const u=r.inputUnit,details=[['Buyer',val('zp-buyer')||'—'],['Style',val('zp-style')||'—'],['PO Number',val('zp-po')||'—'],['Order Quantity',Math.floor(num('zp-order-qty')).toLocaleString('en-US')+' pcs'],['Zipper Type',val('zp-type')],['Material / Teeth',val('zp-material')],['Gauge / Size',val('zp-gauge')||'—'],['Slider',val('zp-slider')||'—'],['Puller / Finish',val('zp-puller')||'—'],['Color / Code',val('zp-color')||'—'],['Measurement Method',r.method==='direct'?'Direct Measurement':'Body / Neck Formula'],['Measurement Unit',u],['Shrinkage Adjustment',r.shr+'%'],['Wastage Allowance',r.waste+'%'],['Zippers per Garment',r.perGarment],['Total Zipper Quantity',r.qty+' pcs'],['Finished Length / Zipper',fmt(cmToUnit(r.finishedCm),1)+' '+u],['Length incl. Wastage / Zipper',fmt(cmToUnit(r.withWasteCm),1)+' '+u],['Total Length Required',fmt(cmToUnit(r.totalLengthCm),2)+' '+u],['Estimated Total Cost',r.price?fmt(r.totalCost,2):'Not entered']];
+  const u=r.inputUnit,details=[['Buyer',val('zp-buyer')||'—'],['Style',val('zp-style')||'—'],['PO Number',val('zp-po')||'—'],['Order Quantity',Math.floor(num('zp-order-qty')).toLocaleString('en-US')+' pcs'],['Zipper Type',val('zp-type')],['Material / Teeth',val('zp-material')],['Gauge / Size',val('zp-gauge')||'—'],['Slider',val('zp-slider')||'—'],['Puller / Finish',val('zp-puller')||'—'],['Color / Code',val('zp-color')||'—'],['Measurement Method',r.method==='direct'?'Direct Measurement':'Body / Neck Formula'],['Measurement Unit',u],['Shrinkage Adjustment',r.shr+'%'],['Wastage Allowance',r.waste+'%'],['Zippers per Garment',r.perGarment],['Base Zipper Quantity',r.baseQty+' pcs'],['Extra Zippers for Wastage',r.extraQty+' pcs'],['Total Zipper Quantity incl. Wastage',r.qty+' pcs'],['Finished Length / Zipper',fmt(cmToUnit(r.finishedCm),1)+' '+u],['Total Length Required',fmt(cmToUnit(r.totalLengthCm),2)+' '+u],['Estimated Total Cost',r.price?fmt(r.totalCost,2):'Not entered']];
   const rows=details.map(x=>'<tr><th>'+esc(x[0])+'</th><td>'+esc(x[1])+'</td></tr>').join('');
   const formula=r.method==='direct'?'Base length = direct finished measurement':'Base length = Body Length + High Neck − Front Neck Drop';
-  const report='<div class="header"><h1>Zipper Consumption Report</h1><div class="date">Generated: '+new Date().toLocaleString()+'</div></div><div class="box"><div>Finished Zipper Length</div><div class="box-value">'+fmt(cmToUnit(r.finishedCm),1)+' '+u+'</div><div>Total required: '+r.qty.toLocaleString('en-US')+' pcs</div></div><h2>Order & Zipper Details</h2><table><tbody>'+rows+'</tbody></table><div style="margin-top:18px;padding:14px;background:#f8fafc;border-radius:8px"><strong>Formula Reference</strong><p>'+esc(formula)+'</p><p>Existing shrinkage adjustment: Base length × (1 − shrinkage / 100)</p><p>Length with wastage = Finished length × (1 + wastage / 100)</p><p>Total length = Length with wastage × Total zipper quantity</p></div><p style="margin-top:16px;color:#64748b;font-size:11px">Confirm zipper measurement and construction against the approved sample and supplier specification before bulk production.</p>';
+  const report='<div class="header"><h1>Zipper Consumption Report</h1><div class="date">Generated: '+new Date().toLocaleString()+'</div></div><div class="box"><div>Finished Zipper Length</div><div class="box-value">'+fmt(cmToUnit(r.finishedCm),1)+' '+u+'</div><div>Total required: '+r.qty.toLocaleString('en-US')+' pcs</div></div><h2>Order & Zipper Details</h2><table><tbody>'+rows+'</tbody></table><div style="margin-top:18px;padding:14px;background:#f8fafc;border-radius:8px"><strong>Formula Reference</strong><p>'+esc(formula)+'</p><p>Existing shrinkage adjustment: Base length × (1 − shrinkage / 100)</p><p>Total zipper quantity = Base zipper quantity × (1 + wastage / 100), rounded up</p><p>Total length = Finished length × Total zipper quantity</p></div><p style="margin-top:16px;color:#64748b;font-size:11px">Confirm zipper measurement and construction against the approved sample and supplier specification before bulk production.</p>';
   if(typeof generatePDF==='function')generatePDF('Zipper Consumption Report',report);else window.print();
  }
  function init(){
