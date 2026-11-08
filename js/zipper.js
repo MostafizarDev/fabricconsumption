@@ -3,7 +3,7 @@
  'use strict';
  const $=id=>document.getElementById(id),root=()=>$('#page-zipper');
  const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price'];
- const RECENT_KEY='fabricConsumption.zipper.recent.v1';let method='formula',lastResult=null;
+let method='formula',lastResult=null;
  const num=id=>Math.max(0,Number($(id)?.value)||0),val=id=>$(id)?.value??'',fmt=(n,d=1)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const cmToUnit=cm=>val('zp-unit')==='in'?cm/2.54:cm,unit=()=>val('zp-unit')||'cm',totalQty=()=>Math.floor(num('zp-order-qty')*Math.max(1,Math.floor(num('zp-per-garment'))));
  function status(message,type){const e=$('zp-status');if(e){e.textContent=message;e.className='zipper-inline-status'+(type?' is-'+type:'');}}
@@ -90,12 +90,7 @@
   updateMethod();updateUnits();
   $('zp-demo')?.addEventListener('click',()=>demo());
   $('zp-reset')?.addEventListener('click',()=>reset());
-  $('zp-recent-toggle')?.addEventListener('click',()=>{
-   const panel=$('zp-recent-panel');if(!panel)return;
-   panel.hidden=!panel.hidden;
-   $('zp-recent-toggle').setAttribute('aria-expanded',String(!panel.hidden));
-   if(!panel.hidden)renderRecent();
-  });
+
   $('btn-calc-zipper')?.addEventListener('click',()=>calculate(true));
   $('btn-pdf-zipper')?.addEventListener('click',downloadReport);
   root().querySelectorAll('[data-zp-method]').forEach(btn=>btn.addEventListener('click',()=>{
