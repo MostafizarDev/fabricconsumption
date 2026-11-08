@@ -4976,3 +4976,6 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
 }
 /* Keep the two setup controls compact; the requested spacing adjustment is for Sewing Operations */
 #page-trims #tr-thread-card .thread-settings-grid{max-width:470px !important}
+
+#page-trims .trims-section-heading #tr-demo{margin-left:auto;flex:0 0 auto;white-space:nowrap}
+@media(max-width:560px){#page-trims .trims-section-heading #tr-demo{margin-left:0}}
