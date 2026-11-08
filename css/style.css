@@ -5876,3 +5876,39 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
   white-space:nowrap !important;
   text-align:left !important;
 }
+
+
+/* Thread Component Breakdown: title first line, helper note on second line */
+#page-trims .thread-component-panel>summary{
+  display:grid !important;
+  grid-template-columns:9px minmax(0,1fr) !important;
+  grid-template-rows:auto auto !important;
+  column-gap:7px !important;
+  row-gap:3px !important;
+  align-items:center !important;
+  justify-content:start !important;
+  flex-wrap:initial !important;
+  width:100% !important;
+  text-align:left !important;
+}
+#page-trims .thread-component-panel>summary::before{
+  grid-column:1 !important;
+  grid-row:1 !important;
+  align-self:center !important;
+  justify-self:start !important;
+  margin:0 !important;
+}
+#page-trims .thread-component-panel>summary strong{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  display:block !important;
+  text-align:left !important;
+}
+#page-trims .thread-component-panel>summary small{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  display:block !important;
+  margin:0 !important;
+  white-space:normal !important;
+  text-align:left !important;
+}
