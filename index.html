@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="/favicon.svg">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261108-zipper-order-row">
+<link rel="stylesheet" href="css/style.css?v=20261108-zipper-simple-head">
 </head>
 <body>
 
@@ -813,7 +813,7 @@
   </section>
 
   <section class="zipper-section trims-section">
-    <div class="trims-section-heading zipper-order-heading"><div class="trims-heading-icon"><i data-lucide="clipboard-list"></i></div><div class="zipper-heading-copy"><span class="trims-kicker">01 / ORDER SETUP</span><div class="zipper-heading-line"><h2>Order Information</h2><p>Enter buyer and purchase order details for zipper planning.</p></div></div>
+    <div class="trims-section-heading zipper-order-heading"><div class="trims-heading-icon"><i data-lucide="clipboard-list"></i></div><div class="zipper-heading-copy"><h2>Order Information</h2><p>Enter buyer and purchase order details for zipper planning.</p></div>
       <div class="zipper-head-actions"><button type="button" class="trims-secondary-btn" id="zp-demo"><i data-lucide="sparkles"></i> Demo</button><button type="button" class="trims-secondary-btn" id="zp-reset"><i data-lucide="rotate-ccw"></i> Reset</button><button type="button" class="trims-secondary-btn" id="zp-recent-toggle" aria-expanded="false"><i data-lucide="history"></i> Recent</button></div>
     </div>
     <div class="zipper-recent-panel" id="zp-recent-panel" hidden></div>
@@ -826,19 +826,17 @@
   </section>
 
   <section class="zipper-section trims-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="sliders-horizontal"></i></div><div><span class="trims-kicker">02 / ZIPPER SPECIFICATION</span><h2>Zipper Details</h2><p>Select the construction and record the zipper specification for the tech pack.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="sliders-horizontal"></i></div><div><h2>Zipper Details</h2><p>Select the zipper type, material, gauge and color.</p></div></div>
     <div class="zipper-fields-grid">
       <label>Zipper Type<select id="zp-type"><option value="Closed-end">Closed-end</option><option value="Open-end / Separating">Open-end / Separating</option><option value="Two-way separating">Two-way separating</option><option value="Two-way non-separating">Two-way non-separating</option><option value="Invisible">Invisible</option><option value="Continuous chain">Continuous chain</option></select></label>
       <label>Material / Teeth<select id="zp-material"><option value="Nylon coil">Nylon coil</option><option value="Plastic molded">Plastic molded</option><option value="Metal">Metal</option><option value="Invisible coil">Invisible coil</option><option value="Other / Custom">Other / Custom</option></select></label>
       <label>Gauge / Size<input id="zp-gauge" type="text" placeholder="e.g. #3, #5, #8"></label>
-      <label>Slider Type<input id="zp-slider" type="text" placeholder="e.g. Auto-lock, non-lock"></label>
-      <label>Puller / Finish<input id="zp-puller" type="text" placeholder="e.g. Standard, logo puller"></label>
       <label>Color / Code<input id="zp-color" type="text" placeholder="e.g. Black / 001"></label>
     </div>
   </section>
 
   <section class="zipper-section trims-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="ruler"></i></div><div><span class="trims-kicker">03 / MEASUREMENT & CONSUMPTION</span><h2>Zipper Measurement</h2><p>Use the existing body/neck calculation or enter a directly measured finished zipper length.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="ruler"></i></div><div><h2>Zipper Measurement</h2><p>Use the existing body/neck calculation or enter a directly measured finished zipper length.</p></div></div>
     <div class="zipper-method-switch" role="group" aria-label="Zipper measurement method">
       <button type="button" class="zipper-method-btn is-active" data-zp-method="formula"><strong>Body / Neck Formula</strong><small>Body length + high neck − front neck drop</small></button>
       <button type="button" class="zipper-method-btn" data-zp-method="direct"><strong>Direct Measurement</strong><small>Use finished zipper measurement</small></button>
@@ -864,7 +862,7 @@
   </section>
 
   <section class="zipper-section trims-results-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="trims-kicker">04 / CALCULATION RESULTS</span><h2>Zipper Order Summary</h2><p>Review the estimated length, required quantity and optional cost before exporting.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><h2>Zipper Order Summary</h2><p>Review the estimated length, required quantity and optional cost before exporting.</p></div></div>
     <div class="zipper-result-grid">
       <article class="zipper-result-primary"><span>Finished Length / Zipper</span><strong id="zp-result">—</strong><small id="zp-result-cm">—</small></article>
       <article><span>Extra Zippers (Wastage)</span><strong id="zp-with-waste">—</strong><small>per zipper</small></article>
@@ -877,7 +875,7 @@
   </section>
 
   <section class="zipper-section trims-section zipper-reference-section">
-    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="book-open"></i></div><div><span class="trims-kicker">REFERENCE</span><h2>Calculation Formula</h2><p>Review how zipper length and order quantity are estimated.</p></div></div>
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="book-open"></i></div><div><h2>Calculation Formula</h2><p>Review how zipper length and order quantity are estimated.</p></div></div>
     <div class="zipper-reference-grid">
       <article><strong>Existing Body / Neck Formula</strong><code>Base Length = Body Length + High Neck − Front Neck Drop</code><small>Existing shrinkage adjustment is retained for continuity with your current calculator.</small></article>
       <article><strong>Direct Measurement</strong><code>Base Length = Approved Sample Measurement</code><small>Use the measured finished zipper length from the approved garment sample.</small></article>
