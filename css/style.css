@@ -5117,3 +5117,11 @@ body.dark-mode #page-zipper .zipper-formula-note small{color:#aebed1}
 @media(max-width:850px){#page-zipper .zipper-order-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#page-zipper .zipper-result-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){#page-zipper .zipper-hero{padding:18px;gap:12px}#page-zipper .zipper-hero .trims-hero-icon{flex-basis:52px;width:52px;height:52px}#page-zipper .zipper-hero .trims-hero-icon svg{width:34px;height:34px}#page-zipper .zipper-hero h1{font-size:22px}#page-zipper .zipper-section{padding:14px}#page-zipper .trims-section-heading{align-items:flex-start;flex-wrap:wrap}#page-zipper .zipper-head-actions{width:100%;margin-left:47px;justify-content:flex-start;flex-wrap:wrap}#page-zipper .zipper-order-grid,#page-zipper .zipper-fields-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#page-zipper .zipper-result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#page-zipper .zipper-result-grid .zipper-result-primary{grid-column:1/-1}#page-zipper .zipper-method-switch,#page-zipper .zipper-reference-grid{grid-template-columns:1fr}#page-zipper .zipper-action-row{flex-direction:column}#page-zipper .zipper-action-row button{width:100%}}
 @media(max-width:380px){#page-zipper .zipper-order-grid,#page-zipper .zipper-fields-grid{grid-template-columns:1fr}}
+
+/* Zipper order form fields and measurement label alignment */
+#page-zipper .zipper-order-grid label{display:grid;gap:7px;min-width:0;color:var(--label-color,#334155);font-size:10px;font-weight:700}
+#page-zipper .zipper-order-grid input{width:100%;min-width:0;min-height:42px;padding:10px 12px;border:1px solid var(--input-border,#cbd5e1);border-radius:9px;color:var(--text-color,#1e293b);background:var(--input-bg,#fff);font:inherit;font-size:12px;outline:none}
+#page-zipper .zipper-order-grid input:focus{border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+#page-zipper .zipper-fields-grid label .zipper-field-label{display:block;line-height:1.45}
+#page-zipper .zipper-fields-grid label .zp-unit-label{display:inline}
+body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:#e2e8f0;background:#0f172a}
