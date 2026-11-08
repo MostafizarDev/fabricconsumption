@@ -70,10 +70,21 @@
     put('th-pc',display(pc));put('th-dz',display(dz));put('th-order',display(order));put('tr-summary-thread',fmt(order*factor,2));
     const coneLength=num('th-cone-length'),conePrice=num('th-cone-price'),cones=coneLength>0?Math.ceil(order/coneLength):null,cost=coneLength>0&&val('th-cone-price').trim()!==''?(order/coneLength)*conePrice:null;
     const breakdown=$('th-breakdown');
-    if(breakdown){const parts=Object.entries(componentTotals).map(([name,value])=>'<div><span>'+name+'</span><strong>'+display(value*(1+waste/100))+'</strong></div>').join('');
-      breakdown.innerHTML='<div class="thread-summary-line"><span>Net per piece</span><strong>'+display(netPc)+'</strong></div><div class="thread-summary-line"><span>Wastage</span><strong>'+fmt(waste,1)+'%</strong></div>'+
-      (parts?'<div class="thread-component-results">'+parts+'</div>':'<p class="trims-field-note" role="note" style="font-size:11px;font-weight:400;line-height:1.45;color:var(--text-secondary);background:var(--surface-secondary,transparent);border-left:2px solid var(--border-color,currentColor);padding:7px 10px;margin:8px 0 0;">Component split not supplied. Total consumption is shown without guessing Needle / Bobbin / Looper shares.</p>')+
-      (cones!==null?'<div class="thread-summary-line"><span>Estimated cones</span><strong>'+cones.toLocaleString('en-US')+'</strong></div>':'')+(cost!==null?'<div class="thread-summary-line"><span>Estimated thread cost</span><strong>'+fmt(cost,2)+' '+(val('th-currency')||'BDT')+'</strong></div>':'');}
+    if(breakdown){
+      const metric=(label,value,extra='')=>'<div class="thread-result-card '+extra+'"><span>'+label+'</span><strong>'+value+'</strong></div>';
+      const parts=Object.entries(componentTotals).map(([name,value])=>'<div><span>'+name+'</span><strong>'+display(value*(1+waste/100))+'</strong></div>').join('');
+      const metrics=[
+        metric('Net per piece',display(netPc)),
+        metric('Wastage',fmt(waste,1)+'%'),
+        cones!==null?metric('Estimated cones',cones.toLocaleString('en-US')):'',
+        cost!==null?metric('Estimated thread cost',fmt(cost,2)+' '+(val('th-currency')||'BDT')):'',
+        metric('Per Piece',display(pc),'is-primary'),
+        metric('Per Dozen',display(dz),'is-primary'),
+        metric('Full Order',display(order),'is-primary')
+      ].filter(Boolean).join('');
+      breakdown.innerHTML='<div class="thread-results-grid">'+metrics+'</div>'+
+        (parts?'<div class="thread-component-results">'+parts+'</div>':'<p class="trims-field-note" role="note">Component split not supplied. Total consumption is shown without guessing Needle / Bobbin / Looper shares.</p>');
+    }
     return {operations,waste,netPc,pc,dz,order,components,componentTotals,componentMode,cones,cost,valid:true,unit,factor};
   }
   function button() {
