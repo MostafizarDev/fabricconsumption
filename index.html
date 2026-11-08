@@ -872,7 +872,7 @@
       <article><span>Estimated Total Cost</span><strong id="zp-total-cost">—</strong><small>optional costing</small></article>
     </div>
     <div class="zipper-result-note" id="zp-result-note">No calculation yet. Complete the order and measurement fields.</div>
-    <label class="zipper-comments-field">Comments / Production Notes<textarea id="zp-comments" rows="3" placeholder="Add comments or production instructions (optional)"></textarea></label>
+    <textarea id="zp-comments" hidden aria-hidden="true" tabindex="-1"></textarea>
     <div class="zipper-action-row"><button type="button" class="trims-primary-btn" id="btn-calc-zipper"><i data-lucide="calculator"></i> Calculate Zipper Consumption</button><button type="button" class="zipper-pdf-btn" id="btn-pdf-zipper"><i data-lucide="file-text"></i> Download Report (PDF)</button></div>
   </section>
 
@@ -1428,7 +1428,7 @@
 <script src="js/woven-shirt.js"></script>
 <script src="js/booking-sheet.js"></script>
 <script src="js/knit-price.js"></script>
-<script src="js/zipper.js?v=20261108-zipper-validation-final"></script>
+<script src="js/zipper.js?v=20261108-comments-pdf-only"></script>
 <script src="js/trims.js?v=20261106-trims-clean"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js?v=20261108-reset-clear1"></script>
