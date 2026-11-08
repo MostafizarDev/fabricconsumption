@@ -5008,3 +5008,27 @@ body.dark-mode #page-trims .trims-recent-info strong{color:#e2e8f0}
 body.dark-mode #page-trims .trims-recent-load,body.dark-mode #page-trims .trims-recent-delete{background:#0f172a;border-color:#475569;color:#e2e8f0}
 @media(max-width:650px){#page-trims #tr-thread-card .trims-card-head{flex-wrap:wrap}#page-trims #tr-thread-card .trims-header-actions{width:100%;margin:7px 0 0 47px;justify-content:flex-start;flex-wrap:wrap}#page-trims .trims-recent-panel{width:100%}}
 @media(max-width:420px){#page-trims #tr-thread-card .trims-header-actions{margin-left:0}#page-trims #tr-thread-card .trims-header-actions .trims-secondary-btn{padding:6px 8px;font-size:9px}}
+
+/* Size Ratio Order Information demo and recent controls */
+#page-sizeratio .sr-order-heading-copy{flex:1;min-width:0}
+#page-sizeratio .sr-order-actions{display:flex;align-items:center;gap:7px;margin-left:auto;flex:0 0 auto}
+#page-sizeratio .sr-order-actions .sr-small-btn{min-height:34px;padding:7px 11px}
+#page-sizeratio .sr-order-actions .sr-demo-btn{border-color:#7dd3fc;color:#075985;background:#e0f2fe}
+#page-sizeratio .sr-order-actions .sr-recent-btn{border-color:#cbd5e1;color:#334155;background:var(--soft-bg,#f8fafc)}
+#page-sizeratio .sr-recent-panel{position:relative;z-index:4;width:min(520px,100%);max-height:330px;overflow:auto;margin:-3px 0 14px auto;padding:11px;border:1px solid var(--border,#dbe3ee);border-radius:10px;background:var(--card-bg,#fff);box-shadow:0 12px 28px rgba(15,23,42,.12)}
+#page-sizeratio .sr-recent-panel[hidden]{display:none!important}
+#page-sizeratio .sr-recent-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;color:var(--text,#0f172a);font-size:11px}
+#page-sizeratio .sr-recent-heading button{border:0;background:transparent;color:#dc2626;font-size:10px;font-weight:800;cursor:pointer}
+#page-sizeratio .sr-recent-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--border,#e2e8f0)}
+#page-sizeratio .sr-recent-item>div:first-child{display:grid;gap:3px;min-width:0}
+#page-sizeratio .sr-recent-item strong{color:var(--text,#0f172a);font-size:10px;overflow-wrap:anywhere}
+#page-sizeratio .sr-recent-item small,#page-sizeratio .sr-recent-empty{color:var(--muted,#64748b);font-size:9px;line-height:1.5}
+#page-sizeratio .sr-recent-actions{display:flex;align-items:center;gap:5px;flex:0 0 auto}
+#page-sizeratio .sr-recent-actions button{padding:5px 8px;border:1px solid var(--border,#cbd5e1);border-radius:6px;background:var(--input-bg,#fff);color:var(--text,#334155);font-size:9px;font-weight:800;cursor:pointer}
+#page-sizeratio .sr-recent-actions button:first-child{border-color:#93c5fd;color:#0369a1}
+#page-sizeratio .sr-recent-actions button:last-child{color:#dc2626}
+body.dark-mode #page-sizeratio .sr-recent-panel{border-color:#334155;background:#111c2e}
+body.dark-mode #page-sizeratio .sr-recent-item strong{color:#e2e8f0}
+body.dark-mode #page-sizeratio .sr-recent-actions button{border-color:#475569;background:#0f172a;color:#e2e8f0}
+@media(max-width:600px){#page-sizeratio .sr-section-heading{flex-wrap:wrap}#page-sizeratio .sr-order-actions{width:100%;margin:5px 0 0 49px;justify-content:flex-start}#page-sizeratio .sr-recent-panel{width:100%}}
+@media(max-width:420px){#page-sizeratio .sr-order-actions{margin-left:0}}
