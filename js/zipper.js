@@ -3,7 +3,7 @@
  'use strict';
  const $=id=>document.getElementById(id),root=()=> $('page-zipper');
  const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price','zp-comments'];
-let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
+let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,userStartedInput=false;
  const num=id=>Math.max(0,Number($(id)?.value)||0),val=id=>$(id)?.value??'',fmt=(n,d=1)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const cmToUnit=cm=>val('zp-unit')==='in'?cm/2.54:cm,unit=()=>val('zp-unit')||'cm',totalQty=()=>Math.floor(num('zp-order-qty')*Math.max(1,Math.floor(num('zp-per-garment'))));
  function status(message,type){const e=$('zp-status');if(e){e.textContent=message;e.className='zipper-inline-status'+(type?' is-'+type:'');}}
@@ -164,8 +164,23 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
    const t=e.target.closest('#page-zipper button');if(!t)return;
    if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(hadResult)calculate(false);else clearResults();return;}
   });
-  document.addEventListener('input',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(lastResult&&!applyingDemo){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}});
-  document.addEventListener('change',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}});
+  document.addEventListener('input',e=>{
+   if(!e.target.closest('#page-zipper'))return;
+   if(!applyingDemo&&e.target.matches('input,select,textarea')&&String(e.target.value??'').trim()!=='')userStartedInput=true;
+   clearFieldError(e.target);
+   if(lastResult&&!applyingDemo){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}
+  });
+  document.addEventListener('focusout',e=>{
+   if(!e.target.closest('#page-zipper')||applyingDemo||!userStartedInput)return;
+   method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
+   validateRequiredFields({focus:false,silent:true});
+  });
+  document.addEventListener('change',e=>{
+   if(!e.target.closest('#page-zipper'))return;
+   clearFieldError(e.target);
+   if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}
+   if(userStartedInput&&!applyingDemo)validateRequiredFields({focus:false,silent:true});
+  });
  }
  window.calcZipper=()=>calculate(false);
  window.updateZipper=()=>calculate(false);
