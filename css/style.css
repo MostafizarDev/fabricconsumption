@@ -4609,35 +4609,6 @@ body.dark-mode #page-trims .trims-order-grid input.is-missing{background:#321b24
 #page-trims .th-remove-operation{width:30px;height:30px;border:0;border-radius:7px;background:#fee2e2;color:#b91c1c;font-size:19px;cursor:pointer}
 #page-trims .thread-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:12px}
 #page-trims .thread-check-label{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px}#page-trims .thread-check-label input{width:auto}
-/* Put the costing accordion marker above its title, matching the component panel */
-#page-trims .thread-advanced-settings>summary{
-  display:grid;
-  grid-template-columns:minmax(0,1fr);
-  grid-template-rows:10px auto;
-  row-gap:2px;
-  cursor:pointer;
-  list-style:none;
-  font-weight:700;
-  font-size:12px;
-  transition:color .18s ease;
-}
-#page-trims .thread-advanced-settings>summary::-webkit-details-marker{display:none}
-#page-trims .thread-advanced-settings>summary::marker{content:""}
-#page-trims .thread-advanced-settings>summary::before{
-  content:"";
-  grid-column:1;
-  grid-row:1;
-  justify-self:start;
-  width:0;
-  height:0;
-  border-top:4px solid transparent;
-  border-bottom:4px solid transparent;
-  border-left:5px solid currentColor;
-  transform:rotate(0deg);
-  transform-origin:2px 4px;
-  transition:transform .2s ease;
-}
-#page-trims .thread-advanced-settings[open]>summary::before{transform:rotate(90deg)}
 #page-trims .thread-results-breakdown{margin-top:12px;display:grid;gap:8px}
 #page-trims .thread-summary-line{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border:1px solid var(--border-color,#e2e8f0);border-radius:8px;font-size:12px}
 #page-trims .thread-component-results{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
