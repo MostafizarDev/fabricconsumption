@@ -231,6 +231,7 @@
     if(typeof generatePDF==='function')generatePDF(filename,reportHtml);else window.print();
   }
   function pdfThread(){
+    trimsValidationAttempted.thread=true;
     if(!validateTrimsCalculator('thread'))return;
     const r=thread();if(!r.valid){put('tr-status','Complete the required sewing operation fields before downloading the report.');return;}
     const escPdf=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -256,6 +257,7 @@
     'SEWING OPERATION DETAILS','Estimate only. Validate standard ratios with an actual production sample.',detailHtml);
   }
   function pdfButton(){
+    trimsValidationAttempted.button=true;
     if(!validateTrimsCalculator('button'))return;
     const r=button();
     if(blankResults(['bt-pp','bt-ex','tr-order-qty'])){alert('Please complete all Button inputs and enter a valid order quantity before downloading the report.');return;}
@@ -264,6 +266,7 @@
     ],{pc:fmt(r.rawPc,2)+' pcs',dz:r.dz.toLocaleString('en-US')+' pcs',order:r.order.toLocaleString('en-US')+' pcs'},'Buttons per piece × (1 + Extra / Spare % ÷ 100). Per dozen and full-order quantities are rounded up to the next whole piece.','BUTTON CONSUMPTION DETAILS');
   }
   function pdfInterlining(){
+    trimsValidationAttempted.interlining=true;
     if(!validateTrimsCalculator('interlining'))return;
     const r=interlining();
     if(blankResults(['il-len','il-wid','il-qty','tr-order-qty'])){alert('Please complete all Interlining inputs and enter a valid order quantity before downloading the report.');return;}
@@ -358,6 +361,8 @@
     if($('tr-status'))$('tr-status').classList.remove('is-warning');
   }
   function loadTrimsDemo(){
+    Object.keys(trimsValidationAttempted).forEach(mode=>trimsValidationAttempted[mode]=false);
+    document.querySelectorAll('#page-trims .is-missing,#page-trims .has-error').forEach(el=>el.classList.remove('is-missing','has-error'));
     const demoValues={
       'tr-buyer':'DEMO BUYER','tr-style':'DEMO-TS-001','tr-po':'DEMO-PO-1200','tr-order-qty':'1200',
       'th-waste':'15','th-output-unit':'m',
