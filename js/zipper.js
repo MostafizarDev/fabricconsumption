@@ -154,18 +154,16 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
   window.__zipperPlannerEvents=true;
   document.addEventListener('click',e=>{
    const t=e.target.closest('#page-zipper button');if(!t)return;
-   if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(userStartedInput)validateRequiredFields({focus:false,silent:true});if(hadResult)calculate(false);else clearResults();return;}
+   if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(validationAttempted)validateRequiredFields({focus:false,silent:true});if(hadResult)calculate(false);else clearResults();return;}
   });
-  document.addEventListener('input',e=>{
+   document.addEventListener('input',e=>{
     if(!e.target.closest('#page-zipper')||applyingDemo)return;
-    if(e.target.matches('input,select,textarea'))userStartedInput=true;
-    if(userStartedInput)validateRequiredFields({focus:false,silent:true});
+    if(validationAttempted)validateRequiredFields({focus:false,silent:true});
     if(lastResult){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}
    });
    document.addEventListener('change',e=>{
     if(!e.target.closest('#page-zipper')||applyingDemo)return;
-    if(e.target.matches('input,select,textarea'))userStartedInput=true;
-    if(userStartedInput)validateRequiredFields({focus:false,silent:true});
+    if(validationAttempted)validateRequiredFields({focus:false,silent:true});
     if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}
    });
  }
