@@ -4658,7 +4658,6 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
 #page-trims #tr-thread-card .thread-component-grid{gap:8px;margin-top:8px}
 #page-trims #tr-thread-card .thread-component-grid input{height:30px;padding:6px 8px;font-size:11px}
 #page-trims #tr-thread-card .thread-check-label{font-size:10px;gap:6px;margin-top:8px}
-#page-trims #tr-thread-card .thread-advanced-settings summary{font-size:11px}
 #page-trims #tr-thread-card .thread-results-breakdown{gap:6px;margin-top:9px}
 #page-trims #tr-thread-card .thread-summary-line{padding:7px 9px;font-size:11px}
 #page-trims #tr-thread-card .thread-component-results>div{padding:7px;font-size:10px}
@@ -4789,30 +4788,7 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
 }
 
 
-/* Keep the four thread component ratio fields on one row */
-#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-  align-items:end;
-}
-#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid label{
-  min-width:0;
-  white-space:nowrap;
-}
-#page-trims #tr-thread-card .thread-optional-panel .thread-component-grid input{
-  width:100%;
-  min-width:0;
-  box-sizing:border-box;
-}
-@media(max-width:560px){
-  #page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-
-/* Fix component ratio field alignment: label above its own input */
+/* Thread component ratio fields: one authoritative responsive layout */
 #page-trims #tr-thread-card .thread-optional-panel .thread-component-grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
@@ -4820,11 +4796,11 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
   align-items:start;
 }
 #page-trims #tr-thread-card .thread-optional-panel .thread-component-grid label{
-  display:flex !important;
-  flex-direction:column !important;
-  align-items:stretch !important;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
   justify-content:flex-start;
-  gap:5px !important;
+  gap:5px;
   min-width:0;
   white-space:normal;
   line-height:1.3;
