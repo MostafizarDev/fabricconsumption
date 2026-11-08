@@ -5125,3 +5125,21 @@ body.dark-mode #page-zipper .zipper-formula-note small{color:#aebed1}
 #page-zipper .zipper-fields-grid label .zipper-field-label{display:block;line-height:1.45}
 #page-zipper .zipper-fields-grid label .zp-unit-label{display:inline}
 body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:#e2e8f0;background:#0f172a}
+
+/* Zipper hero icon placement and compact order heading */
+#page-zipper .zipper-hero{display:flex;align-items:center;justify-content:space-between;gap:24px}
+#page-zipper .zipper-hero .trims-hero-copy{flex:1 1 auto}
+#page-zipper .zipper-hero .zipper-hero-icon{position:relative;z-index:2;flex:0 0 76px;width:76px;height:76px;margin-left:auto;display:grid;place-items:center;border-radius:19px}
+#page-zipper .zipper-hero .zipper-hero-icon svg{display:block;width:48px;height:48px;overflow:visible}
+#page-zipper .zipper-order-heading{align-items:center}
+#page-zipper .zipper-heading-copy{min-width:0;flex:1}
+#page-zipper .zipper-heading-line{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:12px;row-gap:3px}
+#page-zipper .zipper-heading-line h2{white-space:nowrap}
+#page-zipper .zipper-heading-line p{margin:0;white-space:normal}
+@media(max-width:600px){
+ #page-zipper .zipper-hero{align-items:center;gap:12px}
+ #page-zipper .zipper-hero .zipper-hero-icon{flex-basis:54px;width:54px;height:54px}
+ #page-zipper .zipper-hero .zipper-hero-icon svg{width:36px;height:36px}
+ #page-zipper .zipper-heading-line{display:block}
+ #page-zipper .zipper-heading-line p{margin-top:3px}
+}
