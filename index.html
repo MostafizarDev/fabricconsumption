@@ -831,6 +831,7 @@
       <label>Material / Teeth<select id="zp-material"><option value="Nylon coil">Nylon coil</option><option value="Plastic molded">Plastic molded</option><option value="Metal">Metal</option><option value="Invisible coil">Invisible coil</option><option value="Other / Custom">Other / Custom</option></select></label>
       <label>Gauge / Size<input id="zp-gauge" type="text" placeholder="e.g. #3, #5, #8"></label>
       <label>Color / Code<input id="zp-color" type="text" placeholder="e.g. Black / 001"></label>
+      <label class="zipper-unit-field">Measurement Unit<select id="zp-unit"><option value="cm">Centimeter (cm)</option><option value="in">Inch (in)</option></select></label>
     </div>
   </section>
 
@@ -856,7 +857,7 @@
       <label>Zippers per Garment (pcs)<input id="zp-per-garment" type="number" min="1" step="1" value="1"></label>
       <label>Wastage Allowance (%)<input id="zp-waste" type="number" min="0" max="100" step="any" value="2"></label>
       <label>Unit Price (optional)<input id="zp-unit-price" type="number" min="0" step="any" placeholder="Price per zipper"></label>
-      <label class="zipper-unit-field">Measurement Unit<select id="zp-unit"><option value="cm">Centimeter (cm)</option><option value="in">Inch (in)</option></select></label>
+      
     </div>
     <div class="zipper-formula-note"><strong>Measurement reference</strong><span id="zp-formula-text">Calculated length = (Body Length + High Neck − Front Neck Drop), adjusted by the entered shrinkage percentage.</span><small>Confirm the correct measurement reference against the selected zipper construction and approved sample before bulk ordering.</small></div>
     <div class="zipper-inline-status" id="zp-status" aria-live="polite">Enter order and measurement details, then calculate.</div>
@@ -1428,7 +1429,7 @@
 <script src="js/woven-shirt.js"></script>
 <script src="js/booking-sheet.js"></script>
 <script src="js/knit-price.js"></script>
-<script src="js/zipper.js?v=20261108-zipper-live-recalc"></script>
+<script src="js/zipper.js?v=20261108-method-fullwidth"></script>
 <script src="js/trims.js?v=20261106-trims-clean"></script>
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js?v=20261108-reset-clear1"></script>
