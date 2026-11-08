@@ -5182,3 +5182,18 @@ body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:
 @media(max-width:420px){
  #page-zipper .trims-order-grid.zipper-order-grid{grid-template-columns:1fr!important}
 }
+
+/* Keep the four Zipper specification fields on one desktop row */
+#page-zipper .zipper-fields-grid{
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ align-items:start;
+}
+#page-zipper .zipper-fields-grid>label{
+ min-width:0;
+}
+@media(max-width:850px){
+ #page-zipper .zipper-fields-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:420px){
+ #page-zipper .zipper-fields-grid{grid-template-columns:1fr}
+}
