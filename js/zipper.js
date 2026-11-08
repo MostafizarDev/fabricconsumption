@@ -168,7 +168,6 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
     if(userStartedInput)validateRequiredFields({focus:false,silent:true});
     if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}
    });
-  });
  }
  window.calcZipper=()=>calculate(false);
  window.updateZipper=()=>calculate(false);
