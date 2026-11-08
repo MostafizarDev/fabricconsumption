@@ -5143,3 +5143,42 @@ body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:
  #page-zipper .zipper-heading-line{display:block}
  #page-zipper .zipper-heading-line p{margin-top:3px}
 }
+
+/* Keep all four Zipper Order Information fields in one desktop row */
+#page-zipper .trims-order-grid.zipper-order-grid{
+ display:grid!important;
+ grid-template-columns:repeat(4,minmax(0,1fr))!important;
+ align-items:start;
+ gap:14px!important;
+ width:100%;
+}
+#page-zipper .trims-order-grid.zipper-order-grid>label{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:stretch!important;
+ gap:7px!important;
+ min-width:0!important;
+ width:100%!important;
+ line-height:1.4;
+ color:var(--label-color,#334155);
+ font-size:10px!important;
+ font-weight:700!important;
+}
+#page-zipper .trims-order-grid.zipper-order-grid>label>input{
+ display:block!important;
+ width:100%!important;
+ min-width:0!important;
+ max-width:100%!important;
+ min-height:42px!important;
+ box-sizing:border-box!important;
+ padding:10px 12px!important;
+ border:1px solid var(--input-border,#cbd5e1)!important;
+ border-radius:9px!important;
+ font-size:12px!important;
+}
+@media(max-width:850px){
+ #page-zipper .trims-order-grid.zipper-order-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:420px){
+ #page-zipper .trims-order-grid.zipper-order-grid{grid-template-columns:1fr!important}
+}
