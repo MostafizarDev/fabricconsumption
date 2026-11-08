@@ -5228,3 +5228,51 @@ body.dark-mode #page-zipper .zipper-fields-grid label.has-error,body.dark-mode #
 #page-zipper .zipper-comments-field textarea:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
 @media(max-width:850px){#page-zipper .zipper-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#page-zipper .zipper-measurement-top{grid-template-columns:1fr}}
 @media(max-width:520px){#page-zipper .zipper-details-grid{grid-template-columns:1fr}}
+
+/* Zipper spacing balance: use the full available width with equal columns */
+#page-zipper .zipper-details-grid{
+  display:grid!important;
+  width:100%!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  column-gap:14px!important;
+  row-gap:12px!important;
+  align-items:start;
+}
+#page-zipper .zipper-details-grid>label{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:7px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+#page-zipper .zipper-details-grid>label input,
+#page-zipper .zipper-details-grid>label select{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+#page-zipper .zipper-measurement-top{
+  display:block!important;
+  width:100%!important;
+  margin-bottom:14px!important;
+}
+#page-zipper .zipper-measurement-top .zipper-method-switch{
+  display:grid!important;
+  width:100%!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  margin:0!important;
+}
+#page-zipper .zipper-measurement-top .zipper-method-btn{
+  width:100%!important;
+  min-width:0!important;
+}
+@media(max-width:850px){
+  #page-zipper .zipper-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:520px){
+  #page-zipper .zipper-details-grid{grid-template-columns:1fr!important}
+}
