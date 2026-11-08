@@ -4979,3 +4979,9 @@ body.dark-mode #page-trims .thread-method-btn.is-active{background:#102b43;borde
 
 #page-trims .trims-section-heading #tr-demo{margin-left:auto;flex:0 0 auto;white-space:nowrap}
 @media(max-width:560px){#page-trims .trims-section-heading #tr-demo{margin-left:0}}
+
+/* Thread calculator demo action — aligned to the card header's top-right corner */
+#page-trims #tr-thread-card .trims-card-head{display:flex;align-items:flex-start;gap:11px}
+#page-trims #tr-thread-card .trims-card-title-copy{flex:1;min-width:0}
+#page-trims #tr-thread-card .trims-demo-btn{margin-left:auto;flex:0 0 auto;align-self:flex-start;white-space:nowrap}
+@media(max-width:560px){#page-trims #tr-thread-card .trims-card-head{gap:8px}#page-trims #tr-thread-card .trims-demo-btn{padding:7px 9px;font-size:10px}}
