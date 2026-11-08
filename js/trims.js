@@ -261,8 +261,8 @@
     return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
   function renderTrimsRecent(){
-    const panel=$('tr-recent-panel'),count=$('tr-recent-count');if(!panel)return;
-    const items=readTrimsRecent();if(count)count.textContent=items.length+'/5';
+    const panel=$('tr-recent-panel');if(!panel)return;
+    const items=readTrimsRecent();
     if(!items.length){panel.innerHTML='<p class="trims-recent-empty">No saved calculations yet. Complete a calculation and press Calculate to save it here.</p>';return;}
     panel.innerHTML='<div class="trims-recent-heading"><strong>Recent Calculations</strong><button type="button" class="trims-recent-clear" data-tr-recent-clear>Clear all</button></div>'+items.map(item=>{
       const date=new Date(item.savedAt),dateLabel=Number.isNaN(date.getTime())?'Saved calculation':date.toLocaleString();
