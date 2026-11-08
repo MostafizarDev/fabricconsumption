@@ -65,9 +65,10 @@
   method=item.snapshot.method||'formula';updateMethod();updateUnits();$('zp-recent-panel').hidden=true;$('zp-recent-toggle').setAttribute('aria-expanded','false');calculate(false);
  }
  function demo(){
+   const selectedMethod=method;
    const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
    Object.entries(sample).forEach(([id,v])=>{const el=$(id);if(el){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}});
-   method='formula';updateMethod();updateUnits();
+   method=selectedMethod;updateMethod();updateUnits();
    const result=calculate(true);
    if(!result){
     const r=collect();
