@@ -28,6 +28,7 @@
  }
  function calculate(save=true){
   if(!root())return null;
+  method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
   const qtyOrder=Math.floor(num('zp-order-qty'));
   const length=method==='direct'?num('zp-direct-length'):num('zp-bl')+num('zp-hn')-num('zp-fnd');
   const shrink=method==='direct'?num('zp-direct-shr'):num('zp-shr');
@@ -46,26 +47,10 @@
   setText('zp-total-cost',r.price?fmt(r.totalCost,2):'Not entered');
   setText('zp-result-note','Order: '+qtyOrder.toLocaleString('en-US')+' pcs × '+r.perGarment+' zipper(s) per garment. Includes '+r.extraQty.toLocaleString('en-US')+' extra zipper(s) for wastage.');
   lastResult=r;status('Calculation complete. Review the result before exporting.','success');
-  if(save)saveRecent('Zipper calculation');return r;
- }
- function snapshot(){const fields={};ids.forEach(id=>{const e=$(id);if(e)fields[id]=e.value;});return {fields,method};}
- function recentItems(){try{const a=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');return Array.isArray(a)?a.slice(0,5):[];}catch(_){return [];}}
- function saveRecent(label){
-  const item={id:Date.now(),savedAt:new Date().toISOString(),label,buyer:val('zp-buyer'),style:val('zp-style'),po:val('zp-po'),qty:val('zp-order-qty'),snapshot:snapshot()};
-  const items=recentItems();items.unshift(item);try{localStorage.setItem(RECENT_KEY,JSON.stringify(items.slice(0,5)));renderRecent();}catch(_){status('Calculation complete, but Recent could not be saved in browser storage.','warning');}
- }
- function renderRecent(){
-  const panel=$('zp-recent-panel');if(!panel)return;const items=recentItems();
-  if(!items.length){panel.innerHTML='<p class="zipper-recent-empty">No saved calculations yet. Complete a calculation to save it here.</p>';return;}
-  panel.innerHTML='<div class="zipper-recent-heading"><strong>Recent Calculations · Last 5</strong><button type="button" data-zp-clear>Clear all</button></div>'+items.map(x=>'<div class="zipper-recent-item"><div><strong>'+esc([x.buyer,x.style].filter(Boolean).join(' · ')||x.label)+'</strong><small>'+esc(x.po||'No PO')+' · '+esc(x.qty||'—')+' pcs · '+esc(new Date(x.savedAt).toLocaleString())+'</small></div><div class="zipper-recent-actions"><button type="button" data-zp-load="'+x.id+'">Load</button><button type="button" data-zp-delete="'+x.id+'" aria-label="Delete recent calculation">×</button></div></div>').join('');
- }
- function loadRecent(id){
-  const item=recentItems().find(x=>String(x.id)===String(id));if(!item)return;
-  ids.forEach(key=>{const e=$(key);if(e&&item.snapshot.fields[key]!==undefined)e.value=item.snapshot.fields[key];});
-  method=item.snapshot.method||'formula';updateMethod();updateUnits();$('zp-recent-panel').hidden=true;$('zp-recent-toggle').setAttribute('aria-expanded','false');calculate(false);
+  return r;
  }
  function demo(){
-   const selectedMethod=method;
+   const selectedMethod=root()?.querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
    const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
    Object.entries(sample).forEach(([id,v])=>{const el=$(id);if(el){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}});
    method=selectedMethod;updateMethod();updateUnits();
@@ -89,7 +74,7 @@
  function reset(){
   ids.forEach(id=>{const e=$(id);if(e)e.value='';});
   $('zp-type').value='Closed-end';$('zp-material').value='Nylon coil';$('zp-unit').value='cm';$('zp-per-garment').value='1';$('zp-waste').value='';method='formula';updateMethod();updateUnits();clearResults();
-  $('zp-recent-panel').hidden=true;$('zp-recent-toggle').setAttribute('aria-expanded','false');status('All order details, specifications and calculation results have been cleared.');
+  status('All order details, specifications and calculation results have been cleared.');
  }
  function downloadReport(){
   const r=lastResult||calculate(false);if(!r)return;
@@ -102,7 +87,7 @@
  function init(){
   if(!root()||root().dataset.zipperInitialized==='true')return;
   root().dataset.zipperInitialized='true';
-  updateMethod();updateUnits();renderRecent();
+  updateMethod();updateUnits();
   $('zp-demo')?.addEventListener('click',()=>demo());
   $('zp-reset')?.addEventListener('click',()=>reset());
   $('zp-recent-toggle')?.addEventListener('click',()=>{
