@@ -5523,6 +5523,14 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
   white-space:normal;
 }
 
+/* Give costing fields clear inset spacing from the accordion border */
+#page-trims #tr-thread-card .thread-advanced-settings>.thread-component-grid{
+  box-sizing:border-box;
+  margin:0;
+  padding:8px 11px 11px;
+  gap:8px;
+}
+
 /* Thread specification & costing: solid arrow and title on one line */
 #page-trims #tr-thread-card .thread-advanced-settings>summary{
   display:flex !important;
