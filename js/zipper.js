@@ -110,13 +110,9 @@
    const t=e.target.closest('#page-zipper button');if(!t)return;
    if(t.id==='zp-demo'){demo();return;}
    if(t.id==='zp-reset'){reset();return;}
-   if(t.id==='zp-recent-toggle'){const p=$('zp-recent-panel');p.hidden=!p.hidden;t.setAttribute('aria-expanded',String(!p.hidden));if(!p.hidden)renderRecent();return;}
    if(t.id==='btn-calc-zipper'){calculate(true);return;}
    if(t.id==='btn-pdf-zipper'){downloadReport();return;}
    if(t.dataset.zpMethod){method=t.dataset.zpMethod;updateMethod();clearResults();return;}
-   if(t.dataset.zpLoad){loadRecent(t.dataset.zpLoad);return;}
-   if(t.dataset.zpDelete){localStorage.setItem(RECENT_KEY,JSON.stringify(recentItems().filter(x=>String(x.id)!==t.dataset.zpDelete)));renderRecent();return;}
-   if(t.hasAttribute('data-zp-clear')){localStorage.removeItem(RECENT_KEY);renderRecent();}
   });
   document.addEventListener('input',e=>{if(e.target.closest('#page-zipper')&&lastResult)clearResults();});
   document.addEventListener('change',e=>{if(e.target.id==='zp-unit'){updateUnits();clearResults();}});
