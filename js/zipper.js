@@ -1,7 +1,7 @@
 // Zipper Consumption Planner — page-scoped calculator, history and PDF report.
 (function(){
  'use strict';
- const $=id=>document.getElementById(id),root=()=>$('#page-zipper');
+ const $=id=>document.getElementById(id),root=()=> $('page-zipper');
  const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price','zp-comments'];
 let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
  const num=id=>Math.max(0,Number($(id)?.value)||0),val=id=>$(id)?.value??'',fmt=(n,d=1)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
