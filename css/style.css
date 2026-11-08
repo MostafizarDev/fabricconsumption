@@ -5618,3 +5618,43 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
     transform:none !important;
   }
 }
+
+
+/* Trims component accordion: balanced inset and breathing room */
+#page-trims #tr-thread-card details.thread-component-panel.thread-optional-panel>summary{
+  display:grid !important;
+  grid-template-columns:10px minmax(0,1fr) !important;
+  grid-template-rows:auto auto !important;
+  column-gap:6px !important;
+  row-gap:4px !important;
+  align-items:center !important;
+  justify-content:start !important;
+  padding:9px 12px !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  text-align:left !important;
+}
+#page-trims #tr-thread-card details.thread-component-panel.thread-optional-panel>summary::before{
+  grid-column:1 !important;
+  grid-row:1 !important;
+  align-self:center !important;
+  justify-self:start !important;
+  margin:0 !important;
+}
+#page-trims #tr-thread-card details.thread-component-panel.thread-optional-panel>summary strong{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  display:block !important;
+  margin:0 !important;
+  line-height:1.45 !important;
+}
+#page-trims #tr-thread-card details.thread-component-panel.thread-optional-panel>summary small{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  line-height:1.45 !important;
+  white-space:normal !important;
+  text-align:left !important;
+}
