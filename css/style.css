@@ -5070,6 +5070,11 @@ body.dark-mode #page-sizeratio .sr-recent-actions button{border-color:#475569;ba
 #page-zipper .zipper-method-btn.is-active strong{color:#0369a1}
 #page-zipper [hidden]{display:none!important}
 #page-zipper .zipper-consumption-fields{margin-top:14px;padding-top:14px;border-top:1px solid var(--border-color,#e2e8f0)}
+#page-zipper .zipper-consumption-fields{grid-template-columns:repeat(4,minmax(0,1fr));align-items:end}
+#page-zipper .zipper-consumption-fields .zipper-unit-field{display:grid;align-content:start;gap:7px;min-width:0;color:var(--label-color,#334155);font-size:10px;font-weight:700}
+#page-zipper .zipper-consumption-fields .zipper-unit-field select{width:100%;min-height:42px;padding:10px 12px;border:1px solid var(--input-border,#cbd5e1);border-radius:9px;color:var(--text-color,#1e293b);background:var(--input-bg,#fff);font:inherit;font-size:12px;font-weight:700}
+@media(max-width:850px){#page-zipper .zipper-consumption-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){#page-zipper .zipper-consumption-fields{grid-template-columns:1fr}}
 #page-zipper .zipper-formula-note{display:grid;gap:5px;margin-top:15px;padding:12px 14px;border:1px solid #bae6fd;border-radius:9px;background:#f0f9ff}
 #page-zipper .zipper-formula-note strong{color:#075985;font-size:10px}
 #page-zipper .zipper-formula-note span{color:#0f172a;font-size:11px;font-weight:700}
