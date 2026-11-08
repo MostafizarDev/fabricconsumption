@@ -112,24 +112,31 @@
   function validateTrimsCalculator(mode,focus=true){
     const fields=[],invalidRows=[];
     const add=(id,rule={})=>fields.push({field:$(id),...rule});
-    add('tr-order-qty',{min:1,integer:true});
+    add('tr-order-qty',{min:1,integer:true,required:true});
     if(mode==='thread'){
-      add('th-waste',{min:0,max:100,required:true});
+      // Only validate inputs consumed by the active thread formula.
+      add('th-waste',{min:0,required:true});
       const rows=Array.from(document.querySelectorAll('#th-operations-body tr'));
-      const entered=rows.filter(row=>Array.from(row.querySelectorAll('input,select')).some(el=>el.value.trim()!==''));
-      const componentMode=$('th-use-components')?.checked||false;
-      const components=Array.from(document.querySelectorAll('.th-component')).filter(el=>el.value.trim()!=='');
-      const componentValid=!componentMode||components.some(el=>Number.isFinite(Number(el.value))&&Number(el.value)>0);
-      if(!entered.length||!componentValid)invalidRows.push(entered[0]||rows[0]);
+      const entered=rows.filter(row=>['.th-op-stitch','.th-op-length','.th-op-ratio','.th-op-sample','.th-op-measured'].some(selector=>(row.querySelector(selector)?.value||'').trim()!==''));
+      const componentMode=$('th-use-components')?.checked&&Array.from(document.querySelectorAll('.th-component')).some(el=>el.value.trim()!=='');
+      if(!entered.length)invalidRows.push(rows[0]);
       entered.forEach(row=>{
         const get=selector=>row.querySelector(selector);
-        const stitch=get('.th-op-stitch'),length=get('.th-op-length'),count=get('.th-op-rows'),ratio=get('.th-op-ratio');
-        const operationFields=[{field:stitch,required:true},{field:length,min:0.000001,required:true},{field:count,min:1,integer:true,required:true}];
-        if(!componentMode&&threadMethod!=='actual')operationFields.push({field:ratio,min:0.000001,required:true});
-        if(threadMethod==='actual')operationFields.push({field:get('.th-op-sample'),min:0.000001,required:true},{field:get('.th-op-measured'),min:0.000001,required:true});
-        operationFields.forEach(rule=>fields.push(rule));
+        fields.push({field:get('.th-op-stitch'),required:true});
+        fields.push({field:get('.th-op-length'),min:0.000001,required:true});
+        fields.push({field:get('.th-op-rows'),min:1,integer:true,required:true});
+        if(threadMethod==='actual'){
+          fields.push({field:get('.th-op-sample'),min:0.000001,required:true});
+          fields.push({field:get('.th-op-measured'),min:0.000001,required:true});
+        }else if(!componentMode){
+          fields.push({field:get('.th-op-ratio'),min:0.000001,required:true});
+        }
       });
-      if(componentMode)components.forEach(field=>fields.push({field,min:0.000001,required:true}));
+      if(componentMode){
+        document.querySelectorAll('.th-component').forEach(field=>{
+          if(field.value.trim()!=='')fields.push({field,min:0,required:true});
+        });
+      }
     }else if(mode==='button'){
       add('bt-pp',{min:0.000001,required:true});add('bt-ex',{min:0,max:100,required:true});
     }else{
@@ -140,18 +147,18 @@
     fields.forEach(rule=>{
       const field=rule.field;if(!field)return;
       const raw=String(field.value??'').trim(),value=raw===''?NaN:Number(raw);
-      const bad=rule.required&&raw===''||raw!==''&&(!Number.isFinite(value)||(rule.min!==undefined&&value<rule.min)||(rule.max!==undefined&&value>rule.max)||(rule.integer&&!Number.isInteger(value)));
-      field.classList.toggle('is-missing',!!bad);field.setAttribute('aria-invalid',bad?'true':'false');
-      field.closest('label')?.classList.toggle('is-missing',!!bad);
+      const bad=!!(rule.required&&raw===''||raw!==''&&(!Number.isFinite(value)||(rule.min!==undefined&&value<rule.min)||(rule.max!==undefined&&value>rule.max)||(rule.integer&&!Number.isInteger(value))));
+      field.classList.toggle('is-missing',bad);field.setAttribute('aria-invalid',bad?'true':'false');
+      field.closest('label')?.classList.toggle('is-missing',bad);
       if(bad&&!first)first=field;
     });
     invalidRows.forEach(row=>{if(row)row.classList.add('has-validation-error');});
     const valid=!first&&!invalidRows.length;
     if(!valid&&focus){
-      put('tr-status',mode==='thread'?'Complete the required sewing operation fields and order details.':mode==='button'?'Complete the required button inputs and order quantity.':'Complete the required interlining dimensions and order quantity.');
+      put('tr-status',mode==='thread'?'Complete only the required Thread calculation inputs highlighted below.':mode==='button'?'Complete the required button inputs and order quantity.':'Complete the required interlining dimensions and order quantity.');
       $('tr-status')?.classList.add('is-warning');
-      (first||invalidRows[0]?.querySelector('input,select'))?.focus({preventScroll:true});
-      (first||invalidRows[0])?.scrollIntoView?.({behavior:'smooth',block:'center'});
+      const target=first||invalidRows[0]?.querySelector('input,select');
+      target?.focus({preventScroll:true});target?.scrollIntoView?.({behavior:'smooth',block:'center'});
     }
     return valid;
   }
