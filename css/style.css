@@ -5203,7 +5203,9 @@ body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:
 #page-zipper .zipper-details-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
 #page-zipper .zipper-measurement-top{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(240px,1fr);gap:14px;align-items:stretch;margin-bottom:14px}
 #page-zipper .zipper-measurement-top .zipper-method-switch{margin:0}
-#page-zipper .zipper-unit-field{display:grid;align-content:start;gap:7px;min-width:0;color:var(--label-color,#334155);font-size:10px;font-weight:700}
+#page-zipper .zipper-measurement-top .zipper-method-btn{min-height:62px;align-content:center}
+#page-zipper .zipper-unit-field select{min-height:48px}
+#page-zipper .zipper-unit-field{display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0;color:var(--label-color,#334155);font-size:10px;font-weight:700}
 #page-zipper .zipper-unit-field select{min-height:46px;font-size:12px;font-weight:700;cursor:pointer}
 #page-zipper .zipper-fields-grid label.has-error,#page-zipper .zipper-order-grid label.has-error,#page-zipper .zipper-unit-field.has-error{color:#b91c1c}
 #page-zipper .zipper-fields-grid input.is-missing,#page-zipper .zipper-fields-grid select.is-missing,#page-zipper .zipper-order-grid input.is-missing,#page-zipper .zipper-unit-field select.is-missing{border-color:#ef4444!important;background:#fff7f7!important;box-shadow:0 0 0 2px rgba(239,68,68,.10)!important}
