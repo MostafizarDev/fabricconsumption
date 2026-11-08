@@ -45,6 +45,7 @@
     const notes={standard:'Choose a stitch class to load its reference ratio. You can edit that ratio to match your validated factory value.',actual:'Enter sample seam length and measured total thread length. The calculator derives the ratio automatically.',advanced:'SPI and seam thickness are reference inputs only. Enter a validated stitch-specific ratio; no universal engineering formula is assumed.'};
     const note=$('th-method-note');if(note){note.textContent=notes[threadMethod];note.dataset.noteType=threadMethod==='actual'?'success':threadMethod==='advanced'?'warning':'info';}
     calculateAll();
+    if(trimsValidationAttempted.thread)validateTrimsCalculator('thread',false);
   }
   function threadRows(){
     return Array.from(document.querySelectorAll('#th-operations-body tr')).map(row=>{
@@ -334,7 +335,7 @@
     }
     setThreadMethod(state.threadMethod||'standard');
     selectCalculator(state.activeCalculator||'thread');
-    Object.keys(trimsValidationAttempted).forEach(mode=>trimsValidationAttempted[mode]=false);document.querySelectorAll('#page-trims .is-missing').forEach(el=>el.classList.remove('is-missing'));document.querySelectorAll('#page-trims [aria-invalid="true"]').forEach(el=>el.setAttribute('aria-invalid','false'));
+    Object.keys(trimsValidationAttempted).forEach(mode=>trimsValidationAttempted[mode]=false);document.querySelectorAll('#page-trims .is-missing,#page-trims .has-error').forEach(el=>el.classList.remove('is-missing','has-error'));document.querySelectorAll('#page-trims [aria-invalid="true"]').forEach(el=>el.setAttribute('aria-invalid','false'));
     calculateAll();
     put('tr-status','Recent calculation loaded. You can edit the inputs and calculate again.');
     if($('tr-status'))$('tr-status').classList.remove('is-warning');
