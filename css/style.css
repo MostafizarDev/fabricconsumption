@@ -5197,3 +5197,16 @@ body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:
 @media(max-width:420px){
  #page-zipper .zipper-fields-grid{grid-template-columns:1fr}
 }
+
+
+/* Zipper layout refinement: compact four-column specs and measurement controls */
+#page-zipper .zipper-details-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+#page-zipper .zipper-measurement-top{display:grid;grid-template-columns:minmax(0,2fr) minmax(180px,.7fr);gap:13px;align-items:stretch;margin-bottom:14px}
+#page-zipper .zipper-measurement-top .zipper-method-switch{margin:0}
+#page-zipper .zipper-unit-field{display:grid;align-content:start;gap:7px;min-width:0;color:var(--label-color,#334155);font-size:10px;font-weight:700}
+#page-zipper .zipper-unit-field select{width:100%;min-height:42px;padding:10px 12px;border:1px solid var(--input-border,#cbd5e1);border-radius:9px;color:var(--text-color,#1e293b);background:var(--input-bg,#fff);font:inherit;font-size:12px}
+#page-zipper .zipper-comments-field{display:grid;gap:7px;margin-top:14px;color:var(--label-color,#334155);font-size:10px;font-weight:800}
+#page-zipper .zipper-comments-field textarea{width:100%;min-height:78px;resize:vertical;padding:11px 12px;border:1px solid var(--input-border,#cbd5e1);border-radius:9px;color:var(--text-color,#1e293b);background:var(--input-bg,#fff);font:inherit;font-size:11px;line-height:1.5}
+#page-zipper .zipper-comments-field textarea:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+@media(max-width:850px){#page-zipper .zipper-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#page-zipper .zipper-measurement-top{grid-template-columns:1fr}}
+@media(max-width:520px){#page-zipper .zipper-details-grid{grid-template-columns:1fr}}
