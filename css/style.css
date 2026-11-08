@@ -5032,3 +5032,6 @@ body.dark-mode #page-sizeratio .sr-recent-item strong{color:#e2e8f0}
 body.dark-mode #page-sizeratio .sr-recent-actions button{border-color:#475569;background:#0f172a;color:#e2e8f0}
 @media(max-width:600px){#page-sizeratio .sr-section-heading{flex-wrap:wrap}#page-sizeratio .sr-order-actions{width:100%;margin:5px 0 0 49px;justify-content:flex-start}#page-sizeratio .sr-recent-panel{width:100%}}
 @media(max-width:420px){#page-sizeratio .sr-order-actions{margin-left:0}}
+
+#page-sizeratio .sr-order-reset-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:7px 11px;border:1px solid var(--border,#cbd5e1);border-radius:8px;color:var(--text,#334155);background:var(--card-bg,#fff);font-size:10px;font-weight:800;white-space:nowrap;cursor:pointer}
+#page-sizeratio .sr-order-reset-btn svg{width:14px;height:14px}
