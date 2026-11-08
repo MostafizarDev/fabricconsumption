@@ -5577,3 +5577,30 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
   grid-column:auto;
   grid-row:auto;
 }
+
+
+/* Keep Thread specification arrow and title on a single horizontal line */
+#page-trims .thread-advanced-settings>summary{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:7px;
+  min-height:16px;
+  list-style:none;
+}
+#page-trims .thread-advanced-settings>summary::before{
+  content:"";
+  display:inline-block;
+  flex:0 0 0;
+  width:0;
+  height:0;
+  margin:0;
+  border-top:4px solid transparent;
+  border-bottom:4px solid transparent;
+  border-left:5px solid currentColor;
+  transform:rotate(0deg);
+  transform-origin:2px 4px;
+}
+#page-trims .thread-advanced-settings[open]>summary::before{
+  transform:rotate(90deg);
+}
