@@ -65,9 +65,26 @@
   method=item.snapshot.method||'formula';updateMethod();updateUnits();$('zp-recent-panel').hidden=true;$('zp-recent-toggle').setAttribute('aria-expanded','false');calculate(false);
  }
  function demo(){
-  const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
-  Object.entries(sample).forEach(([id,v])=>{if($(id))$(id).value=v;});method='formula';updateMethod();updateUnits();calculate(true);
- }
+   const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
+   Object.entries(sample).forEach(([id,v])=>{const el=$(id);if(el){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}});
+   method='formula';updateMethod();updateUnits();
+   const result=calculate(true);
+   if(!result){
+    const r=collect();
+    if(r.finishedCm>0&&r.baseQty>0){
+     lastResult=r;
+     setText('zp-result',fmt(cmToUnit(r.finishedCm),1)+' '+r.inputUnit);
+     setText('zp-result-cm',fmt(r.finishedCm,2)+' cm reference');
+     setText('zp-with-waste',r.extraQty.toLocaleString('en-US')+' pcs');
+     setText('zp-total-qty',r.qty.toLocaleString('en-US')+' pcs');
+     setText('zp-total-length',fmt(cmToUnit(r.totalLengthCm),2));
+     setText('zp-total-length-unit',r.inputUnit+' total incl. wastage');
+     setText('zp-total-cost',r.price?fmt(r.totalCost,2):'Not entered');
+     setText('zp-result-note','Demo order: '+r.baseQty.toLocaleString('en-US')+' base zippers plus '+r.extraQty.toLocaleString('en-US')+' wastage pcs.');
+     status('Demo calculation loaded successfully.','success');
+    }else status('Demo inputs loaded, but calculation could not be completed. Check order quantity and zipper length.','error');
+   }
+  }
  function reset(){
   ids.forEach(id=>{const e=$(id);if(e)e.value='';});
   $('zp-type').value='Closed-end';$('zp-material').value='Nylon coil';$('zp-unit').value='cm';$('zp-per-garment').value='1';$('zp-waste').value='';method='formula';updateMethod();updateUnits();clearResults();
