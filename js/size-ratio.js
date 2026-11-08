@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s)), root=()=>$('#page-sizeratio');
-const st={mode:'ratio',colorMode:'shared',cartonMode:'mixed',sizes:[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2})),colors:[{id:'c0',name:'Black',qty:1200,ratios:{}}]};
+const st={mode:'ratio',colorMode:'shared',cartonMode:'mixed',sizes:[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2})),colors:[{id:'c0',name:'Black',qty:0,ratios:{}}]};
 const presets={adult:['XS','S','M','L','XL','XXL','3XL','4XL','5XL'],kids:['2T','3T','4T','5T','6T','7T'],age:['2/3','3/4','4/5','5/6','6/7','7/8'],numeric:['28','30','32','34','36','38','40'],custom:[]};let uid=10;
 const n=x=>Math.max(0,Number(x)||0),q=x=>Math.floor(n(x)),fmt=x=>Math.round(n(x)).toLocaleString('en-US'),order=()=>q($('#sr-total')?.value),sizes=()=>st.sizes.filter(x=>x.name.trim()),weights=()=>sizes().map(x=>n(st.mode==='ratio'?x.ratio:x.percent));
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -194,9 +194,55 @@ function initPdfSectionDialog(){
  updatePdfSelectionCount();
 }
 
-function reset(){st.mode='ratio';st.cartonMode='mixed';st.colorMode='shared';st.sizes=[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2}));st.colors=[{id:'c0',name:'Black',qty:1200,ratios:{}}];$('#sr-total').value=1200;$('#sr-carton-capacity').value=10;$('#sr-preset').value='custom';$('input[name="sr-color-mode"][value="shared"]').checked=true;renderAll();msg('Default size ratio restored.','success');}
+const RECENT_KEY='fabricConsumption.sizeRatio.recent.v1';
+function recentItems(){try{const x=JSON.parse(localStorage.getItem(RECENT_KEY)||'[]');return Array.isArray(x)?x.slice(0,5):[];}catch(_){return [];}}
+function saveRecent(label){
+ const result=calculate();if(!result)return;
+ const fields={};$('#page-sizeratio input[id],#page-sizeratio select[id],#page-sizeratio textarea[id]').forEach(el=>{fields[el.id]={value:el.value,type:el.type,checked:el.type==='checkbox'?el.checked:undefined};});
+ const snapshot={fields,st:JSON.parse(JSON.stringify(st))};
+ const item={id:Date.now(),savedAt:new Date().toISOString(),label:label||'Size ratio calculation',buyer:$('#sr-buyer').value,style:$('#sr-style').value,po:$('#sr-po').value,qty:order(),snapshot};
+ const items=recentItems();items.unshift(item);
+ try{localStorage.setItem(RECENT_KEY,JSON.stringify(items.slice(0,5)));}catch(_){msg('Could not save Recent. Browser storage may be unavailable.','error');return;}
+ renderRecent();msg('Calculation saved to Recent.','success');
+}
+function renderRecent(){
+ const panel=$('#sr-recent-panel');if(!panel)return;const items=recentItems();
+ if(!items.length){panel.innerHTML='<p class="sr-recent-empty">No saved calculations yet. Load Demo or complete a calculation to save it here.</p>';return;}
+ panel.innerHTML='<div class="sr-recent-heading"><strong>Recent Calculations</strong><button type="button" data-sr-recent-clear>Clear all</button></div>'+items.map(x=>'<div class="sr-recent-item"><div><strong>'+esc([x.buyer,x.style].filter(Boolean).join(' · ')||x.label)+'</strong><small>'+esc(x.po||'No PO')+' · '+fmt(x.qty)+' pcs · '+esc(new Date(x.savedAt).toLocaleString())+'</small></div><div class="sr-recent-actions"><button type="button" data-sr-recent-load="'+x.id+'">Load</button><button type="button" data-sr-recent-delete="'+x.id+'" aria-label="Delete recent calculation">×</button></div></div>').join('');
+}
+function loadRecent(id){
+ const item=recentItems().find(x=>String(x.id)===String(id));if(!item)return;
+ st.mode=item.snapshot.st.mode||'ratio';st.colorMode=item.snapshot.st.colorMode||'shared';st.cartonMode=item.snapshot.st.cartonMode||'mixed';
+ st.sizes=item.snapshot.st.sizes||[];st.colors=item.snapshot.st.colors||[];
+ Object.entries(item.snapshot.fields||{}).forEach(([id,v])=>{const el=$('#'+id);if(!el)return;if(el.type==='checkbox'||el.type==='radio')el.checked=!!v.checked;else el.value=v.value??'';});
+ $('[name="sr-color-mode"]').forEach(el=>el.checked=el.value===st.colorMode);
+ $('#sr-recent-panel').hidden=true;$('#sr-recent-toggle')?.setAttribute('aria-expanded','false');
+ renderAll();setMode();msg('Recent calculation loaded. You can edit and recalculate it.','success');
+}
+function demo(){
+ const today=new Date().toISOString().slice(0,10);
+ $('#sr-buyer').value='DEMO BUYER';$('#sr-style').value='SR-DEMO-001';$('#sr-po').value='DEMO-PO-1200';$('#sr-date').value=today;$('#sr-total').value='1200';$('#sr-remarks').value='Demo order — color-wise size assortment, marker and carton plan';
+ $('#sr-preset').value='custom';$('#sr-new-size').value='';
+ st.mode='ratio';st.colorMode='independent';st.cartonMode='mixed';
+ const names=['XS','S','M','L','XL','XXL'],ratios=[1,2,3,3,2,1],percent=[8.33,16.67,25,25,16.67,8.33],marker=[1,2,2,2,2,1],carton=[1,2,3,3,2,1];
+ st.sizes=names.map((name,i)=>({id:'sd'+i,name,ratio:ratios[i],percent:percent[i],marker:marker[i],carton:carton[i]}));
+ const makeRatios=(arr)=>Object.fromEntries(st.sizes.map((size,i)=>[size.id,arr[i]]));
+ st.colors=[
+  {id:'cd0',name:'Black',qty:500,ratios:makeRatios([1,2,3,3,2,1])},
+  {id:'cd1',name:'Navy',qty:400,ratios:makeRatios([1,2,2,3,2,1])},
+  {id:'cd2',name:'White',qty:300,ratios:makeRatios([1,2,3,2,2,1])}
+ ];
+ $('#sr-carton-capacity').value='12';$('#sr-carton-name').value='12 pcs mixed assortment';
+ $('input[name="sr-color-mode"][value="independent"]').checked=true;
+ renderAll();setMode();saveRecent('Demo — full color-wise assortment');
+ msg('Demo loaded: 1,200 pcs across 3 colors and 6 sizes, with size ratios, color-wise ratios, marker plan and carton assortment.','success');
+}
+function reset(){st.mode='ratio';st.cartonMode='mixed';st.colorMode='shared';st.sizes=[['S',1],['M',2],['L',3],['XL',2],['XXL',1]].map((x,i)=>({id:'s'+i,name:x[0],ratio:x[1],percent:x[1]*100/9,marker:1,carton:2}));st.colors=[{id:'c0',name:'Black',qty:0,ratios:{}}];$('#sr-total').value='';$('#sr-buyer').value='';$('#sr-style').value='';$('#sr-po').value='';$('#sr-remarks').value='';$('#sr-date').value=new Date().toISOString().slice(0,10);$('#sr-carton-capacity').value=10;$('#sr-carton-name').value='Standard assortment';$('#sr-preset').value='custom';$('input[name="sr-color-mode"][value="shared"]').checked=true;renderAll();msg('Ready for a new order. Enter the order quantity and calculate.','neutral');}
 function init(){
- if(!root()||root().dataset.srReady)return;root().dataset.srReady='1';$('#sr-date').value=new Date().toISOString().slice(0,10);renderAll();initPdfSectionDialog();
+ if(!root()||root().dataset.srReady)return;root().dataset.srReady='1';$('#sr-date').value=new Date().toISOString().slice(0,10);renderAll();renderRecent();initPdfSectionDialog();
+ $('#sr-demo')?.addEventListener('click',demo);
+ $('#sr-recent-toggle')?.addEventListener('click',()=>{const p=$('#sr-recent-panel');if(!p)return;p.hidden=!p.hidden;$('#sr-recent-toggle').setAttribute('aria-expanded',String(!p.hidden));if(!p.hidden)renderRecent();});
+ $('#sr-recent-panel')?.addEventListener('click',e=>{const load=e.target.closest('[data-sr-recent-load]'),del=e.target.closest('[data-sr-recent-delete]');if(load){loadRecent(load.dataset.srRecentLoad);return;}if(del){localStorage.setItem(RECENT_KEY,JSON.stringify(recentItems().filter(x=>String(x.id)!==del.dataset.srRecentDelete)));renderRecent();return;}if(e.target.closest('[data-sr-recent-clear]')){localStorage.removeItem(RECENT_KEY);renderRecent();}});
  root().addEventListener('input',e=>{
   const tr=e.target.closest('[data-size-id]');if(tr&&e.target.dataset.sizeField){const s=st.sizes.find(x=>x.id===tr.dataset.sizeId),f=e.target.dataset.sizeField;if(s){s[f]=f==='name'?e.target.value:n(e.target.value);if(f!=='name')calculate();}return;}
   const cr=e.target.closest('[data-color-id]');if(cr&&e.target.dataset.colorField){const c=st.colors.find(x=>x.id===cr.dataset.colorId);if(c){c[e.target.dataset.colorField]=e.target.dataset.colorField==='name'?e.target.value:q(e.target.value);calculate();}return;}
@@ -214,7 +260,7 @@ function init(){
   if(e.target.closest('#sr-add-size')){addSize($('#sr-new-size').value);$('#sr-new-size').value='';return;}
   if(e.target.closest('#sr-add-color')){if(st.colors.length>=20)return msg('Maximum 20 colors are supported.','error');st.colors.push({id:'c'+uid++,name:'New Color',qty:0,ratios:{}});renderColors();calculate();return;}
   if(e.target.closest('[data-color-remove]')){if(st.colors.length===1)return msg('At least one color is required.','error');const card=e.target.closest('[data-color-id]');st.colors=st.colors.filter(c=>c.id!==card.dataset.colorId);renderColors();calculate();return;}
-  if(e.target.closest('#btn-calc-sizeratio')){const r=calculate();if(r)msg('Calculation complete. Quantities reconcile to the order total.','success');return;}
+  if(e.target.closest('#btn-calc-sizeratio')){const r=calculate();if(r){saveRecent('Size ratio calculation');msg('Calculation complete. Quantities reconcile to the order total.','success');}return;}
   if(e.target.closest('#btn-pdf-sizeratio')){const r=calculate();if(r)openPdfSectionDialog(r);return;}
   if(e.target.closest('#sr-reset'))reset();
  });
