@@ -10,6 +10,8 @@ let method='formula',lastResult=null;
  function setText(id,value){const e=$(id);if(e)e.textContent=value;}
  function updateMethod(){
   const direct=method==='direct';$('zp-formula-fields').hidden=direct;$('zp-direct-fields').hidden=!direct;
+  const inactive=direct?$('zp-formula-fields'):$('zp-direct-fields');
+  inactive?.querySelectorAll('.is-missing').forEach(field=>{field.classList.remove('is-missing');field.setAttribute('aria-invalid','false');field.closest('label')?.classList.remove('has-error');});
   document.querySelectorAll('[data-zp-method]').forEach(b=>b.classList.toggle('is-active',b.dataset.zpMethod===method));
   setText('zp-formula-text',direct?'Use the finished zipper length measured from the approved sample. Shrinkage adjustment is applied to this measurement.':'Calculated length = (Body Length + High Neck − Front Neck Drop), adjusted by the entered shrinkage percentage.');
  }
@@ -102,6 +104,7 @@ let method='formula',lastResult=null;
   }
  function reset(){
   ids.forEach(id=>{const e=$(id);if(e)e.value='';});
+  root()?.querySelectorAll('.is-missing').forEach(field=>{field.classList.remove('is-missing');field.setAttribute('aria-invalid','false');field.closest('label')?.classList.remove('has-error');});
   $('zp-type').value='Closed-end';$('zp-material').value='Nylon coil';$('zp-unit').value='cm';$('zp-per-garment').value='1';$('zp-waste').value='';method='formula';updateMethod();updateUnits();clearResults();
   status('All order details, specifications and calculation results have been cleared.');
  }
@@ -148,14 +151,7 @@ let method='formula',lastResult=null;
   if(!root()||root().dataset.zipperInitialized==='true')return;
   root().dataset.zipperInitialized='true';
   updateMethod();updateUnits();
-  $('zp-demo')?.addEventListener('click',()=>demo());
-  $('zp-reset')?.addEventListener('click',()=>reset());
-
-  $('btn-calc-zipper')?.addEventListener('click',()=>calculate(true));
-  $('btn-pdf-zipper')?.addEventListener('click',downloadReport);
-  root().querySelectorAll('[data-zp-method]').forEach(btn=>btn.addEventListener('click',()=>{
-   method=btn.dataset.zpMethod;updateMethod();clearResults();
-  }));
+  // All controls use the delegated handlers below to avoid duplicate click actions.
   if(window.lucide?.createIcons)window.lucide.createIcons();
  }
  // Delegated controls: resilient to page re-rendering and script initialization order.
