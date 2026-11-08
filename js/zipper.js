@@ -58,11 +58,13 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
   }
   return true;
  }
- function clearFieldError(field){if(field&&userStartedInput)validateRequiredFields({focus:false,silent:true});}
  function calculate(save=true){
   if(!root())return null;
   method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
   if(save)validationAttempted=true;
+  // Background refreshes (tab navigation, unit updates, PDF checks) must never
+  // reveal validation errors before the user explicitly presses Calculate.
+  if(!validationAttempted)return null;
   if(!validateRequiredFields())return null;
   const qtyOrder=Math.floor(num('zp-order-qty'));
   const length=method==='direct'?num('zp-direct-length'):num('zp-bl')+num('zp-hn')-num('zp-fnd');
