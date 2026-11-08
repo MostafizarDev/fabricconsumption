@@ -5560,3 +5560,20 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
     transform:none!important;
   }
 }
+
+
+/* Trims: remove the decorative chevron from Thread Component Breakdown only */
+#page-trims .thread-component-panel>summary{
+  display:block;
+  padding-left:0;
+}
+#page-trims .thread-component-panel>summary::before{
+  display:none;
+  content:none;
+}
+#page-trims .thread-component-panel>summary strong,
+#page-trims .thread-component-panel>summary small{
+  display:block;
+  grid-column:auto;
+  grid-row:auto;
+}
