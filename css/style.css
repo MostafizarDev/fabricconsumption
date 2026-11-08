@@ -4611,23 +4611,27 @@ body.dark-mode #page-trims .trims-order-grid input.is-missing{background:#321b24
 #page-trims .thread-component-panel>div:first-child strong{display:block;font-size:13px}#page-trims .thread-component-panel small{display:block;color:var(--text-secondary,#64748b);font-size:10px;margin-top:4px}
 #page-trims .thread-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:12px}
 #page-trims .thread-check-label{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px}#page-trims .thread-check-label input{width:auto}
+/* Put the costing accordion marker above its title, matching the component panel */
 #page-trims .thread-advanced-settings>summary{
-  display:flex;
-  align-items:flex-start;
-  gap:6px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:10px auto;
+  row-gap:2px;
   cursor:pointer;
   list-style:none;
   font-weight:700;
   font-size:12px;
+  transition:color .18s ease;
 }
 #page-trims .thread-advanced-settings>summary::-webkit-details-marker{display:none}
 #page-trims .thread-advanced-settings>summary::marker{content:""}
 #page-trims .thread-advanced-settings>summary::before{
   content:"";
-  flex:0 0 0;
+  grid-column:1;
+  grid-row:1;
+  justify-self:start;
   width:0;
   height:0;
-  margin-top:2px;
   border-top:4px solid transparent;
   border-bottom:4px solid transparent;
   border-left:5px solid currentColor;
