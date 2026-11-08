@@ -398,8 +398,13 @@
       addThreadOperation({name:'Sleeve Attach',stitch:'401',length:'0.42',rows:2,sample:'0.84',measured:'4.62',spi:'12',thickness:'0.10'});
       addThreadOperation({name:'Bottom Hem',stitch:'504',length:'0.65',rows:1,sample:'0.65',measured:'9.10',spi:'14',thickness:'0.08'});
     }
+    // Illustrative demo ratios only; keep component mode off so the main demo
+    // calculation continues to use the operation ratios above.
+    const demoComponentRatios={Needle:'2.5',Bobbin:'0.8',Looper:'1.2',Cover:'0.5'};
+    document.querySelectorAll('.th-component').forEach(el=>{
+      el.value=demoComponentRatios[el.dataset.component]||'';
+    });
     if($('th-use-components'))$('th-use-components').checked=false;
-    document.querySelectorAll('.th-component').forEach(el=>el.value='');
     setThreadMethod('standard');
     selectCalculator('thread');
     calculateAll();
