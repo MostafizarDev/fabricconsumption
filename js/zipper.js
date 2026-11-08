@@ -26,9 +26,38 @@ let method='formula',lastResult=null;
   const baseQty=totalQty(),qty=Math.ceil(baseQty*(1+waste/100)),extraQty=qty-baseQty,price=num('zp-unit-price');
   return {baseCm:base,finishedCm:finished,baseQty,qty,extraQty,totalLengthCm:finished*qty,price,totalCost:price*qty,shrink,waste,perGarment:Math.max(1,Math.floor(num('zp-per-garment'))),inputUnit:u,method};
  }
+ function validateRequiredFields(){
+  const required=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color',
+   ...(method==='direct'?['zp-direct-length','zp-direct-shr']:['zp-bl','zp-fnd','zp-hn','zp-shr']),
+   'zp-unit','zp-per-garment','zp-waste'];
+  let firstMissing=null;
+  required.forEach(id=>{
+   const field=$(id);if(!field)return;
+   const missing=String(field.value??'').trim()==='';
+   field.classList.toggle('is-missing',missing);
+   field.setAttribute('aria-invalid',missing?'true':'false');
+   const label=field.closest('label');if(label)label.classList.toggle('has-error',missing);
+   if(missing&&!firstMissing)firstMissing=field;
+  });
+  if(firstMissing){
+   status('Please complete all required fields. Missing information is highlighted in red.','error');
+   firstMissing.focus({preventScroll:true});
+   firstMissing.scrollIntoView({behavior:'smooth',block:'center'});
+   return false;
+  }
+  return true;
+ }
+ function clearFieldError(field){
+  if(!field)return;
+  if(String(field.value??'').trim()!==''){
+   field.classList.remove('is-missing');field.setAttribute('aria-invalid','false');
+   field.closest('label')?.classList.remove('has-error');
+  }
+ }
  function calculate(save=true){
   if(!root())return null;
   method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
+  if(!validateRequiredFields())return null;
   const qtyOrder=Math.floor(num('zp-order-qty'));
   const length=method==='direct'?num('zp-direct-length'):num('zp-bl')+num('zp-hn')-num('zp-fnd');
   const shrink=method==='direct'?num('zp-direct-shr'):num('zp-shr');
@@ -140,8 +169,8 @@ let method='formula',lastResult=null;
    if(t.id==='btn-pdf-zipper'){downloadReport();return;}
    if(t.dataset.zpMethod){method=t.dataset.zpMethod;updateMethod();clearResults();return;}
   });
-  document.addEventListener('input',e=>{if(e.target.closest('#page-zipper')&&lastResult)clearResults();});
-  document.addEventListener('change',e=>{if(e.target.id==='zp-unit'){updateUnits();clearResults();}});
+  document.addEventListener('input',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(lastResult)clearResults();});
+  document.addEventListener('change',e=>{if(!e.target.closest('#page-zipper'))return;clearFieldError(e.target);if(e.target.id==='zp-unit'){updateUnits();clearResults();}});
  }
  window.calcZipper=()=>calculate(false);
  window.updateZipper=()=>calculate(false);
