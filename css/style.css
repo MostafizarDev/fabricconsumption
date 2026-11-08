@@ -5440,29 +5440,14 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
 }
 
 
-/* Match the disclosure chevron used by Thread specification & costing */
+/* Use the browser-native disclosure marker, matching Thread specification & costing */
 #page-trims .thread-component-panel>summary{
-  display:flex;
-  align-items:flex-start;
-  gap:7px;
+  display:list-item;
+  list-style:disclosure-closed;
   cursor:pointer;
-  list-style:none;
 }
-#page-trims .thread-component-panel>summary::-webkit-details-marker{display:none}
-#page-trims .thread-component-panel>summary::before{
-  content:"›";
-  display:inline-block;
-  flex:0 0 9px;
-  color:var(--text-primary,var(--text-color,#1e293b));
-  font-size:17px;
-  line-height:1;
-  font-weight:700;
-  transform:rotate(0deg);
-  transform-origin:center;
-  transition:transform .15s ease;
-}
-#page-trims .thread-component-panel[open]>summary::before{
-  transform:rotate(90deg);
+#page-trims .thread-component-panel[open]>summary{
+  list-style:disclosure-open;
 }
 #page-trims .thread-component-panel>summary strong{font-size:12px}
 #page-trims .thread-component-panel>summary small{margin-top:4px}
