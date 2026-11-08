@@ -217,7 +217,38 @@
       ['Length',r.length+' cm'],['Width',r.width+' cm'],['Quantity per Piece',r.pieces],['Wastage',r.waste+'%'],['Net Area per Piece',fmt(r.netPc,4)+' m²']
     ],{pc:fmt(r.pc,4)+' m²',dz:fmt(r.dz,3)+' m²',order:fmt(r.order,3)+' m²'},'Net area = Length × Width × Quantity per Piece ÷ 10,000. Final area = Net area × (1 + Wastage % ÷ 100). Per dozen = final area × 12. Full order = final area × order quantity.','INTERLINING CONSUMPTION DETAILS');
   }
+  function loadTrimsDemo(){
+    const demoValues={
+      'tr-buyer':'DEMO BUYER','tr-style':'DEMO-TS-001','tr-po':'DEMO-PO-1200','tr-order-qty':'1200',
+      'th-waste':'15','th-output-unit':'m',
+      'bt-pp':'6','bt-ex':'5',
+      'il-len':'25','il-wid':'8','il-qty':'2','il-waste':'5',
+      'th-brand':'Demo Thread Co.','th-tex':'Spun Polyester / Tex 27','th-sku':'DEMO-BLK',
+      'th-cone-length':'5000','th-cone-price':'250','th-currency':'BDT'
+    };
+    Object.entries(demoValues).forEach(([id,value])=>{if($(id))$(id).value=value;});
+    const body=$('th-operations-body');
+    if(body){
+      body.innerHTML='';
+      threadRowSequence=0;
+      addThreadOperation({name:'Shoulder Seam',stitch:'301',length:'0.18',rows:2});
+      addThreadOperation({name:'Side Seam',stitch:'301',length:'0.55',rows:2});
+      addThreadOperation({name:'Sleeve Attach',stitch:'401',length:'0.42',rows:2});
+      addThreadOperation({name:'Bottom Hem',stitch:'504',length:'0.65',rows:1});
+    }
+    if($('th-use-components'))$('th-use-components').checked=false;
+    document.querySelectorAll('.th-component').forEach(el=>el.value='');
+    setThreadMethod('standard');
+    selectCalculator('thread');
+    calculateAll();
+    put('tr-status','Demo loaded: Thread, Button and Interlining calculations are all populated. Edit any value to test your own order.');
+    if($('tr-status'))$('tr-status').classList.remove('is-warning');
+    document.querySelectorAll('#page-trims input, #page-trims select').forEach(el=>el.dispatchEvent(new Event('change',{bubbles:true})));
+    calculateAll();
+    put('tr-status','Demo loaded: Thread, Button and Interlining calculations are all populated. Edit any value to test your own order.');
+  }
   document.addEventListener('DOMContentLoaded', function () {
+    $('tr-demo')?.addEventListener('click',loadTrimsDemo);
     document.querySelectorAll('#page-trims [data-tr-mode]').forEach(btn => btn.addEventListener('click', () => selectCalculator(btn.dataset.trMode)));
     selectCalculator('thread');
     addThreadOperation();
