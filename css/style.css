@@ -5805,3 +5805,74 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
   line-height:1.4 !important;
   white-space:nowrap;
 }
+
+
+/* FIX: target the real Trims page markup (there is no #tr-thread-card wrapper) */
+#page-trims .thread-component-panel>summary,
+#page-trims .thread-advanced-settings>summary{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  flex-wrap:nowrap !important;
+  gap:7px !important;
+  width:100%;
+  min-width:0;
+  margin:0 !important;
+  padding:0 !important;
+  text-align:left !important;
+  list-style:none !important;
+  cursor:pointer;
+}
+#page-trims .thread-component-panel>summary::-webkit-details-marker,
+#page-trims .thread-advanced-settings>summary::-webkit-details-marker{
+  display:none !important;
+}
+#page-trims .thread-component-panel>summary::marker,
+#page-trims .thread-advanced-settings>summary::marker{
+  content:"" !important;
+}
+#page-trims .thread-component-panel>summary::before,
+#page-trims .thread-advanced-settings>summary::before{
+  content:"" !important;
+  display:inline-block !important;
+  position:static !important;
+  flex:0 0 9px !important;
+  width:9px !important;
+  height:10px !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:currentColor !important;
+  clip-path:polygon(10% 0, 100% 50%, 10% 100%) !important;
+  transform:rotate(0deg) !important;
+  transform-origin:center !important;
+  transition:transform .2s ease !important;
+}
+#page-trims .thread-component-panel[open]>summary::before,
+#page-trims .thread-advanced-settings[open]>summary::before{
+  transform:rotate(90deg) !important;
+}
+#page-trims .thread-component-panel>summary strong{
+  display:inline !important;
+  flex:0 0 auto !important;
+  margin:0 !important;
+  font-size:12px !important;
+  line-height:1.4 !important;
+  text-align:left !important;
+}
+#page-trims .thread-component-panel>summary small{
+  display:inline !important;
+  flex:0 1 auto !important;
+  margin:0 !important;
+  font-size:10px !important;
+  line-height:1.4 !important;
+  white-space:nowrap !important;
+  text-align:left !important;
+}
+#page-trims .thread-advanced-settings>summary{
+  font-size:12px !important;
+  line-height:1.4 !important;
+  white-space:nowrap !important;
+  text-align:left !important;
+}
