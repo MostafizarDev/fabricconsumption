@@ -82,15 +82,27 @@
   if(typeof generatePDF==='function')generatePDF('Zipper Consumption Report',report);else window.print();
  }
  function init(){
-  if(!root()||root().dataset.zpReady)return;root().dataset.zpReady='1';updateMethod();updateUnits();renderRecent();
-  $('zp-demo').addEventListener('click',demo);$('zp-reset').addEventListener('click',reset);
-  $('zp-recent-toggle').addEventListener('click',()=>{const p=$('zp-recent-panel');p.hidden=!p.hidden;$('zp-recent-toggle').setAttribute('aria-expanded',String(!p.hidden));if(!p.hidden)renderRecent();});
-  $('zp-recent-panel').addEventListener('click',e=>{const load=e.target.closest('[data-zp-load]'),del=e.target.closest('[data-zp-delete]');if(load){loadRecent(load.dataset.zpLoad);return;}if(del){localStorage.setItem(RECENT_KEY,JSON.stringify(recentItems().filter(x=>String(x.id)!==del.dataset.zpDelete)));renderRecent();return;}if(e.target.closest('[data-zp-clear]')){localStorage.removeItem(RECENT_KEY);renderRecent();}});
-  document.querySelectorAll('[data-zp-method]').forEach(b=>b.addEventListener('click',()=>{method=b.dataset.zpMethod;updateMethod();clearResults();}));
-  $('zp-unit').addEventListener('change',()=>{updateUnits();clearResults();});
-  ids.forEach(id=>{const e=$(id);if(e)e.addEventListener('input',()=>{if(lastResult)clearResults();});});
-  $('btn-calc-zipper').addEventListener('click',()=>calculate(true));$('btn-pdf-zipper').addEventListener('click',downloadReport);
+  if(!root())return;
+  updateMethod();updateUnits();renderRecent();
   if(window.lucide?.createIcons)window.lucide.createIcons();
+ }
+ // Delegated controls: resilient to page re-rendering and script initialization order.
+ if(!window.__zipperPlannerEvents){
+  window.__zipperPlannerEvents=true;
+  document.addEventListener('click',e=>{
+   const t=e.target.closest('#page-zipper button');if(!t)return;
+   if(t.id==='zp-demo'){demo();return;}
+   if(t.id==='zp-reset'){reset();return;}
+   if(t.id==='zp-recent-toggle'){const p=$('zp-recent-panel');p.hidden=!p.hidden;t.setAttribute('aria-expanded',String(!p.hidden));if(!p.hidden)renderRecent();return;}
+   if(t.id==='btn-calc-zipper'){calculate(true);return;}
+   if(t.id==='btn-pdf-zipper'){downloadReport();return;}
+   if(t.dataset.zpMethod){method=t.dataset.zpMethod;updateMethod();clearResults();return;}
+   if(t.dataset.zpLoad){loadRecent(t.dataset.zpLoad);return;}
+   if(t.dataset.zpDelete){localStorage.setItem(RECENT_KEY,JSON.stringify(recentItems().filter(x=>String(x.id)!==t.dataset.zpDelete)));renderRecent();return;}
+   if(t.hasAttribute('data-zp-clear')){localStorage.removeItem(RECENT_KEY);renderRecent();}
+  });
+  document.addEventListener('input',e=>{if(e.target.closest('#page-zipper')&&lastResult)clearResults();});
+  document.addEventListener('change',e=>{if(e.target.id==='zp-unit'){updateUnits();clearResults();}});
  }
  window.calcZipper=()=>calculate(false);
  window.updateZipper=()=>calculate(false);
