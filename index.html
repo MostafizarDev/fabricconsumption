@@ -803,22 +803,87 @@
 
 <!-- ==================== PAGE 6: ZIPPER ==================== -->
 <div class="page" id="page-zipper">
-  <p class="page-title">🔱 Zipper Length Calculator</p>
-  <div class="panel">
-    <div class="field-row"><div class="f-group"><label>Body Length (cm)</label><input class="inp-plain" id="zp-bl" value="75"></div><div class="f-group"><label>Front Neck Drop (cm)</label><input class="inp-plain" id="zp-fnd" value="10"></div></div>
-    <div class="field-row"><div class="f-group"><label>High Neck (cm)</label><input class="inp-plain" id="zp-hn" value="0"></div><div class="f-group"><label>Shrinkage %</label><input class="inp-plain" id="zp-shr" value="0"></div></div>
-    <button class="calc-btn" id="btn-calc-zipper">Calculate</button>
-    <div style="margin-top:16px"><div class="r-row"><span>Zipper Length</span><span id="zp-result" class="badge badge-green">—</span></div></div>
-    <button class="calc-btn pdf-btn" id="btn-pdf-zipper" style="margin-top:12px">📄 Download Report</button>
-  </div>
-  <div class="formula-note">
-    <div class="fn-title">📐 Formula Reference</div>
-    <div class="fraction-formula">
-      <div style="text-align: center; padding: 10px 0;">
-        Zipper Length = (Body Length + High Neck - Neck Drop) × (1 - Shrinkage%)
-      </div>
+  <section class="zipper-hero trims-hero">
+    <div class="trims-hero-copy">
+      <span>GARMENT INDUSTRY TOOLKIT</span>
+      <h1>Zipper Consumption Planner</h1>
+      <p>Plan zipper specifications, calculate finished length and estimate order quantity and cost in one workspace.</p>
     </div>
-  </div>
+    <div class="trims-hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M23 7h18v50H23z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M27 12h10M27 20h10M27 28h10M27 36h10M27 44h10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M32 8v48M19 16h4m18 0h4M19 32h4m18 0h4M19 48h4m18 0h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m32 24 5 5-5 5-5-5 5-5Z" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2"/></svg></div>
+  </section>
+
+  <section class="zipper-section trims-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="clipboard-list"></i></div><div><span class="trims-kicker">01 / ORDER SETUP</span><h2>Order Information</h2><p>Enter buyer and purchase order details for zipper planning.</p></div>
+      <div class="zipper-head-actions"><button type="button" class="trims-secondary-btn" id="zp-demo"><i data-lucide="sparkles"></i> Demo</button><button type="button" class="trims-secondary-btn" id="zp-reset"><i data-lucide="rotate-ccw"></i> Reset</button><button type="button" class="trims-secondary-btn" id="zp-recent-toggle" aria-expanded="false"><i data-lucide="history"></i> Recent</button></div>
+    </div>
+    <div class="zipper-recent-panel" id="zp-recent-panel" hidden></div>
+    <div class="trims-order-grid zipper-order-grid">
+      <label>Buyer Name<input id="zp-buyer" type="text" placeholder="Enter buyer name"></label>
+      <label>Style Number<input id="zp-style" type="text" placeholder="Enter style number"></label>
+      <label>PO Number<input id="zp-po" type="text" placeholder="Enter PO number"></label>
+      <label>Total Order Quantity (pcs)<input id="zp-order-qty" type="number" min="1" step="1" placeholder="e.g. 1200"></label>
+    </div>
+  </section>
+
+  <section class="zipper-section trims-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="sliders-horizontal"></i></div><div><span class="trims-kicker">02 / ZIPPER SPECIFICATION</span><h2>Zipper Details</h2><p>Select the construction and record the zipper specification for the tech pack.</p></div></div>
+    <div class="zipper-fields-grid">
+      <label>Zipper Type<select id="zp-type"><option value="Closed-end">Closed-end</option><option value="Open-end / Separating">Open-end / Separating</option><option value="Two-way separating">Two-way separating</option><option value="Two-way non-separating">Two-way non-separating</option><option value="Invisible">Invisible</option><option value="Continuous chain">Continuous chain</option></select></label>
+      <label>Material / Teeth<select id="zp-material"><option value="Nylon coil">Nylon coil</option><option value="Plastic molded">Plastic molded</option><option value="Metal">Metal</option><option value="Invisible coil">Invisible coil</option><option value="Other / Custom">Other / Custom</option></select></label>
+      <label>Gauge / Size<input id="zp-gauge" type="text" placeholder="e.g. #3, #5, #8"></label>
+      <label>Slider Type<input id="zp-slider" type="text" placeholder="e.g. Auto-lock, non-lock"></label>
+      <label>Puller / Finish<input id="zp-puller" type="text" placeholder="e.g. Standard, logo puller"></label>
+      <label>Color / Code<input id="zp-color" type="text" placeholder="e.g. Black / 001"></label>
+    </div>
+  </section>
+
+  <section class="zipper-section trims-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="ruler"></i></div><div><span class="trims-kicker">03 / MEASUREMENT & CONSUMPTION</span><h2>Zipper Measurement</h2><p>Use the existing body/neck calculation or enter a directly measured finished zipper length.</p></div></div>
+    <div class="zipper-method-switch" role="group" aria-label="Zipper measurement method">
+      <button type="button" class="zipper-method-btn is-active" data-zp-method="formula"><strong>Body / Neck Formula</strong><small>Body length + high neck − front neck drop</small></button>
+      <button type="button" class="zipper-method-btn" data-zp-method="direct"><strong>Direct Measurement</strong><small>Use finished zipper measurement</small></button>
+    </div>
+    <div class="zipper-fields-grid" id="zp-formula-fields">
+      <label>Body Length (<span class="zp-unit-label">cm</span>)<input class="zp-measure" id="zp-bl" type="number" min="0" step="any" placeholder="e.g. 75"></label>
+      <label>Front Neck Drop (<span class="zp-unit-label">cm</span>)<input class="zp-measure" id="zp-fnd" type="number" min="0" step="any" placeholder="e.g. 10"></label>
+      <label>High Neck (<span class="zp-unit-label">cm</span>)<input class="zp-measure" id="zp-hn" type="number" min="0" step="any" placeholder="e.g. 0"></label>
+      <label>Shrinkage Adjustment (%)<input id="zp-shr" type="number" min="0" max="99" step="any" placeholder="e.g. 2"></label>
+    </div>
+    <div class="zipper-fields-grid" id="zp-direct-fields" hidden>
+      <label>Finished Zipper Length (<span class="zp-unit-label">cm</span>)<input class="zp-measure" id="zp-direct-length" type="number" min="0" step="any" placeholder="Enter measured length"></label>
+      <label>Shrinkage Adjustment (%)<input id="zp-direct-shr" type="number" min="0" max="99" step="any" placeholder="e.g. 2"></label>
+    </div>
+    <div class="zipper-fields-grid zipper-consumption-fields">
+      <label>Measurement Unit<select id="zp-unit"><option value="cm">Centimeter (cm)</option><option value="in">Inch (in)</option></select></label>
+      <label>Zippers per Garment (pcs)<input id="zp-per-garment" type="number" min="1" step="1" value="1"></label>
+      <label>Wastage Allowance (%)<input id="zp-waste" type="number" min="0" max="100" step="any" value="2"></label>
+      <label>Unit Price (optional)<input id="zp-unit-price" type="number" min="0" step="any" placeholder="Price per zipper"></label>
+    </div>
+    <div class="zipper-formula-note"><strong>Measurement reference</strong><span id="zp-formula-text">Calculated length = (Body Length + High Neck − Front Neck Drop), adjusted by the entered shrinkage percentage.</span><small>Confirm the correct measurement reference against the selected zipper construction and approved sample before bulk ordering.</small></div>
+    <div class="zipper-inline-status" id="zp-status" aria-live="polite">Enter order and measurement details, then calculate.</div>
+  </section>
+
+  <section class="zipper-section trims-results-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="chart-no-axes-combined"></i></div><div><span class="trims-kicker">04 / CALCULATION RESULTS</span><h2>Zipper Order Summary</h2><p>Review the estimated length, required quantity and optional cost before exporting.</p></div></div>
+    <div class="zipper-result-grid">
+      <article class="zipper-result-primary"><span>Finished Length / Zipper</span><strong id="zp-result">—</strong><small id="zp-result-cm">—</small></article>
+      <article><span>Length incl. Wastage</span><strong id="zp-with-waste">—</strong><small>per zipper</small></article>
+      <article><span>Total Zipper Quantity</span><strong id="zp-total-qty">—</strong><small>pcs</small></article>
+      <article><span>Total Length Required</span><strong id="zp-total-length">—</strong><small id="zp-total-length-unit">—</small></article>
+      <article><span>Estimated Total Cost</span><strong id="zp-total-cost">—</strong><small>optional costing</small></article>
+    </div>
+    <div class="zipper-result-note" id="zp-result-note">No calculation yet. Complete the order and measurement fields.</div>
+    <div class="zipper-action-row"><button type="button" class="trims-primary-btn" id="btn-calc-zipper"><i data-lucide="calculator"></i> Calculate Zipper Consumption</button><button type="button" class="zipper-pdf-btn" id="btn-pdf-zipper"><i data-lucide="file-text"></i> Download Report (PDF)</button></div>
+  </section>
+
+  <section class="zipper-section trims-section zipper-reference-section">
+    <div class="trims-section-heading"><div class="trims-heading-icon"><i data-lucide="book-open"></i></div><div><span class="trims-kicker">REFERENCE</span><h2>Calculation Formula</h2><p>Review how zipper length and order quantity are estimated.</p></div></div>
+    <div class="zipper-reference-grid">
+      <article><strong>Existing Body / Neck Formula</strong><code>Base Length = Body Length + High Neck − Front Neck Drop</code><small>Existing shrinkage adjustment is retained for continuity with your current calculator.</small></article>
+      <article><strong>Direct Measurement</strong><code>Base Length = Approved Sample Measurement</code><small>Use the measured finished zipper length from the approved garment sample.</small></article>
+      <article><strong>Order Quantity</strong><code>Total Zippers = Order Qty × Zippers per Garment</code><small>Wastage is applied to total required length, not to the physical zipper count.</small></article>
+    </div>
+  </section>
 </div>
 
 <!-- ==================== PAGE 7: TRIMS ==================== -->
