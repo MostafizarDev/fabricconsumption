@@ -82,8 +82,22 @@
   if(typeof generatePDF==='function')generatePDF('Zipper Consumption Report',report);else window.print();
  }
  function init(){
-  if(!root())return;
+  if(!root()||root().dataset.zipperInitialized==='true')return;
+  root().dataset.zipperInitialized='true';
   updateMethod();updateUnits();renderRecent();
+  $('zp-demo')?.addEventListener('click',()=>demo());
+  $('zp-reset')?.addEventListener('click',()=>reset());
+  $('zp-recent-toggle')?.addEventListener('click',()=>{
+   const panel=$('zp-recent-panel');if(!panel)return;
+   panel.hidden=!panel.hidden;
+   $('zp-recent-toggle').setAttribute('aria-expanded',String(!panel.hidden));
+   if(!panel.hidden)renderRecent();
+  });
+  $('btn-calc-zipper')?.addEventListener('click',()=>calculate(true));
+  $('btn-pdf-zipper')?.addEventListener('click',downloadReport);
+  root().querySelectorAll('[data-zp-method]').forEach(btn=>btn.addEventListener('click',()=>{
+   method=btn.dataset.zpMethod;updateMethod();clearResults();
+  }));
   if(window.lucide?.createIcons)window.lucide.createIcons();
  }
  // Delegated controls: resilient to page re-rendering and script initialization order.
