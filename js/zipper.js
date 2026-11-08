@@ -2,7 +2,7 @@
 (function(){
  'use strict';
  const $=id=>document.getElementById(id),root=()=>$('#page-zipper');
- const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price'];
+ const ids=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color','zp-bl','zp-fnd','zp-hn','zp-shr','zp-direct-length','zp-direct-shr','zp-unit','zp-per-garment','zp-waste','zp-unit-price','zp-comments'];
 let method='formula',lastResult=null;
  const num=id=>Math.max(0,Number($(id)?.value)||0),val=id=>$(id)?.value??'',fmt=(n,d=1)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const cmToUnit=cm=>val('zp-unit')==='in'?cm/2.54:cm,unit=()=>val('zp-unit')||'cm',totalQty=()=>Math.floor(num('zp-order-qty')*Math.max(1,Math.floor(num('zp-per-garment'))));
@@ -110,7 +110,7 @@ let method='formula',lastResult=null;
    '<section class="section"><div class="section-head">ZIPPER SPECIFICATION & MEASUREMENT</div><table><thead><tr><th style="width:7%">SL</th><th>PARAMETER</th><th>INPUT / VALUE</th></tr></thead><tbody>'+infoRows+'</tbody></table></section>'+
    '<div class="summary-grid"><div class="summary-card"><span>FINISHED LENGTH / ZIPPER</span><strong>'+fmt(cmToUnit(r.finishedCm),1)+' '+r.inputUnit+'</strong><small>After shrinkage adjustment</small></div><div class="summary-card"><span>TOTAL ZIPPER QUANTITY</span><strong>'+r.qty.toLocaleString('en-US')+' pcs</strong><small>Including wastage allowance</small></div><div class="summary-card primary"><span>TOTAL LENGTH REQUIRED</span><strong>'+fmt(cmToUnit(r.totalLengthCm),2)+' '+r.inputUnit+'</strong><small>For complete order quantity</small></div></div>'+
    '<section class="section"><div class="section-head">CALCULATION METHOD & FORMULA</div><div class="formula"><strong>'+methodText+'</strong>'+formulas.map(x=>'<p>'+escPdf(x)+'</p>').join('')+'</div></section>'+
-   '<div class="note"><strong>PRODUCTION NOTE:</strong> This report is a consumption estimate. Confirm zipper length, construction, shrinkage and supplier specification against the approved sample before bulk production.</div>'+
+   '<section class="section zipper-comments"><div class="section-head">COMMENTS</div><div class="comments-body">'+(val('zp-comments').trim()?escPdf(val('zp-comments').trim()).replace(/\\n/g,'<br>'):'&nbsp;')+'</div></section>'+\n   '<div class="note"><strong>PRODUCTION NOTE:</strong> This report is a consumption estimate. Confirm zipper length, construction, shrinkage and supplier specification against the approved sample before bulk production.</div>'+
    '<div class="footer"><span>FABRiCS CONSUMPTiON · ZIPPER REPORT</span><span>Generated '+dateText+' · '+reportId+'</span></div></div>';
   if(typeof generatePDF==='function')generatePDF('Zipper Consumption Report',report);else window.print();
  }
