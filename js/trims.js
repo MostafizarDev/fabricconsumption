@@ -28,8 +28,10 @@
     row.querySelector('.th-op-length').value=data.length||'';
     row.querySelector('.th-op-rows').value=data.rows||1;
     row.querySelector('.th-op-ratio').value=data.ratio||'';
-    if(data.spi)row.querySelector('.th-op-spi').value=data.spi;
-    if(data.thickness)row.querySelector('.th-op-thickness').value=data.thickness;
+    if(data.sample!==undefined)row.querySelector('.th-op-sample').value=data.sample;
+    if(data.measured!==undefined)row.querySelector('.th-op-measured').value=data.measured;
+    if(data.spi!==undefined)row.querySelector('.th-op-spi').value=data.spi;
+    if(data.thickness!==undefined)row.querySelector('.th-op-thickness').value=data.thickness;
     if(data.stitch&&THREAD_RATIO_REFERENCE[data.stitch]&&!data.ratio)row.querySelector('.th-op-ratio').value=THREAD_RATIO_REFERENCE[data.stitch].ratio;
     return row;
   }
@@ -232,10 +234,10 @@
     if(body){
       body.innerHTML='';
       threadRowSequence=0;
-      addThreadOperation({name:'Shoulder Seam',stitch:'301',length:'0.18',rows:2});
-      addThreadOperation({name:'Side Seam',stitch:'301',length:'0.55',rows:2});
-      addThreadOperation({name:'Sleeve Attach',stitch:'401',length:'0.42',rows:2});
-      addThreadOperation({name:'Bottom Hem',stitch:'504',length:'0.65',rows:1});
+      addThreadOperation({name:'Shoulder Seam',stitch:'301',length:'0.18',rows:2,sample:'0.36',measured:'0.90',spi:'18',thickness:'0.06'});
+      addThreadOperation({name:'Side Seam',stitch:'301',length:'0.55',rows:2,sample:'1.10',measured:'2.75',spi:'18',thickness:'0.08'});
+      addThreadOperation({name:'Sleeve Attach',stitch:'401',length:'0.42',rows:2,sample:'0.84',measured:'4.62',spi:'12',thickness:'0.10'});
+      addThreadOperation({name:'Bottom Hem',stitch:'504',length:'0.65',rows:1,sample:'0.65',measured:'9.10',spi:'14',thickness:'0.08'});
     }
     if($('th-use-components'))$('th-use-components').checked=false;
     document.querySelectorAll('.th-component').forEach(el=>el.value='');
