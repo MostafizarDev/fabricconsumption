@@ -23,6 +23,7 @@
     // Newly added rows must inherit the currently selected calculation mode.
     row.querySelectorAll('.th-actual-col').forEach(el=>el.classList.toggle('is-visible',threadMethod==='actual'));
     row.querySelectorAll('.th-advanced-col').forEach(el=>el.classList.toggle('is-visible',threadMethod==='advanced'));
+    row.querySelector('.th-op-name').value=data.name||'';
     row.querySelector('.th-op-stitch').value=data.stitch||'';
     row.querySelector('.th-op-length').value=data.length||'';
     row.querySelector('.th-op-rows').value=data.rows||1;
