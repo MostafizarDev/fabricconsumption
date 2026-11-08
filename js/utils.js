@@ -68,7 +68,7 @@ const FC_PAGE_TITLES = {
     woven: 'Woven Shirt',
     booking: 'Booking Sheet',
     knitprice: 'Knit Price',
-    zipper: 'Zipper Calculator',
+    zipper: 'Zipper Consumption Planner',
     trims: 'Trims Calculator',
     fob: 'FOB Costing',
     sizeratio: 'Size Ratio',
