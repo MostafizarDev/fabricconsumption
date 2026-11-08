@@ -5440,14 +5440,95 @@ body.dark-mode #page-trims .thread-component-grid label.is-missing{color:#fca5a5
 }
 
 
-/* Use the browser-native disclosure marker, matching Thread specification & costing */
+/* Thread component accordion: match the native triangle used by the costing panel */
 #page-trims .thread-component-panel>summary{
-  display:list-item;
-  list-style:disclosure-closed;
+  display:grid;
+  grid-template-columns:10px minmax(0,1fr);
+  grid-template-rows:auto auto;
+  column-gap:5px;
+  align-items:center;
   cursor:pointer;
+  list-style:none;
+  transition:color .18s ease;
 }
-#page-trims .thread-component-panel[open]>summary{
-  list-style:disclosure-open;
+#page-trims .thread-component-panel>summary::-webkit-details-marker{display:none}
+#page-trims .thread-component-panel>summary::marker{content:""}
+#page-trims .thread-component-panel>summary::before{
+  content:"";
+  grid-column:1;
+  grid-row:1 / span 2;
+  justify-self:start;
+  width:0;
+  height:0;
+  border-top:4px solid transparent;
+  border-bottom:4px solid transparent;
+  border-left:5px solid currentColor;
+  transform:rotate(0deg);
+  transform-origin:2px 4px;
+  transition:transform .2s ease;
 }
-#page-trims .thread-component-panel>summary strong{font-size:12px}
-#page-trims .thread-component-panel>summary small{margin-top:4px}
+#page-trims .thread-component-panel[open]>summary::before{transform:rotate(90deg)}
+#page-trims .thread-component-panel>summary strong{
+  grid-column:2;
+  grid-row:1;
+  font-size:12px;
+}
+#page-trims .thread-component-panel>summary small{
+  grid-column:2;
+  grid-row:2;
+  margin-top:4px;
+}
+#page-trims .thread-component-panel,
+#page-trims .thread-advanced-settings{
+  transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease;
+}
+#page-trims .thread-component-panel:hover,
+#page-trims .thread-advanced-settings:hover{
+  border-color:var(--primary-color,#3b82f6);
+  box-shadow:0 3px 12px rgba(15,23,42,.06);
+}
+#page-trims .thread-component-panel>summary:hover,
+#page-trims .thread-advanced-settings>summary:hover{
+  color:var(--primary-color,#2563eb);
+}
+#page-trims #tr-thread-card button{
+  transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease;
+}
+#page-trims #tr-thread-card button:hover:not(:disabled){
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(15,23,42,.12);
+}
+#page-trims #tr-thread-card button:active:not(:disabled){
+  transform:translateY(0) scale(.98);
+}
+#page-trims #tr-thread-card input:not([type="checkbox"]),
+#page-trims #tr-thread-card select{
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+#page-trims #tr-thread-card input:not([type="checkbox"]):hover,
+#page-trims #tr-thread-card select:hover{
+  border-color:var(--primary-color,#60a5fa);
+}
+#page-trims #tr-thread-card input:not([type="checkbox"]):focus,
+#page-trims #tr-thread-card select:focus{
+  box-shadow:0 0 0 3px rgba(59,130,246,.12);
+}
+#page-trims .thread-result-card{
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+#page-trims .thread-result-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 5px 14px rgba(15,23,42,.08);
+}
+@media(prefers-reduced-motion:reduce){
+  #page-trims .thread-component-panel *,
+  #page-trims .thread-advanced-settings *,
+  #page-trims #tr-thread-card button,
+  #page-trims #tr-thread-card input,
+  #page-trims #tr-thread-card select,
+  #page-trims .thread-result-card{
+    transition:none!important;
+    animation:none!important;
+    transform:none!important;
+  }
+}
