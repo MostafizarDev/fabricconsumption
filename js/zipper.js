@@ -29,22 +29,33 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
   return {baseCm:base,finishedCm:finished,baseQty,qty,extraQty,totalLengthCm:finished*qty,price,totalCost:price*qty,shrink,waste,perGarment:Math.max(1,Math.floor(num('zp-per-garment'))),inputUnit:u,method};
  }
  function validateRequiredFields(){
-  const required=['zp-buyer','zp-style','zp-po','zp-order-qty','zp-type','zp-material','zp-gauge','zp-color',
-   ...(method==='direct'?['zp-direct-length','zp-direct-shr']:['zp-bl','zp-fnd','zp-hn','zp-shr']),
-   'zp-unit','zp-per-garment','zp-waste'];
-  let firstMissing=null;
+  // Only calculation-critical fields block the result. Order metadata is optional.
+  const required=method==='direct'?['zp-order-qty','zp-direct-length']:['zp-order-qty','zp-bl','zp-fnd','zp-hn'];
+  const rules={'zp-order-qty':{min:1,integer:true},'zp-bl':{min:0.000001},'zp-fnd':{min:0},'zp-hn':{min:0},'zp-direct-length':{min:0.000001}};
+  let firstInvalid=null;
+  const mark=(field,invalid)=>{
+   if(!field)return;
+   field.classList.toggle('is-missing',invalid);
+   field.setAttribute('aria-invalid',invalid?'true':'false');
+   field.closest('label')?.classList.toggle('has-error',invalid);
+   if(invalid&&!firstInvalid)firstInvalid=field;
+  };
   required.forEach(id=>{
    const field=$(id);if(!field)return;
-   const missing=String(field.value??'').trim()==='';
-   field.classList.toggle('is-missing',missing);
-   field.setAttribute('aria-invalid',missing?'true':'false');
-   const label=field.closest('label');if(label)label.classList.toggle('has-error',missing);
-   if(missing&&!firstMissing)firstMissing=field;
+   const raw=String(field.value??'').trim(),value=raw===''?NaN:Number(raw),rule=rules[id]||{};
+   mark(field,raw===''||!Number.isFinite(value)||value<rule.min||(rule.integer&&!Number.isInteger(value)));
   });
-  if(firstMissing){
-   status('Please complete all required fields. Missing information is highlighted in red.','error');
-   firstMissing.focus({preventScroll:true});
-   firstMissing.scrollIntoView({behavior:'smooth',block:'center'});
+  const shrinkField=$(method==='direct'?'zp-direct-shr':'zp-shr');
+  const shrinkRaw=String(shrinkField?.value??'').trim(),shrink=shrinkRaw===''?0:Number(shrinkRaw);
+  mark(shrinkField,!Number.isFinite(shrink)||shrink<0||shrink>=100);
+  const perField=$('zp-per-garment'),perRaw=String(perField?.value??'').trim(),per=Number(perRaw);
+  mark(perField,perRaw===''||!Number.isFinite(per)||per<1||!Number.isInteger(per));
+  const wasteField=$('zp-waste'),wasteRaw=String(wasteField?.value??'').trim(),waste=Number(wasteRaw);
+  mark(wasteField,wasteRaw===''||!Number.isFinite(waste)||waste<0||waste>100);
+  if(firstInvalid){
+   status('Please check the required calculation fields. Missing or invalid values are highlighted in red.','error');
+   firstInvalid.focus({preventScroll:true});
+   firstInvalid.scrollIntoView({behavior:'smooth',block:'center'});
    return false;
   }
   return true;
@@ -81,29 +92,14 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null;
   return r;
  }
  function demo(){
-   const selectedMethod=root()?.querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
-   const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
-   applyingDemo=true;
-   Object.entries(sample).forEach(([id,v])=>{const el=$(id);if(el){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}});
-   applyingDemo=false;
-   method=selectedMethod;updateMethod();updateUnits();
-   const result=calculate(true);
-   if(!result){
-    const r=collect();
-    if(r.finishedCm>0&&r.baseQty>0){
-     lastResult=r;
-     setText('zp-result',fmt(cmToUnit(r.finishedCm),1)+' '+r.inputUnit);
-     setText('zp-result-cm',fmt(r.finishedCm,2)+' cm reference');
-     setText('zp-with-waste',r.extraQty.toLocaleString('en-US')+' pcs');
-     setText('zp-total-qty',r.qty.toLocaleString('en-US')+' pcs');
-     setText('zp-total-length',fmt(cmToUnit(r.totalLengthCm),2));
-     setText('zp-total-length-unit',r.inputUnit+' total incl. wastage');
-     setText('zp-total-cost',r.price?fmt(r.totalCost,2):'Not entered');
-     setText('zp-result-note','Demo order: '+r.baseQty.toLocaleString('en-US')+' base zippers plus '+r.extraQty.toLocaleString('en-US')+' wastage pcs.');
-     status('Demo calculation loaded successfully.','success');
-    }else status('Demo inputs loaded, but calculation could not be completed. Check order quantity and zipper length.','error');
-   }
-  }
+  const selectedMethod=root()?.querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
+  const sample={'zp-buyer':'DEMO BUYER','zp-style':'ZIP-DEMO-001','zp-po':'DEMO-PO-1200','zp-order-qty':'1200','zp-type':'Open-end / Separating','zp-material':'Nylon coil','zp-gauge':'#5','zp-color':'Black / 001','zp-bl':'68','zp-fnd':'8','zp-hn':'5','zp-shr':'0','zp-direct-length':'65','zp-direct-shr':'0','zp-unit':'cm','zp-per-garment':'1','zp-waste':'2','zp-unit-price':'18'};
+  applyingDemo=true;
+  Object.entries(sample).forEach(([id,v])=>{const el=$(id);if(el){el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}});
+  applyingDemo=false;
+  method=selectedMethod;updateMethod();updateUnits();
+  calculate(true);
+ }
  function reset(){
   ids.forEach(id=>{const e=$(id);if(e)e.value='';});
   root()?.querySelectorAll('.is-missing').forEach(field=>{field.classList.remove('is-missing');field.setAttribute('aria-invalid','false');field.closest('label')?.classList.remove('has-error');});
