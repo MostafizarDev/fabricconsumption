@@ -22,9 +22,9 @@
  function collect(){
   const u=unit(),shrink=method==='direct'?num('zp-direct-shr'):num('zp-shr');
   const base=method==='direct'?num('zp-direct-length')*(u==='in'?2.54:1):(num('zp-bl')+num('zp-hn')-num('zp-fnd'))*(u==='in'?2.54:1);
-  const finished=base*(1-shrink/100),waste=num('zp-waste'),withWaste=finished*(1+waste/100);
-  const qty=totalQty(),price=num('zp-unit-price');
-  return {baseCm:base,finishedCm:finished,withWasteCm:withWaste,qty,totalLengthCm:withWaste*qty,price,totalCost:price*qty,shrink,waste,perGarment:Math.max(1,Math.floor(num('zp-per-garment'))),inputUnit:u,method};
+  const finished=base*(1-shrink/100),waste=num('zp-waste');
+  const baseQty=totalQty(),qty=Math.ceil(baseQty*(1+waste/100)),extraQty=qty-baseQty,price=num('zp-unit-price');
+  return {baseCm:base,finishedCm:finished,baseQty,qty,extraQty,totalLengthCm:finished*qty,price,totalCost:price*qty,shrink,waste,perGarment:Math.max(1,Math.floor(num('zp-per-garment'))),inputUnit:u,method};
  }
  function calculate(save=true){
   if(!root())return null;
