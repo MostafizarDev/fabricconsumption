@@ -5201,9 +5201,15 @@ body.dark-mode #page-zipper .zipper-order-grid input{border-color:#475569;color:
 
 /* Zipper layout refinement: compact four-column specs and measurement controls */
 #page-zipper .zipper-details-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
-#page-zipper .zipper-measurement-top{display:grid;grid-template-columns:minmax(0,2fr) minmax(180px,.7fr);gap:13px;align-items:stretch;margin-bottom:14px}
+#page-zipper .zipper-measurement-top{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(240px,1fr);gap:14px;align-items:stretch;margin-bottom:14px}
 #page-zipper .zipper-measurement-top .zipper-method-switch{margin:0}
 #page-zipper .zipper-unit-field{display:grid;align-content:start;gap:7px;min-width:0;color:var(--label-color,#334155);font-size:10px;font-weight:700}
+#page-zipper .zipper-unit-field select{min-height:46px;font-size:12px;font-weight:700;cursor:pointer}
+#page-zipper .zipper-fields-grid label.has-error,#page-zipper .zipper-order-grid label.has-error,#page-zipper .zipper-unit-field.has-error{color:#b91c1c}
+#page-zipper .zipper-fields-grid input.is-missing,#page-zipper .zipper-fields-grid select.is-missing,#page-zipper .zipper-order-grid input.is-missing,#page-zipper .zipper-unit-field select.is-missing{border-color:#ef4444!important;background:#fff7f7!important;box-shadow:0 0 0 2px rgba(239,68,68,.10)!important}
+#page-zipper .zipper-fields-grid input.is-missing:focus,#page-zipper .zipper-fields-grid select.is-missing:focus,#page-zipper .zipper-order-grid input.is-missing:focus{border-color:#dc2626!important;box-shadow:0 0 0 3px rgba(239,68,68,.14)!important}
+body.dark-mode #page-zipper .zipper-fields-grid input.is-missing,body.dark-mode #page-zipper .zipper-fields-grid select.is-missing,body.dark-mode #page-zipper .zipper-order-grid input.is-missing,body.dark-mode #page-zipper .zipper-unit-field select.is-missing{border-color:#f87171!important;background:#351b25!important;color:#fee2e2!important}
+body.dark-mode #page-zipper .zipper-fields-grid label.has-error,body.dark-mode #page-zipper .zipper-order-grid label.has-error,body.dark-mode #page-zipper .zipper-unit-field.has-error{color:#fca5a5}
 #page-zipper .zipper-unit-field select{width:100%;min-height:42px;padding:10px 12px;border:1px solid var(--input-border,#cbd5e1);border-radius:9px;color:var(--text-color,#1e293b);background:var(--input-bg,#fff);font:inherit;font-size:12px}
 #page-zipper .zipper-comments-field{display:grid;gap:7px;margin-top:14px;color:var(--label-color,#334155);font-size:10px;font-weight:800}
 #page-zipper .zipper-comments-field textarea{width:100%;min-height:78px;resize:vertical;padding:11px 12px;border:1px solid var(--input-border,#cbd5e1);border-radius:9px;color:var(--text-color,#1e293b);background:var(--input-bg,#fff);font:inherit;font-size:11px;line-height:1.5}
