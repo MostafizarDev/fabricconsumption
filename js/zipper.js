@@ -28,16 +28,15 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
   const baseQty=totalQty(),qty=Math.ceil(baseQty*(1+waste/100)),extraQty=qty-baseQty,price=num('zp-unit-price');
   return {baseCm:base,finishedCm:finished,baseQty,qty,extraQty,totalLengthCm:finished*qty,price,totalCost:price*qty,shrink,waste,perGarment:Math.max(1,Math.floor(num('zp-per-garment'))),inputUnit:u,method};
  }
- function validateRequiredFields(){
-  // Only calculation-critical fields block the result. Order metadata is optional.
+ function validateRequiredFields(options={}){
   const required=method==='direct'?['zp-order-qty','zp-direct-length']:['zp-order-qty','zp-bl','zp-fnd','zp-hn'];
   const rules={'zp-order-qty':{min:1,integer:true},'zp-bl':{min:0.000001},'zp-fnd':{min:0},'zp-hn':{min:0},'zp-direct-length':{min:0.000001}};
   let firstInvalid=null;
   const mark=(field,invalid)=>{
    if(!field)return;
-   field.classList.toggle('is-missing',invalid);
+   field.classList.toggle('is-missing',!!invalid);
    field.setAttribute('aria-invalid',invalid?'true':'false');
-   field.closest('label')?.classList.toggle('has-error',invalid);
+   const label=field.closest('label');if(label)label.classList.toggle('has-error',!!invalid);
    if(invalid&&!firstInvalid)firstInvalid=field;
   };
   required.forEach(id=>{
@@ -53,20 +52,13 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
   const wasteField=$('zp-waste'),wasteRaw=String(wasteField?.value??'').trim(),waste=Number(wasteRaw);
   mark(wasteField,wasteRaw===''||!Number.isFinite(waste)||waste<0||waste>100);
   if(firstInvalid){
-   status('Please check the required calculation fields. Missing or invalid values are highlighted in red.','error');
-   firstInvalid.focus({preventScroll:true});
-   firstInvalid.scrollIntoView({behavior:'smooth',block:'center'});
+   if(options.silent!==true)status('Please complete the required fields marked in red.','error');
+   if(options.focus!==false){firstInvalid.focus({preventScroll:true});firstInvalid.scrollIntoView({behavior:'smooth',block:'center'});}
    return false;
   }
   return true;
  }
- function clearFieldError(field){
-  if(!field)return;
-  if(String(field.value??'').trim()!==''){
-   field.classList.remove('is-missing');field.setAttribute('aria-invalid','false');
-   field.closest('label')?.classList.remove('has-error');
-  }
- }
+ function clearFieldError(field){if(field&&userStartedInput)validateRequiredFields({focus:false,silent:true});}
  function calculate(save=true){
   if(!root())return null;
   method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
@@ -162,24 +154,20 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
   window.__zipperPlannerEvents=true;
   document.addEventListener('click',e=>{
    const t=e.target.closest('#page-zipper button');if(!t)return;
-   if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(hadResult)calculate(false);else clearResults();return;}
+   if(t.dataset.zpMethod){const hadResult=!!lastResult;method=t.dataset.zpMethod;updateMethod();if(userStartedInput)validateRequiredFields({focus:false,silent:true});if(hadResult)calculate(false);else clearResults();return;}
   });
   document.addEventListener('input',e=>{
-   if(!e.target.closest('#page-zipper'))return;
-   if(!applyingDemo&&e.target.matches('input,select,textarea')&&String(e.target.value??'').trim()!=='')userStartedInput=true;
-   clearFieldError(e.target);
-   if(lastResult&&!applyingDemo){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}
-  });
-  document.addEventListener('focusout',e=>{
-   if(!e.target.closest('#page-zipper')||applyingDemo||!userStartedInput)return;
-   method=root().querySelector('[data-zp-method].is-active')?.dataset.zpMethod||method;
-   validateRequiredFields({focus:false,silent:true});
-  });
-  document.addEventListener('change',e=>{
-   if(!e.target.closest('#page-zipper'))return;
-   clearFieldError(e.target);
-   if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}
-   if(userStartedInput&&!applyingDemo)validateRequiredFields({focus:false,silent:true});
+    if(!e.target.closest('#page-zipper')||applyingDemo)return;
+    if(e.target.matches('input,select,textarea'))userStartedInput=true;
+    if(userStartedInput)validateRequiredFields({focus:false,silent:true});
+    if(lastResult){clearTimeout(resultRefreshTimer);resultRefreshTimer=setTimeout(()=>calculate(false),350);}
+   });
+   document.addEventListener('change',e=>{
+    if(!e.target.closest('#page-zipper')||applyingDemo)return;
+    if(e.target.matches('input,select,textarea'))userStartedInput=true;
+    if(userStartedInput)validateRequiredFields({focus:false,silent:true});
+    if(e.target.id==='zp-unit'){updateUnits();if(lastResult)calculate(false);}
+   });
   });
  }
  window.calcZipper=()=>calculate(false);
