@@ -6156,3 +6156,27 @@ button[id*="demo"],button[id*="recent"],button[id*="reload"],button[id*="reset"]
   line-height:13px;
   color:#334155;
 }
+
+/* Trims + Zipper action buttons: exact requested Inter typography */
+#page-trims .trims-secondary-btn,
+#page-trims .trims-recent-clear,
+#page-trims .trims-recent-load,
+#page-trims .trims-recent-delete,
+#page-zipper .zipper-head-actions .trims-secondary-btn,
+#page-zipper .zipper-recent-heading button,
+#page-zipper .zipper-recent-actions button{
+  font-family:'Inter',Arial,sans-serif;
+  font-size:10px;
+  font-weight:750;
+  line-height:12px;
+  color:#334155;
+}
+body.dark-mode #page-trims .trims-secondary-btn,
+body.dark-mode #page-trims .trims-recent-clear,
+body.dark-mode #page-trims .trims-recent-load,
+body.dark-mode #page-trims .trims-recent-delete,
+body.dark-mode #page-zipper .zipper-head-actions .trims-secondary-btn,
+body.dark-mode #page-zipper .zipper-recent-heading button,
+body.dark-mode #page-zipper .zipper-recent-actions button{
+  color:#e2e8f0;
+}
