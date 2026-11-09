@@ -634,6 +634,13 @@
       <svg viewBox="0 0 64 64" fill="none"><path d="M21 9 12 14 6 28l10 5 5-8v29h22V25l5 8 10-5-6-14-9-5-7 7h-8l-7-7Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M25 16c1 5 13 5 14 0M21 25v29m22-29v29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
     </div>
   </div>
+  <div class="unit-bar knit-unit-toolbar pant-toolbar knit-pant-toolbar woven-unit-toolbar">
+    <div class="unit-switch pant-unit-switch woven-unit-switch" role="group" aria-label="Measurement unit">
+      <button type="button" class="u-btn active" data-ws-unit="cm" aria-pressed="true">CM</button>
+      <button type="button" class="u-btn" data-ws-unit="inch" aria-pressed="false">Inch</button>
+    </div>
+    <input type="hidden" id="ws-unit" value="cm">
+  </div>
   <div class="input-note woven-allow-note">🟡 Yellow field = Seam Allowance — fill as needed (0 if no allowance)</div>
   <div class="pant-workspace woven-workspace">
     <div class="pant-workspace-main">
