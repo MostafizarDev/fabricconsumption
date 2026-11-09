@@ -5638,3 +5638,10 @@ body.dark-mode #page-woven .woven-measure-pair input,body.dark-mode #page-woven 
 body.dark-mode #page-woven .woven-measure-pair .woven-allow-input{background:#3b2f12;border-color:#d97706}
 @media(max-width:820px){#page-woven .woven-workspace{grid-template-columns:1fr}#page-woven .woven-summary-column{position:static;grid-row:1}}
 @media(max-width:560px){#page-woven .woven-measure-section{padding:13px}#page-woven .woven-measure-pair{grid-template-columns:minmax(0,1fr) 10px minmax(0,1fr) 10px minmax(74px,.8fr);gap:4px}#page-woven .woven-measure-pair input{padding:7px 5px;font-size:11px}#page-woven .woven-measure-pair strong{font-size:10px;padding:8px 3px}}
+
+/* Woven Shirt measurement unit toolbar */
+#page-woven .woven-unit-toolbar{min-height:48px;padding:8px 10px;margin:0 0 9px;border:1px solid var(--border,#dbe4ee);border-radius:9px;background:var(--card-bg,#fff)}
+#page-woven .woven-unit-switch{display:flex;gap:4px}
+#page-woven .woven-unit-switch .u-btn{min-width:58px}
+#page-woven .woven-unit-switch .u-btn.active{color:#fff;background:var(--accent,#0284c7);border-color:var(--accent,#0284c7)}
+body.dark-mode #page-woven .woven-unit-toolbar{background:#111c2e;border-color:#334155}
