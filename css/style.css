@@ -5714,3 +5714,43 @@ body.dark-mode #page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-rec
 /* Woven Shirt action buttons follow Knit Garments button theme */
 #page-woven .woven-actions .calc-btn{width:100%;min-width:0;margin-top:6px}
 #page-woven .woven-pdf-btn{width:100%;display:block;margin-top:12px}
+
+
+/* Woven T-shirt calculator — Knit Garments visual system, woven-specific inputs */
+#page-woven .woven-tshirt-workspace{grid-template-columns:minmax(0,1fr) 340px;gap:16px}
+#page-woven .woven-measure-section{background:var(--card-bg,#fff);border:1px solid var(--border,#e2e8f0);border-radius:12px}
+#page-woven .woven-order-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#page-woven .woven-order-grid label,#page-woven .woven-dim-grid label{display:grid;gap:6px;font-size:11px;font-weight:650;color:var(--text,#334155)}
+#page-woven .woven-order-grid input,#page-woven .woven-dim-grid input{width:100%;min-width:0;box-sizing:border-box;min-height:38px;padding:8px 10px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:inherit;font-size:12px}
+#page-woven .woven-help{margin:10px 0 0;color:var(--text-secondary,#64748b);font-size:10px;line-height:1.5}
+#page-woven .woven-component-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#page-woven .woven-component-card{min-width:0;padding:12px;border:1px solid var(--border,#e2e8f0);border-radius:10px;background:var(--surface,#f8fafc)}
+#page-woven .woven-component-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}
+#page-woven .woven-component-title label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:750;color:var(--text,#0f172a)}
+#page-woven .woven-component-title input{accent-color:#0284c7}
+#page-woven .woven-component-title span{font-size:10px;color:var(--text-secondary,#64748b);white-space:nowrap}
+#page-woven .woven-dim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#page-woven .woven-dim-grid .ws-allow input{border-color:#fbbf24;background:#fffbeb}
+#page-woven .woven-actions .calc-btn{width:100%;min-height:44px}
+#page-woven .woven-summary-column{position:sticky;top:110px;align-self:start}
+#page-woven .woven-result-card{overflow:hidden;border:1px solid var(--border,#e2e8f0);border-radius:12px;background:var(--card-bg,#fff)}
+#page-woven .woven-result-card .pant-primary-result{background:linear-gradient(130deg,#111c32,#1e4266)}
+#page-woven .woven-result-card .pant-primary-result strong{font-size:29px}
+#page-woven .woven-breakdown-card{margin-top:12px;padding:14px;border:1px solid var(--border,#e2e8f0);border-radius:12px;background:var(--card-bg,#fff)}
+#page-woven .woven-breakdown-card .pant-section-heading{margin-bottom:10px}
+#page-woven .woven-breakdown-card .pant-section-heading h2{font-size:13px}
+#page-woven .woven-component-results{display:grid;gap:7px}
+#page-woven .woven-result-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--border,#e2e8f0);font-size:11px}
+#page-woven .woven-result-row:last-child{border-bottom:0}
+#page-woven .woven-result-row strong{white-space:nowrap}
+#page-woven .woven-empty{padding:12px;color:var(--text-secondary,#64748b);font-size:11px}
+#page-woven .woven-pdf-btn{width:100%;min-height:42px;margin-top:12px}
+#page-woven .woven-formula-note{margin-top:14px}
+#page-woven .woven-formula-note .fn-body{line-height:1.9}
+#page-woven .woven-formula-note small{display:block;margin-top:8px;color:var(--text-secondary,#64748b);font-size:10px}
+body.dark-mode #page-woven .woven-measure-section,body.dark-mode #page-woven .woven-component-card,body.dark-mode #page-woven .woven-breakdown-card{background:#111c2e;border-color:#334155;color:#e2e8f0}
+body.dark-mode #page-woven .woven-component-title label,body.dark-mode #page-woven .woven-order-grid label,body.dark-mode #page-woven .woven-dim-grid label{color:#e2e8f0}
+body.dark-mode #page-woven .woven-order-grid input,body.dark-mode #page-woven .woven-dim-grid input{background:#0b1220;color:#e2e8f0;border-color:#475569}
+body.dark-mode #page-woven .woven-dim-grid .ws-allow input{background:#3b2f12;border-color:#d97706}
+@media(max-width:900px){#page-woven .woven-tshirt-workspace{grid-template-columns:1fr}#page-woven .woven-summary-column{position:static;grid-row:1}}
+@media(max-width:600px){#page-woven .woven-order-grid,#page-woven .woven-component-grid{grid-template-columns:1fr}#page-woven .woven-dim-grid{gap:8px}}
