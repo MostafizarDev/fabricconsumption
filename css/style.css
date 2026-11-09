@@ -6147,3 +6147,24 @@ body.dark-mode #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fa
   #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric{padding:15px 12px}
   #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric strong{font-size:25px}
 }
+
+/* Shared action typography: Demo, Recent, Reload and Reset controls */
+#mk-demo,
+#mk-recent-open,
+#mk-reset,
+#knit-demo-toggle,
+#knit-recent-open,
+#kp-demo,
+#kp-recent-open,
+#ws-demo,
+#ws-recent-open,
+#zp-demo,
+#zp-reset,
+#tr-demo,
+#tr-reset,
+#tr-recent-toggle,
+#sr-demo,
+#sr-order-reset,
+#sr-recent-toggle{
+  font-family:'Inter',Arial,sans-serif;
+}
