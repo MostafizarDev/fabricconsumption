@@ -6180,3 +6180,36 @@ body.dark-mode #page-zipper .zipper-recent-heading button,
 body.dark-mode #page-zipper .zipper-recent-actions button{
   color:#e2e8f0;
 }
+
+/* Trims Recent button — force the shared 16px rotate-ccw icon layout */
+#page-trims #tr-recent-toggle{
+  display:inline-flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-width:82px;
+  min-height:32px;
+  height:32px;
+  padding:7px 10px;
+  white-space:nowrap;
+  font-family:'Inter',Arial,sans-serif;
+  font-size:10px;
+  font-weight:750;
+  line-height:12px;
+  color:#334155;
+}
+#page-trims #tr-recent-toggle svg{
+  display:block!important;
+  flex:0 0 16px!important;
+  width:16px!important;
+  height:16px!important;
+  min-width:16px!important;
+  min-height:16px!important;
+  max-width:16px!important;
+  max-height:16px!important;
+  margin:0!important;
+  stroke:currentColor;
+  vertical-align:middle;
+}
+body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
