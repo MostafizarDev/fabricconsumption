@@ -5667,5 +5667,7 @@ body.dark-mode #page-woven .woven-unit-toolbar{background:#111c2e;border-color:#
 #page-woven .woven-unit-toolbar{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 #page-woven .woven-unit-toolbar .knit-quick-actions{margin-left:auto}
 #page-woven #ws-recent-panel{position:static;top:auto;right:auto;width:auto;max-height:none;overflow:visible;margin:10px 0 14px auto}
-#page-woven .knit-modal-fields label:last-child{grid-column:1/-1}
+#page-woven .knit-modal-fields label:last-child{grid-column:auto}
 @media(max-width:560px){#page-woven .knit-modal-fields{grid-template-columns:1fr}}
+
+#page-woven .knit-modal-fields label:nth-child(3),#page-woven .knit-modal-fields label:nth-child(4){grid-column:auto;}
