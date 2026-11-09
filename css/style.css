@@ -5774,3 +5774,45 @@ body.dark-mode #page-woven .woven-dim-grid .ws-allow input{background:#3b2f12;bo
 .ws-added-component-result{margin-top:10px;padding-top:9px;border-top:1px solid #edf1f6;font-size:12px;color:#66758b}
 .ws-added-component-result strong{color:#1558bf}
 @media(max-width:700px){.ws-selected-components{grid-template-columns:1fr}.ws-component-picker{max-width:100%}}
+
+
+/* Woven Shirt — aligned with the Knit Pant workspace structure */
+#page-woven .woven-workspace{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px;align-items:start}
+#page-woven .pant-workspace-main{min-width:0;display:grid;gap:14px}
+#page-woven .pant-summary-column{position:sticky;top:112px;display:grid;gap:12px;min-width:0}
+#page-woven .woven-measure-section{margin:0}
+#page-woven .woven-measure-section .pant-section-heading{margin-bottom:14px}
+#page-woven .woven-measure-section .pant-measure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
+#page-woven .woven-field{min-width:0}
+#page-woven .woven-measure-pair{display:grid;grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(82px,.8fr);align-items:center;gap:6px}
+#page-woven .woven-measure-pair input{width:100%;min-width:0;height:36px;padding:7px 9px;border:1px solid #d5dfed;border-radius:8px;font:inherit;font-size:12px}
+#page-woven .woven-measure-pair .woven-allow-input{background:#fffaf0;border-color:#f1c45c}
+#page-woven .woven-measure-pair strong{display:block;text-align:center;padding:9px 5px;background:#dbeafe;color:#1d4ed8;border-radius:7px;font-size:12px;white-space:nowrap}
+#page-woven .woven-order-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+#page-woven .woven-order-fields .pant-field input{width:100%;min-width:0;min-height:38px;padding:8px 10px;border:1px solid #d5dfed;border-radius:8px;font:inherit;font-size:12px}
+#page-woven .woven-order-fields .pant-field:nth-child(2) input{background:#fffaf0;border-color:#f1c45c}
+#page-woven .ws-additional-components{margin:0}
+#page-woven .pant-component-picker{margin:0 0 12px}
+#page-woven .pant-component-picker select{max-width:320px;min-height:40px}
+#page-woven .ws-added-component{border:1px solid var(--border,#dce5f0);border-radius:10px;padding:13px;background:var(--card-bg,#fff);margin-bottom:10px}
+#page-woven .ws-added-component .pant-component-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+#page-woven .ws-added-component .pant-component-measure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#page-woven .ws-added-component .pant-component-measure{display:grid;gap:5px;font-size:11px;color:var(--muted,#64748b)}
+#page-woven .ws-added-component .pant-measure-pair{display:grid;grid-template-columns:minmax(0,1fr) 10px minmax(0,1fr) 10px minmax(70px,.8fr);gap:4px;align-items:center}
+#page-woven .ws-added-component .pant-measure-pair input{width:100%;min-width:0;height:32px;padding:4px 5px;border:1px solid #d5dfed;border-radius:6px;font-size:11px}
+#page-woven .ws-added-component .pant-measure-pair input[data-field$="SA"]{background:#fffaf0;border-color:#f1c45c}
+#page-woven .ws-added-component .pant-measure-total{font-size:10px;white-space:nowrap;background:#dbeafe;color:#1d4ed8;padding:7px 3px;border-radius:5px;text-align:center}
+#page-woven .ws-added-component .pant-component-meta-grid{display:grid;grid-template-columns:1fr;max-width:160px;margin-top:9px}
+#page-woven .ws-added-component .pant-component-meta-grid label{display:grid;gap:4px;font-size:11px;color:var(--muted,#64748b)}
+#page-woven .ws-added-component .pant-component-meta-grid input{height:32px;padding:5px 8px;border:1px solid #d5dfed;border-radius:6px}
+#page-woven .ws-component-live-result{margin-top:9px;font-size:11px;color:var(--muted,#64748b)}
+#page-woven .ws-component-live-result strong{color:#0284c7}
+#page-woven #btn-calc-woven{margin-top:0}
+#page-woven .pant-summary-warning{margin-top:12px}
+#page-woven .kg-group-total-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--border,#e2e8f0);font-size:12px}
+#page-woven .kg-group-total-row strong{color:#0284c7;white-space:nowrap}
+#page-woven .pant-formula-reference{margin-top:18px}
+body.dark-mode #page-woven .woven-measure-pair input,body.dark-mode #page-woven .woven-order-fields input,body.dark-mode #page-woven .ws-added-component input{background:#0b1220;color:#e2e8f0;border-color:#475569}
+body.dark-mode #page-woven .woven-measure-pair .woven-allow-input,body.dark-mode #page-woven .woven-order-fields .pant-field:nth-child(2) input,body.dark-mode #page-woven .ws-added-component .pant-measure-pair input[data-field$="SA"]{background:#3b2f12;border-color:#d97706}
+@media(max-width:900px){#page-woven .woven-workspace{grid-template-columns:1fr}#page-woven .pant-summary-column{position:static;grid-row:1}}
+@media(max-width:600px){#page-woven .woven-measure-section .pant-measure-grid{grid-template-columns:1fr;gap:12px}#page-woven .woven-order-fields{grid-template-columns:1fr 1fr}#page-woven .ws-added-component .pant-component-measure-grid{grid-template-columns:1fr}}
