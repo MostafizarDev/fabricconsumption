@@ -65,7 +65,7 @@ const FC_PAGE_TITLES = {
     marker: 'Marker Consumption',
     knit: 'Knit Garments',
     knitpant: 'Knit Pant',
-    woven: 'Woven Shirt',
+    woven: 'Woven T-shirt',
     booking: 'Booking Sheet',
     knitprice: 'Knit Price',
     zipper: 'Zipper Consumption Planner',
