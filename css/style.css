@@ -5671,3 +5671,42 @@ body.dark-mode #page-woven .woven-unit-toolbar{background:#111c2e;border-color:#
 @media(max-width:560px){#page-woven .knit-modal-fields{grid-template-columns:1fr}#page-woven .woven-unit-toolbar #ws-recent-panel{top:calc(100% + 6px);width:min(400px,calc(100vw - 32px));max-height:60vh}}
 
 #page-woven .knit-modal-fields label:nth-child(3),#page-woven .knit-modal-fields label:nth-child(4){grid-column:auto;}
+
+
+/* Woven Shirt toolbar: keep the Recent popover out of normal layout flow */
+#page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+  height:auto;
+  min-height:50px;
+  padding:8px 10px;
+  margin-bottom:18px;
+}
+#page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar .knit-quick-actions{margin-left:auto}
+#page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-recent-panel{
+  position:absolute !important;
+  z-index:80;
+  top:calc(100% + 8px);
+  right:0;
+  left:auto;
+  width:min(440px,calc(100vw - 32px));
+  max-width:440px;
+  max-height:min(420px,65vh);
+  overflow:auto;
+  margin:0;
+  padding:12px;
+  border:1px solid #dbe3ee;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 14px 34px #0f172a24;
+}
+#page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-recent-panel[hidden]{display:none !important}
+@media(max-width:520px){
+  #page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar{align-items:center}
+  #page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-recent-panel{width:min(400px,calc(100vw - 32px));max-height:60vh}
+}
+body.dark-mode #page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-recent-panel{background:#111c32;border-color:#334155}
