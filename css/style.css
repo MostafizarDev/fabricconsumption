@@ -6149,22 +6149,17 @@ body.dark-mode #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fa
 }
 
 /* Shared action typography: Demo, Recent, Reload and Reset controls */
-#mk-demo,
-#mk-recent-open,
-#mk-reset,
-#knit-demo-toggle,
-#knit-recent-open,
-#kp-demo,
-#kp-recent-open,
-#ws-demo,
-#ws-recent-open,
-#zp-demo,
-#zp-reset,
-#tr-demo,
-#tr-reset,
-#tr-recent-toggle,
-#sr-demo,
-#sr-order-reset,
-#sr-recent-toggle{
+#mk-demo,#mk-recent-open,#mk-reset,
+#knit-demo-toggle,#knit-recent-open,
+#kp-demo,#kp-recent-open,
+#ws-demo,#ws-recent-open,
+#zp-demo,#zp-reset,
+#tr-demo,#tr-reset,#tr-recent-toggle,
+#sr-demo,#sr-order-reset,#sr-recent-toggle,
+.knit-action-btn[id*="reload"],.trims-secondary-btn[id*="reload"],.sr-small-btn[id*="reload"]{
   font-family:'Inter',Arial,sans-serif;
+  font-size:11px;
+  font-weight:600;
+  line-height:13px;
+  color:#334155;
 }
