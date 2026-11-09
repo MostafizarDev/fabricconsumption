@@ -5816,3 +5816,78 @@ body.dark-mode #page-woven .woven-measure-pair input,body.dark-mode #page-woven 
 body.dark-mode #page-woven .woven-measure-pair .woven-allow-input,body.dark-mode #page-woven .woven-order-fields .pant-field:nth-child(2) input,body.dark-mode #page-woven .ws-added-component .pant-measure-pair input[data-field$="SA"]{background:#3b2f12;border-color:#d97706}
 @media(max-width:900px){#page-woven .woven-workspace{grid-template-columns:1fr}#page-woven .pant-summary-column{position:static;grid-row:1}}
 @media(max-width:600px){#page-woven .woven-measure-section .pant-measure-grid{grid-template-columns:1fr;gap:12px}#page-woven .woven-order-fields{grid-template-columns:1fr 1fr}#page-woven .ws-added-component .pant-component-measure-grid{grid-template-columns:1fr}}
+
+
+/* Woven Shirt UI polish — labels, controls and responsive consistency */
+#page-woven .woven-field>label{
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  min-height:18px;line-height:1.35;color:var(--text-primary,#334155);
+}
+#page-woven .woven-field>label .ws-unit-label{
+  display:inline-flex;align-items:center;margin:0;padding:2px 6px;
+  border-radius:5px;background:#eff6ff;color:#2563eb;
+  font-size:9px;font-weight:700;line-height:1.2;
+}
+#page-woven .woven-field>label .ws-measure-hint{
+  color:#94a3b8;font-size:10px;font-weight:500;
+}
+#page-woven .woven-measure-pair{grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(82px,.82fr);gap:7px}
+#page-woven .woven-measure-pair>span{color:#64748b;text-align:center;font-size:12px;font-weight:600}
+#page-woven .woven-measure-pair input,
+#page-woven .woven-order-fields .pant-field input{
+  box-sizing:border-box;transition:border-color .15s,box-shadow .15s;
+}
+#page-woven .woven-measure-pair input:focus,
+#page-woven .woven-order-fields .pant-field input:focus,
+#page-woven .pant-component-picker select:focus,
+#page-woven .ws-added-component input:focus{
+  outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12);
+}
+#page-woven .pant-component-picker .pant-add-component-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#page-woven .pant-component-picker select{
+  box-sizing:border-box;width:min(100%,320px);max-width:320px;min-height:40px;
+  padding:9px 36px 9px 12px;border:1px solid #d5dfed;border-radius:9px;
+  background-color:var(--card-bg,#fff);color:var(--text-primary,#334155);
+  font:inherit;font-size:12px;cursor:pointer;
+}
+#page-woven .pant-component-picker .pant-btn{min-height:40px;padding:9px 17px;font-size:11px}
+#page-woven .ws-components-empty{
+  display:flex;align-items:center;min-height:44px;margin:0;padding:11px 13px;
+  border:1px dashed #cbd5e1;border-radius:9px;background:#fbfdff;
+  color:#64748b;font-size:11px;line-height:1.5;
+}
+#page-woven .woven-measure-section .pant-section-heading h2{font-size:14px;letter-spacing:-.15px}
+#page-woven .woven-measure-section .pant-section-heading p{margin-top:4px;font-size:10px}
+#page-woven .pant-summary-column{gap:12px}
+#page-woven .pant-summary-card{border-radius:14px}
+#page-woven .pant-total-fabric{padding:19px 16px 16px}
+#page-woven .pant-total-fabric-title{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+#page-woven .pant-total-fabric strong{display:block;margin:7px 0;font-size:29px;line-height:1.15;letter-spacing:-.7px}
+#page-woven .pant-total-fabric-unit,#page-woven .pant-total-fabric-perpcs{font-size:10px}
+#page-woven .pant-summary-breakdown{padding:12px 15px}
+#page-woven .pant-kg-total-row{align-items:center;min-height:31px;font-size:11px}
+#page-woven .pant-kg-total-row strong{font-size:11px}
+#page-woven .pant-summary-warning{margin:10px 14px 14px}
+#page-woven .pant-component-totals{border-radius:13px}
+#page-woven .pant-download-full-report{width:100%;min-height:42px;margin-top:0;border-radius:9px}
+#page-woven #btn-calc-woven{width:100%;min-height:43px;border-radius:9px;font-size:13px;font-weight:800}
+#page-woven .woven-order-fields{margin-top:14px}
+#page-woven .ws-added-component{box-shadow:0 1px 3px rgba(15,23,42,.035)}
+#page-woven .ws-added-component .pant-component-measure-grid{gap:12px}
+body.dark-mode #page-woven .woven-field>label{color:#cbd5e1}
+body.dark-mode #page-woven .woven-field>label .ws-unit-label{background:#172b46;color:#93c5fd}
+body.dark-mode #page-woven .pant-component-picker select{background:#0b1220;color:#e2e8f0;border-color:#475569}
+body.dark-mode #page-woven .ws-components-empty{background:#0b1220;border-color:#475569;color:#94a3b8}
+@media(max-width:900px){
+  #page-woven .woven-workspace{grid-template-columns:minmax(0,1fr)}
+  #page-woven .pant-summary-column{position:static;grid-row:auto}
+  #page-woven .pant-summary-card{order:0}
+}
+@media(max-width:600px){
+  #page-woven .woven-measure-section .pant-measure-grid{grid-template-columns:minmax(0,1fr);gap:13px}
+  #page-woven .woven-order-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #page-woven .woven-order-fields .pant-field:last-child{grid-column:1/-1}
+  #page-woven .woven-measure-pair{grid-template-columns:minmax(0,1fr) 10px minmax(0,1fr) 10px minmax(72px,.78fr);gap:4px}
+  #page-woven .pant-component-picker select{width:100%;max-width:none;flex:1 1 190px}
+  #page-woven .pant-component-picker .pant-btn{flex:0 0 auto}
+}
