@@ -6213,3 +6213,14 @@ body.dark-mode #page-zipper .zipper-recent-actions button{
   vertical-align:middle;
 }
 body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
+
+/* Exact requested Heroicons Sparkles size for all Demo actions */
+#mk-demo svg,#knit-demo-toggle svg,#kp-demo svg,#ws-demo svg,#zp-demo svg,#tr-demo svg,#sr-demo svg{
+  display:inline-block!important;
+  width:16px!important;height:16px!important;
+  min-width:16px!important;min-height:16px!important;
+  max-width:16px!important;max-height:16px!important;
+  flex:0 0 16px!important;
+  fill:none!important;stroke:currentColor!important;stroke-width:1.5!important;
+  stroke-linecap:round;stroke-linejoin:round;
+}
