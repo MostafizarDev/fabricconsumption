@@ -5925,3 +5925,66 @@ body.dark-mode #page-woven .ws-added-component .ws-component-live-result{border-
   #page-woven .ws-added-component .pant-component-meta-grid{grid-template-columns:1fr 1fr}
   #page-woven .ws-added-component .ws-component-name{font-size:12px}
 }
+
+
+/* Woven Shirt component measurements: stack Width beneath Length */
+#page-woven .ws-added-component .pant-component-measure-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:15px;
+}
+#page-woven .ws-added-component .pant-component-measure{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:7px;
+  min-width:0;
+}
+#page-woven .ws-added-component .pant-component-measure>span{
+  display:block;
+  color:#64748b;
+  font-size:11px;
+  font-weight:600;
+}
+#page-woven .ws-added-component .pant-measure-pair{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 20px minmax(76px,.42fr) 20px minmax(92px,.58fr);
+  gap:9px;
+  align-items:center;
+  max-width:560px;
+}
+#page-woven .ws-added-component .pant-measure-pair input{
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+  height:36px;
+  padding:7px 10px;
+  font-size:12px;
+}
+#page-woven .ws-added-component .pant-measure-pair>span{
+  text-align:center;
+  color:#64748b;
+  font-size:12px;
+}
+#page-woven .ws-added-component .pant-measure-pair .pant-measure-total{
+  display:block;
+  padding:9px 7px;
+  border-radius:7px;
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-size:11px;
+  font-weight:700;
+  text-align:center;
+  white-space:nowrap;
+}
+#page-woven .ws-added-component .pant-component-meta-grid{
+  max-width:560px;
+  margin-top:15px;
+}
+@media(max-width:600px){
+  #page-woven .ws-added-component .pant-measure-pair{
+    grid-template-columns:minmax(0,1fr) 14px minmax(64px,.4fr) 14px minmax(80px,.58fr);
+    gap:5px;
+  }
+  #page-woven .ws-added-component .pant-measure-pair input{padding:6px 7px}
+}
+body.dark-mode #page-woven .ws-added-component .pant-component-measure>span{color:#94a3b8}
