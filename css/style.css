@@ -5662,3 +5662,10 @@ body.dark-mode #page-woven .woven-unit-toolbar{background:#111c2e;border-color:#
 #page-woven .ws-report-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
 #page-woven .ws-report-dialog-actions button{padding:9px 13px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:transparent;color:inherit;cursor:pointer}
 #page-woven .ws-report-dialog-actions #ws-report-save{background:#0284c7;border-color:#0284c7;color:#fff}
+
+/* Woven Shirt reuses Knit Pant quick-action and report-modal components */
+#page-woven .woven-unit-toolbar{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#page-woven .woven-unit-toolbar .knit-quick-actions{margin-left:auto}
+#page-woven #ws-recent-panel{position:static;top:auto;right:auto;width:auto;max-height:none;overflow:visible;margin:10px 0 14px auto}
+#page-woven .knit-modal-fields label:last-child{grid-column:1/-1}
+@media(max-width:560px){#page-woven .knit-modal-fields{grid-template-columns:1fr}}
