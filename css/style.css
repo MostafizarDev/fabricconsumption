@@ -6224,3 +6224,28 @@ body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
   fill:none!important;stroke:currentColor!important;stroke-width:1.5!important;
   stroke-linecap:round;stroke-linejoin:round;
 }
+/* Force the exact clock-history SVG to render consistently in every Recent action */
+#mk-recent-open > svg,
+#knit-recent-open > svg,
+#kp-recent-open > svg,
+#ws-recent-open > svg,
+#tr-recent-toggle > svg,
+#sr-recent-toggle > svg{
+  display:inline-block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:16px!important;
+  height:16px!important;
+  min-width:16px!important;
+  min-height:16px!important;
+  max-width:16px!important;
+  max-height:16px!important;
+  flex:0 0 16px!important;
+  overflow:visible!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:2!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  margin:0!important;
+}
