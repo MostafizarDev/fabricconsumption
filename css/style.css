@@ -5645,3 +5645,20 @@ body.dark-mode #page-woven .woven-measure-pair .woven-allow-input{background:#3b
 #page-woven .woven-unit-switch .u-btn{min-width:58px}
 #page-woven .woven-unit-switch .u-btn.active{color:#fff;background:var(--accent,#0284c7);border-color:var(--accent,#0284c7)}
 body.dark-mode #page-woven .woven-unit-toolbar{background:#111c2e;border-color:#334155}
+
+#page-woven .woven-unit-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative}
+#page-woven .woven-unit-toolbar .knit-quick-actions{display:flex;align-items:center;gap:7px;margin-left:auto}
+#page-woven .woven-unit-toolbar .knit-action-btn{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 10px;border:1px solid var(--border,#dbe4ee);border-radius:8px;background:var(--card-bg,#fff);color:var(--text,#334155);font-size:12px;font-weight:600;cursor:pointer}
+#page-woven .woven-unit-toolbar .knit-action-btn.is-active{background:#eff6ff;border-color:#60a5fa;color:#1d4ed8}
+#page-woven #ws-recent-panel{position:absolute;z-index:30;top:calc(100% + 5px);right:0;width:min(440px,calc(100vw - 40px));max-height:360px;overflow:auto;box-shadow:0 12px 32px #0f172a22}
+#page-woven .ws-report-modal[hidden]{display:none}
+#page-woven .ws-report-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px}
+#page-woven .ws-report-backdrop{position:absolute;inset:0;background:#0f172a99}
+#page-woven .ws-report-dialog{position:relative;width:min(460px,100%);padding:22px;border-radius:14px;background:var(--card-bg,#fff);color:var(--text,#0f172a);box-shadow:0 24px 70px #0004}
+#page-woven .ws-report-dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+#page-woven .ws-report-fields{display:grid;gap:12px}
+#page-woven .ws-report-fields label{display:grid;gap:5px;font-size:12px;font-weight:600}
+#page-woven .ws-report-fields input{width:100%;padding:10px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:var(--input-bg,#fff);color:inherit}
+#page-woven .ws-report-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+#page-woven .ws-report-dialog-actions button{padding:9px 13px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:transparent;color:inherit;cursor:pointer}
+#page-woven .ws-report-dialog-actions #ws-report-save{background:#0284c7;border-color:#0284c7;color:#fff}
