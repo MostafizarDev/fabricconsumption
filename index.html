@@ -634,7 +634,30 @@
       <svg viewBox="0 0 64 64" fill="none"><path d="M21 9 12 14 6 28l10 5 5-8v29h22V25l5 8 10-5-6-14-9-5-7 7h-8l-7-7Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M25 16c1 5 13 5 14 0M21 25v29m22-29v29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
     </div>
   </div>
-  <div class="unit-bar knit-unit-toolbar pant-toolbar knit-pant-toolbar woven-unit-toolbar"><div class="unit-switch pant-unit-switch woven-unit-switch"><button type="button" class="u-btn active" data-ws-unit="cm" aria-pressed="true">CM</button><button type="button" class="u-btn" data-ws-unit="inch" aria-pressed="false">Inch</button></div><input type="hidden" id="ws-unit" value="cm"><div class="knit-quick-actions"><button type="button" class="knit-action-btn" id="ws-demo" aria-pressed="false"><span>Demo</span></button><button type="button" class="knit-action-btn" id="ws-recent-open" aria-expanded="false"><span>Recent</span></button><button type="button" class="knit-action-btn knit-gear-btn" id="ws-report-settings" aria-label="Report information settings" title="Report information">⚙</button></div><div id="ws-recent-panel" class="knit-popover-panel" hidden></div></div>  <div class="input-note woven-allow-note">🟡 Yellow field = Seam Allowance — fill as needed (0 if no allowance)</div>
+  <div class="unit-bar knit-unit-toolbar pant-toolbar knit-pant-toolbar">
+    <div class="unit-switch pant-unit-switch"><button type="button" class="u-btn active" data-ws-unit="cm">CM</button><button type="button" class="u-btn" data-ws-unit="inch">Inch</button></div><input type="hidden" id="ws-unit" value="cm">
+    <div class="knit-quick-actions">
+      <button type="button" class="knit-action-btn" id="ws-demo" aria-pressed="false" title="Show demo test values"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0-2-3l-5-9V3M8 15h8"/></svg><span>Demo</span></button>
+      <button type="button" class="knit-action-btn" id="ws-recent-open" title="Recent calculations" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
+      <button type="button" class="knit-action-btn knit-gear-btn" id="ws-report-settings" title="Report information" aria-label="Report information settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.8h4l.6 2.1a7.6 7.6 0 0 1 1.8.8l2.1-.9 2 3.5-1.6 1.5a7.6 7.6 0 0 1 0 2.1l1.6 1.5-2 3.5-2.1-.9a7.6 7.6 0 0 1-1.8.8l-.6 2.1h-4l-.6-2.1a7.6 7.6 0 0 1-1.8-.8l-2.1.9-2-3.5 1.6-1.5a7.6 7.6 0 0 1 0-2.1L3.5 8.3l2-3.5 2.1.9a7.6 7.6 0 0 1 1.8-.8L10 2.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
+    </div>
+    <div id="ws-recent-panel" class="knit-popover-panel" hidden></div>
+  </div>
+  <div id="ws-report-modal" class="knit-modal" hidden>
+    <div class="knit-modal-backdrop" data-close-ws-modal></div>
+    <section class="knit-modal-card" role="dialog" aria-modal="true" aria-labelledby="ws-report-modal-title">
+      <div class="knit-modal-heading"><div><h3 id="ws-report-modal-title">Report Information</h3><p>These details will appear in the PDF report.</p></div><button type="button" class="knit-modal-close" data-close-ws-modal aria-label="Close">×</button></div>
+      <div class="knit-modal-fields">
+        <label>Buyer Name<input id="ws-report-buyer" type="text" placeholder="Enter buyer name"></label>
+        <label>Style Name / Style No.<input id="ws-report-style" type="text" placeholder="Enter style name or number"></label>
+        <label>PO / Order No.<input id="ws-report-po" type="text" placeholder="Enter PO or order number"></label>
+        <label>Garment Type<input id="ws-report-type" type="text" placeholder="e.g., Woven Shirt"></label>
+      </div>
+      <div class="knit-modal-footer"><button type="button" class="knit-action-btn" data-close-ws-modal>Cancel</button><button type="button" class="knit-action-btn is-active" id="ws-report-save">Save Details</button></div>
+    </section>
+  </div>
+
+  <div class="input-note woven-allow-note">🟡 Yellow field = Seam Allowance — fill as needed (0 if no allowance)</div>
   <div class="pant-workspace woven-workspace">
     <div class="pant-workspace-main">
       <section class="pant-section woven-measure-section">
@@ -666,7 +689,7 @@
       <button type="button" class="pant-btn pant-btn-primary woven-pdf-btn" id="btn-pdf-woven">▤ Download Report</button>
     </aside>
   </div>
-<div class="ws-report-modal" id="ws-report-modal" hidden><div class="ws-report-backdrop" data-close-ws-modal></div><section class="ws-report-dialog"><h2>Report Information</h2><label>Buyer<input id="ws-report-buyer"></label><label>Style Name<input id="ws-report-style"></label><label>PO Number<input id="ws-report-po"></label><label>Garment Type<input id="ws-report-type" value="Woven Shirt"></label><button id="ws-report-save" type="button">Save Information</button><button type="button" data-close-ws-modal>Cancel</button></section></div>  <div class="formula-note">
+  <div class="formula-note">
     <div class="fn-title">📐 Formula Reference</div>
     <div class="fraction-formula">
       <span class="fn-highlight">Body:</span><br>
@@ -1448,7 +1471,7 @@
 <script src="js/marker-consumption.js?v=20261026-result-pills"></script>
 <script src="js/knit-pant.js?v=20261020-fabrictypesummary1"></script>
 <script src="js/pant-fabric-groups.js?v=20261019-pantgroups3"></script>
-<script src="js/woven-shirt.js?v=20261109-demo-recent-gear-v1"></script>
+<script src="js/woven-shirt.js?v=20261109-ref-quick-actions-v3"></script>
 <script src="js/booking-sheet.js"></script>
 <script src="js/knit-price.js"></script>
 <script src="js/zipper.js?v=20261108-validation-gate-v3"></script>
