@@ -5710,3 +5710,7 @@ body.dark-mode #page-woven .woven-unit-toolbar{background:#111c2e;border-color:#
   #page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-recent-panel{width:min(400px,calc(100vw - 32px));max-height:60vh}
 }
 body.dark-mode #page-woven .unit-bar.knit-unit-toolbar.knit-pant-toolbar #ws-recent-panel{background:#111c32;border-color:#334155}
+
+/* Woven Shirt action buttons follow Knit Garments button theme */
+#page-woven .woven-actions .calc-btn{width:100%;min-width:0;margin-top:6px}
+#page-woven .woven-pdf-btn{width:100%;display:block;margin-top:12px}
