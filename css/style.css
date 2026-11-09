@@ -6091,45 +6091,58 @@ body.dark-mode #page-woven .pant-kg-breakdown .pant-kg-total-row strong{color:#e
 }
 
 
-/* Woven Shirt primary Total Fabric panel — match Knit Pant dark hero */
-#page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric{
-  display:grid;
-  gap:6px;
-  padding:18px 16px 16px;
+/* Woven Shirt Total Fabric hero — reuse Knit Pant summary visual */
+#page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  box-sizing:border-box;
+  min-height:112px;
+  padding:16px 15px;
   margin:0;
   border:0;
-  border-radius:12px;
-  background:linear-gradient(115deg,#111c35 0%,#1e3a5f 100%);
+  border-radius:10px;
+  background:linear-gradient(115deg,#111c32,#203d64);
   color:#fff;
   text-align:center;
 }
-#page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric .pant-total-fabric-title{
-  color:#dbeafe;
+#page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric .pant-total-fabric-title{
+  display:block;
+  width:100%;
+  color:#cbd5e1;
   font-size:10px;
   font-weight:800;
-  letter-spacing:.08em;
+  letter-spacing:1px;
+  text-align:center;
   text-transform:uppercase;
 }
-#page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric strong{
+#page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric strong{
   display:block;
+  width:100%;
   margin:5px 0;
   color:#fff;
   font-size:29px;
   font-weight:800;
   line-height:1.2;
   letter-spacing:-.6px;
+  text-align:center;
   overflow-wrap:anywhere;
 }
-#page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric .pant-total-fabric-unit,
-#page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric .pant-total-fabric-perpcs{
-  color:#dbeafe;
+#page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric .pant-total-fabric-unit,
+#page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric .pant-total-fabric-perpcs{
+  display:block;
+  width:100%;
+  color:#cbd5e1;
   font-size:10px;
   line-height:1.45;
+  text-align:center;
 }
-body.dark-mode #page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric{
-  background:linear-gradient(115deg,#0b1428 0%,#172f50 100%);
+body.dark-mode #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric{
+  background:linear-gradient(115deg,#0b1428,#172f50);
 }
 @media(max-width:600px){
-  #page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric{padding:16px 13px}
-  #page-woven .pant-summary-card:first-child .pant-primary-result.pant-total-fabric strong{font-size:25px}
+  #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric{padding:15px 12px}
+  #page-woven .pant-kg-summary > .pant-primary-result.pant-total-fabric strong{font-size:25px}
 }
