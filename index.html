@@ -634,26 +634,37 @@
       <svg viewBox="0 0 64 64" fill="none"><path d="M21 9 12 14 6 28l10 5 5-8v29h22V25l5 8 10-5-6-14-9-5-7 7h-8l-7-7Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M25 16c1 5 13 5 14 0M21 25v29m22-29v29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
     </div>
   </div>
-  <div class="input-note">🟡 Yellow field = Seam Allowance — fill as needed (0 if no allowance)</div>
-  <div class="calc-grid">
-    <div class="left-panel">
-      <div class="panel">
-        <div class="panel-title">👕 Body Measurements</div>
-        <div class="sa-group"><div class="sa-label">Body Length (from HSP)</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="ws-bl" placeholder="e.g., 79" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="ws-bla" placeholder="e.g., 6" value=""><span class="sa-sep">=</span><span class="sa-tot" id="ws-blt">0.0 cm</span></div></div>
-        <div class="sa-group"><div class="sa-label">½ Chest</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="ws-hc" placeholder="e.g., 52" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="ws-hca" placeholder="e.g., 6" value=""><span class="sa-sep">=</span><span class="sa-tot" id="ws-hct">0.0 cm</span></div></div>
-        <div class="divider"></div>
-        <div class="panel-title">👔 Sleeve Measurements</div>
-        <div class="sa-group"><div class="sa-label">Sleeve Length</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="ws-sl" placeholder="e.g., 59" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="ws-sla" placeholder="e.g., 6" value=""><span class="sa-sep">=</span><span class="sa-tot" id="ws-slt">0.0 cm</span></div></div>
-        <div class="sa-group"><div class="sa-label">Armhole Straight</div><div class="sa-row"><input class="inp-a" type="text" inputmode="numeric" id="ws-ah" placeholder="e.g., 20" value=""><span class="sa-sep">+</span><input class="inp-a inp-allow" type="text" inputmode="numeric" id="ws-aha" placeholder="e.g., 5" value=""><span class="sa-sep">=</span><span class="sa-tot" id="ws-aht">0.0 cm</span></div></div>
-        <div class="field-row"><div class="f-group"><label>Fabric Width (inch)</label><input class="inp-plain" type="text" inputmode="numeric" id="ws-fw" placeholder="e.g., 55" value=""></div></div>
-        <button class="calc-btn" id="btn-calc-woven">Calculate</button>
-      </div>
+  <div class="input-note woven-allow-note">🟡 Yellow field = Seam Allowance — fill as needed (0 if no allowance)</div>
+  <div class="pant-workspace woven-workspace">
+    <div class="pant-workspace-main">
+      <section class="pant-section woven-measure-section">
+        <div class="pant-section-heading"><div><h2>Body Measurements</h2><p>Enter body measurements and seam allowances in centimeters.</p></div></div>
+        <div class="pant-measure-grid">
+          <div class="pant-field woven-field"><label for="ws-bl">Body Length (from HSP)</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-bl" placeholder="e.g. 79"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-bla" placeholder="e.g. 6"><span>=</span><strong id="ws-blt">0.0 cm</strong></div></div>
+          <div class="pant-field woven-field"><label for="ws-hc">½ Chest</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-hc" placeholder="e.g. 52"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-hca" placeholder="e.g. 6"><span>=</span><strong id="ws-hct">0.0 cm</strong></div></div>
+        </div>
+      </section>
+      <section class="pant-section woven-measure-section">
+        <div class="pant-section-heading"><div><h2>Sleeve Measurements</h2><p>Enter sleeve dimensions and required seam allowances.</p></div></div>
+        <div class="pant-measure-grid">
+          <div class="pant-field woven-field"><label for="ws-sl">Sleeve Length</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-sl" placeholder="e.g. 59"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-sla" placeholder="e.g. 6"><span>=</span><strong id="ws-slt">0.0 cm</strong></div></div>
+          <div class="pant-field woven-field"><label for="ws-ah">Armhole Straight</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-ah" placeholder="e.g. 20"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-aha" placeholder="e.g. 5"><span>=</span><strong id="ws-aht">0.0 cm</strong></div></div>
+        </div>
+        <div class="woven-width-field pant-field"><label for="ws-fw">Fabric Width (inch)</label><input class="woven-base-input" type="number" min="0" step="any" id="ws-fw" placeholder="e.g. 55"></div>
+        <div class="pant-actions woven-actions"><button type="button" class="pant-btn pant-btn-primary" id="btn-calc-woven">Calculate</button></div>
+      </section>
     </div>
-    <div class="result-panel">
-      <div class="r-card main"><div class="r-value" id="ws-r-total">—</div><div class="r-unit">yards/dz</div></div>
-      <div class="r-card"><div class="r-row"><span>Body / Dozen</span><span id="ws-r-body">— yds</span></div><div class="r-row"><span>Sleeve / Dozen</span><span id="ws-r-sleeve">— yds</span></div></div>
-      <button class="calc-btn pdf-btn" id="btn-pdf-woven">📄 Download Report</button>
-    </div>
+    <aside class="pant-summary-column woven-summary-column">
+      <section class="pant-summary-card woven-result-card">
+        <div class="pant-summary-top">WOVEN SHIRT CONSUMPTION</div>
+        <div class="pant-primary-result"><span>Total Fabric Consumption</span><strong id="ws-r-total">—</strong><small>yards/dz</small></div>
+        <div class="pant-summary-breakdown">
+          <div><span>Body / Dozen</span><strong id="ws-r-body">— yds</strong></div>
+          <div><span>Sleeve / Dozen</span><strong id="ws-r-sleeve">— yds</strong></div>
+        </div>
+      </section>
+      <button type="button" class="pant-btn pant-btn-primary woven-pdf-btn" id="btn-pdf-woven">▤ Download Report</button>
+    </aside>
   </div>
   <div class="formula-note">
     <div class="fn-title">📐 Formula Reference</div>
