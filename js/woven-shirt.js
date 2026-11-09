@@ -12,6 +12,7 @@
   let components=[], lastResult=null, demoSnapshot=null;
   const reportInfo=()=>{try{return JSON.parse(localStorage.getItem(REPORT)||'{}')}catch(_){return {}}};
   const set=(id,text)=>{if($(id))$(id).textContent=text;};
+  const setHTML=(id,html)=>{if($(id))$(id).innerHTML=html;};
   function updateUnitUI(){
     document.querySelectorAll('[data-ws-unit]').forEach(b=>{const active=b.dataset.wsUnit===unit();b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
     document.querySelectorAll('.ws-unit-label').forEach(n=>n.textContent=unit());
@@ -52,7 +53,7 @@
     ['ws-r-order','ws-r-pc','ws-r-before','ws-r-after','ws-r-total'].forEach(id=>set(id,'—'));
     set('ws-result-note',message||'Enter the required data to calculate. Incomplete inputs will not produce a confirmed result.');
     const pending=components.map(c=>'<div class="pant-kg-component-row"><span class="pant-kg-component-name">'+escapeHtml(c.name||'Component')+'</span><strong>— yds | — yds/pcs</strong></div>').join('');
-    set('ws-summary-components',pending);
+    setHTML('ws-summary-components',pending);
     set('ws-component-count',components.length+' components');
     $('ws-component-breakdown').innerHTML=components.length?components.map(c=>'<div class="kg-group-total-row"><span>'+escapeHtml(c.name||'Component')+'</span><strong>— yds</strong></div>').join(''):'<div class="kg-group-totals-empty">No calculated components yet.</div>';
     lastResult=null;
@@ -89,7 +90,7 @@
     set('ws-r-before',fmt(netOrder,3)+' yds');set('ws-r-after',fmt(finalOrder,3)+' yds');set('ws-r-total',fmt(finalDz,3)+' yds/dz');
     set('ws-result-note','Calculated for '+fmt(qty,0)+' pcs. Main body and sleeve wastage: '+fmt(waste,2)+'%; each additional component uses its own wastage. GSM is not required for woven length consumption.');
     const summaryRows=rows.map(r=>'<div class="pant-kg-component-row"><span class="pant-kg-component-name">'+escapeHtml(r.name)+'</span><strong>'+fmt(r.finalOrder,3)+' yds | '+fmt(r.finalOrder/qty,4)+' yds/pcs</strong></div>').join('');
-    set('ws-summary-components',summaryRows);
+    setHTML('ws-summary-components',summaryRows);
     $('ws-component-count').textContent=components.length+' components';
     $('ws-component-breakdown').innerHTML=rows.map(r=>'<div class="kg-group-total-row"><span>'+escapeHtml(r.name)+' <small>('+fmt(r.waste,1)+'% waste)</small></span><strong>'+fmt(r.finalOrder,3)+' yds</strong></div>').join('');
     document.querySelectorAll('[data-ws-component]').forEach((card,i)=>{const node=card.querySelector('.ws-component-live-result strong');if(node)node.textContent=fmt(components[i]?.finalYardsDz||0,3)+' yds/dozen';});
