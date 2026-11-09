@@ -625,101 +625,73 @@
 <!-- ==================== PAGE 3: WOVEN SHIRT ==================== -->
 <div class="page" id="page-woven">
   <div class="marker-hero consumption-hero">
-    <div class="consumption-hero-copy">
-      <span>WOVEN SHIRT WORKSPACE</span>
-      <h1>Woven Shirt Fabric Consumption</h1>
-      <p>Calculate woven shirt body and sleeve fabric consumption using the original Woven Shirt formula.</p>
-    </div>
-    <div class="consumption-hero-icon" aria-hidden="true">
-      <svg viewBox="0 0 64 64" fill="none"><path d="M21 9 12 14 6 28l10 5 5-8v29h22V25l5 8 10-5-6-14-9-5-7 7h-8l-7-7Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M25 16c1 5 13 5 14 0M21 25v29m22-29v29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-    </div>
+    <div class="consumption-hero-copy"><span>WOVEN SHIRT WORKSPACE</span><h1>Woven Shirt Fabric Consumption</h1><p>Calculate woven shirt fabric requirements by garment measurements, fabric width, order quantity and wastage.</p></div>
+    <div class="consumption-hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M21 9 12 14 6 28l10 5 5-8v29h22V25l5 8 10-5-6-14-9-5-7 7h-8l-7-7Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M25 16c1 5 13 5 14 0M21 25v29m22-29v29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div>
   </div>
   <div class="unit-bar knit-unit-toolbar pant-toolbar knit-pant-toolbar">
     <div class="unit-switch pant-unit-switch"><button type="button" class="u-btn active" data-ws-unit="cm">CM</button><button type="button" class="u-btn" data-ws-unit="inch">Inch</button></div><input type="hidden" id="ws-unit" value="cm">
     <div class="knit-quick-actions">
-      <button type="button" class="knit-action-btn" id="ws-demo" aria-pressed="false" title="Show demo test values"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0-2-3l-5-9V3M8 15h8"/></svg><span>Demo</span></button>
-      <button type="button" class="knit-action-btn" id="ws-recent-open" title="Recent calculations" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span>Recent</span></button>
-      <button type="button" class="knit-action-btn knit-gear-btn" id="ws-report-settings" title="Report information" aria-label="Report information settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.8h4l.6 2.1a7.6 7.6 0 0 1 1.8.8l2.1-.9 2 3.5-1.6 1.5a7.6 7.6 0 0 1 0 2.1l1.6 1.5-2 3.5-2.1-.9a7.6 7.6 0 0 1-1.8.8l-.6 2.1h-4l-.6-2.1a7.6 7.6 0 0 1-1.8-.8l-2.1.9-2-3.5 1.6-1.5a7.6 7.6 0 0 1 0-2.1L3.5 8.3l2-3.5 2.1.9a7.6 7.6 0 0 1 1.8-.8L10 2.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
-    </div>
-    <div id="ws-recent-panel" class="knit-popover-panel" hidden></div>
+      <button type="button" class="knit-action-btn" id="ws-demo" aria-pressed="false"><span>Demo</span></button>
+      <button type="button" class="knit-action-btn" id="ws-recent-open" aria-expanded="false"><span>Recent</span></button>
+      <button type="button" class="knit-action-btn knit-gear-btn" id="ws-report-settings" title="Report information" aria-label="Report information settings">⚙</button>
+    </div><div id="ws-recent-panel" class="knit-popover-panel" hidden></div>
   </div>
   <div id="ws-report-modal" class="knit-modal" hidden>
     <div class="knit-modal-backdrop" data-close-ws-modal></div>
     <section class="knit-modal-card" role="dialog" aria-modal="true" aria-labelledby="ws-report-modal-title">
       <div class="knit-modal-heading"><div><h3 id="ws-report-modal-title">Report Information</h3><p>These details will appear in the PDF report.</p></div><button type="button" class="knit-modal-close" data-close-ws-modal aria-label="Close">×</button></div>
-      <div class="knit-modal-fields">
-        <label>Buyer Name<input id="ws-report-buyer" type="text" placeholder="Enter buyer name"></label>
-        <label>Style Name / Style No.<input id="ws-report-style" type="text" placeholder="Enter style name or number"></label>
-        <label>PO / Order No.<input id="ws-report-po" type="text" placeholder="Enter PO or order number"></label>
-        <label>Garment Type<input id="ws-report-type" type="text" placeholder="e.g., Woven Shirt"></label>
-      </div>
+      <div class="knit-modal-fields"><label>Buyer Name<input id="ws-report-buyer" type="text" placeholder="Enter buyer name"></label><label>Style Name / Style No.<input id="ws-report-style" type="text" placeholder="Enter style name or number"></label><label>PO / Order No.<input id="ws-report-po" type="text" placeholder="Enter PO or order number"></label><label>Garment Type<input id="ws-report-type" type="text" value="Woven Shirt"></label></div>
       <div class="knit-modal-footer"><button type="button" class="knit-action-btn" data-close-ws-modal>Cancel</button><button type="button" class="knit-action-btn is-active" id="ws-report-save">Save Details</button></div>
     </section>
   </div>
-
-  <div class="input-note woven-allow-note">🟡 Yellow field = Seam Allowance — fill as needed (0 if no allowance)</div>
+  <div class="input-note woven-allow-note">🟡 Yellow fields = Seam Allowance. Enter 0 when no allowance is required.</div>
   <div class="pant-workspace woven-workspace">
     <div class="pant-workspace-main">
       <section class="pant-section woven-measure-section">
-        <div class="pant-section-heading"><div><h2>Body Measurements</h2><p>Enter body measurements and seam allowances in centimeters.</p></div></div>
+        <div class="pant-section-heading"><div><h2>Body Measurements</h2><p>Enter body measurements and seam allowances.</p></div></div>
         <div class="pant-measure-grid">
-          <div class="pant-field woven-field"><label for="ws-bl">Body Length (from HSP)</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-bl" placeholder="e.g. 79"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-bla" placeholder="e.g. 6"><span>=</span><strong id="ws-blt">0.0 cm</strong></div></div>
-          <div class="pant-field woven-field"><label for="ws-hc">½ Chest</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-hc" placeholder="e.g. 52"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-hca" placeholder="e.g. 6"><span>=</span><strong id="ws-hct">0.0 cm</strong></div></div>
+          <div class="pant-field woven-field"><label for="ws-bl">Body Length (from HSP) (<span class="ws-unit-label">cm</span>)</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-bl" placeholder="e.g. 79"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-bla" placeholder="e.g. 6"><span>=</span><strong id="ws-blt">0.0 cm</strong></div></div>
+          <div class="pant-field woven-field"><label for="ws-hc">½ Chest (<span class="ws-unit-label">cm</span>)</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-hc" placeholder="e.g. 52"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-hca" placeholder="e.g. 6"><span>=</span><strong id="ws-hct">0.0 cm</strong></div></div>
         </div>
       </section>
       <section class="pant-section woven-measure-section">
-        <div class="pant-section-heading"><div><h2>Sleeve Measurements</h2><p>Enter sleeve dimensions and required seam allowances.</p></div></div>
+        <div class="pant-section-heading"><div><h2>Sleeve Measurements</h2><p>Enter sleeve dimensions and seam allowances.</p></div></div>
         <div class="pant-measure-grid">
-          <div class="pant-field woven-field"><label for="ws-sl">Sleeve Length</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-sl" placeholder="e.g. 59"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-sla" placeholder="e.g. 6"><span>=</span><strong id="ws-slt">0.0 cm</strong></div></div>
-          <div class="pant-field woven-field"><label for="ws-ah">Armhole Straight</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-ah" placeholder="e.g. 20"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-aha" placeholder="e.g. 5"><span>=</span><strong id="ws-aht">0.0 cm</strong></div></div>
+          <div class="pant-field woven-field"><label for="ws-sl">Sleeve Length (<span class="ws-unit-label">cm</span>)</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-sl" placeholder="e.g. 59"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-sla" placeholder="e.g. 6"><span>=</span><strong id="ws-slt">0.0 cm</strong></div></div>
+          <div class="pant-field woven-field"><label for="ws-ah">Armhole Straight (<span class="ws-unit-label">cm</span>)</label><div class="woven-measure-pair"><input class="woven-base-input" type="number" min="0" step="any" id="ws-ah" placeholder="e.g. 20"><span>+</span><input class="woven-allow-input" type="number" min="0" step="any" id="ws-aha" placeholder="e.g. 5"><span>=</span><strong id="ws-aht">0.0 cm</strong></div></div>
         </div>
-        <div class="woven-width-field pant-field"><label for="ws-fw">Fabric Width (inch)</label><input class="woven-base-input" type="number" min="0" step="any" id="ws-fw" placeholder="e.g. 55"></div>
-        <div class="pant-actions woven-actions"><button type="button" class="calc-btn" id="btn-calc-woven">Calculate</button></div>
+        <div class="pant-bottom-fields woven-order-fields">
+          <div class="pant-field"><label for="ws-fw">Fabric Width (inch)</label><input class="woven-base-input" type="number" min="0" step="any" id="ws-fw" placeholder="e.g. 55"></div>
+          <div class="pant-field"><label for="ws-waste">Wastage (%)</label><input class="woven-allow-input" type="number" min="0" max="100" step="any" id="ws-waste" value="5"></div>
+          <div class="pant-field"><label for="ws-order-qty">Order Quantity (pcs)</label><input class="woven-base-input" type="number" min="1" step="1" id="ws-order-qty" value="1000" placeholder="e.g. 1000"></div>
+        </div>
       </section>
+      <section class="pant-section woven-measure-section ws-additional-components">
+        <div class="pant-section-heading"><div><h2>Additional Components</h2><p>Add collar, cuff, pocket and other woven shirt components.</p></div></div>
+        <div class="pant-component-toolbar pant-component-picker"><div class="pant-add-component-row"><select id="ws-component-select" aria-label="Select additional component"><option value="">Select component…</option><option>Collar</option><option>Collar Stand</option><option>Cuff</option><option>Pocket</option><option>Placket</option><option>Yoke</option><option>Sleeve Tab</option><option>Other</option></select><button type="button" class="pant-btn pant-btn-primary" id="ws-add-component">Select</button></div></div>
+        <div id="ws-selected-components" class="ws-selected-components"><p class="ws-components-empty">Select components above to add measurements.</p></div>
+      </section>
+      <button type="button" class="calc-btn" id="btn-calc-woven">Calculate</button>
     </div>
-    <aside class="pant-summary-column woven-summary-column">
-      <section class="pant-summary-card woven-result-card">
-        <div class="pant-summary-top">WOVEN SHIRT CONSUMPTION</div>
-        <div class="pant-primary-result"><span>Total Fabric Consumption</span><strong id="ws-r-total">—</strong><small>yards/dz</small></div>
-        <div class="pant-summary-breakdown">
-          <div><span>Body / Dozen</span><strong id="ws-r-body">— yds</strong></div>
-          <div><span>Sleeve / Dozen</span><strong id="ws-r-sleeve">— yds</strong></div>
+    <aside class="pant-summary-column">
+      <section class="pant-summary-card pant-kg-summary">
+        <div class="pant-primary-result pant-total-fabric"><span class="pant-total-fabric-title">Total Fabric</span><strong id="ws-r-order">— yds</strong><span class="pant-total-fabric-unit">yards (with wastage)</span><span class="pant-total-fabric-perpcs" id="ws-r-pc">— yds/pcs</span></div>
+        <div class="pant-summary-breakdown pant-kg-breakdown">
+          <div id="ws-summary-components" class="pant-kg-components"></div>
+          <div class="pant-kg-total-row"><span>▱ Total before wastage</span><strong id="ws-r-before">— yds</strong></div>
+          <div class="pant-kg-total-row"><span>⚠ Total after wastage</span><strong id="ws-r-after">— yds</strong></div>
+          <div class="pant-kg-total-row"><span>Consumption / dozen</span><strong id="ws-r-total">— yds/dz</strong></div>
         </div>
+        <div class="pant-summary-warning" id="ws-result-note">Enter the required data to calculate. Incomplete inputs will not produce a confirmed result.</div>
       </section>
-      <button type="button" class="calc-btn pdf-btn woven-pdf-btn" id="btn-pdf-woven">📄 Download Full Report (PDF)</button>
+      <section class="kg-group-totals pant-component-totals"><div class="kg-group-totals-heading"><div class="kg-group-totals-title"><h3>Fabric Components</h3><p>Consumption breakdown by component</p></div><span class="kg-group-total-badge" id="ws-component-count">0 components</span></div><div class="kg-group-total-list" id="ws-component-breakdown"><div class="kg-group-totals-empty">No calculated components yet.</div></div></section>
+      <button type="button" class="calc-btn pdf-btn pant-download-full-report" id="btn-pdf-woven">📄 Download Full Report (PDF)</button>
     </aside>
   </div>
-
-  <section class="pant-section woven-measure-section ws-additional-components">
-    <div class="pant-section-heading"><div><h2>Additional Components</h2><p>Select only the components included in this woven shirt.</p></div></div>
-    <div class="ws-component-picker">
-      <select id="ws-component-select" aria-label="Select additional component">
-        <option value="">Select component...</option><option value="Collar">Collar</option><option value="Collar Stand">Collar Stand</option><option value="Cuff">Cuff</option><option value="Pocket">Pocket</option><option value="Placket">Placket</option><option value="Yoke">Yoke</option><option value="Sleeve Tab">Sleeve Tab</option><option value="Other">Other</option>
-      </select><button type="button" class="calc-btn" id="ws-add-component">Select</button>
-    </div>
-    <div id="ws-selected-components" class="ws-selected-components"><p class="ws-components-empty">Select a component above to add its measurements.</p></div>
-  </section>
-
-  <div class="formula-note">
-    <div class="fn-title">📐 Formula Reference</div>
-    <div class="fraction-formula">
-      <span class="fn-highlight">Body:</span><br>
-      <div style="text-align: center; padding: 10px 0;">
-        (Body Length) × (½ Chest) × 2 × Quantity<br>
-        <span style="font-size: 16px;">─────────────────────────────────────────</span><br>
-        Fabric Width × 36 × 2.54
-      </div>
-      <span class="fn-highlight">Sleeve:</span><br>
-      <div style="text-align: center; padding: 10px 0;">
-        (Sleeve Length) × (Armhole) × 2 × 2 × Quantity<br>
-        <span style="font-size: 16px;">─────────────────────────────────────────</span><br>
-        Fabric Width × 36 × 2.54
-      </div>
-      <div class="fn-body">✅ Result in yards per dozen | 2.54 = cm→inch | 36 = inch→yard</div>
-    </div>
-  </div>
+  <div class="formula-note pant-formula-reference"><div class="fn-title">📐 Formula Reference</div><div class="formula-cards">
+    <div class="formula-card"><div class="formula-card-head"><span class="formula-card-title">Woven Shirt · Yards per Dozen</span></div><div class="formula-code"><div class="formula-code-inner"><div class="formula-numerator">Length (cm) × Width (cm) × Panels × 12</div><div class="formula-divider-row"><span class="formula-divider"></span><span class="formula-wastage">× (1 + Wastage % ÷ 100)</span></div><div class="formula-denominator">Fabric Width (inch) × 36 × 2.54</div></div></div><div class="fn-body pant-formula-caption">Woven fabric is calculated by length; GSM is not required. Order yards = yards/dozen × order quantity ÷ 12. Wastage is applied to the total net requirement.</div></div>
+  </div></div>
 </div>
-
 
 <!-- ==================== PAGE 4: BOOKING SHEET ==================== -->
 <div class="page" id="page-booking">
