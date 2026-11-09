@@ -51,8 +51,11 @@
   function resetResults(message){
     ['ws-r-order','ws-r-pc','ws-r-before','ws-r-after','ws-r-total'].forEach(id=>set(id,'—'));
     set('ws-result-note',message||'Enter the required data to calculate. Incomplete inputs will not produce a confirmed result.');
-    set('ws-summary-components','');set('ws-component-count',components.length+' components');
-    $('ws-component-breakdown').innerHTML='<div class="kg-group-totals-empty">No calculated components yet.</div>';lastResult=null;
+    const pending=components.map(c=>'<div class="pant-kg-component-row"><span class="pant-kg-component-name">'+escapeHtml(c.name||'Component')+'</span><strong>— yds | — yds/pcs</strong></div>').join('');
+    set('ws-summary-components',pending);
+    set('ws-component-count',components.length+' components');
+    $('ws-component-breakdown').innerHTML=components.length?components.map(c=>'<div class="kg-group-total-row"><span>'+escapeHtml(c.name||'Component')+'</span><strong>— yds</strong></div>').join(''):'<div class="kg-group-totals-empty">No calculated components yet.</div>';
+    lastResult=null;
   }
   function calculate(){
     updateMeasurementTotals();
