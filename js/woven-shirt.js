@@ -2,6 +2,21 @@
 // WOVEN SHIRT.JS - Woven Shirt Fabric Consumption (Yards)
 // ============================================
 
+let wovenUnit = 'cm';
+
+function wovenValueInCm(id) {
+    const value = v(id);
+    return wovenUnit === 'inch' ? value * 2.54 : value;
+}
+
+function updateWovenUnitUI() {
+    document.querySelectorAll('[data-ws-unit]').forEach(button => {
+        const active = button.dataset.wsUnit === wovenUnit;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+}
+
 function updateWovenTotals() {
     const pairs = [
         { a: 'ws-bl', b: 'ws-bla', t: 'ws-blt' },
@@ -13,7 +28,7 @@ function updateWovenTotals() {
     pairs.forEach(pair => {
         const total = v(pair.a) + v(pair.b);
         const span = el(pair.t);
-        if (span) span.innerHTML = total.toFixed(1) + ' cm';
+        if (span) span.innerHTML = total.toFixed(1) + ' ' + (wovenUnit === 'inch' ? 'inch' : 'cm');
     });
     
     calcWoven();
@@ -31,13 +46,13 @@ function calcWoven() {
     const div = FW * 36 * 2.54; // Convert to yards
     
     // BODY: (BL) × (HC) × 2 × 12 / DIVIDER
-    const BL = v('ws-bl') + v('ws-bla');
-    const HC = v('ws-hc') + v('ws-hca');
+    const BL = wovenValueInCm('ws-bl') + wovenValueInCm('ws-bla');
+    const HC = wovenValueInCm('ws-hc') + wovenValueInCm('ws-hca');
     const bodyDz = (BL * HC * 2 * 12) / div;
     
     // SLEEVE: (SL) × (AH) × 2 × 2 × 12 / DIVIDER
-    const SL = v('ws-sl') + v('ws-sla');
-    const AH = v('ws-ah') + v('ws-aha');
+    const SL = wovenValueInCm('ws-sl') + wovenValueInCm('ws-sla');
+    const AH = wovenValueInCm('ws-ah') + wovenValueInCm('ws-aha');
     const sleeveDz = (SL * AH * 2 * 2 * 12) / div;
     
     const totalDz = bodyDz + sleeveDz;
@@ -56,6 +71,7 @@ function downloadWovenReport() {
     const sleeveDz = document.getElementById('ws-r-sleeve')?.innerText || '—';
     const perPiece = document.getElementById('ws-r-pc')?.innerText || '—';
     
+    const unitLabel = wovenUnit === 'inch' ? 'inch' : 'cm';
     const BL = (v('ws-bl') + v('ws-bla')).toFixed(1);
     const HC = (v('ws-hc') + v('ws-hca')).toFixed(1);
     const SL = (v('ws-sl') + v('ws-sla')).toFixed(1);
@@ -76,17 +92,17 @@ function downloadWovenReport() {
         
         <table>
             <thead>
-                <tr><th>Component</th><th>Measurement (cm)</th><th>With Allowance</th><th>Consumption (yds/dz)</th></tr>
+                <tr><th>Component</th><th>Measurement (${unitLabel})</th><th>With Allowance (${unitLabel})</th><th>Consumption (yds/dz)</th></tr>
             </thead>
             <tbody>
                 <tr><td>👕 Body</td>
                     <td>Length: ${v('ws-bl')}, Chest: ${v('ws-hc')}</td>
-                    <td>${BL} cm × ${HC} cm</td>
+                    <td>${BL} ${unitLabel} × ${HC} ${unitLabel}</td>
                     <td>${bodyDz}</td>
                 </tr>
                 <tr><td>🧤 Sleeve</td>
                     <td>Length: ${v('ws-sl')}, Armhole: ${v('ws-ah')}</td>
-                    <td>${SL} cm × ${AH} cm</td>
+                    <td>${SL} ${unitLabel} × ${AH} ${unitLabel}</td>
                     <td>${sleeveDz}</td>
                 </tr>
             </tbody>
@@ -94,7 +110,7 @@ function downloadWovenReport() {
         
         <div style="margin-top: 20px; padding: 12px; background: #f8fafc; border-radius: 8px;">
             <strong>📐 Input Summary:</strong><br>
-            Fabric Width: ${FW} inches | Unit: CM<br>
+            Fabric Width: ${FW} inches | Measurement Unit: ${unitLabel}<br>
             <strong>Formula (Body):</strong> (BL) × (HC) × 2 × 12 / (FW × 36 × 2.54)<br>
             <strong>Formula (Sleeve):</strong> (SL) × (AH) × 2 × 2 × 12 / (FW × 36 × 2.54)
         </div>
@@ -105,6 +121,16 @@ function downloadWovenReport() {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-ws-unit]').forEach(button => {
+        button.addEventListener('click', function() {
+            wovenUnit = this.dataset.wsUnit === 'inch' ? 'inch' : 'cm';
+            const unitInput = el('ws-unit');
+            if (unitInput) unitInput.value = wovenUnit;
+            updateWovenUnitUI();
+            updateWovenTotals();
+        });
+    });
+    updateWovenUnitUI();
     // Input listeners
     const inputs = ['ws-bl', 'ws-bla', 'ws-hc', 'ws-hca', 'ws-sl', 'ws-sla', 'ws-ah', 'ws-aha', 'ws-fw'];
     inputs.forEach(id => {
