@@ -6271,3 +6271,34 @@ button[id*="reset"] > svg {
   display:block;
   line-height:1.2;
 }
+
+
+/* Consistent hover feedback for Reset actions across Marker, Zipper and Size Ratio */
+#page-marker #mk-reset,
+#page-zipper #zp-reset,
+#page-sizeratio #sr-order-reset{
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+#page-marker #mk-reset:hover,
+#page-zipper #zp-reset:hover,
+#page-sizeratio #sr-order-reset:hover{
+  border-color:#38bdf8!important;
+  color:#0284c7!important;
+  background:#f0f9ff!important;
+  box-shadow:0 3px 9px rgba(14,165,233,.14);
+  transform:translateY(-1px);
+}
+#page-marker #mk-reset:active,
+#page-zipper #zp-reset:active,
+#page-sizeratio #sr-order-reset:active{
+  transform:translateY(0);
+  box-shadow:0 1px 3px rgba(14,165,233,.12);
+}
+body.dark-mode #page-marker #mk-reset:hover,
+body.dark-mode #page-zipper #zp-reset:hover,
+body.dark-mode #page-sizeratio #sr-order-reset:hover{
+  border-color:#0ea5e9!important;
+  color:#7dd3fc!important;
+  background:#102b43!important;
+}
