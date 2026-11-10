@@ -6407,3 +6407,7 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 #page-zipper .trims-hero h1{font-size:19px;line-height:1.2;letter-spacing:-.3px}
 #page-zipper .trims-hero p{margin-top:4px;font-size:10px;line-height:1.35}
 @media(max-width:600px){#page-zipper .zipper-hero{padding:11px 14px;gap:8px}#page-zipper .trims-hero-copy{min-width:0}#page-zipper .trims-hero h1{font-size:17px}#page-zipper .trims-hero p{font-size:9px}#page-zipper .trims-hero-icon{flex-basis:66px;width:66px;height:66px}}
+
+/* Center the zipper icon both vertically in the hero and horizontally inside its icon tile */
+#page-zipper .zipper-hero .zipper-hero-icon{align-self:center;display:flex;align-items:center;justify-content:center;margin-top:0;margin-bottom:0}
+#page-zipper .zipper-hero .zipper-hero-icon svg{display:block;flex:0 0 44px;width:44px;height:44px;margin:0}
