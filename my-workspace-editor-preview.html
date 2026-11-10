@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Workspace — Minimal Editor Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172536;font-family:Inter,Arial,sans-serif;padding:38px 20px}
+.wrap{max-width:900px;margin:auto}.top{margin-bottom:28px}.top small{color:#0786a2;font-size:10px;font-weight:800;letter-spacing:1.6px}.top h1{margin:8px 0;font-size:30px;letter-spacing:-1px}.top p{margin:0;color:#718096;font-size:13px;line-height:1.6}
+.workspace{background:#fff;border:1px solid #e4eaf1;border-radius:15px;box-shadow:0 8px 28px rgba(22,42,65,.045);overflow:hidden}
+.editor{padding:25px 27px 22px}.typebar{display:flex;align-items:center;gap:7px;margin-bottom:23px;flex-wrap:wrap}.typebar button{border:1px solid transparent;background:transparent;color:#7b8999;padding:8px 12px;border-radius:8px;font:600 11px Inter;cursor:pointer}.typebar button.active{background:#eaf8fb;border-color:#d5eef3;color:#087f99}.typebar button:hover{background:#f1f6f9;color:#334155}
+.fields{display:grid;grid-template-columns:1fr 210px;gap:17px;align-items:end}.field{display:grid;gap:8px}.field label{font-size:10px;font-weight:700;color:#718096}.field input,.field select,.details{width:100%;border:0;border-bottom:1px solid #e5ebf1;border-radius:0;background:transparent;padding:10px 0;color:#1e293b;font:500 14px Inter;outline:none}.field input:focus,.field select:focus,.details:focus{border-color:#0891b2}.field input::placeholder,.details::placeholder{color:#a8b4c1;font-weight:400}
+.details-wrap{margin-top:22px}.details-wrap label{display:block;color:#718096;font-size:10px;font-weight:700;margin-bottom:8px}.details{display:block;min-height:112px;resize:vertical;line-height:1.65;font-size:13px;border-top:1px solid #edf1f5;border-bottom:1px solid #e5ebf1;padding:13px 0}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 27px;border-top:1px solid #edf1f5;background:#fcfdff}.hint{font-size:10px;color:#9aa7b5}.save{border:0;border-radius:8px;background:#087f99;color:#fff;padding:10px 16px;font:700 11px Inter;cursor:pointer}.save:hover{background:#066b82}
+.preview-note{margin-top:16px;color:#8392a3;font-size:11px}
+@media(max-width:600px){body{padding:22px 12px}.top h1{font-size:24px}.editor{padding:19px 16px}.fields{grid-template-columns:1fr}.footer{padding:13px 16px}.typebar{gap:2px}.typebar button{padding:8px 9px}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><small>MY WORKSPACE</small><h1>Add to your workspace</h1><p>A quieter, more focused way to save your formulas, notes, links and references.</p></header>
+<section class="workspace">
+<div class="editor">
+<nav class="typebar" aria-label="Item type">
+<button class="active" type="button">Quick Note</button><button type="button">Formula</button><button type="button">Useful Link</button><button type="button">Image</button>
+</nav>
+<div class="fields">
+<div class="field"><label>Title</label><input placeholder="Give this item a name…" /></div>
+<div class="field"><label>Label · optional</label><input placeholder="e.g. Knit, Woven…" /></div>
+</div>
+<div class="details-wrap"><label>Details</label><textarea class="details" placeholder="Start writing here…"></textarea></div>
+</div>
+<footer class="footer"><span class="hint">Your item will be saved to your personal workspace.</span><button class="save" type="button">Save item&nbsp; ↗</button></footer>
+</section>
+<p class="preview-note">Design preview only — your live workspace and saved-item functionality have not been changed.</p>
+</main>
+<script>
+document.querySelectorAll('.typebar button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.typebar button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}));
+</script></body></html>
