@@ -6224,14 +6224,10 @@ body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
   fill:none!important;stroke:currentColor!important;stroke-width:1.5!important;
   stroke-linecap:round;stroke-linejoin:round;
 }
-/* Force the exact clock-history SVG to render consistently in every Recent action */
-#mk-recent-open > svg,
-#mk-reset > svg,
-#knit-recent-open > svg,
-#kp-recent-open > svg,
-#ws-recent-open > svg,
-#tr-recent-toggle > svg,
-#sr-recent-toggle > svg{
+/* Shared Demo / Recent / Reset Icon — All Pages */
+button[id*="demo"] > svg,
+button[id*="recent"] > svg,
+button[id*="reset"] > svg {
   display:inline-block!important;
   visibility:visible!important;
   opacity:1!important;
@@ -6245,7 +6241,6 @@ body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
   overflow:visible!important;
   fill:none!important;
   stroke:currentColor!important;
-  stroke-width:2!important;
   stroke-linecap:round!important;
   stroke-linejoin:round!important;
   margin:0!important;
