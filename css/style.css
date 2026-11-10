@@ -6401,117 +6401,206 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 @media(max-width:760px){#page-myformulas .mf-hero-art{transform:scale(.68);transform-origin:right center}}
 
 
-/* Compact zipper hero — match the converter hero height; retain the original zipper icon */
-#page-zipper .zipper-hero{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:0;padding:11px 20px}
-#page-zipper .trims-hero-copy>span{margin-bottom:3px;font-size:8px;letter-spacing:1.2px}
-#page-zipper .trims-hero h1{font-size:19px;line-height:1.2;letter-spacing:-.3px}
-#page-zipper .trims-hero p{margin-top:4px;font-size:10px;line-height:1.35}
-@media(max-width:600px){#page-zipper .zipper-hero{padding:11px 14px;gap:8px}#page-zipper .trims-hero-copy{min-width:0}#page-zipper .trims-hero h1{font-size:17px}#page-zipper .trims-hero p{font-size:9px}#page-zipper .trims-hero-icon{flex-basis:66px;width:66px;height:66px}}
 
-/* Center the zipper icon both vertically in the hero and horizontally inside its icon tile */
-#page-zipper .zipper-hero .zipper-hero-icon{align-self:center;display:flex;align-items:center;justify-content:center;margin-top:0;margin-bottom:0}
-#page-zipper .zipper-hero .zipper-hero-icon svg{display:block;flex:0 0 44px;width:44px;height:44px;margin:0}
-
-
-/* Compact trims planner hero — match the zipper planner height */
-#page-trims .trims-hero{min-height:0;padding:11px 20px;gap:10px}
-#page-trims .trims-hero-copy>span{margin-bottom:3px;font-size:8px;letter-spacing:1.2px}
-#page-trims .trims-hero h1{font-size:19px;line-height:1.2;letter-spacing:-.3px}
-#page-trims .trims-hero p{margin-top:4px;font-size:10px;line-height:1.35}
-#page-trims .trims-hero-icon{align-self:center;display:flex;align-items:center;justify-content:center;margin-top:0;margin-bottom:0}
-#page-trims .trims-hero-icon svg{display:block;flex:0 0 44px;width:44px;height:44px;margin:0}
-@media(max-width:600px){#page-trims .trims-hero{padding:11px 14px;gap:8px}#page-trims .trims-hero-copy{min-width:0}#page-trims .trims-hero h1{font-size:17px}#page-trims .trims-hero p{font-size:9px}}
-
-
-/* Unified compact hero sizing across all toolkit pages */
+/* =========================================================
+   UNIFIED HERO SYSTEM — all 9 toolkit/workspace sections
+   Trims + Zipper are the visual reference.
+   ========================================================= */
+#page-marker .marker-hero,
 #page-knit .consumption-hero,
-#page-knitpant .pant-hero,
 #page-knitpant .consumption-hero,
 #page-woven .consumption-hero,
-#page-marker .marker-hero,
-#page-sizeratio .sr-hero,
-#page-converter .converter-hero,
 #page-trims .trims-hero,
 #page-zipper .zipper-hero,
-#page-myformulas .mf-hero{min-height:0;padding:11px 20px;gap:10px}
+#page-sizeratio .sr-hero,
+#page-converter .converter-hero,
+#page-myformulas .mf-hero{
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  width:100%;
+  height:132px;
+  min-height:132px;
+  margin:0 0 14px;
+  padding:24px 28px;
+  border:1px solid rgba(34,211,238,.24);
+  border-radius:16px;
+  color:#eaf4ff;
+  background:linear-gradient(115deg,#101b32 0%,#142b4a 58%,#0e4053 100%);
+  box-shadow:0 12px 30px rgba(2,8,23,.12);
+  overflow:hidden;
+}
+#page-marker .marker-hero,
+#page-knit .consumption-hero,
+#page-knitpant .consumption-hero,
+#page-woven .consumption-hero,
+#page-trims .trims-hero,
+#page-zipper .zipper-hero,
+#page-sizeratio .sr-hero,
+#page-converter .converter-hero,
+#page-myformulas .mf-hero{position:relative}
+#page-marker .marker-hero-copy,
+#page-knit .consumption-hero-copy,
+#page-knitpant .consumption-hero-copy,
+#page-woven .consumption-hero-copy,
+#page-trims .trims-hero-copy,
+#page-zipper .trims-hero-copy,
+#page-sizeratio .sr-hero-copy,
+#page-converter .converter-hero-copy,
+#page-myformulas .mf-hero-copy{
+  position:relative;
+  z-index:1;
+  flex:1 1 auto;
+  min-width:0;
+  max-width:760px;
+}
+#page-marker .marker-hero span,
 #page-knit .consumption-hero-copy>span,
 #page-knitpant .consumption-hero-copy>span,
 #page-woven .consumption-hero-copy>span,
-#page-marker .marker-hero span,
+#page-trims .trims-hero-copy>span,
+#page-zipper .trims-hero-copy>span,
 #page-sizeratio .sr-hero-copy>span,
 #page-converter .converter-hero-copy>span,
-#page-trims .trims-hero-copy>span,
-#page-zipper .trims-hero-copy>span{margin-bottom:3px;font-size:8px;letter-spacing:1.2px}
+#page-myformulas .mf-hero .mf-eyebrow{
+  display:block;
+  margin:0 0 7px;
+  color:#67e8f9;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  line-height:1.2;
+}
+#page-marker .marker-hero h1,
 #page-knit .consumption-hero h1,
-#page-knitpant .pant-hero h1,
 #page-knitpant .consumption-hero h1,
 #page-woven .consumption-hero h1,
-#page-marker .marker-hero h1,
+#page-trims .trims-hero h1,
+#page-zipper .zipper-hero h1,
 #page-sizeratio .sr-hero h1,
 #page-converter .converter-hero h1,
-#page-trims .trims-hero h1,
-#page-zipper .zipper-hero h1{margin:3px 0;font-size:19px;line-height:1.2;letter-spacing:-.3px}
+#page-myformulas .mf-hero h1{
+  margin:0 0 7px;
+  color:#f8fafc;
+  font-size:clamp(22px,3vw,30px);
+  font-weight:800;
+  line-height:1.2;
+  letter-spacing:-.7px;
+}
+#page-marker .marker-hero p,
 #page-knit .consumption-hero p,
-#page-knitpant .pant-hero p,
 #page-knitpant .consumption-hero p,
 #page-woven .consumption-hero p,
-#page-marker .marker-hero p,
+#page-trims .trims-hero p,
+#page-zipper .zipper-hero p,
 #page-sizeratio .sr-hero p,
 #page-converter .converter-hero p,
-#page-trims .trims-hero p,
-#page-zipper .zipper-hero p{margin-top:4px;font-size:10px;line-height:1.35}
+#page-myformulas .mf-hero p{
+  max-width:760px;
+  margin:0;
+  color:#cbd5e1;
+  font-size:12px;
+  line-height:1.6;
+}
+#page-marker .consumption-hero-icon,
 #page-knit .consumption-hero-icon,
-#page-knitpant .pant-hero-icon,
 #page-knitpant .consumption-hero-icon,
 #page-woven .consumption-hero-icon,
-#page-marker .consumption-hero-icon,
-#page-sizeratio .sr-hero-icon,
-#page-converter .converter-hero-icon,
 #page-trims .trims-hero-icon,
-#page-zipper .trims-hero-icon{align-self:center;display:flex;align-items:center;justify-content:center;margin-top:0;margin-bottom:0}
+#page-zipper .zipper-hero-icon,
+#page-sizeratio .sr-hero-icon,
+#page-converter .converter-hero-icon{
+  position:relative;
+  z-index:1;
+  display:grid;
+  place-items:center;
+  align-self:center;
+  flex:0 0 92px;
+  width:92px;
+  height:92px;
+  border:1px solid rgba(103,232,249,.28);
+  border-radius:18px;
+  color:#67e8f9;
+  background:rgba(103,232,249,.09);
+}
+#page-marker .consumption-hero-icon svg,
 #page-knit .consumption-hero-icon svg,
-#page-knitpant .pant-hero-icon svg,
 #page-knitpant .consumption-hero-icon svg,
 #page-woven .consumption-hero-icon svg,
-#page-marker .consumption-hero-icon svg,
+#page-trims .trims-hero-icon svg,
+#page-zipper .zipper-hero-icon svg,
 #page-sizeratio .sr-hero-icon svg,
-#page-converter .converter-hero-icon svg,
-#page-trims .trims-hero-icon svg,
-#page-zipper .trims-hero-icon svg{display:block;margin:0}
-@media(max-width:600px){
-#page-knit .consumption-hero,#page-knitpant .pant-hero,#page-knitpant .consumption-hero,#page-woven .consumption-hero,#page-marker .marker-hero,#page-sizeratio .sr-hero,#page-converter .converter-hero,#page-trims .trims-hero,#page-zipper .zipper-hero,#page-myformulas .mf-hero{padding:11px 14px;gap:8px}
-#page-knit .consumption-hero h1,#page-knitpant .pant-hero h1,#page-knitpant .consumption-hero h1,#page-woven .consumption-hero h1,#page-marker .marker-hero h1,#page-sizeratio .sr-hero h1,#page-converter .converter-hero h1,#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{font-size:17px}
-#page-knit .consumption-hero p,#page-knitpant .pant-hero p,#page-knitpant .consumption-hero p,#page-woven .consumption-hero p,#page-marker .marker-hero p,#page-sizeratio .sr-hero p,#page-converter .converter-hero p,#page-trims .trims-hero p,#page-zipper .zipper-hero p{font-size:9px}
+#page-converter .converter-hero-icon svg{
+  display:block;
+  width:58px;
+  height:58px;
+  margin:0;
+  stroke:currentColor;
 }
-
-
-/* Final height normalization: Trims, Zipper and My Workspace match the compact Size Ratio hero */
-#page-trims .trims-hero,
-#page-zipper .zipper-hero,
-#page-myformulas .mf-hero{min-height:0;height:auto;padding:11px 20px;align-items:center;gap:10px}
-#page-trims .trims-hero-icon,
-#page-zipper .zipper-hero .trims-hero-icon{box-sizing:border-box;flex:0 0 52px;width:52px;height:52px;min-height:52px;align-self:center;display:flex;align-items:center;justify-content:center}
-#page-trims .trims-hero-icon svg,
-#page-zipper .zipper-hero .trims-hero-icon svg{display:block;width:38px;height:38px;flex:0 0 38px;margin:0}
-#page-myformulas .mf-hero-art{box-sizing:border-box;width:72px;height:52px;min-height:52px;flex:0 0 72px;transform:scale(.78);transform-origin:right center}
-#page-myformulas .mf-hero-copy{min-width:0}
-@media(max-width:600px){
-#page-trims .trims-hero,#page-zipper .zipper-hero,#page-myformulas .mf-hero{padding:11px 14px;gap:8px}
-#page-trims .trims-hero-icon,#page-zipper .zipper-hero .trims-hero-icon{flex-basis:48px;width:48px;height:48px;min-height:48px}
-#page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{width:34px;height:34px;flex-basis:34px}
-#page-myformulas .mf-hero-art{width:62px;height:48px;min-height:48px;flex-basis:62px}
+#page-myformulas .mf-hero-art{
+  position:relative;
+  z-index:1;
+  flex:0 0 110px;
+  width:110px;
+  height:92px;
+  transform:none;
 }
-
-
-/* Match My Workspace, Trims and Zipper hero height to the Knit Garments hero */
-#page-myformulas .mf-hero,#page-trims .trims-hero,#page-zipper .zipper-hero{min-height:0;height:auto;padding:24px 28px;gap:24px;align-items:center}
-#page-trims .trims-hero-copy>span,#page-zipper .trims-hero-copy>span{margin-bottom:0;font-size:10px;letter-spacing:1.5px}
-#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{margin:7px 0;font-size:clamp(24px,3vw,32px);line-height:normal;letter-spacing:-.7px}
-#page-trims .trims-hero p,#page-zipper .zipper-hero p{margin:0;max-width:760px;font-size:12px;line-height:1.6}
-#page-trims .trims-hero-icon,#page-zipper .zipper-hero .trims-hero-icon{box-sizing:border-box;display:grid;place-items:center;align-self:center;flex:0 0 92px;width:92px;height:92px;min-height:92px}
-#page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{display:block;width:58px;height:58px;flex:0 0 58px;margin:0}
-#page-myformulas .mf-hero{min-height:0}
-#page-myformulas .mf-hero h1{margin:9px 0 7px;font-size:26px;line-height:1.2}
-#page-myformulas .mf-hero p{font-size:12px;line-height:1.7}
-#page-myformulas .mf-hero-art{box-sizing:border-box;width:110px;height:92px;min-height:92px;flex:0 0 110px;transform:scale(.78);transform-origin:right center}
-@media(max-width:600px){#page-myformulas .mf-hero,#page-trims .trims-hero,#page-zipper .zipper-hero{padding:20px 18px;gap:12px}#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{font-size:22px}#page-trims .trims-hero-icon,#page-zipper .zipper-hero .trims-hero-icon{flex-basis:58px;width:58px;height:58px;min-height:58px;border-radius:14px}#page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{width:38px;height:38px;flex-basis:38px}#page-myformulas .mf-hero-art{width:84px;height:72px;min-height:72px;flex-basis:84px}}
+#page-myformulas .mf-hero h1{display:flex;align-items:center;gap:9px}
+#page-myformulas .mf-hero h1 svg{width:25px;height:25px;color:#7dd3fc}
+#page-myformulas .mf-art-sheet{transform-origin:center}
+#page-myformulas .mf-art-front svg{width:20px;height:20px}
+@media(max-width:600px){
+  #page-marker .marker-hero,
+  #page-knit .consumption-hero,
+  #page-knitpant .consumption-hero,
+  #page-woven .consumption-hero,
+  #page-trims .trims-hero,
+  #page-zipper .zipper-hero,
+  #page-sizeratio .sr-hero,
+  #page-converter .converter-hero,
+  #page-myformulas .mf-hero{
+    height:120px;
+    min-height:120px;
+    padding:18px;
+    gap:12px;
+  }
+  #page-marker .marker-hero h1,
+  #page-knit .consumption-hero h1,
+  #page-knitpant .consumption-hero h1,
+  #page-woven .consumption-hero h1,
+  #page-trims .trims-hero h1,
+  #page-zipper .zipper-hero h1,
+  #page-sizeratio .sr-hero h1,
+  #page-converter .converter-hero h1,
+  #page-myformulas .mf-hero h1{font-size:21px}
+  #page-marker .marker-hero p,
+  #page-knit .consumption-hero p,
+  #page-knitpant .consumption-hero p,
+  #page-woven .consumption-hero p,
+  #page-trims .trims-hero p,
+  #page-zipper .zipper-hero p,
+  #page-sizeratio .sr-hero p,
+  #page-converter .converter-hero p,
+  #page-myformulas .mf-hero p{font-size:10px;line-height:1.4}
+  #page-marker .consumption-hero-icon,
+  #page-knit .consumption-hero-icon,
+  #page-knitpant .consumption-hero-icon,
+  #page-woven .consumption-hero-icon,
+  #page-trims .trims-hero-icon,
+  #page-zipper .zipper-hero-icon,
+  #page-sizeratio .sr-hero-icon,
+  #page-converter .converter-hero-icon{
+    flex-basis:58px;width:58px;height:58px;border-radius:14px;
+  }
+  #page-marker .consumption-hero-icon svg,
+  #page-knit .consumption-hero-icon svg,
+  #page-knitpant .consumption-hero-icon svg,
+  #page-woven .consumption-hero-icon svg,
+  #page-trims .trims-hero-icon svg,
+  #page-zipper .zipper-hero-icon svg,
+  #page-sizeratio .sr-hero-icon svg,
+  #page-converter .converter-hero-icon svg{width:38px;height:38px}
+  #page-myformulas .mf-hero-art{flex-basis:72px;width:72px;height:72px}
+}
