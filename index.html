@@ -1452,6 +1452,11 @@
   <section class="mf-create-section">
     <div class="mf-section-heading"><div><h2><i data-lucide="folder-plus" aria-hidden="true"></i> Add to your workspace</h2><p>Save a formula, note, link or visual reference for quick access later.</p></div></div>
     <div class="mf-add-panel">
+      <div class="mf-entry-intro">
+        <span class="mf-entry-icon"><i data-lucide="edit-3" aria-hidden="true"></i></span>
+        <div><strong>Create a new workspace item</strong><p>Follow the steps below to add something useful to your personal library.</p></div>
+        <span class="mf-entry-count">NEW ITEM</span>
+      </div>
       <div class="mf-add-fields">
         <label>What do you want to save?
           <select id="mf-item-type">
@@ -1462,7 +1467,7 @@
           </select>
         </label>
         <label>Title
-          <input id="mf-item-title" type="text" maxlength="100" placeholder="Give it a clear title">
+          <input id="mf-item-title" type="text" maxlength="100" placeholder="e.g. Knit T-Shirt Body Consumption">
         </label>
         <label>Label <span class="mf-optional">(optional)</span>
           <input id="mf-item-label" type="text" maxlength="40" list="mf-label-options" placeholder="e.g. Knit, Woven, Printing">
@@ -1472,7 +1477,7 @@
         </label>
       </div>
       <label class="mf-add-detail" id="mf-detail-wrap">Details
-        <textarea id="mf-item-details" rows="4" maxlength="12000" placeholder="Write your note, formula or useful information..."></textarea>
+        <textarea id="mf-item-details" rows="4" maxlength="12000" placeholder="Enter the details you want to save here..."></textarea>
       </label>
       <label class="mf-add-detail" id="mf-url-wrap" hidden>Website URL
         <input id="mf-item-url" type="url" placeholder="https://example.com">
