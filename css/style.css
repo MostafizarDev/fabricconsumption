@@ -6421,3 +6421,65 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 #page-trims .trims-hero-icon{align-self:center;display:flex;align-items:center;justify-content:center;margin-top:0;margin-bottom:0}
 #page-trims .trims-hero-icon svg{display:block;flex:0 0 44px;width:44px;height:44px;margin:0}
 @media(max-width:600px){#page-trims .trims-hero{padding:11px 14px;gap:8px}#page-trims .trims-hero-copy{min-width:0}#page-trims .trims-hero h1{font-size:17px}#page-trims .trims-hero p{font-size:9px}}
+
+
+/* Unified compact hero sizing across all toolkit pages */
+#page-knit .consumption-hero,
+#page-knitpant .pant-hero,
+#page-knitpant .consumption-hero,
+#page-woven .consumption-hero,
+#page-marker .marker-hero,
+#page-sizeratio .sr-hero,
+#page-converter .converter-hero,
+#page-trims .trims-hero,
+#page-zipper .zipper-hero,
+#page-myformulas .mf-hero{min-height:0;padding:11px 20px;gap:10px}
+#page-knit .consumption-hero-copy>span,
+#page-knitpant .consumption-hero-copy>span,
+#page-woven .consumption-hero-copy>span,
+#page-marker .marker-hero span,
+#page-sizeratio .sr-hero-copy>span,
+#page-converter .converter-hero-copy>span,
+#page-trims .trims-hero-copy>span,
+#page-zipper .trims-hero-copy>span{margin-bottom:3px;font-size:8px;letter-spacing:1.2px}
+#page-knit .consumption-hero h1,
+#page-knitpant .pant-hero h1,
+#page-knitpant .consumption-hero h1,
+#page-woven .consumption-hero h1,
+#page-marker .marker-hero h1,
+#page-sizeratio .sr-hero h1,
+#page-converter .converter-hero h1,
+#page-trims .trims-hero h1,
+#page-zipper .zipper-hero h1{margin:3px 0;font-size:19px;line-height:1.2;letter-spacing:-.3px}
+#page-knit .consumption-hero p,
+#page-knitpant .pant-hero p,
+#page-knitpant .consumption-hero p,
+#page-woven .consumption-hero p,
+#page-marker .marker-hero p,
+#page-sizeratio .sr-hero p,
+#page-converter .converter-hero p,
+#page-trims .trims-hero p,
+#page-zipper .zipper-hero p{margin-top:4px;font-size:10px;line-height:1.35}
+#page-knit .consumption-hero-icon,
+#page-knitpant .pant-hero-icon,
+#page-knitpant .consumption-hero-icon,
+#page-woven .consumption-hero-icon,
+#page-marker .consumption-hero-icon,
+#page-sizeratio .sr-hero-icon,
+#page-converter .converter-hero-icon,
+#page-trims .trims-hero-icon,
+#page-zipper .trims-hero-icon{align-self:center;display:flex;align-items:center;justify-content:center;margin-top:0;margin-bottom:0}
+#page-knit .consumption-hero-icon svg,
+#page-knitpant .pant-hero-icon svg,
+#page-knitpant .consumption-hero-icon svg,
+#page-woven .consumption-hero-icon svg,
+#page-marker .consumption-hero-icon svg,
+#page-sizeratio .sr-hero-icon svg,
+#page-converter .converter-hero-icon svg,
+#page-trims .trims-hero-icon svg,
+#page-zipper .trims-hero-icon svg{display:block;margin:0}
+@media(max-width:600px){
+#page-knit .consumption-hero,#page-knitpant .pant-hero,#page-knitpant .consumption-hero,#page-woven .consumption-hero,#page-marker .marker-hero,#page-sizeratio .sr-hero,#page-converter .converter-hero,#page-trims .trims-hero,#page-zipper .zipper-hero,#page-myformulas .mf-hero{padding:11px 14px;gap:8px}
+#page-knit .consumption-hero h1,#page-knitpant .pant-hero h1,#page-knitpant .consumption-hero h1,#page-woven .consumption-hero h1,#page-marker .marker-hero h1,#page-sizeratio .sr-hero h1,#page-converter .converter-hero h1,#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{font-size:17px}
+#page-knit .consumption-hero p,#page-knitpant .pant-hero p,#page-knitpant .consumption-hero p,#page-woven .consumption-hero p,#page-marker .marker-hero p,#page-sizeratio .sr-hero p,#page-converter .converter-hero p,#page-trims .trims-hero p,#page-zipper .zipper-hero p{font-size:9px}
+}
