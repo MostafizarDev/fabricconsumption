@@ -98,12 +98,48 @@
   }
   function downloadReport(){
     if(!lastResult){calculate();if(!lastResult){alert('Please complete the required inputs before downloading the report.');return;}}
-    const r=lastResult,info=reportInfo(),safe=s=>String(s||'—').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    const measurements=[['Body Length',value('ws-bl'),value('ws-bla')],['½ Chest',value('ws-hc'),value('ws-hca')],['Sleeve Length',value('ws-sl'),value('ws-sla')],['Armhole Straight',value('ws-ah'),value('ws-aha')]];
-    const table=measurements.map(x=>'<tr><td>'+x[0]+'</td><td>'+x[1]+'</td><td>'+x[2]+'</td><td>'+fmt(x[1]+x[2],1)+' '+r.unit+'</td></tr>').join('');
-    const parts=r.rows.map(x=>'<tr><td>'+safe(x.name)+'</td><td>'+fmt(x.yardsDz,3)+' yds/dz</td><td>'+fmt(x.waste,2)+'%</td><td>'+fmt(x.netOrder,3)+' yds</td><td>'+fmt(x.finalOrder,3)+' yds</td></tr>').join('');
-    const html='<div class="header"><h1>Woven Shirt Fabric Consumption Report</h1><div class="date">Generated: '+new Date().toLocaleString()+'</div></div><div class="box"><div>Total Fabric Requirement</div><div class="box-value">'+fmt(r.finalOrder,3)+' yds</div><div>'+fmt(r.finalPc,4)+' yds per piece · '+fmt(r.qty,0)+' pcs</div></div><h3>Measurements ('+r.unit+')</h3><table><thead><tr><th>Measurement</th><th>Actual</th><th>Allowance</th><th>Total</th></tr></thead><tbody>'+table+'</tbody></table><h3>Component Breakdown</h3><table><thead><tr><th>Component</th><th>Consumption</th><th>Wastage</th><th>Before Waste</th><th>Final Requirement</th></tr></thead><tbody>'+parts+'</tbody></table><p>Fabric width: '+r.width+' inch | Order quantity: '+r.qty+' pcs | Wastage: '+r.waste+'%</p><p>Total before wastage: '+fmt(r.netOrder,3)+' yds<br>Total after wastage: '+fmt(r.finalOrder,3)+' yds</p><p>Formula: Yards/dozen = (Length cm × Width cm × panel quantity × 12) ÷ (Fabric width inch × 36 × 2.54). Order yards = Yards/dozen × order quantity ÷ 12. Wastage is applied to the net order requirement.</p>';
-    generatePDF('Woven Shirt Report',html);
+    const r=lastResult,info=reportInfo(),now=new Date();
+    const safe=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const dateText=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+    const timeText=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    const reportId='FC-WOVEN-'+now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0');
+    const icon=name=>{
+      const paths={
+        info:'<circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path>',
+        components:'<rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>',
+        summary:'<path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 6-7"></path>',
+        warning:'<path d="M12 3 2.5 20h19z"></path><path d="M12 9v5M12 17h.01"></path>',
+        file:'<path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v5h5M9 13h6M9 17h6"></path>'
+      };
+      return '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">'+(paths[name]||paths.file)+'</svg>';
+    };
+    const measurements=[
+      ['Body Length',value('ws-bl'),value('ws-bla')],
+      ['½ Chest',value('ws-hc'),value('ws-hca')],
+      ['Sleeve Length',value('ws-sl'),value('ws-sla')],
+      ['Armhole Straight',value('ws-ah'),value('ws-aha')]
+    ];
+    const measurementRows=measurements.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+x[0]+'</td><td>'+fmt(x[1],1)+' '+safe(r.unit)+'</td><td>'+fmt(x[2],1)+' '+safe(r.unit)+'</td><td><strong>'+fmt(x[1]+x[2],1)+' '+safe(r.unit)+'</strong></td></tr>').join('');
+    const componentRows=(r.rows||[]).map((x,i)=>'<tr><td>'+(i+1)+'</td><td><strong>'+safe(x.name)+'</strong></td><td>'+fmt(x.yardsDz,3)+' yds/dz</td><td>'+fmt(x.waste,2)+'%</td><td>'+fmt(x.netOrder,3)+' yds</td><td><strong>'+fmt(x.finalOrder,3)+' yds</strong></td><td>—</td></tr>').join('');
+    const beforeOrder=Number(r.netOrder)||0;
+    const finalOrder=Number(r.finalOrder)||0;
+    const wastageOrder=Math.max(0,finalOrder-beforeOrder);
+    const methodText='Length-based · panel area / fabric width';
+    const filePart=v=>String(v||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
+    const fileName=['FC',filePart(info.buyer),filePart(info.style),filePart(info.po)?'PO'+filePart(info.po).replace(/^PO[_-]?/i,''):'',reportId].filter(Boolean).join('_');
+    const report='<div class="report">'+
+      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Woven Shirt Fabric Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
+      '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+safe(r.unit)+'</strong></div><div><span>Order Quantity</span><strong>'+fmt(r.qty,0)+' pcs</strong></div></div>'+
+      '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(safe(info.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(info.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(info.po)||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+safe(info.type||'Woven Shirt')+'</strong></div></div></section>'+
+      '<section class="section"><div class="section-head">'+icon('components')+'<span>MEASUREMENT DETAILS</span></div><table><thead><tr><th>SL</th><th>Measurement</th><th>Actual</th><th>Allowance</th><th>Total</th></tr></thead><tbody>'+measurementRows+'</tbody></table></section>'+
+      '<section class="section"><div class="section-head">'+icon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="fabric-type-table"><thead><tr><th>SL</th><th>Component</th><th>Consumption / Dozen</th><th>Wastage</th><th>Before Wastage / Order</th><th>Final Order Total</th><th>Remarks</th></tr></thead><tbody>'+(componentRows||'<tr><td colspan="7">No component details available.</td></tr>')+'</tbody></table></section>'+
+      '<section class="section"><div class="section-head">'+icon('summary')+'<span>CALCULATION METHOD</span></div><div style="padding:12px 13px;font-size:10px;line-height:1.7"><strong>'+methodText+'</strong><div style="margin-top:4px;color:#475569">Fabric width: '+fmt(r.width,2)+' inch · Main body and sleeve wastage: '+fmt(r.waste,2)+'% · Additional components use their individual wastage rates.</div></div></section>'+
+      '<div class="summary-grid"><div class="summary-card"><div class="metric-head">'+icon('components')+'<span>BEFORE WASTAGE</span></div><strong>'+fmt(beforeOrder,3)+' yds</strong><small>Net fabric requirement · whole order</small></div><div class="summary-card"><div class="metric-head">'+icon('warning')+'<span>WASTAGE ADDED</span></div><strong>'+fmt(wastageOrder,3)+' yds</strong><small>Additional fabric allowance</small></div><div class="summary-card primary"><div class="metric-head">'+icon('summary')+'<span>FINAL ORDER TOTAL</span></div><strong>'+fmt(finalOrder,3)+' yds</strong><small>Including wastage</small></div><div class="summary-card"><div class="metric-head">'+icon('file')+'<span>PER DOZEN</span></div><strong>'+fmt(r.finalDz,3)+' yds/dz</strong><small>Final consumption</small></div></div>'+
+      '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
+      '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Consumption estimate only; costing excluded. Verify garment measurements, seam allowances, fabric width, component quantities, wastage and order quantity against the approved pattern and actual factory consumption.</div></div>'+
+      '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
+      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+    generatePDF(fileName,report);
   }
   document.addEventListener('DOMContentLoaded',()=>{
     document.querySelectorAll('[data-ws-unit]').forEach(b=>b.addEventListener('click',()=>{$('ws-unit').value=b.dataset.wsUnit;updateUnitUI();calculate();}));
