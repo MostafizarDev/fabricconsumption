@@ -6604,3 +6604,35 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
   #page-converter .converter-hero-icon svg{width:38px;height:38px}
   #page-myformulas .mf-hero-art{flex-basis:72px;width:72px;height:72px}
 }
+
+/* Zipper hero icon: optical size and centered alignment */
+#page-zipper .zipper-hero .zipper-hero-icon{
+  box-sizing:border-box;
+  display:grid;
+  place-items:center;
+  align-self:center;
+  flex:0 0 92px;
+  width:92px;
+  height:92px;
+  margin:0;
+}
+#page-zipper .zipper-hero .zipper-hero-icon svg{
+  display:block;
+  width:50px;
+  height:50px;
+  flex:0 0 50px;
+  margin:0;
+  transform:translateX(1px);
+}
+@media(max-width:600px){
+  #page-zipper .zipper-hero .zipper-hero-icon{
+    flex-basis:58px;
+    width:58px;
+    height:58px;
+  }
+  #page-zipper .zipper-hero .zipper-hero-icon svg{
+    width:36px;
+    height:36px;
+    flex-basis:36px;
+  }
+}
