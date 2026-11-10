@@ -6758,3 +6758,144 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
   }
   #page-myformulas .mf-art-grid svg{width:15px;height:15px}
 }
+
+
+/* Premium My Workspace add-item section */
+#page-myformulas .mf-create-section{margin-top:18px}
+#page-myformulas .mf-create-section .mf-section-heading{
+  align-items:flex-start;
+  margin:0 0 12px;
+}
+#page-myformulas .mf-create-section .mf-section-heading h2{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0 0 5px;
+  color:var(--text,#0f172a);
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:-.45px;
+}
+#page-myformulas .mf-create-section .mf-section-heading h2 svg{
+  width:19px;height:19px;color:#0891b2;stroke-width:2;
+}
+#page-myformulas .mf-create-section .mf-section-heading p{
+  margin:0;
+  color:var(--muted,#64748b);
+  font-size:11px;
+  line-height:1.55;
+}
+#page-myformulas .mf-add-panel{
+  position:relative;
+  overflow:hidden;
+  padding:18px;
+  border:1px solid #dbe5ef;
+  border-radius:13px;
+  background:linear-gradient(145deg,#ffffff 0%,#f8fbff 100%);
+  box-shadow:0 7px 22px rgba(15,23,42,.045);
+}
+#page-myformulas .mf-add-fields{
+  grid-template-columns:minmax(0,1fr) minmax(1.15fr) minmax(.9fr);
+  gap:13px;
+}
+#page-myformulas .mf-add-panel label{
+  gap:7px;
+  color:#334155;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.05px;
+}
+#page-myformulas .mf-add-panel input:not([type=file]),
+#page-myformulas .mf-add-panel select,
+#page-myformulas .mf-add-panel textarea{
+  min-height:40px;
+  padding:10px 12px;
+  border:1px solid #d8e2ed;
+  border-radius:9px;
+  background:#fff;
+  color:#172033;
+  font:500 12px/1.5 Inter,Arial,sans-serif;
+  box-shadow:0 1px 2px rgba(15,23,42,.025);
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+#page-myformulas .mf-add-panel input::placeholder,
+#page-myformulas .mf-add-panel textarea::placeholder{color:#9aa9ba;font-weight:400}
+#page-myformulas .mf-add-panel input:focus,
+#page-myformulas .mf-add-panel select:focus,
+#page-myformulas .mf-add-panel textarea:focus{
+  border-color:#0891b2;
+  outline:none;
+  box-shadow:0 0 0 3px rgba(8,145,178,.12);
+}
+#page-myformulas .mf-add-detail{margin-top:14px;gap:7px}
+#page-myformulas .mf-add-detail textarea{
+  min-height:100px;
+  resize:vertical;
+  line-height:1.6;
+}
+#page-myformulas .mf-add-footer{
+  align-items:center;
+  margin-top:15px;
+  padding-top:13px;
+  border-top:1px solid #e8eef5;
+}
+#page-myformulas .mf-add-footer .mf-storage-hint{
+  max-width:65%;
+  color:#8191a5;
+  font-size:10px;
+  line-height:1.5;
+}
+#page-myformulas .mf-add-footer .mf-primary-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:38px;
+  padding:9px 17px;
+  border:1px solid #0e7490;
+  border-radius:9px;
+  background:linear-gradient(135deg,#0891b2,#0e7490);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  box-shadow:0 4px 10px rgba(8,145,178,.16);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+#page-myformulas .mf-add-footer .mf-primary-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 7px 15px rgba(8,145,178,.22);
+}
+#page-myformulas .mf-add-footer .mf-primary-btn svg{width:15px;height:15px}
+#page-myformulas .mf-optional{font-size:10px}
+body.dark-mode #page-myformulas .mf-create-section .mf-section-heading h2{color:#e2e8f0}
+body.dark-mode #page-myformulas .mf-create-section .mf-section-heading h2 svg{color:#67e8f9}
+body.dark-mode #page-myformulas .mf-add-panel{
+  border-color:#33465e;
+  background:linear-gradient(145deg,#142238 0%,#101b2d 100%);
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+}
+body.dark-mode #page-myformulas .mf-add-panel label{color:#d6e2ef}
+body.dark-mode #page-myformulas .mf-add-panel input:not([type=file]),
+body.dark-mode #page-myformulas .mf-add-panel select,
+body.dark-mode #page-myformulas .mf-add-panel textarea{
+  border-color:#3b506a;
+  background:#0d192b;
+  color:#e5edf7;
+  box-shadow:none;
+}
+body.dark-mode #page-myformulas .mf-add-panel input::placeholder,
+body.dark-mode #page-myformulas .mf-add-panel textarea::placeholder{color:#71849b}
+body.dark-mode #page-myformulas .mf-add-footer{border-top-color:#2a3d54}
+body.dark-mode #page-myformulas .mf-add-footer .mf-storage-hint{color:#91a5bc}
+@media(max-width:760px){
+  #page-myformulas .mf-add-panel{padding:15px}
+  #page-myformulas .mf-add-fields{grid-template-columns:1fr 1fr;gap:11px}
+}
+@media(max-width:520px){
+  #page-myformulas .mf-create-section .mf-section-heading h2{font-size:17px}
+  #page-myformulas .mf-add-panel{padding:13px}
+  #page-myformulas .mf-add-fields{grid-template-columns:1fr;gap:10px}
+  #page-myformulas .mf-add-footer{align-items:stretch;flex-direction:column}
+  #page-myformulas .mf-add-footer .mf-storage-hint{max-width:none}
+  #page-myformulas .mf-add-footer .mf-primary-btn{width:100%}
+}
