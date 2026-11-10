@@ -1459,37 +1459,43 @@
 
   <section class="mf-create-section">
     <div class="mf-section-heading"><div><span class="mf-section-kicker">CAPTURE SOMETHING</span><h2>Add to your workspace</h2><p>Choose what you want to save. You can edit or delete it later.</p></div></div>
-    <div class="mf-create-grid">
-      <article class="mf-create-card mf-create-note">
-        <div class="mf-create-icon"><i data-lucide="notebook-pen"></i></div><div class="mf-create-card-copy"><h3>Quick Note</h3><p>Record instructions, reminders or work details.</p></div>
-        <label>Note title<input id="mf-note-title" type="text" maxlength="100" placeholder="e.g. Buyer print comments"></label>
-        <label>Your note<textarea id="mf-note-body" rows="4" maxlength="12000" placeholder="Write your note here..."></textarea></label>
-        <button type="button" class="mf-primary-btn" id="mf-save-note"><i data-lucide="save"></i> Save Note</button>
-      </article>
-
-      <article class="mf-create-card mf-create-formula">
-        <div class="mf-create-icon"><i data-lucide="calculator"></i></div><div class="mf-create-card-copy"><h3>Formula / Calculation</h3><p>Store formulas, allowances and calculation methods.</p></div>
-        <label>Formula name<input id="mf-name" type="text" maxlength="100" placeholder="e.g. Woven body consumption"></label>
-        <label>Formula or description<textarea id="mf-formula" rows="4" maxlength="12000" placeholder="Enter formula, variables and explanation..."></textarea></label>
-        <button type="button" class="mf-primary-btn" id="btn-save-formula"><i data-lucide="save"></i> Save Formula</button>
-      </article>
-
-      <article class="mf-create-card mf-create-link">
-        <div class="mf-create-icon"><i data-lucide="link-2"></i></div><div class="mf-create-card-copy"><h3>Useful Link</h3><p>Save websites, product pages and reference resources.</p></div>
-        <label>Link title<input id="mf-link-title" type="text" maxlength="100" placeholder="e.g. Fabric supplier catalogue"></label>
-        <label>Website URL<input id="mf-link-url" type="url" placeholder="https://example.com"></label>
-        <label>Short description <span class="mf-optional">(optional)</span><input id="mf-link-desc" type="text" maxlength="240" placeholder="What is this link for?"></label>
-        <button type="button" class="mf-primary-btn" id="mf-save-link"><i data-lucide="bookmark-plus"></i> Save Link</button>
-      </article>
-
-      <article class="mf-create-card mf-create-image">
-        <div class="mf-create-icon"><i data-lucide="image-plus"></i></div><div class="mf-create-card-copy"><h3>Screenshot / Image</h3><p>Keep design references, measurement screenshots or work instructions.</p></div>
-        <label>Image title<input id="mf-image-title" type="text" maxlength="100" placeholder="e.g. Buyer artwork feedback"></label>
-        <label class="mf-upload-zone" for="mf-image-file"><i data-lucide="upload-cloud"></i><strong>Choose screenshot or image</strong><span>PNG, JPG, WEBP · up to 8 MB each</span><input id="mf-image-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+    <div class="mf-add-panel">
+      <div class="mf-add-fields">
+        <label>What do you want to save?
+          <select id="mf-item-type">
+            <option value="note">Quick Note</option>
+            <option value="formula">Formula</option>
+            <option value="link">Useful Link</option>
+            <option value="image">Screenshot / Image</option>
+          </select>
+        </label>
+        <label>Title
+          <input id="mf-item-title" type="text" maxlength="100" placeholder="Give it a clear title">
+        </label>
+        <label>Label <span class="mf-optional">(optional)</span>
+          <input id="mf-item-label" type="text" maxlength="40" list="mf-label-options" placeholder="e.g. Knit, Woven, Printing">
+          <datalist id="mf-label-options">
+            <option value="Knit"><option value="Woven"><option value="Printing"><option value="Embroidery"><option value="Buyer"><option value="Important"><option value="Reference">
+          </datalist>
+        </label>
+      </div>
+      <label class="mf-add-detail" id="mf-detail-wrap">Details
+        <textarea id="mf-item-details" rows="4" maxlength="12000" placeholder="Write your note, formula or useful information..."></textarea>
+      </label>
+      <label class="mf-add-detail" id="mf-url-wrap" hidden>Website URL
+        <input id="mf-item-url" type="url" placeholder="https://example.com">
+      </label>
+      <div class="mf-add-detail" id="mf-image-wrap" hidden>
+        <label>Choose screenshot or image
+          <input id="mf-item-file" type="file" accept="image/png,image/jpeg,image/webp">
+        </label>
+        <small class="mf-storage-hint">PNG, JPG or WEBP · up to 8 MB</small>
         <div class="mf-upload-preview" id="mf-upload-preview" hidden></div>
-        <button type="button" class="mf-primary-btn" id="mf-save-image" disabled><i data-lucide="image-plus"></i> Save Screenshot</button>
-        <small class="mf-storage-hint">Images are stored locally in this browser using device storage.</small>
-      </article>
+      </div>
+      <div class="mf-add-footer">
+        <small class="mf-storage-hint">You can search and filter saved items by type or label.</small>
+        <button type="button" class="mf-primary-btn" id="mf-save-item"><i data-lucide="plus"></i> Save Item</button>
+      </div>
     </div>
   </section>
 
@@ -1525,7 +1531,7 @@
 <script src="js/fob.js"></script>
 <script src="js/size-ratio.js?v=20261108-reset-clear1"></script>
 <script src="js/converter.js?v=20261105-quick-universal"></script>
-<script src="js/my-formulas.js?v=20261110-workspace-v2"></script>
+<script src="js/my-formulas.js?v=20261110-simple-labels-v1"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="js/fabric-groups.js"></script>
 <script src="js/app-init.js?v=20261108-init-restore"></script>
