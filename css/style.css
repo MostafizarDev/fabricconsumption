@@ -6367,3 +6367,22 @@ body.dark-mode #page-myformulas .mf-add-panel input:not([type=file]),body.dark-m
 body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 @media(max-width:760px){#page-myformulas .mf-add-fields{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){#page-myformulas .mf-add-fields{grid-template-columns:1fr}#page-myformulas .mf-add-footer{align-items:stretch;flex-direction:column}#page-myformulas .mf-add-footer .mf-primary-btn{width:100%}}
+
+/* Compact top area on My Workspace */
+#page-myformulas .mf-hero{min-height:0;padding:17px 24px;gap:14px}
+#page-myformulas .mf-hero h1{margin:5px 0 3px;font-size:22px}
+#page-myformulas .mf-hero h1 svg{width:21px}
+#page-myformulas .mf-hero p{font-size:11px;line-height:1.45}
+#page-myformulas .mf-create-section{margin-top:13px}
+#page-myformulas .mf-section-heading{margin-bottom:8px}
+#page-myformulas .mf-section-heading h2{margin:2px 0;font-size:16px}
+#page-myformulas .mf-section-heading p{font-size:10px}
+#page-myformulas .mf-add-panel{padding:12px}
+#page-myformulas .mf-add-fields{gap:9px}
+#page-myformulas .mf-add-panel label{gap:4px;font-size:10px}
+#page-myformulas .mf-add-panel input:not([type=file]),#page-myformulas .mf-add-panel select{padding:7px 9px;font-size:11px}
+#page-myformulas .mf-add-detail{margin-top:9px;gap:4px}
+#page-myformulas .mf-add-detail textarea{min-height:66px;padding:8px 9px;font-size:11px}
+#page-myformulas .mf-add-footer{margin-top:9px}
+#page-myformulas .mf-add-footer .mf-primary-btn{min-height:32px;padding:6px 11px}
+@media(max-width:520px){#page-myformulas .mf-hero{padding:15px 16px}#page-myformulas .mf-add-panel{padding:10px}}
