@@ -6226,6 +6226,7 @@ body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
 }
 /* Force the exact clock-history SVG to render consistently in every Recent action */
 #mk-recent-open > svg,
+#mk-reset > svg,
 #knit-recent-open > svg,
 #kp-recent-open > svg,
 #ws-recent-open > svg,
@@ -6249,3 +6250,4 @@ body.dark-mode #page-trims #tr-recent-toggle{color:#e2e8f0}
   stroke-linejoin:round!important;
   margin:0!important;
 }
+
