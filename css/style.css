@@ -6386,3 +6386,10 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 #page-myformulas .mf-add-footer{margin-top:9px}
 #page-myformulas .mf-add-footer .mf-primary-btn{min-height:32px;padding:6px 11px}
 @media(max-width:520px){#page-myformulas .mf-hero{padding:15px 16px}#page-myformulas .mf-add-panel{padding:10px}}
+
+/* Further compact My Workspace hero */
+#page-myformulas .mf-hero{min-height:0;padding:11px 20px;gap:10px}
+#page-myformulas .mf-hero h1{font-size:19px;line-height:1.2;margin:3px 0}
+#page-myformulas .mf-hero h1 svg{width:17px;height:17px}
+#page-myformulas .mf-hero .mf-eyebrow{font-size:8px;letter-spacing:1.2px}
+#page-myformulas .mf-hero p{font-size:10px;line-height:1.35}
