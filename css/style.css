@@ -6483,3 +6483,21 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 #page-knit .consumption-hero h1,#page-knitpant .pant-hero h1,#page-knitpant .consumption-hero h1,#page-woven .consumption-hero h1,#page-marker .marker-hero h1,#page-sizeratio .sr-hero h1,#page-converter .converter-hero h1,#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{font-size:17px}
 #page-knit .consumption-hero p,#page-knitpant .pant-hero p,#page-knitpant .consumption-hero p,#page-woven .consumption-hero p,#page-marker .marker-hero p,#page-sizeratio .sr-hero p,#page-converter .converter-hero p,#page-trims .trims-hero p,#page-zipper .zipper-hero p{font-size:9px}
 }
+
+
+/* Final height normalization: Trims, Zipper and My Workspace match the compact Size Ratio hero */
+#page-trims .trims-hero,
+#page-zipper .zipper-hero,
+#page-myformulas .mf-hero{min-height:0;height:auto;padding:11px 20px;align-items:center;gap:10px}
+#page-trims .trims-hero-icon,
+#page-zipper .zipper-hero .trims-hero-icon{box-sizing:border-box;flex:0 0 52px;width:52px;height:52px;min-height:52px;align-self:center;display:flex;align-items:center;justify-content:center}
+#page-trims .trims-hero-icon svg,
+#page-zipper .zipper-hero .trims-hero-icon svg{display:block;width:38px;height:38px;flex:0 0 38px;margin:0}
+#page-myformulas .mf-hero-art{box-sizing:border-box;width:72px;height:52px;min-height:52px;flex:0 0 72px;transform:scale(.78);transform-origin:right center}
+#page-myformulas .mf-hero-copy{min-width:0}
+@media(max-width:600px){
+#page-trims .trims-hero,#page-zipper .zipper-hero,#page-myformulas .mf-hero{padding:11px 14px;gap:8px}
+#page-trims .trims-hero-icon,#page-zipper .zipper-hero .trims-hero-icon{flex-basis:48px;width:48px;height:48px;min-height:48px}
+#page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{width:34px;height:34px;flex-basis:34px}
+#page-myformulas .mf-hero-art{width:62px;height:48px;min-height:48px;flex-basis:62px}
+}
