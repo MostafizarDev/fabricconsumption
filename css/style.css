@@ -6273,43 +6273,55 @@ button[id*="reset"] > svg {
 }
 
 
-/* Unified Reset hover interaction — explicit page/button selectors to win legacy CSS cascade */
-#page-marker #mk-reset,
-#page-zipper .zipper-head-actions #zp-reset,
-#page-sizeratio .sr-order-actions #sr-order-reset{
-  cursor:pointer!important;
-  transition:all .18s ease!important;
+/* ONE shared hover system for Demo / Recent / Reset / Gear actions on every page.
+   Keep this block last so legacy page-specific hover rules cannot override it. */
+button[id*="demo"],
+button[id*="recent"],
+button[id*="reset"],
+button.knit-gear-btn,
+button.kg-group-settings-btn{
+  transition:background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease!important;
 }
-#page-marker #mk-reset:not(:disabled):hover,
-#page-zipper .zipper-head-actions #zp-reset:not(:disabled):hover,
-#page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):hover{
+button[id*="demo"]:not(:disabled):hover,
+button[id*="recent"]:not(:disabled):hover,
+button[id*="reset"]:not(:disabled):hover,
+button.knit-gear-btn:not(:disabled):hover,
+button.kg-group-settings-btn:not(:disabled):hover{
   border-color:#38bdf8!important;
   color:#0284c7!important;
   background:#f0f9ff!important;
   box-shadow:0 3px 9px rgba(14,165,233,.16)!important;
   transform:translateY(-1px)!important;
 }
-#page-marker #mk-reset:not(:disabled):hover svg,
-#page-zipper .zipper-head-actions #zp-reset:not(:disabled):hover svg,
-#page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):hover svg{
+button[id*="demo"]:not(:disabled):hover svg,
+button[id*="recent"]:not(:disabled):hover svg,
+button[id*="reset"]:not(:disabled):hover svg,
+button.knit-gear-btn:not(:disabled):hover svg,
+button.kg-group-settings-btn:not(:disabled):hover svg{
   color:inherit!important;
   stroke:currentColor!important;
 }
-#page-marker #mk-reset:not(:disabled):active,
-#page-zipper .zipper-head-actions #zp-reset:not(:disabled):active,
-#page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):active{
+button[id*="demo"]:not(:disabled):active,
+button[id*="recent"]:not(:disabled):active,
+button[id*="reset"]:not(:disabled):active,
+button.knit-gear-btn:not(:disabled):active,
+button.kg-group-settings-btn:not(:disabled):active{
   transform:translateY(0)!important;
   box-shadow:0 1px 3px rgba(14,165,233,.12)!important;
 }
-#page-marker #mk-reset:focus-visible,
-#page-zipper .zipper-head-actions #zp-reset:focus-visible,
-#page-sizeratio .sr-order-actions #sr-order-reset:focus-visible{
+button[id*="demo"]:focus-visible,
+button[id*="recent"]:focus-visible,
+button[id*="reset"]:focus-visible,
+button.knit-gear-btn:focus-visible,
+button.kg-group-settings-btn:focus-visible{
   outline:2px solid #38bdf8!important;
   outline-offset:2px!important;
 }
-body.dark-mode #page-marker #mk-reset:not(:disabled):hover,
-body.dark-mode #page-zipper .zipper-head-actions #zp-reset:not(:disabled):hover,
-body.dark-mode #page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):hover{
+body.dark-mode button[id*="demo"]:not(:disabled):hover,
+body.dark-mode button[id*="recent"]:not(:disabled):hover,
+body.dark-mode button[id*="reset"]:not(:disabled):hover,
+body.dark-mode button.knit-gear-btn:not(:disabled):hover,
+body.dark-mode button.kg-group-settings-btn:not(:disabled):hover{
   border-color:#0ea5e9!important;
   color:#7dd3fc!important;
   background:#102b43!important;
