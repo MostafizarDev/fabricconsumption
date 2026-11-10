@@ -6393,3 +6393,9 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 #page-myformulas .mf-hero h1 svg{width:17px;height:17px}
 #page-myformulas .mf-hero .mf-eyebrow{font-size:8px;letter-spacing:1.2px}
 #page-myformulas .mf-hero p{font-size:10px;line-height:1.35}
+
+/* Reduce the decorative workspace illustration */
+#page-myformulas .mf-hero-art{width:92px;height:78px;flex:0 0 92px;transform:scale(.78);transform-origin:right center}
+#page-myformulas .mf-art-sheet{transform:scale(.82);transform-origin:center}
+#page-myformulas .mf-art-front svg{width:15px;height:15px}
+@media(max-width:760px){#page-myformulas .mf-hero-art{transform:scale(.68);transform-origin:right center}}
