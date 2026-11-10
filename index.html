@@ -1440,9 +1440,73 @@
 
 <!-- ==================== PAGE 11: MY FORMULAS ==================== -->
 <div class="page" id="page-myformulas">
-  <p class="page-title">📚 My Formulas</p>
-  <div class="add-formula-form"><div class="panel-title">➕ Add Formula</div><input type="text" id="mf-name" placeholder="Formula name"><textarea id="mf-formula" placeholder="Formula or description..."></textarea><button class="calc-btn" id="btn-save-formula">Save Formula</button></div>
-  <div id="mf-list"></div>
+  <div class="mf-hero">
+    <div class="mf-hero-copy">
+      <span class="mf-eyebrow">PERSONAL KNOWLEDGE WORKSPACE</span>
+      <h1><i data-lucide="notebook-pen" aria-hidden="true"></i> My Workspace</h1>
+      <p>Keep your garment formulas, work notes, useful links and visual references together in one place.</p>
+      <div class="mf-hero-tags"><span><i data-lucide="lock-keyhole"></i> Saved in this browser</span><span><i data-lucide="cloud-off"></i> Works offline</span></div>
+    </div>
+    <div class="mf-hero-art" aria-hidden="true"><div class="mf-art-sheet mf-art-back"></div><div class="mf-art-sheet mf-art-front"><i data-lucide="bookmark"></i><i data-lucide="image"></i><i data-lucide="link-2"></i><i data-lucide="calculator"></i></div></div>
+  </div>
+
+  <div class="mf-stats" aria-live="polite">
+    <div class="mf-stat"><span class="mf-stat-icon"><i data-lucide="notebook-text"></i></span><div><strong id="mf-count-notes">0</strong><small>Notes</small></div></div>
+    <div class="mf-stat"><span class="mf-stat-icon"><i data-lucide="calculator"></i></span><div><strong id="mf-count-formulas">0</strong><small>Formulas</small></div></div>
+    <div class="mf-stat"><span class="mf-stat-icon"><i data-lucide="link"></i></span><div><strong id="mf-count-links">0</strong><small>Saved links</small></div></div>
+    <div class="mf-stat"><span class="mf-stat-icon"><i data-lucide="images"></i></span><div><strong id="mf-count-images">0</strong><small>Screenshots</small></div></div>
+  </div>
+
+  <section class="mf-create-section">
+    <div class="mf-section-heading"><div><span class="mf-section-kicker">CAPTURE SOMETHING</span><h2>Add to your workspace</h2><p>Choose what you want to save. You can edit or delete it later.</p></div></div>
+    <div class="mf-create-grid">
+      <article class="mf-create-card mf-create-note">
+        <div class="mf-create-icon"><i data-lucide="notebook-pen"></i></div><div class="mf-create-card-copy"><h3>Quick Note</h3><p>Record instructions, reminders or work details.</p></div>
+        <label>Note title<input id="mf-note-title" type="text" maxlength="100" placeholder="e.g. Buyer print comments"></label>
+        <label>Your note<textarea id="mf-note-body" rows="4" maxlength="12000" placeholder="Write your note here..."></textarea></label>
+        <button type="button" class="mf-primary-btn" id="mf-save-note"><i data-lucide="save"></i> Save Note</button>
+      </article>
+
+      <article class="mf-create-card mf-create-formula">
+        <div class="mf-create-icon"><i data-lucide="calculator"></i></div><div class="mf-create-card-copy"><h3>Formula / Calculation</h3><p>Store formulas, allowances and calculation methods.</p></div>
+        <label>Formula name<input id="mf-name" type="text" maxlength="100" placeholder="e.g. Woven body consumption"></label>
+        <label>Formula or description<textarea id="mf-formula" rows="4" maxlength="12000" placeholder="Enter formula, variables and explanation..."></textarea></label>
+        <button type="button" class="mf-primary-btn" id="btn-save-formula"><i data-lucide="save"></i> Save Formula</button>
+      </article>
+
+      <article class="mf-create-card mf-create-link">
+        <div class="mf-create-icon"><i data-lucide="link-2"></i></div><div class="mf-create-card-copy"><h3>Useful Link</h3><p>Save websites, product pages and reference resources.</p></div>
+        <label>Link title<input id="mf-link-title" type="text" maxlength="100" placeholder="e.g. Fabric supplier catalogue"></label>
+        <label>Website URL<input id="mf-link-url" type="url" placeholder="https://example.com"></label>
+        <label>Short description <span class="mf-optional">(optional)</span><input id="mf-link-desc" type="text" maxlength="240" placeholder="What is this link for?"></label>
+        <button type="button" class="mf-primary-btn" id="mf-save-link"><i data-lucide="bookmark-plus"></i> Save Link</button>
+      </article>
+
+      <article class="mf-create-card mf-create-image">
+        <div class="mf-create-icon"><i data-lucide="image-plus"></i></div><div class="mf-create-card-copy"><h3>Screenshot / Image</h3><p>Keep design references, measurement screenshots or work instructions.</p></div>
+        <label>Image title<input id="mf-image-title" type="text" maxlength="100" placeholder="e.g. Buyer artwork feedback"></label>
+        <label class="mf-upload-zone" for="mf-image-file"><i data-lucide="upload-cloud"></i><strong>Choose screenshot or image</strong><span>PNG, JPG, WEBP · up to 8 MB each</span><input id="mf-image-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+        <div class="mf-upload-preview" id="mf-upload-preview" hidden></div>
+        <button type="button" class="mf-primary-btn" id="mf-save-image" disabled><i data-lucide="image-plus"></i> Save Screenshot</button>
+        <small class="mf-storage-hint">Images are stored locally in this browser using device storage.</small>
+      </article>
+    </div>
+  </section>
+
+  <section class="mf-library-section">
+    <div class="mf-library-heading"><div><span class="mf-section-kicker">YOUR PERSONAL LIBRARY</span><h2>Saved items</h2><p>Search, filter, copy or open anything you have saved.</p></div><div class="mf-library-actions"><button type="button" class="mf-utility-btn" id="mf-export"><i data-lucide="download"></i> Export backup</button><label class="mf-utility-btn mf-import-label" for="mf-import-file"><i data-lucide="upload"></i> Import backup<input id="mf-import-file" type="file" accept="application/json"></label></div></div>
+    <div class="mf-search-row"><label class="mf-search-box"><i data-lucide="search"></i><input id="mf-search" type="search" placeholder="Search notes, formulas, links..."></label><span class="mf-result-count" id="mf-result-count">0 items</span></div>
+    <div class="mf-filter-tabs" role="tablist" aria-label="Filter saved items">
+      <button type="button" class="mf-filter-btn active" data-mf-filter="all">All <span id="mf-filter-all">0</span></button>
+      <button type="button" class="mf-filter-btn" data-mf-filter="note"><i data-lucide="notebook-text"></i> Notes <span id="mf-filter-note">0</span></button>
+      <button type="button" class="mf-filter-btn" data-mf-filter="formula"><i data-lucide="calculator"></i> Formulas <span id="mf-filter-formula">0</span></button>
+      <button type="button" class="mf-filter-btn" data-mf-filter="link"><i data-lucide="link"></i> Links <span id="mf-filter-link">0</span></button>
+      <button type="button" class="mf-filter-btn" data-mf-filter="image"><i data-lucide="image"></i> Screenshots <span id="mf-filter-image">0</span></button>
+    </div>
+    <div id="mf-list" class="mf-library-grid" aria-live="polite"></div>
+    <div class="mf-local-notice"><i data-lucide="info"></i><span>Your saved items stay in this browser on this device. Export a backup before clearing browser data or changing devices.</span></div>
+  </section>
+</div>
 </div>
 
 </main>
