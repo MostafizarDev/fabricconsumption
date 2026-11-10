@@ -6246,3 +6246,28 @@ button[id*="reset"] > svg {
   margin:0!important;
 }
 
+/* Marker Reset Button — Match Recent Button Alignment */
+#page-marker #mk-reset{
+  display:inline-flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-height:32px;
+  padding:6px 10px;
+  font:600 11px/1.2 Inter,sans-serif;
+  white-space:nowrap;
+}
+
+#page-marker #mk-reset svg{
+  display:block;
+  flex:0 0 16px;
+  width:16px;
+  height:16px;
+  margin:0;
+}
+
+#page-marker #mk-reset span{
+  display:block;
+  line-height:1.2;
+}
