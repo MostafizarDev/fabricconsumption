@@ -6273,31 +6273,43 @@ button[id*="reset"] > svg {
 }
 
 
-/* Consistent hover feedback for Reset actions across Marker, Zipper and Size Ratio */
+/* Unified Reset hover interaction — explicit page/button selectors to win legacy CSS cascade */
 #page-marker #mk-reset,
-#page-zipper #zp-reset,
-#page-sizeratio #sr-order-reset{
-  cursor:pointer;
-  transition:background .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease;
+#page-zipper .zipper-head-actions #zp-reset,
+#page-sizeratio .sr-order-actions #sr-order-reset{
+  cursor:pointer!important;
+  transition:all .18s ease!important;
 }
-#page-marker #mk-reset:hover,
-#page-zipper #zp-reset:hover,
-#page-sizeratio #sr-order-reset:hover{
+#page-marker #mk-reset:not(:disabled):hover,
+#page-zipper .zipper-head-actions #zp-reset:not(:disabled):hover,
+#page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):hover{
   border-color:#38bdf8!important;
   color:#0284c7!important;
   background:#f0f9ff!important;
-  box-shadow:0 3px 9px rgba(14,165,233,.14);
-  transform:translateY(-1px);
+  box-shadow:0 3px 9px rgba(14,165,233,.16)!important;
+  transform:translateY(-1px)!important;
 }
-#page-marker #mk-reset:active,
-#page-zipper #zp-reset:active,
-#page-sizeratio #sr-order-reset:active{
-  transform:translateY(0);
-  box-shadow:0 1px 3px rgba(14,165,233,.12);
+#page-marker #mk-reset:not(:disabled):hover svg,
+#page-zipper .zipper-head-actions #zp-reset:not(:disabled):hover svg,
+#page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):hover svg{
+  color:inherit!important;
+  stroke:currentColor!important;
 }
-body.dark-mode #page-marker #mk-reset:hover,
-body.dark-mode #page-zipper #zp-reset:hover,
-body.dark-mode #page-sizeratio #sr-order-reset:hover{
+#page-marker #mk-reset:not(:disabled):active,
+#page-zipper .zipper-head-actions #zp-reset:not(:disabled):active,
+#page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):active{
+  transform:translateY(0)!important;
+  box-shadow:0 1px 3px rgba(14,165,233,.12)!important;
+}
+#page-marker #mk-reset:focus-visible,
+#page-zipper .zipper-head-actions #zp-reset:focus-visible,
+#page-sizeratio .sr-order-actions #sr-order-reset:focus-visible{
+  outline:2px solid #38bdf8!important;
+  outline-offset:2px!important;
+}
+body.dark-mode #page-marker #mk-reset:not(:disabled):hover,
+body.dark-mode #page-zipper .zipper-head-actions #zp-reset:not(:disabled):hover,
+body.dark-mode #page-sizeratio .sr-order-actions #sr-order-reset:not(:disabled):hover{
   border-color:#0ea5e9!important;
   color:#7dd3fc!important;
   background:#102b43!important;
