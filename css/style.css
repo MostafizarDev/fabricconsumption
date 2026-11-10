@@ -6501,3 +6501,17 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
 #page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{width:34px;height:34px;flex-basis:34px}
 #page-myformulas .mf-hero-art{width:62px;height:48px;min-height:48px;flex-basis:62px}
 }
+
+
+/* Match My Workspace, Trims and Zipper hero height to the Knit Garments hero */
+#page-myformulas .mf-hero,#page-trims .trims-hero,#page-zipper .zipper-hero{min-height:0;height:auto;padding:24px 28px;gap:24px;align-items:center}
+#page-trims .trims-hero-copy>span,#page-zipper .trims-hero-copy>span{margin-bottom:0;font-size:10px;letter-spacing:1.5px}
+#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{margin:7px 0;font-size:clamp(24px,3vw,32px);line-height:normal;letter-spacing:-.7px}
+#page-trims .trims-hero p,#page-zipper .zipper-hero p{margin:0;max-width:760px;font-size:12px;line-height:1.6}
+#page-trims .trims-hero-icon,#page-zipper .zipper-hero .trims-hero-icon{box-sizing:border-box;display:grid;place-items:center;align-self:center;flex:0 0 92px;width:92px;height:92px;min-height:92px}
+#page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{display:block;width:58px;height:58px;flex:0 0 58px;margin:0}
+#page-myformulas .mf-hero{min-height:0}
+#page-myformulas .mf-hero h1{margin:9px 0 7px;font-size:26px;line-height:1.2}
+#page-myformulas .mf-hero p{font-size:12px;line-height:1.7}
+#page-myformulas .mf-hero-art{box-sizing:border-box;width:110px;height:92px;min-height:92px;flex:0 0 110px;transform:scale(.78);transform-origin:right center}
+@media(max-width:600px){#page-myformulas .mf-hero,#page-trims .trims-hero,#page-zipper .zipper-hero{padding:20px 18px;gap:12px}#page-trims .trims-hero h1,#page-zipper .zipper-hero h1{font-size:22px}#page-trims .trims-hero-icon,#page-zipper .zipper-hero .trims-hero-icon{flex-basis:58px;width:58px;height:58px;min-height:58px;border-radius:14px}#page-trims .trims-hero-icon svg,#page-zipper .zipper-hero .trims-hero-icon svg{width:38px;height:38px;flex-basis:38px}#page-myformulas .mf-hero-art{width:84px;height:72px;min-height:72px;flex-basis:84px}}
