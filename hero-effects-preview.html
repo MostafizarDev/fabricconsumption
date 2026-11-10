@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero Background Effects — Design Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#111d30;--line:#243b55;--cyan:#35d9ec;--text:#f5f8ff;--muted:#b9c8dc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1c3551 0,transparent 55%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;padding:34px 22px 60px}
+.wrap{max-width:1180px;margin:auto}.top{margin-bottom:28px}.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.top h1{font-size:clamp(25px,4vw,38px);letter-spacing:-1.4px;margin:9px 0}.top p{color:var(--muted);font-size:14px;line-height:1.65;margin:0;max-width:760px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.option{background:#101b2c;border:1px solid #263b55;border-radius:16px;padding:16px;min-width:0}.option-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.option-head h2{font-size:14px;margin:0}.tag{font-size:10px;color:#8ea9c5;border:1px solid #304b68;padding:5px 8px;border-radius:20px;white-space:nowrap}
+.hero{height:132px;min-height:132px;position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 27px;border-radius:15px;border:1px solid rgba(53,217,236,.28);background:linear-gradient(115deg,#101b32 0%,#142b4a 58%,#0e4053 100%);box-shadow:0 9px 22px rgba(0,0,0,.18)}
+.copy{position:relative;z-index:2;min-width:0}.copy span{font-size:9px;font-weight:900;letter-spacing:1.45px;color:#42e6f3}.copy h3{font-size:clamp(18px,2.3vw,27px);line-height:1.1;letter-spacing:-.8px;margin:8px 0 7px;font-weight:900}.copy p{font-size:11px;line-height:1.45;color:#d5e4f4;margin:0;max-width:650px}
+.hero-icon{position:relative;z-index:2;flex:0 0 82px;width:82px;height:82px;border-radius:19px;border:1px solid rgba(74,221,238,.32);background:rgba(39,185,207,.09);display:grid;place-items:center;color:#65e5f1}
+.hero-icon svg{width:43px;height:43px}
+.fx{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.fx:before,.fx:after{content:"";position:absolute;pointer-events:none}
+.fx-orbit:before{width:340px;height:220px;right:7%;top:-128px;border:1px solid rgba(58,205,225,.15);border-radius:50%;box-shadow:0 0 0 22px rgba(58,205,225,.035),0 0 0 48px rgba(58,205,225,.025),0 0 0 76px rgba(58,205,225,.018)}
+.fx-orbit:after{width:250px;height:250px;right:10%;top:-150px;border:1px solid rgba(58,205,225,.08);border-radius:50%}
+.fx-weave:before{inset:0;background-image:linear-gradient(rgba(74,210,229,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(74,210,229,.07) 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(90deg,transparent 30%,#000 100%);opacity:.55}
+.fx-weave:after{width:280px;height:280px;right:0;top:-75px;background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(69,218,235,.07) 10px 11px);border-radius:50%;mask-image:radial-gradient(circle,#000 20%,transparent 72%)}
+.fx-pattern:before{width:360px;height:360px;right:2%;top:-115px;border:1px solid rgba(61,216,232,.13);border-radius:50%;box-shadow:inset 0 0 0 18px rgba(61,216,232,.025),inset 0 0 0 38px rgba(61,216,232,.025),inset 0 0 0 58px rgba(61,216,232,.025)}
+.fx-pattern:after{width:170px;height:170px;right:12%;top:-18px;border:1px dashed rgba(61,216,232,.17);transform:rotate(28deg);border-radius:32% 68% 56% 44%}
+.fx-blueprint:before{width:300px;height:300px;right:6%;top:-95px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 17px,rgba(65,218,235,.12) 18px 19px);mask-image:linear-gradient(90deg,transparent,#000)}
+.fx-blueprint:after{width:380px;height:1px;right:-10px;top:65px;background:linear-gradient(90deg,transparent,rgba(65,218,235,.17),transparent);transform:rotate(-18deg);box-shadow:0 22px 0 rgba(65,218,235,.07),0 -22px 0 rgba(65,218,235,.07)}
+.note{color:#93a9c1;font-size:11px;line-height:1.5;margin:12px 1px 0}.footer{color:#7f98b4;font-size:11px;margin-top:25px}
+@media(max-width:760px){body{padding:24px 14px 40px}.grid{grid-template-columns:1fr}.hero{height:120px;min-height:120px;padding:17px;gap:10px}.hero-icon{flex-basis:58px;width:58px;height:58px;border-radius:14px}.hero-icon svg{width:34px;height:34px}.copy p{font-size:10px}.copy h3{font-size:20px}.fx-orbit:before{right:-5%}.fx-pattern:before{right:-8%}}
+@media(max-width:420px){.hero-icon{display:none}.copy h3{font-size:19px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="eyebrow">Garment Industry Toolkit · Design Study</div><h1>Hero Background Effects</h1><p>Four subtle background directions for the existing Fabric Consumption hero sections. All options keep the same hero height, layout, typography, gradient and icon tile—the only change is the decorative background treatment.</p></header>
+<section class="grid">
+<article class="option"><div class="option-head"><h2>01 · Orbit Rings</h2><span class="tag">Closest to reference</span></div><div class="hero"><div class="fx fx-orbit"></div><div class="copy"><span>GARMENT INDUSTRY TOOLKIT</span><h3>Zipper Consumption Planner</h3><p>Plan zipper specifications, calculate finished length and estimate order quantity and cost in one workspace.</p></div><div class="hero-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8h20l-3 48H25L22 8Z"/><path d="M25 15h14M26 22h12M27 29h10M28 36h8M29 43h6"/><path d="M32 8v48M18 18h7m14 0h7M18 30h9m10 0h9"/></svg></div></div><p class="note">Layered oversized arcs, like the marked reference. Soft depth without competing with the heading.</p></article>
+<article class="option"><div class="option-head"><h2>02 · Textile Grid</h2><span class="tag">Fabric-inspired</span></div><div class="hero"><div class="fx fx-weave"></div><div class="copy"><span>GARMENT INDUSTRY TOOLKIT</span><h3>Zipper Consumption Planner</h3><p>Plan zipper specifications, calculate finished length and estimate order quantity and cost in one workspace.</p></div><div class="hero-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8h20l-3 48H25L22 8Z"/><path d="M25 15h14M26 22h12M27 29h10M28 36h8M29 43h6"/><path d="M32 8v48M18 18h7m14 0h7M18 30h9m10 0h9"/></svg></div></div><p class="note">Fine woven-grid lines and a soft textile-like circular texture, kept low contrast.</p></article>
+<article class="option"><div class="option-head"><h2>03 · Pattern Draft</h2><span class="tag">Technical / apparel</span></div><div class="hero"><div class="fx fx-pattern"></div><div class="copy"><span>GARMENT INDUSTRY TOOLKIT</span><h3>Zipper Consumption Planner</h3><p>Plan zipper specifications, calculate finished length and estimate order quantity and cost in one workspace.</p></div><div class="hero-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8h20l-3 48H25L22 8Z"/><path d="M25 15h14M26 22h12M27 29h10M28 36h8M29 43h6"/><path d="M32 8v48M18 18h7m14 0h7M18 30h9m10 0h9"/></svg></div></div><p class="note">Concentric pattern arcs with a subtle dashed construction line, inspired by garment pattern drafting.</p></article>
+<article class="option"><div class="option-head"><h2>04 · Blueprint Rings</h2><span class="tag">Precision / calculator</span></div><div class="hero"><div class="fx fx-blueprint"></div><div class="copy"><span>GARMENT INDUSTRY TOOLKIT</span><h3>Zipper Consumption Planner</h3><p>Plan zipper specifications, calculate finished length and estimate order quantity and cost in one workspace.</p></div><div class="hero-icon"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8h20l-3 48H25L22 8Z"/><path d="M25 15h14M26 22h12M27 29h10M28 36h8M29 43h6"/><path d="M32 8v48M18 18h7m14 0h7M18 30h9m10 0h9"/></svg></div></div><p class="note">Fine radial measurement rings and technical guide lines—more engineered and data-focused.</p></article>
+</section>
+<p class="footer">Preview only · No production hero sections have been changed.</p>
+</main>
+</body>
+</html>
