@@ -6708,3 +6708,53 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
     width:170px;height:170px;right:7%;top:-100px;
   }
 }
+
+
+/* My Workspace hero icon — single aligned 2×2 icon tile */
+#page-myformulas .mf-hero-art{
+  box-sizing:border-box;
+  display:grid;
+  place-items:center;
+  flex:0 0 92px;
+  width:92px;
+  height:92px;
+  margin:0;
+  transform:none;
+}
+#page-myformulas .mf-art-grid{
+  box-sizing:border-box;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  place-items:center;
+  gap:14px;
+  width:92px;
+  height:92px;
+  padding:15px;
+  border:1px solid rgba(103,232,249,.32);
+  border-radius:17px;
+  background:rgba(103,232,249,.09);
+  color:#67e8f9;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+#page-myformulas .mf-art-grid svg{
+  display:block;
+  width:19px;
+  height:19px;
+  stroke-width:1.9;
+}
+@media(max-width:600px){
+  #page-myformulas .mf-hero-art{
+    flex:0 0 58px;
+    width:58px;
+    height:58px;
+    transform:none;
+  }
+  #page-myformulas .mf-art-grid{
+    width:58px;
+    height:58px;
+    gap:7px;
+    padding:9px;
+    border-radius:13px;
+  }
+  #page-myformulas .mf-art-grid svg{width:15px;height:15px}
+}
