@@ -6636,3 +6636,75 @@ body.dark-mode #page-myformulas .mf-label-chip{background:#26364b;color:#cbd5e1}
     flex-basis:36px;
   }
 }
+
+
+/* Shared subtle circular hero rings — matched to the Trims reference */
+#page-marker .marker-hero::before,
+#page-knit .consumption-hero::before,
+#page-knitpant .consumption-hero::before,
+#page-woven .consumption-hero::before,
+#page-trims .trims-hero::before,
+#page-zipper .zipper-hero::before,
+#page-sizeratio .sr-hero::before,
+#page-converter .converter-hero::before,
+#page-myformulas .mf-hero::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  width:286px;
+  height:286px;
+  right:7.2%;
+  top:-174px;
+  border:1px solid rgba(74,211,231,.12);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 18px rgba(74,211,231,.025),
+    0 0 0 38px rgba(74,211,231,.035),
+    0 0 0 58px rgba(74,211,231,.022);
+  pointer-events:none;
+}
+#page-marker .marker-hero::after,
+#page-knit .consumption-hero::after,
+#page-knitpant .consumption-hero::after,
+#page-woven .consumption-hero::after,
+#page-trims .trims-hero::after,
+#page-zipper .zipper-hero::after,
+#page-sizeratio .sr-hero::after,
+#page-converter .converter-hero::after,
+#page-myformulas .mf-hero::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  width:220px;
+  height:220px;
+  right:10.1%;
+  top:-142px;
+  border:1px solid rgba(74,211,231,.09);
+  border-radius:50%;
+  pointer-events:none;
+}
+@media(max-width:600px){
+  #page-marker .marker-hero::before,
+  #page-knit .consumption-hero::before,
+  #page-knitpant .consumption-hero::before,
+  #page-woven .consumption-hero::before,
+  #page-trims .trims-hero::before,
+  #page-zipper .zipper-hero::before,
+  #page-sizeratio .sr-hero::before,
+  #page-converter .converter-hero::before,
+  #page-myformulas .mf-hero::before{
+    width:220px;height:220px;right:1%;top:-126px;
+    box-shadow:0 0 0 14px rgba(74,211,231,.025),0 0 0 29px rgba(74,211,231,.03),0 0 0 44px rgba(74,211,231,.02);
+  }
+  #page-marker .marker-hero::after,
+  #page-knit .consumption-hero::after,
+  #page-knitpant .consumption-hero::after,
+  #page-woven .consumption-hero::after,
+  #page-trims .trims-hero::after,
+  #page-zipper .zipper-hero::after,
+  #page-sizeratio .sr-hero::after,
+  #page-converter .converter-hero::after,
+  #page-myformulas .mf-hero::after{
+    width:170px;height:170px;right:7%;top:-100px;
+  }
+}
