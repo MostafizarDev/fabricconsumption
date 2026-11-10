@@ -6953,21 +6953,6 @@ body.dark-mode #page-myformulas .mf-add-footer .mf-storage-hint{color:#91a5bc}
 #page-myformulas .mf-add-fields{padding-top:17px;gap:14px}
 #page-myformulas .mf-add-panel label{font-size:11px;font-weight:800;color:#34495e}
 #page-myformulas .mf-add-panel .mf-add-fields>label{position:relative}
-#page-myformulas .mf-add-panel .mf-add-fields>label:before{
-  display:inline-grid;
-  place-items:center;
-  width:18px;height:18px;
-  margin-right:5px;
-  border-radius:6px;
-  background:#e8f7fb;
-  color:#087f9d;
-  font-size:9px;
-  font-weight:900;
-  vertical-align:middle;
-}
-#page-myformulas .mf-add-panel .mf-add-fields>label:nth-child(1):before{content:"1"}
-#page-myformulas .mf-add-panel .mf-add-fields>label:nth-child(2):before{content:"2"}
-#page-myformulas .mf-add-panel .mf-add-fields>label:nth-child(3):before{content:"3"}
 #page-myformulas .mf-add-panel .mf-add-fields>label input,
 #page-myformulas .mf-add-panel .mf-add-fields>label select{margin-top:3px}
 #page-myformulas .mf-add-panel .mf-required-mark{
@@ -6979,18 +6964,6 @@ body.dark-mode #page-myformulas .mf-add-footer .mf-storage-hint{color:#91a5bc}
   letter-spacing:.65px;
 }
 #page-myformulas .mf-add-panel .mf-add-detail{margin-top:15px}
-#page-myformulas .mf-add-panel #mf-detail-wrap:before{
-  content:"4";
-  display:inline-grid;
-  place-items:center;
-  width:18px;height:18px;
-  margin-right:5px;
-  border-radius:6px;
-  background:#e8f7fb;
-  color:#087f9d;
-  font-size:9px;
-  font-weight:900;
-}
 #page-myformulas .mf-add-footer{
   margin-top:16px;
   padding:13px 0 16px;
@@ -7003,8 +6976,6 @@ body.dark-mode #page-myformulas .mf-entry-icon{background:#172d43;border-color:#
 body.dark-mode #page-myformulas .mf-entry-intro strong{color:#e3f2ff}
 body.dark-mode #page-myformulas .mf-entry-intro p{color:#9db3c8}
 body.dark-mode #page-myformulas .mf-entry-count{background:#172d43;border-color:#31536c;color:#7dd3fc}
-body.dark-mode #page-myformulas .mf-add-panel .mf-add-fields>label:before,
-body.dark-mode #page-myformulas .mf-add-panel #mf-detail-wrap:before{background:#17364b;color:#7dd3fc}
 body.dark-mode #page-myformulas .mf-add-panel label{color:#d5e3f1}
 body.dark-mode #page-myformulas .mf-add-panel .mf-required-mark{color:#7dd3fc}
 @media(max-width:760px){
