@@ -59,6 +59,7 @@ function downloadFOBReport() {
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
+        ${pricingOrderInfoReportHtml()}
         <div class="box">
             <div>Final Prices</div>
             <div class="box-value">$${fobPrice.toFixed(2)}</div>
