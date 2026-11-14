@@ -33,29 +33,64 @@ function pricingOrderInfoReportHtml() {
     return rows ? '<h2 style="margin:18px 0 8px">Order Information</h2><table style="width:100%"><tbody>' + rows + '</tbody></table>' : '';
 }
 function updateKnitPrice() { calcKnitPrice(); }
+function setKnitPriceStatus(message, type) {
+    const status = document.getElementById('kfp-status');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('error', type === 'error');
+    status.classList.toggle('success', type === 'success');
+}
+function getKnitPriceInputs() {
+    return {
+        weight: Number(v('kfp-w')),
+        gsm: Number(v('kfp-gsm')),
+        width: Number(v('kfp-wid')),
+        pricePerKg: Number(v('kfp-pkg'))
+    };
+}
+function calculateKnitPriceValues() {
+    const data = getKnitPriceInputs();
+    if (!Number.isFinite(data.weight) || data.weight <= 0) return { error: 'Fabric Weight must be greater than 0 kg.' };
+    if (!Number.isFinite(data.gsm) || data.gsm <= 0) return { error: 'Fabric GSM must be greater than 0.' };
+    if (!Number.isFinite(data.width) || data.width <= 0) return { error: 'Fabric Width must be greater than 0 meter.' };
+    if (!Number.isFinite(data.pricePerKg) || data.pricePerKg < 0) return { error: 'Price Per Kg cannot be negative.' };
+
+    // Existing approved formula — intentionally unchanged.
+    const fabricLength = (data.weight * 1000) / (data.gsm * data.width);
+    const pricePerMeter = (data.pricePerKg * data.weight) / fabricLength;
+    if (!Number.isFinite(fabricLength) || !Number.isFinite(pricePerMeter)) {
+        return { error: 'Please check the entered fabric values.' };
+    }
+    return { data: data, fabricLength: fabricLength, pricePerMeter: pricePerMeter };
+}
 function calcKnitPrice() {
-    const weight = v('kfp-w');
-    const gsm = v('kfp-gsm');
-    const width = v('kfp-wid');
-    const pricePerKg = v('kfp-pkg');
-    if (gsm === 0 || width === 0) {
+    const result = calculateKnitPriceValues();
+    if (result.error) {
         set('kfp-len', '—');
         set('kfp-pm', '—');
-        return;
+        setKnitPriceStatus(result.error, 'error');
+        return false;
     }
-    const fabricLength = (weight * 1000) / (gsm * width);
-    const pricePerMeter = (pricePerKg * weight) / fabricLength;
-    set('kfp-len', fabricLength.toFixed(2) + ' m');
-    set('kfp-pm', pricingCurrencyInfo().symbol + pricePerMeter.toFixed(2));
+    const currency = pricingCurrencyInfo();
+    set('kfp-len', result.fabricLength.toFixed(2) + ' m');
+    set('kfp-pm', currency.symbol + result.pricePerMeter.toFixed(2));
+    setKnitPriceStatus('Calculation completed successfully.', 'success');
+    return true;
 }
 function downloadKnitPriceReport() {
-    const weight = v('kfp-w');
-    const gsm = v('kfp-gsm');
-    const width = v('kfp-wid');
-    const pricePerKg = v('kfp-pkg');
+    const result = calculateKnitPriceValues();
+    if (result.error) {
+        calcKnitPrice();
+        setKnitPriceStatus('PDF not generated. ' + result.error, 'error');
+        return;
+    }
+    const weight = result.data.weight;
+    const gsm = result.data.gsm;
+    const width = result.data.width;
+    const pricePerKg = result.data.pricePerKg;
+    const fabricLength = result.fabricLength;
+    const pricePerMeter = result.pricePerMeter;
     const currency = pricingCurrencyInfo();
-    const fabricLength = (weight * 1000) / (gsm * width);
-    const pricePerMeter = (pricePerKg * weight) / fabricLength;
     const reportHtml = `
         <div class="header"><h1>💰 Knit Fabric Price Report</h1><div class="date">Generated: ${new Date().toLocaleString()}</div></div>
         ${pricingOrderInfoReportHtml()}
@@ -81,6 +116,7 @@ function downloadKnitPriceReport() {
             = <strong>${currency.symbol}${pricePerMeter.toFixed(2)} per meter</strong>
         </div>`;
     generatePDF('Knit Fabric Price Report', reportHtml);
+    setKnitPriceStatus('PDF report is ready.', 'success');
 }
 document.addEventListener('DOMContentLoaded', function() {
     const inputs = ['kfp-w', 'kfp-gsm', 'kfp-wid', 'kfp-pkg'];
