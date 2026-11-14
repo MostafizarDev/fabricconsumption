@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="/favicon.svg">
 <title>Fabrics Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=20261114-shared-order-info-v1">
+<link rel="stylesheet" href="/css/style.css?v=20261114-knit-price-ui-v1">
 </head>
 <body>
 
@@ -125,22 +125,34 @@
   </section>
   <div class="pricing-calculator-content">
     <section class="pricing-calculator-view active" id="pricing-view-knitprice" data-pricing-panel="knitprice">
-  <p class="page-title">💰 Knit Fabric Price per Meter</p>
-  <div class="panel">
-    <div class="field-row"><div class="f-group"><label>Fabric Weight (kg)</label><input class="inp-plain" id="kfp-w" value="1" step="0.01"></div><div class="f-group"><label>Fabric GSM</label><input class="inp-plain" id="kfp-gsm" value="240"></div></div>
-    <div class="field-row"><div class="f-group"><label>Fabric Width (meter)</label><input class="inp-plain" id="kfp-wid" value="1" step="0.01"></div><div class="f-group"><label>Price Per Kg (<span id="kfp-currency-symbol">৳</span>)</label><input class="inp-plain" id="kfp-pkg" value="600"></div></div>
-    <button class="calc-btn" id="btn-calc-knitprice">Calculate</button>
-    <div style="margin-top:16px"><div class="r-row"><span>Fabric Length</span><span id="kfp-len" class="badge badge-blue">—</span></div><div class="r-row"><span>Price per Meter</span><span id="kfp-pm" class="badge badge-green">—</span></div></div>
-    <button class="calc-btn pdf-btn" id="btn-pdf-knitprice" style="margin-top:12px">📄 Download Report</button>
+  <div class="pricing-tool-heading"><div><span class="pricing-tool-eyebrow">FABRIC PRICING</span><p class="page-title">💰 Knit Fabric Price per Meter</p><p class="pricing-tool-subtitle">Calculate fabric length and the cost per meter from weight, GSM, width and price per kg.</p></div><span class="pricing-tool-tag">KNIT FABRIC</span></div>
+  <div class="panel pricing-knit-panel">
+    <div class="pricing-input-heading"><div><h2>Fabric Details</h2><p>Enter the fabric specifications below.</p></div></div>
+    <div class="field-row">
+      <div class="f-group"><label for="kfp-w">Fabric Weight (kg)</label><input class="inp-plain" id="kfp-w" type="number" min="0.01" step="0.01" value="1" placeholder="e.g. 1.00"></div>
+      <div class="f-group"><label for="kfp-gsm">Fabric GSM (g/m²)</label><input class="inp-plain" id="kfp-gsm" type="number" min="1" step="1" value="240" placeholder="e.g. 240"></div>
+    </div>
+    <div class="field-row">
+      <div class="f-group"><label for="kfp-wid">Fabric Width (meter)</label><input class="inp-plain" id="kfp-wid" type="number" min="0.01" step="0.01" value="1" placeholder="e.g. 1.00"></div>
+      <div class="f-group"><label for="kfp-pkg">Price Per Kg (<span id="kfp-currency-symbol">৳</span>)</label><input class="inp-plain" id="kfp-pkg" type="number" min="0" step="0.01" value="600" placeholder="e.g. 600.00"></div>
+    </div>
+    <div class="pricing-result-heading"><div><h2>Calculation Result</h2><p>Results update when you calculate or change an input.</p></div><span class="pricing-result-live">RESULT</span></div>
+    <div class="pricing-knit-results">
+      <article class="pricing-knit-result-card"><span class="pricing-result-icon length-icon" aria-hidden="true">↔</span><div class="pricing-result-label">Fabric Length</div><strong id="kfp-len">—</strong><small>Meter (m)</small></article>
+      <article class="pricing-knit-result-card featured"><span class="pricing-result-icon price-icon" aria-hidden="true">৳</span><div class="pricing-result-label">Price per Meter</div><strong id="kfp-pm">—</strong><small>Cost per meter</small></article>
+    </div>
+    <div class="marker-actions pricing-knit-actions">
+      <button class="marker-btn primary" id="btn-calc-knitprice" type="button">Calculate</button>
+      <button class="marker-btn pricing-download-btn" id="btn-pdf-knitprice" type="button">Download PDF</button>
+    </div>
+    <p class="pricing-knit-status" id="kfp-status" role="status" aria-live="polite">Enter your fabric details and calculate.</p>
   </div>
   <div class="formula-note">
     <div class="fn-title">📐 Formula Reference</div>
-    <div class="fraction-formula">
-      <div style="text-align: center; padding: 10px 0;">
-        Fabric Length = (Weight × 1000) ÷ (GSM × Width)<br>
-        Price per Meter = (PricePerKg × Weight) ÷ Fabric Length
-      </div>
-    </div>
+    <div class="fraction-formula"><div style="text-align:center;padding:10px 0;">
+      Fabric Length = (Weight × 1000) ÷ (GSM × Width)<br>
+      Price per Meter = (PricePerKg × Weight) ÷ Fabric Length
+    </div></div>
   </div>
 </section>
     <section class="pricing-calculator-view" id="pricing-view-fob" data-pricing-panel="fob">
@@ -1548,7 +1560,7 @@
 <script src="/js/pant-fabric-groups.js?v=20261019-pantgroups3"></script>
 <script src="/js/woven-shirt.js?v=20261109-component-waste-v3"></script>
 <script src="/js/booking-sheet.js"></script>
-<script src="/js/knit-price.js?v=20261114-currency-v2"></script>
+<script src="/js/knit-price.js?v=20261114-knit-price-ui-v1"></script>
 <script src="/js/zipper.js?v=20261108-validation-gate-v3"></script>
 <script src="/js/trims.js?v=20261108-thread-component-demo-v3"></script>
 <script src="/js/fob.js?v=20261114-currency-v2"></script>
