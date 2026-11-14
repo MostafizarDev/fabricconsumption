@@ -123,10 +123,10 @@ function initPageRouting() {
 }
 
 function setupTabNavigation() {
-    document.querySelectorAll('[data-pricing-target]').forEach(card => {
-        card.addEventListener('click', function() {
-            const target = this.getAttribute('data-pricing-target');
-            if (target && typeof showPage === 'function') showPage(target, document.querySelector('.tab-btn[data-page="pricing"]'));
+    document.querySelectorAll('[data-pricing-view]').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const target = this.getAttribute('data-pricing-view');
+            if (target && typeof showPage === 'function') showPage(target);
         });
     });
 
