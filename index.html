@@ -98,9 +98,17 @@
 
 <div class="page" id="page-pricing">
   <div class="marker-hero consumption-hero marker-consumption-hero"><div class="consumption-hero-copy"><span>PRICING &amp; COSTING WORKSPACE</span><h1>Pricing &amp; Costing</h1><p>Calculate knit fabric prices and garment FOB costing with dedicated pricing tools.</p></div><div class="consumption-hero-icon marker-hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><rect x="8" y="10" width="48" height="44" rx="8" stroke="currentColor" stroke-width="2.5"/><path d="M17 20h30M17 28h18M17 36h12M17 44h20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="m39 30 8 8-8 8-8-8 8-8Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M39 34v8M35 38h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div>
-  <nav class="pricing-calculator-tabs" aria-label="Pricing and costing calculators">
-    <button type="button" class="pricing-calculator-tab active" data-pricing-view="knitprice" aria-selected="true">Knit Price</button>
-    <button type="button" class="pricing-calculator-tab" data-pricing-view="fob" aria-selected="false">FOB Costing</button>
+  <nav class="pricing-calculator-tabs pricing-choice-grid" aria-label="Pricing and costing calculators">
+    <button type="button" class="pricing-calculator-tab pricing-choice-card active" data-pricing-view="knitprice" aria-selected="true">
+      <span class="pricing-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.5 12h-11L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0M12 11v5m-2.5-2.5h5"/></svg></span>
+      <span class="pricing-choice-copy"><strong>Knit Price</strong><small>Calculate knit fabric length and price per meter.</small></span>
+      <span class="pricing-choice-check" aria-hidden="true">✓</span>
+    </button>
+    <button type="button" class="pricing-calculator-tab pricing-choice-card" data-pricing-view="fob" aria-selected="false">
+      <span class="pricing-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5Z"/><path d="M3 7.5V17l9 4 9-4V7.5M12 12v9"/><path d="M8 5l9 4.5"/></svg></span>
+      <span class="pricing-choice-copy"><strong>FOB Costing</strong><small>Calculate garment cost, FOB, C&amp;F and CIF prices.</small></span>
+      <span class="pricing-choice-check" aria-hidden="true">✓</span>
+    </button>
   </nav>
   <div class="pricing-calculator-content">
     <section class="pricing-calculator-view active" id="pricing-view-knitprice" data-pricing-panel="knitprice">
