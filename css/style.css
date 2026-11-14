@@ -7038,3 +7038,85 @@ body.dark-mode #page-myformulas .mf-add-panel .mf-required-mark{color:#7dd3fc}
   .pricing-calculator-tabs { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
   .pricing-calculator-tab { min-width: 0; padding: 10px 12px; }
 }
+
+
+/* Pricing & Costing selector — styled like the Marker Consumption method cards */
+#page-pricing .pricing-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  width:100%;
+  margin:18px 0 20px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+#page-pricing .pricing-choice-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:13px;
+  min-width:0;
+  min-height:112px;
+  padding:16px;
+  border:1px solid #cbd5e1;
+  border-radius:13px;
+  background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);
+  color:#0f172a;
+  text-align:left;
+  box-shadow:0 2px 8px rgba(15,23,42,.04);
+  cursor:pointer;
+  transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+#page-pricing .pricing-choice-card:hover{transform:translateY(-1px);border-color:#7dd3fc;box-shadow:0 5px 13px rgba(2,132,199,.08)}
+#page-pricing .pricing-choice-card.active{
+  border-color:#0284c7;
+  background:linear-gradient(180deg,#eff8ff 0%,#f8fbff 100%);
+  box-shadow:inset 0 0 0 1px rgba(2,132,199,.14),0 4px 12px rgba(2,132,199,.07);
+}
+#page-pricing .pricing-choice-icon{
+  display:grid;
+  place-items:center;
+  flex:0 0 48px;
+  width:48px;
+  height:48px;
+  border-radius:13px;
+  background:#e0efff;
+  color:#0873c5;
+}
+#page-pricing .pricing-choice-icon svg{width:25px;height:25px;display:block}
+#page-pricing .pricing-choice-copy{display:grid;gap:5px;min-width:0;padding-right:15px}
+#page-pricing .pricing-choice-copy strong{font-size:12px;font-weight:800;line-height:1.4;color:#0f172a}
+#page-pricing .pricing-choice-copy small{font-size:10px;font-weight:400;line-height:1.5;color:#64748b}
+#page-pricing .pricing-choice-check{
+  position:absolute;
+  top:10px;
+  right:10px;
+  display:none;
+  place-items:center;
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  background:#0284c7;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+}
+#page-pricing .pricing-choice-card.active .pricing-choice-check{display:grid}
+#page-pricing .pricing-choice-card:nth-child(2) .pricing-choice-icon{background:#def5ed;color:#07845f}
+#page-pricing .pricing-choice-card:nth-child(2).active{border-color:#10b981;background:linear-gradient(180deg,#effdf7 0%,#fff 100%);box-shadow:inset 0 0 0 1px rgba(16,185,129,.12),0 4px 12px rgba(16,185,129,.06)}
+#page-pricing .pricing-choice-card:nth-child(2).active .pricing-choice-check{background:#059669}
+body.dark-mode #page-pricing .pricing-choice-card{background:#111c2e;border-color:#334155;color:#e2e8f0}
+body.dark-mode #page-pricing .pricing-choice-card.active{background:linear-gradient(180deg,#082f49 0%,#111c2e 100%);border-color:#0ea5e9}
+body.dark-mode #page-pricing .pricing-choice-copy strong{color:#e2e8f0}
+body.dark-mode #page-pricing .pricing-choice-copy small{color:#94a3b8}
+body.dark-mode #page-pricing .pricing-choice-icon{background:#12334a;color:#7dd3fc}
+body.dark-mode #page-pricing .pricing-choice-card:nth-child(2) .pricing-choice-icon{background:#123b35;color:#6ee7b7}
+body.dark-mode #page-pricing .pricing-choice-card:nth-child(2).active{background:linear-gradient(180deg,#063b32 0%,#111c2e 100%);border-color:#10b981}
+@media(max-width:640px){
+  #page-pricing .pricing-choice-grid{grid-template-columns:1fr;gap:9px}
+  #page-pricing .pricing-choice-card{min-height:88px;padding:13px}
+  #page-pricing .pricing-choice-icon{flex-basis:42px;width:42px;height:42px}
+}
