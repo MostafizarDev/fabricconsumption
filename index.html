@@ -110,6 +110,19 @@
       <span class="pricing-choice-check" aria-hidden="true">✓</span>
     </button>
   </nav>
+  <section class="pricing-order-section" aria-labelledby="pricing-order-title">
+    <div class="pricing-order-heading"><div><h2 id="pricing-order-title">Order Information</h2><p>Enter the order details once. The same information will appear in both Knit Price and FOB Costing reports.</p></div><span class="pricing-order-shared">SHARED DETAILS</span></div>
+    <div class="pricing-order-fields">
+      <label>Buyer<input id="pc-buyer" type="text" placeholder="Buyer name"></label>
+      <label>Style<input id="pc-style" type="text" placeholder="Style name"></label>
+      <label>PO No.<input id="pc-po" type="text" placeholder="PO number"></label>
+      <label>Garment Type<input id="pc-garment" type="text" placeholder="e.g. T-Shirt, Hoodie"></label>
+      <label>Order Qty (pcs)<input id="pc-qty" type="number" min="1" step="1" placeholder="Order quantity"></label>
+      <label>Currency<select id="pc-currency"><option value="USD">USD ($)</option><option value="EUR">EUR (€)</option><option value="BDT">BDT (৳)</option></select></label>
+      <label>Season<input id="pc-season" type="text" placeholder="e.g. SS27 / AW27"></label>
+      <label>Shipment Date<input id="pc-shipment" type="date"></label>
+    </div>
+  </section>
   <div class="pricing-calculator-content">
     <section class="pricing-calculator-view active" id="pricing-view-knitprice" data-pricing-panel="knitprice">
   <p class="page-title">💰 Knit Fabric Price per Meter</p>
@@ -1535,7 +1548,7 @@
 <script src="/js/pant-fabric-groups.js?v=20261019-pantgroups3"></script>
 <script src="/js/woven-shirt.js?v=20261109-component-waste-v3"></script>
 <script src="/js/booking-sheet.js"></script>
-<script src="/js/knit-price.js"></script>
+<script src="/js/knit-price.js?v=20261114-shared-order-info-v1"></script>
 <script src="/js/zipper.js?v=20261108-validation-gate-v3"></script>
 <script src="/js/trims.js?v=20261108-thread-component-demo-v3"></script>
 <script src="/js/fob.js"></script>
