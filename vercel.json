@@ -2,6 +2,18 @@
   "version": 2,
   "rewrites": [
     {
+      "source": "/pricing-costing/fob-costing",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pricing-costing/knit-price",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pricing-costing",
+      "destination": "/index.html"
+    },
+    {
       "source": "/Marker-Consumption",
       "destination": "/index.html"
     },
