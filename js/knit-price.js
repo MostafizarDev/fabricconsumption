@@ -4,6 +4,23 @@
 //          Price per Meter = (PricePerKg × Weight) ÷ Fabric Length
 // ============================================
 
+// Shared order details used by both Pricing & Costing calculators and their PDF reports.
+function pricingOrderInfoReportHtml() {
+    const fields = [
+        ['Buyer', 'pc-buyer'], ['Style', 'pc-style'], ['PO No.', 'pc-po'],
+        ['Garment Type', 'pc-garment'], ['Order Qty (pcs)', 'pc-qty'],
+        ['Currency', 'pc-currency'], ['Season', 'pc-season'], ['Shipment Date', 'pc-shipment']
+    ];
+    const rows = fields.map(([label, id]) => {
+        const input = document.getElementById(id);
+        const value = input ? String(input.value || '').trim() : '';
+        if (!value) return '';
+        const safe = value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+        return '<tr><td>' + label + '</td><td>' + safe + '</td></tr>';
+    }).filter(Boolean).join('');
+    return rows ? '<h2 style="margin:18px 0 8px">Order Information</h2><table style="width:100%"><tbody>' + rows + '</tbody></table>' : '';
+}
+
 function updateKnitPrice() {
     calcKnitPrice();
 }
@@ -45,6 +62,7 @@ function downloadKnitPriceReport() {
             <div class="date">Generated: ${new Date().toLocaleString()}</div>
         </div>
         
+        ${pricingOrderInfoReportHtml()}
         <div class="box">
             <div>Price per Meter</div>
             <div class="box-value">${pricePerMeter.toFixed(2)}</div>
