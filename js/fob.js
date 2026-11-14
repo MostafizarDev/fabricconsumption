@@ -16,6 +16,8 @@ function calcFOB() {
     const freight = v('fob-fr');      // Freight per pc ($)
     const insurance = v('fob-ins');   // Insurance %
     
+    const currency = pricingCurrencyInfo();
+    
     // Total Manufacturing Cost
     const totalCost = fabric + trims + cm + accessories;
     
@@ -31,10 +33,10 @@ function calcFOB() {
     // CIF Price (C&F + Insurance)
     const cifPrice = cfPrice * (1 + insurance / 100);
     
-    set('fob-cost', '$' + totalCost.toFixed(2));
-    set('fob-fob', '$' + fobPrice.toFixed(2));
-    set('fob-cnf', '$' + cfPrice.toFixed(2));
-    set('fob-cif', '$' + cifPrice.toFixed(2));
+    set('fob-cost', currency.symbol + totalCost.toFixed(2));
+    set('fob-fob', currency.symbol + fobPrice.toFixed(2));
+    set('fob-cnf', currency.symbol + cfPrice.toFixed(2));
+    set('fob-cif', currency.symbol + cifPrice.toFixed(2));
 }
 
 function downloadFOBReport() {
@@ -62,26 +64,26 @@ function downloadFOBReport() {
         ${pricingOrderInfoReportHtml()}
         <div class="box">
             <div>Final Prices</div>
-            <div class="box-value">$${fobPrice.toFixed(2)}</div>
+            <div class="box-value">${currency.symbol}${fobPrice.toFixed(2)}</div>
             <div>FOB Price per piece</div>
-            <div style="font-size:12px; margin-top:5px">C&F: $${cfPrice.toFixed(2)} | CIF: $${cifPrice.toFixed(2)}</div>
+            <div style="font-size:12px; margin-top:5px">C&F: ${currency.symbol}${cfPrice.toFixed(2)} | CIF: ${currency.symbol}${cifPrice.toFixed(2)}</div>
         </div>
         
         <table style="width:100%">
-            <thead><tr><th>Cost Component</th><th>Amount ($)</th><th>Percentage</th></tr></thead>
+            <thead><tr><th>Cost Component</th><th>Amount (${currency.code})</th><th>Percentage</th></tr></thead>
             <tbody>
-                <tr><td>Fabric Cost</td><td>$${fabric.toFixed(2)}</td><td>${((fabric/totalCost)*100).toFixed(1)}%</td></tr>
-                <tr><td>Trims Cost</td><td>$${trims.toFixed(2)}</td><td>${((trims/totalCost)*100).toFixed(1)}%</td></tr>
-                <tr><td>CM (Cut & Make)</td><td>$${cm.toFixed(2)}</td><td>${((cm/totalCost)*100).toFixed(1)}%</td></tr>
-                <tr><td>Accessories</td><td>$${accessories.toFixed(2)}</td><td>${((accessories/totalCost)*100).toFixed(1)}%</td></tr>
-                <tr style="background:#f8fafc"><td><strong>Total Cost</strong></td><td><strong>$${totalCost.toFixed(2)}</strong></td><td><strong>100%</strong></td></tr>
-                <tr><td>Overhead (${overhead}%)</td><td>$${(totalCost * overhead/100).toFixed(2)}</td><td>-</td></tr>
-                <tr><td>Profit (${profit}%)</td><td>$${(costWithOH * profit/100).toFixed(2)}</td><td>-</td></tr>
-                <tr style="background:#dbeafe"><td><strong>FOB Price</strong></td><td><strong>$${fobPrice.toFixed(2)}</strong></td><td>-</td></tr>
-                <tr><td>Freight</td><td>$${freight.toFixed(2)}</td><td>-</td></tr>
-                <tr style="background:#dbeafe"><td><strong>C&F Price</strong></td><td><strong>$${cfPrice.toFixed(2)}</strong></td><td>-</td></tr>
-                <tr><td>Insurance (${insurance}%)</td><td>$${(cfPrice * insurance/100).toFixed(2)}</td><td>-</td></tr>
-                <tr style="background:#dbeafe"><td><strong>CIF Price</strong></td><td><strong>$${cifPrice.toFixed(2)}</strong></td><td>-</td></tr>
+                <tr><td>Fabric Cost</td><td>${currency.symbol}${fabric.toFixed(2)}</td><td>${((fabric/totalCost)*100).toFixed(1)}%</td></tr>
+                <tr><td>Trims Cost</td><td>${currency.symbol}${trims.toFixed(2)}</td><td>${((trims/totalCost)*100).toFixed(1)}%</td></tr>
+                <tr><td>CM (Cut & Make)</td><td>${currency.symbol}${cm.toFixed(2)}</td><td>${((cm/totalCost)*100).toFixed(1)}%</td></tr>
+                <tr><td>Accessories</td><td>${currency.symbol}${accessories.toFixed(2)}</td><td>${((accessories/totalCost)*100).toFixed(1)}%</td></tr>
+                <tr style="background:#f8fafc"><td><strong>Total Cost</strong></td><td><strong>${currency.symbol}${totalCost.toFixed(2)}</strong></td><td><strong>100%</strong></td></tr>
+                <tr><td>Overhead (${overhead}%)</td><td>${currency.symbol}${(totalCost * overhead/100).toFixed(2)}</td><td>-</td></tr>
+                <tr><td>Profit (${profit}%)</td><td>${currency.symbol}${(costWithOH * profit/100).toFixed(2)}</td><td>-</td></tr>
+                <tr style="background:#dbeafe"><td><strong>FOB Price</strong></td><td><strong>${currency.symbol}${fobPrice.toFixed(2)}</strong></td><td>-</td></tr>
+                <tr><td>Freight</td><td>${currency.symbol}${freight.toFixed(2)}</td><td>-</td></tr>
+                <tr style="background:#dbeafe"><td><strong>C&F Price</strong></td><td><strong>${currency.symbol}${cfPrice.toFixed(2)}</strong></td><td>-</td></tr>
+                <tr><td>Insurance (${insurance}%)</td><td>${currency.symbol}${(cfPrice * insurance/100).toFixed(2)}</td><td>-</td></tr>
+                <tr style="background:#dbeafe"><td><strong>CIF Price</strong></td><td><strong>${currency.symbol}${cifPrice.toFixed(2)}</strong></td><td>-</td></tr>
             </tbody>
         </table>
     `;
