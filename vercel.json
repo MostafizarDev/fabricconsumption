@@ -2,6 +2,10 @@
   "version": 2,
   "rewrites": [
     {
+      "source": "/pricing-costing/:path*",
+      "destination": "/index.html"
+    },
+    {
       "source": "/pricing-costing/fob-costing",
       "destination": "/index.html"
     },
