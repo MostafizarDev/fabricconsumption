@@ -53,10 +53,10 @@ const FC_PAGE_ROUTES = {
     knitpant: '/knit-pant',
     woven: '/woven-shirt',
     booking: '/booking-sheet',
-    knitprice: '/knit-price',
+    knitprice: '/pricing-costing/knit-price',
     zipper: '/zipper',
     trims: '/trims',
-    fob: '/fob-costing',
+    fob: '/pricing-costing/fob-costing',
     sizeratio: '/size-ratio',
     converter: '/converter',
     myformulas: '/my-formulas'
@@ -80,6 +80,8 @@ const FC_PAGE_TITLES = {
 
 function getPageIdFromPath(pathname = window.location.pathname) {
     const path = pathname.replace(/\/+$/, '') || '/';
+    if (path === '/knit-price') return 'knitprice';
+    if (path === '/fob-costing') return 'fob';
     const match = Object.entries(FC_PAGE_ROUTES).find(([, route]) => route === path);
     return match ? match[0] : 'knit';
 }
@@ -90,6 +92,12 @@ function getRouteForPage(pageId) {
 
 // ========== PAGE NAVIGATION ==========
 function showPage(pageId, btn, routeOptions = {}) {
+    // Knit Price and FOB Costing now live as calculator views inside one Pricing & Costing page.
+    const isPricingView = ['knitprice', 'fob'].includes(pageId);
+    const mainPageId = isPricingView ? 'pricing' : pageId;
+    if (isPricingView) window.FC_ACTIVE_PRICING_VIEW = pageId;
+    if (pageId === 'pricing' && !window.FC_ACTIVE_PRICING_VIEW) window.FC_ACTIVE_PRICING_VIEW = 'knitprice';
+
     // Keep browser URL, refresh, bookmarks, and browser back/forward in sync.
     const route = getRouteForPage(pageId);
     if (!routeOptions.fromHistory && route && window.location.pathname !== route) {
@@ -100,21 +108,27 @@ function showPage(pageId, btn, routeOptions = {}) {
     const pageTitle = FC_PAGE_TITLES[pageId] || 'Garment Calculator Suite';
     document.title = pageTitle + ' | Fabrics Consumption';
 
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-
-    // Show selected page
-    const targetPage = document.getElementById('page-' + pageId);
+    // Hide all top-level pages, then show the selected workspace.
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    const targetPage = document.getElementById('page-' + mainPageId);
     if (targetPage) targetPage.classList.add('active');
 
-    // Update active tab button
-    document.querySelectorAll('.tab-btn').forEach(button => {
-        button.classList.remove('active');
-    });
+    // Switch the calculator view inside Pricing & Costing.
+    if (mainPageId === 'pricing') {
+        const activeView = isPricingView ? pageId : (window.FC_ACTIVE_PRICING_VIEW || 'knitprice');
+        document.querySelectorAll('[data-pricing-panel]').forEach(panel => {
+            panel.classList.toggle('active', panel.getAttribute('data-pricing-panel') === activeView);
+        });
+        document.querySelectorAll('[data-pricing-view]').forEach(tab => {
+            const selected = tab.getAttribute('data-pricing-view') === activeView;
+            tab.classList.toggle('active', selected);
+            tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+        });
+    }
 
-    const activeTab = btn || document.querySelector('.tab-btn[data-page="' + (['knitprice', 'fob'].includes(pageId) ? 'pricing' : pageId) + '"]');
+    // Update active top-level navigation tab.
+    document.querySelectorAll('.tab-btn').forEach(button => button.classList.remove('active'));
+    const activeTab = btn || document.querySelector('.tab-btn[data-page="' + mainPageId + '"]');
     if (activeTab) activeTab.classList.add('active');
 
     // Recalculate based on page
