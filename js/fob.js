@@ -40,7 +40,8 @@ function calcFOB() {
 }
 
 function downloadFOBReport() {
-    const fabric = v('fob-fab');
+    const currency = pricingCurrencyInfo();
+const fabric = v('fob-fab');
     const trims = v('fob-tr');
     const cm = v('fob-cm');
     const accessories = v('fob-acc');
