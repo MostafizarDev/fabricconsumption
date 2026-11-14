@@ -48,6 +48,7 @@ function inchToCm(inch) {
 // ========== URL ROUTING (WEB + FUTURE MOBILE APP FRIENDLY) ==========
 const FC_PAGE_ROUTES = {
     marker: '/Marker-Consumption',
+    pricing: '/pricing-costing',
     knit: '/knit-garments',
     knitpant: '/knit-pant',
     woven: '/woven-shirt',
@@ -63,6 +64,7 @@ const FC_PAGE_ROUTES = {
 
 const FC_PAGE_TITLES = {
     marker: 'Marker Consumption',
+    pricing: 'Pricing & Costing',
     knit: 'Knit Garments',
     knitpant: 'Knit Pant',
     woven: 'Woven T-shirt',
@@ -112,7 +114,8 @@ function showPage(pageId, btn, routeOptions = {}) {
         button.classList.remove('active');
     });
 
-    if (btn) btn.classList.add('active');
+    const activeTab = btn || document.querySelector('.tab-btn[data-page="' + (['knitprice', 'fob'].includes(pageId) ? 'pricing' : pageId) + '"]');
+    if (activeTab) activeTab.classList.add('active');
 
     // Recalculate based on page
     if (pageId === 'marker' && typeof calcMarkerConsumption === 'function') {
