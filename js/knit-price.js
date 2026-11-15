@@ -119,7 +119,7 @@ function downloadKnitPriceReport() {
     const report = '<div class="report">' +
         '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabric Cost Calculator</h1><div class="report-id">' + reportId + '</div></div></div>' +
         '<div class="meta-grid"><div><span>Report Date</span><strong>' + dateText + '</strong></div><div><span>Time</span><strong>' + timeText + '</strong></div><div><span>Currency</span><strong>' + safe(currency.code) + '</strong></div><div><span>Calculation</span><strong>Per Meter</strong></div></div>' +
-        (orderRows ? '<section class="section"><div class="section-head">' + icon('info') + '<span>ORDER INFORMATION</span></div><table><tbody>' + orderRows.replace(/<h2[^>]*>Order Information<\/h2>/, '') + '</tbody></table></section>' : '') +
+        (orderRows ? '<section class="section"><div class="section-head">' + icon('info') + '<span>ORDER INFORMATION</span></div>' + orderRows.replace(/<h2[^>]*>Order Information<\/h2>/, '') + '</section>' : '') +
         '<section class="section"><div class="section-head">' + icon('info') + '<span>FABRIC INPUT DETAILS</span></div><table><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th></tr></thead><tbody>' +
         '<tr><td>Fabric Weight</td><td>' + weight.toFixed(2) + '</td><td>kg</td></tr>' +
         '<tr><td>Fabric GSM</td><td>' + gsm.toFixed(2) + '</td><td>g/m²</td></tr>' +
