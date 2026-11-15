@@ -92,7 +92,7 @@ function downloadKnitPriceReport() {
     const pricePerMeter = result.pricePerMeter;
     const currency = pricingCurrencyInfo();
     const reportHtml = `
-        <div class="header"><h1>💰 Knit Fabric Price Report</h1><div class="date">Generated: ${new Date().toLocaleString()}</div></div>
+        <div class="header"><h1>💰 Knit Fabric Cost Report</h1><div class="date">Generated: ${new Date().toLocaleString()}</div></div>
         ${pricingOrderInfoReportHtml()}
         <div class="box"><div>Price per Meter</div><div class="box-value">${currency.symbol}${pricePerMeter.toFixed(2)}</div><div>per meter</div></div>
         <table style="width:100%">
@@ -115,7 +115,7 @@ function downloadKnitPriceReport() {
             = (${pricePerKg} × ${weight}) ÷ ${fabricLength.toFixed(2)}<br>
             = <strong>${currency.symbol}${pricePerMeter.toFixed(2)} per meter</strong>
         </div>`;
-    generatePDF('Knit Fabric Price Report', reportHtml);
+    generatePDF('Knit Fabric Cost Report', reportHtml);
     setKnitPriceStatus('PDF report is ready.', 'success');
 }
 document.addEventListener('DOMContentLoaded', function() {
