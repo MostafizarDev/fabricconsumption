@@ -7302,3 +7302,7 @@ body.dark-mode #page-pricing #pricing-view-knitprice .pricing-result-heading{bor
   #page-pricing .pricing-choice-copy strong{font-size:13px}
   #page-pricing .pricing-choice-copy small{font-size:10px}
 }
+
+/* Knit Fabric Cost Calculator — extended quantity and total cost results */
+#page-pricing #pricing-view-knitprice .pricing-knit-results{grid-template-columns:repeat(2,minmax(0,1fr))}
+#page-pricing #pricing-view-knitprice .pricing-knit-result-card.featured:last-child{border-color:#a7f3d0}
