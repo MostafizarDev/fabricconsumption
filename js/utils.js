@@ -179,7 +179,7 @@ function generatePDF(title, contentHtml) {
         if (typeof showToast === 'function') {
             showToast('Please allow pop-ups for this site to print the report.', 'error');
         }
-        return;
+        return false;
     }
 
     let logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
@@ -336,6 +336,7 @@ function generatePDF(title, contentHtml) {
             showToast('PDF report could not be generated.', 'error');
         }
     }
+    return true;
 }
 
 // ========== TOAST NOTIFICATION ==========
