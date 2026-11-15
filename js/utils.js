@@ -335,6 +335,7 @@ function generatePDF(title, contentHtml) {
         if (typeof showToast === 'function') {
             showToast('PDF report could not be generated.', 'error');
         }
+        return false;
     }
     return true;
 }
