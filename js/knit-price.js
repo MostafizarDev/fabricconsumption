@@ -88,6 +88,7 @@ function downloadKnitPriceReport() {
         setKnitPriceStatus('PDF not generated. ' + result.error, 'error');
         return;
     }
+
     const weight = result.data.weight;
     const gsm = result.data.gsm;
     const width = result.data.width;
@@ -95,32 +96,54 @@ function downloadKnitPriceReport() {
     const fabricLength = result.fabricLength;
     const pricePerMeter = result.pricePerMeter;
     const currency = pricingCurrencyInfo();
-    const reportHtml = `
-        <div class="header"><h1>💰 Knit Fabric Cost Report</h1><div class="date">Generated: ${new Date().toLocaleString()}</div></div>
-        ${pricingOrderInfoReportHtml()}
-        <div class="box"><div>Price per Meter</div><div class="box-value">${currency.symbol}${pricePerMeter.toFixed(2)}</div><div>per meter</div></div>
-        <table style="width:100%">
-            <thead><tr><th>Parameter</th><th>Value</th><th>Unit</th></tr></thead>
-            <tbody>
-                <tr><td>Fabric Weight</td><td>${weight}</td><td>kg</td></tr>
-                <tr><td>Fabric GSM</td><td>${gsm}</td><td>g/m²</td></tr>
-                <tr><td>Fabric Width</td><td>${width}</td><td>meter</td></tr>
-                <tr><td>Price Per Kg</td><td>${currency.symbol}${pricePerKg}</td><td>${currency.code}/kg</td></tr>
-                <tr style="background:#dbeafe"><td>Fabric Length</td><td>${fabricLength.toFixed(2)}</td><td>meter</td></tr>
-                <tr style="background:#dbeafe"><td>Price Per Meter</td><td>${currency.symbol}${pricePerMeter.toFixed(2)}</td><td>${currency.code}/meter</td></tr>
-            </tbody>
-        </table>
-        <div style="margin-top:20px;padding:12px;background:#f8fafc;border-radius:8px">
-            <strong>📐 Formula:</strong><br>
-            Fabric Length = (Weight × 1000) ÷ (GSM × Width)<br>
-            = (${weight} × 1000) ÷ (${gsm} × ${width})<br>
-            = <strong>${fabricLength.toFixed(2)} meters</strong><br><br>
-            Price per Meter = (Price per Kg × GSM × Width) ÷ 1000<br>
-            = (${pricePerKg} × ${gsm} × ${width}) ÷ 1000<br>
-            = <strong>${currency.symbol}${pricePerMeter.toFixed(2)} per meter</strong><br>
-        </div>`;
-    generatePDF('Knit Fabric Cost Report', reportHtml);
-    setKnitPriceStatus('PDF report is ready.', 'success');
+    const now = new Date();
+    const dateText = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const reportId = 'FC-KNIT-' + now.getFullYear() + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + '-' + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+
+    const safe = function(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function(char) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char];
+        });
+    };
+    const icon = function(name) {
+        const paths = {
+            info: '<circle cx="12" cy="12" r="9"></circle><path d="M12 10v6M12 7h.01"></path>',
+            summary: '<path d="M4 19V5M4 19h17"></path><path d="m7 15 4-4 3 2 6-7"></path>',
+            formula: '<rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h2m4 0h2m-8 4h2m4 0h2"></path>'
+        };
+        return '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">' + (paths[name] || paths.info) + '</svg>';
+    };
+
+    const orderRows = pricingOrderInfoReportHtml();
+    const report = '<div class="report">' +
+        '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabric Cost Calculator</h1><div class="report-id">' + reportId + '</div></div></div>' +
+        '<div class="meta-grid"><div><span>Report Date</span><strong>' + dateText + '</strong></div><div><span>Time</span><strong>' + timeText + '</strong></div><div><span>Currency</span><strong>' + safe(currency.code) + '</strong></div><div><span>Calculation</span><strong>Per Meter</strong></div></div>' +
+        (orderRows ? '<section class="section"><div class="section-head">' + icon('info') + '<span>ORDER INFORMATION</span></div><table><tbody>' + orderRows.replace(/<h2[^>]*>Order Information<\/h2>/, '') + '</tbody></table></section>' : '') +
+        '<section class="section"><div class="section-head">' + icon('info') + '<span>FABRIC INPUT DETAILS</span></div><table><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th></tr></thead><tbody>' +
+        '<tr><td>Fabric Weight</td><td>' + weight.toFixed(2) + '</td><td>kg</td></tr>' +
+        '<tr><td>Fabric GSM</td><td>' + gsm.toFixed(2) + '</td><td>g/m²</td></tr>' +
+        '<tr><td>Fabric Width</td><td>' + width.toFixed(2) + '</td><td>meter</td></tr>' +
+        '<tr><td>Price Per Kg</td><td>' + safe(currency.symbol) + pricePerKg.toFixed(2) + '</td><td>' + safe(currency.code) + '/kg</td></tr>' +
+        '</tbody></table></section>' +
+        '<div class="summary-grid">' +
+        '<div class="summary-card"><div class="metric-head">' + icon('summary') + '<span>FABRIC LENGTH</span></div><strong>' + fabricLength.toFixed(2) + ' m</strong><small>Calculated from weight, GSM and width</small></div>' +
+        '<div class="summary-card primary"><div class="metric-head">' + icon('summary') + '<span>PRICE PER METER</span></div><strong>' + safe(currency.symbol) + pricePerMeter.toFixed(2) + '</strong><small>' + safe(currency.code) + ' per meter</small></div>' +
+        '</div>' +
+        '<section class="section"><div class="section-head">' + icon('formula') + '<span>CALCULATION FORMULA</span></div><div class="formula-text">' +
+        '<strong>1. Fabric Length</strong><br>Fabric Length = (Weight × 1000) ÷ (GSM × Width)<br>= (' + weight.toFixed(2) + ' × 1000) ÷ (' + gsm.toFixed(2) + ' × ' + width.toFixed(2) + ')<br>= <strong>' + fabricLength.toFixed(2) + ' meters</strong><br><br>' +
+        '<strong>2. Price per Meter</strong><br>Price per Meter = (Price per Kg × GSM × Width) ÷ 1000<br>= (' + pricePerKg.toFixed(2) + ' × ' + gsm.toFixed(2) + ' × ' + width.toFixed(2) + ') ÷ 1000<br>= <strong>' + safe(currency.symbol) + pricePerMeter.toFixed(2) + ' per meter</strong>' +
+        '</div></section>' +
+        '<div class="report-footer"><span>Fabric Consumption • Garment Calculator Suite</span><span>' + dateText + ' · ' + timeText + ' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div>' +
+        '</div>';
+
+    try {
+        generatePDF('Knit Fabric Cost Report', report);
+        setKnitPriceStatus('PDF report is ready. In the print window, choose Save as PDF.', 'success');
+    } catch (error) {
+        console.error('Knit PDF generation error:', error);
+        setKnitPriceStatus('PDF could not be opened. Please allow pop-ups and try again.', 'error');
+    }
 }
 document.addEventListener('DOMContentLoaded', function() {
     const inputs = ['kfp-w', 'kfp-gsm', 'kfp-wid', 'kfp-pkg'];
