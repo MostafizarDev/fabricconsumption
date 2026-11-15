@@ -138,7 +138,11 @@ function downloadKnitPriceReport() {
         '</div>';
 
     try {
-        generatePDF('Knit Fabric Cost Report', report);
+        const pdfOpened = generatePDF('Knit Fabric Cost Report', report);
+        if (!pdfOpened) {
+            setKnitPriceStatus('PDF window was blocked. Please allow pop-ups for this website and try again.', 'error');
+            return;
+        }
         setKnitPriceStatus('PDF report is ready. In the print window, choose Save as PDF.', 'success');
     } catch (error) {
         console.error('Knit PDF generation error:', error);
