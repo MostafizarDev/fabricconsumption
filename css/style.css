@@ -7255,3 +7255,50 @@ body.dark-mode #page-pricing #pricing-view-knitprice .pricing-result-heading{bor
   #page-pricing #pricing-view-knitprice .pricing-knit-result-card{min-height:105px;padding:11px}
   #page-pricing #pricing-view-knitprice .pricing-knit-result-card strong{font-size:19px}
 }
+
+
+/* Pricing & Costing selector visibility enhancement */
+#page-pricing .pricing-choice-card{
+  gap:16px;
+  min-height:120px;
+  padding:18px;
+}
+#page-pricing .pricing-choice-icon{
+  flex-basis:56px;
+  width:56px;
+  height:56px;
+  border-radius:15px;
+}
+#page-pricing .pricing-choice-icon svg{
+  width:30px;
+  height:30px;
+}
+#page-pricing .pricing-choice-copy{
+  gap:6px;
+}
+#page-pricing .pricing-choice-copy strong{
+  font-size:15px;
+  line-height:1.4;
+}
+#page-pricing .pricing-choice-copy small{
+  font-size:12px;
+  line-height:1.5;
+}
+@media (max-width:520px){
+  #page-pricing .pricing-choice-card{
+    gap:10px;
+    min-height:104px;
+    padding:12px;
+  }
+  #page-pricing .pricing-choice-icon{
+    flex-basis:44px;
+    width:44px;
+    height:44px;
+  }
+  #page-pricing .pricing-choice-icon svg{
+    width:25px;
+    height:25px;
+  }
+  #page-pricing .pricing-choice-copy strong{font-size:13px}
+  #page-pricing .pricing-choice-copy small{font-size:10px}
+}
