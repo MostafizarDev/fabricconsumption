@@ -106,7 +106,7 @@ function showPage(pageId, btn, routeOptions = {}) {
     }
 
     const pageTitle = FC_PAGE_TITLES[pageId] || 'Garment Calculator Suite';
-    document.title = pageTitle + ' | Fabrics Consumption';
+    document.title = pageTitle + ' | Fabric Consumption';
 
     // Hide all top-level pages, then show the selected workspace.
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
@@ -183,8 +183,8 @@ function generatePDF(title, contentHtml) {
     }
 
     let logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
-    // Make the complete FABRICS CONSUMPTION wordmark black, while leaving the icon and subtitle unchanged.
-    logoSvg = logoSvg.replace(/(<text\b[^>]*>)(FABRiCS|CONSUMPTiON)(<\/text>)/g, (match, open, word, close) => {
+    // Make the complete FABRIC CONSUMPTION wordmark black, while leaving the icon and subtitle unchanged.
+    logoSvg = logoSvg.replace(/(<text\b[^>]*>)(FABRIC|CONSUMPTION)(<\/text>)/g, (match, open, word, close) => {
         const blackOpen = open
             .replace(/\sfill="[^"]*"/, ' fill="#0F172A"')
             .replace(/\sstroke="[^"]*"/, ' stroke="#0F172A"')
@@ -308,7 +308,7 @@ function generatePDF(title, contentHtml) {
 
     // Replace the report's plain brand block with the exact app logo.
     const brandedHtml = fullHtml.replace(
-        '<div class="brand">FABRiCS <span>CONSUMPTiON</span></div>',
+        '<div class="brand">FABRIC <span>CONSUMPTION</span></div>',
         '<div class="report-brand">' + logoSvg + '</div>'
     );
 

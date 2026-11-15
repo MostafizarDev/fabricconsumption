@@ -129,7 +129,7 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
    '@media print{.zipper-pdf{padding:0}}'+
    '</style>';
   const report='<div class="zipper-pdf">'+reportCss+
-   '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Zipper Consumption Report</h1><div class="report-id">'+reportId+'</div></div></div>'+
+   '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Zipper Consumption Report</h1><div class="report-id">'+reportId+'</div></div></div>'+
    '<div class="meta-grid"><div><span>BUYER NAME</span><strong>'+escPdf(buyer)+'</strong></div><div><span>STYLE NUMBER</span><strong>'+escPdf(style)+'</strong></div><div><span>PO / ORDER NUMBER</span><strong>'+escPdf(po)+'</strong></div></div>'+
    '<div class="qty-strip"><div class="main"><span>ORDER QUANTITY</span><strong>'+orderQty.toLocaleString('en-US')+' pcs</strong></div><div><span>REPORT DATE</span><strong>'+dateText+'</strong></div><div><span>REPORT CATEGORY</span><strong>ZIPPER CONSUMPTION</strong></div></div>'+
    '<section class="section"><div class="section-head">ZIPPER DETAILS & MEASUREMENT</div><div class="details-grid">'+infoCards+'</div></section>'+
@@ -137,7 +137,7 @@ let method='formula',lastResult=null,applyingDemo=false,resultRefreshTimer=null,
    '<section class="section"><div class="section-head">CALCULATION METHOD & FORMULA</div><div class="formula"><strong>'+methodText+'</strong>'+formulas.map(x=>'<p>'+escPdf(x)+'</p>').join('')+'</div></section>'+
    '<section class="section zipper-comments"><div class="section-head">COMMENTS</div><div class="comments-body">'+(val('zp-comments').trim()?escPdf(val('zp-comments').trim()).replace(/\\n/g,'<br>'):'&nbsp;')+'</div></section>'+
    '<div class="note"><strong>PRODUCTION NOTE:</strong> This report is a consumption estimate. Confirm zipper length, construction, shrinkage and supplier specification against the approved sample before bulk production.</div>'+
-   '<div class="footer"><span>FABRiCS CONSUMPTiON · ZIPPER REPORT</span><span>Generated '+dateText+' · '+reportId+'</span></div></div>';
+   '<div class="footer"><span>FABRIC CONSUMPTION · ZIPPER REPORT</span><span>Generated '+dateText+' · '+reportId+'</span></div></div>';
   if(typeof generatePDF==='function')generatePDF('Zipper Consumption Report',report);else window.print();
  }
  function init(){

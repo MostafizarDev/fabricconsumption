@@ -65,7 +65,7 @@ function pdf(){
   ?'For each marker row, base per garment = Length (in) × Width (in) × GSM ÷ (1,550,000 × Order Qty). Final consumption adds that row\'s wastage: base × (1 + waste % ÷ 100).'
   :'For each marker row, base per garment = Total Marker Length (yd) ÷ Order Qty. Final consumption adds that row\'s wastage: base × (1 + waste % ÷ 100).'+(r.unit==='m'?' Yard input is converted to meters using × 0.9144.':'');
  const html='<div class="report">'+
-  '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Marker Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
+  '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Marker Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
   '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Result Unit</span><strong>'+r.unit.toUpperCase()+'</strong></div><div><span>Order Quantity</span><strong>'+quantity+' pcs</strong></div></div>'+
   '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid">'+
   '<div><span>Buyer Name</span><strong>'+(esc(r.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(esc(r.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(esc(r.po)||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+(esc(r.type)||'________________')+'</strong></div></div></section>'+
@@ -76,7 +76,7 @@ function pdf(){
   '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
   '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Consumption estimate only. Verify marker measurements, GSM where applicable, wastage, and order quantity against the approved CAD marker and actual cutting-room consumption.</div></div>'+
   '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
-  '<div class="report-footer"><span>Fabrics Consumption - Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+  '<div class="report-footer"><span>Fabric Consumption - Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
  const filePart=value=>String(value||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
  const poPart=filePart(r.po);
  const fileName=['FC',filePart(r.buyer),filePart(r.style),poPart?'PO'+poPart.replace(/^PO[_-]?/i,''):'',reportId].filter(Boolean).join('_');

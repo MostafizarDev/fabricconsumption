@@ -128,7 +128,7 @@
     const filePart=v=>String(v||'').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
     const fileName=['FC',filePart(info.buyer),filePart(info.style),filePart(info.po)?'PO'+filePart(info.po).replace(/^PO[_-]?/i,''):'',reportId].filter(Boolean).join('_');
     const report='<div class="report">'+
-      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Woven Shirt Fabric Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
+      '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Woven Shirt Fabric Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
       '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+safe(r.unit)+'</strong></div><div><span>Order Quantity</span><strong>'+fmt(r.qty,0)+' pcs</strong></div></div>'+
       '<section class="section"><div class="section-head">'+icon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(safe(info.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(safe(info.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(safe(info.po)||'________________')+'</strong></div><div><span>Garment Type</span><strong>'+safe(info.type||'Woven Shirt')+'</strong></div></div></section>'+
       '<section class="section"><div class="section-head">'+icon('components')+'<span>MEASUREMENT DETAILS</span></div><table><thead><tr><th>SL</th><th>Measurement</th><th>Actual</th><th>Allowance</th><th>Total</th></tr></thead><tbody>'+measurementRows+'</tbody></table></section>'+
@@ -138,7 +138,7 @@
       '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
       '<div class="note">'+icon('warning')+'<div><strong>IMPORTANT:</strong> Consumption estimate only; costing excluded. Verify garment measurements, seam allowances, fabric width, component quantities, wastage and order quantity against the approved pattern and actual factory consumption.</div></div>'+
       '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
-      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+      '<div class="report-footer"><span>Fabric Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     generatePDF(fileName,report);
   }
   document.addEventListener('DOMContentLoaded',()=>{

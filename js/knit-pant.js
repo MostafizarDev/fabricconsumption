@@ -619,7 +619,7 @@
     const filePart = value => String(value || '').trim().replace(/[^a-z0-9-_]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,40);
     const fileName = ['FC',filePart(r.buyer),filePart(r.style),filePart(r.po) ? 'PO'+filePart(r.po).replace(/^PO[_-]?/i,'') : '',reportId].filter(Boolean).join('_');
     const report = '<div class="report">'+
-      '<div class="report-header"><div><div class="brand">FABRiCS <span>CONSUMPTiON</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Pant Fabric Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
+      '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Pant Fabric Consumption</h1><div class="report-id">'+reportId+'</div></div></div>'+
       '<div class="meta-grid"><div><span>Report Date</span><strong>'+dateText+'</strong></div><div><span>Time</span><strong>'+timeText+'</strong></div><div><span>Unit</span><strong>'+escapeHtml(r.unit)+'</strong></div><div><span>Order Quantity</span><strong>'+r.orderQty+' pcs</strong></div></div>'+
       '<section class="section"><div class="section-head">'+reportIcon('info')+'<span>ORDER INFORMATION</span></div><div class="info-grid"><div><span>Buyer Name</span><strong>'+(escapeHtml(r.buyer)||'________________')+'</strong></div><div><span>Style No.</span><strong>'+(escapeHtml(r.style)||'________________')+'</strong></div><div><span>PO / Order No.</span><strong>'+(escapeHtml(r.po)||'________________')+'</strong></div><div><span>Pant Type</span><strong>'+escapeHtml(r.type)+'</strong></div></div></section>'+
       '<section class="section"><div class="section-head">'+reportIcon('components')+'<span>COMPONENT-WISE CONSUMPTION</span></div><table class="consumption-table"><thead><tr><th>SL</th><th>Component</th><th>Consumption / Piece</th><th>Consumption / Dozen</th><th>Order Total</th><th>Remarks</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6">Quick estimate summary</td></tr>')+'</tbody></table></section>'+
@@ -629,7 +629,7 @@
       '<section class="comments-section"><div class="comments-title">COMMENTS:</div><div class="comments-writing-area"></div></section>'+
       '<div class="note">'+reportIcon('warning')+'<div><strong>IMPORTANT:</strong> Consumption estimate only; costing excluded. Verify dimensions, allowances, GSM, wastage and order quantity against the approved pattern/CAD marker and actual factory consumption.</div></div>'+
       '<div class="approval-grid"><div><span>PREPARED BY</span><strong></strong></div><div><span>CHECKED BY</span><strong></strong></div><div><span>APPROVED BY</span><strong></strong></div></div>'+
-      '<div class="report-footer"><span>Fabrics Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
+      '<div class="report-footer"><span>Fabric Consumption • Garment Calculator Suite</span><span>'+dateText+' · '+timeText+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     if (typeof generatePDF === 'function') generatePDF(fileName, report);
     else window.print();
   }

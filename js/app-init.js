@@ -5,7 +5,7 @@
 
 // ========== INITIALIZE APP ==========
 function initApp() {
-    console.log('🚀 Fabrics Consumption App Initialized');
+    console.log('🚀 Fabric Consumption App Initialized');
     
     // Set default units
     if (typeof setKnitUnit === 'function') {
