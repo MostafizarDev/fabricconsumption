@@ -165,21 +165,14 @@ function showPage(pageId, btn, routeOptions = {}) {
 
 // ========== PDF GENERATOR ==========
 function generatePDF(title, contentHtml) {
-    // Open the print window directly from the user's button click.
-    // This avoids Chrome iframe unload/Permissions Policy warnings.
+    // Prefer a new tab, but fall back to a print iframe if the browser blocks pop-ups.
     let printWindow = null;
+    let printFrame = null;
 
     try {
         printWindow = window.open('', '_blank', 'width=1200,height=900');
     } catch (error) {
         printWindow = null;
-    }
-
-    if (!printWindow) {
-        if (typeof showToast === 'function') {
-            showToast('Please allow pop-ups for this site to print the report.', 'error');
-        }
-        return false;
     }
 
     let logoSvg = document.querySelector('.logo-image')?.outerHTML || '';
@@ -313,31 +306,67 @@ function generatePDF(title, contentHtml) {
     );
 
     try {
-        printWindow.document.open();
-        printWindow.document.write(brandedHtml);
-        printWindow.document.close();
+        if (printWindow) {
+            printWindow.document.open();
+            printWindow.document.write(brandedHtml);
+            printWindow.document.close();
+            printWindow.focus();
 
-        printWindow.focus();
+            setTimeout(() => {
+                try {
+                    printWindow.print();
+                } catch (error) {
+                    console.error('PDF print error:', error);
+                    if (typeof showToast === 'function') showToast('PDF print failed. Please try again.', 'error');
+                }
+            }, 500);
+            return true;
+        }
+
+        // Popup blocked: print the same branded report from a temporary hidden iframe.
+        printFrame = document.createElement('iframe');
+        printFrame.setAttribute('title', 'PDF report print view');
+        printFrame.style.position = 'fixed';
+        printFrame.style.right = '0';
+        printFrame.style.bottom = '0';
+        printFrame.style.width = '1px';
+        printFrame.style.height = '1px';
+        printFrame.style.border = '0';
+        printFrame.style.opacity = '0';
+        document.body.appendChild(printFrame);
+
+        const frameWindow = printFrame.contentWindow;
+        const frameDocument = frameWindow.document;
+        frameDocument.open();
+        frameDocument.write(brandedHtml);
+        frameDocument.close();
+
+        const cleanupFrame = () => {
+            if (printFrame && printFrame.parentNode) printFrame.parentNode.removeChild(printFrame);
+            printFrame = null;
+        };
+        frameWindow.addEventListener('afterprint', cleanupFrame, { once: true });
 
         setTimeout(() => {
             try {
-                printWindow.print();
+                frameWindow.focus();
+                frameWindow.print();
+                // Some browsers do not fire afterprint for iframe printing.
+                setTimeout(cleanupFrame, 60000);
             } catch (error) {
-                console.error('PDF print error:', error);
-                if (typeof showToast === 'function') {
-                    showToast('PDF print failed. Please try again.', 'error');
-                }
+                console.error('PDF iframe print error:', error);
+                cleanupFrame();
+                if (typeof showToast === 'function') showToast('PDF print failed. Please try again.', 'error');
             }
-        }, 500);
+        }, 700);
+        return true;
     } catch (error) {
         console.error('PDF generation error:', error);
-        try { printWindow.close(); } catch (_) {}
-        if (typeof showToast === 'function') {
-            showToast('PDF report could not be generated.', 'error');
-        }
+        try { if (printWindow && !printWindow.closed) printWindow.close(); } catch (_) {}
+        try { if (printFrame && printFrame.parentNode) printFrame.parentNode.removeChild(printFrame); } catch (_) {}
+        if (typeof showToast === 'function') showToast('PDF report could not be generated.', 'error');
         return false;
     }
-    return true;
 }
 
 // ========== TOAST NOTIFICATION ==========
