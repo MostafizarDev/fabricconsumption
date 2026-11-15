@@ -114,40 +114,55 @@ function downloadKnitPriceReport() {
         };
         return '<svg class="report-icon" viewBox="0 0 24 24" aria-hidden="true">' + (paths[name] || paths.info) + '</svg>';
     };
+    const infoFields = [
+        ['Buyer Name', 'pc-buyer'],
+        ['Style No.', 'pc-style'],
+        ['PO / Order No.', 'pc-po'],
+        ['Garment Type', 'pc-garment']
+    ];
+    const orderCards = infoFields.map(function(field) {
+        const input = document.getElementById(field[1]);
+        const value = input ? String(input.value || '').trim() : '';
+        return value ? '<div><span>' + field[0] + '</span><strong>' + safe(value) + '</strong></div>' : '';
+    }).filter(Boolean).join('');
+    const extraOrderFields = [
+        ['Order Quantity', 'pc-qty', ' pcs'],
+        ['Season', 'pc-season', ''],
+        ['Shipment Date', 'pc-shipment', '']
+    ];
+    const extraOrderCards = extraOrderFields.map(function(field) {
+        const input = document.getElementById(field[1]);
+        const value = input ? String(input.value || '').trim() : '';
+        return value ? '<div><span>' + field[0] + '</span><strong>' + safe(value) + safe(field[2]) + '</strong></div>' : '';
+    }).filter(Boolean).join('');
 
-    const orderRows = pricingOrderInfoReportHtml();
-    const report = '<div class="report">' +
+    const report = '<div class="report knit-price-report">' +
         '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">CALCULATION REPORT</div><h1>Knit Fabric Cost Calculator</h1><div class="report-id">' + reportId + '</div></div></div>' +
         '<div class="meta-grid"><div><span>Report Date</span><strong>' + dateText + '</strong></div><div><span>Time</span><strong>' + timeText + '</strong></div><div><span>Currency</span><strong>' + safe(currency.code) + '</strong></div><div><span>Calculation</span><strong>Per Meter</strong></div></div>' +
-        (orderRows ? '<section class="section"><div class="section-head">' + icon('info') + '<span>ORDER INFORMATION</span></div>' + orderRows.replace(/<h2[^>]*>Order Information<\/h2>/, '') + '</section>' : '') +
-        '<section class="section"><div class="section-head">' + icon('info') + '<span>FABRIC INPUT DETAILS</span></div><table><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th></tr></thead><tbody>' +
-        '<tr><td>Fabric Weight</td><td>' + weight.toFixed(2) + '</td><td>kg</td></tr>' +
-        '<tr><td>Fabric GSM</td><td>' + gsm.toFixed(2) + '</td><td>g/m²</td></tr>' +
-        '<tr><td>Fabric Width</td><td>' + width.toFixed(2) + '</td><td>meter</td></tr>' +
-        '<tr><td>Price Per Kg</td><td>' + safe(currency.symbol) + pricePerKg.toFixed(2) + '</td><td>' + safe(currency.code) + '/kg</td></tr>' +
-        '</tbody></table></section>' +
-        '<div class="summary-grid">' +
+        (orderCards || extraOrderCards ? '<section class="section"><div class="section-head">' + icon('info') + '<span>ORDER INFORMATION</span></div><div class="info-grid">' + orderCards + extraOrderCards + '</div></section>' : '') +
+        '<section class="section"><div class="section-head">' + icon('info') + '<span>FABRIC INPUT DETAILS</span></div><div class="info-grid">' +
+        '<div><span>Fabric Weight</span><strong>' + weight.toFixed(2) + ' kg</strong></div>' +
+        '<div><span>Fabric GSM</span><strong>' + gsm.toFixed(2) + ' g/m²</strong></div>' +
+        '<div><span>Fabric Width</span><strong>' + width.toFixed(2) + ' meter</strong></div>' +
+        '<div><span>Price Per Kg</span><strong>' + safe(currency.symbol) + pricePerKg.toFixed(2) + ' /kg</strong></div>' +
+        '</div></section>' +
+        '<div class="summary-grid knit-summary-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">' +
         '<div class="summary-card"><div class="metric-head">' + icon('summary') + '<span>FABRIC LENGTH</span></div><strong>' + fabricLength.toFixed(2) + ' m</strong><small>Calculated from weight, GSM and width</small></div>' +
         '<div class="summary-card primary"><div class="metric-head">' + icon('summary') + '<span>PRICE PER METER</span></div><strong>' + safe(currency.symbol) + pricePerMeter.toFixed(2) + '</strong><small>' + safe(currency.code) + ' per meter</small></div>' +
         '</div>' +
-        '<section class="section"><div class="section-head">' + icon('formula') + '<span>CALCULATION FORMULA</span></div><div class="formula-text">' +
+        '<section class="section formula"><div class="section-head">' + icon('formula') + '<span>CALCULATION FORMULA</span></div><div class="formula-text">' +
         '<strong>1. Fabric Length</strong><br>Fabric Length = (Weight × 1000) ÷ (GSM × Width)<br>= (' + weight.toFixed(2) + ' × 1000) ÷ (' + gsm.toFixed(2) + ' × ' + width.toFixed(2) + ')<br>= <strong>' + fabricLength.toFixed(2) + ' meters</strong><br><br>' +
         '<strong>2. Price per Meter</strong><br>Price per Meter = (Price per Kg × GSM × Width) ÷ 1000<br>= (' + pricePerKg.toFixed(2) + ' × ' + gsm.toFixed(2) + ' × ' + width.toFixed(2) + ') ÷ 1000<br>= <strong>' + safe(currency.symbol) + pricePerMeter.toFixed(2) + ' per meter</strong>' +
         '</div></section>' +
         '<div class="report-footer"><span>Fabric Consumption • Garment Calculator Suite</span><span>' + dateText + ' · ' + timeText + ' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div>' +
         '</div>';
 
-    try {
-        const pdfOpened = generatePDF('Knit Fabric Cost Report', report);
-        if (!pdfOpened) {
-            setKnitPriceStatus('PDF window was blocked. Please allow pop-ups for this website and try again.', 'error');
-            return;
-        }
-        setKnitPriceStatus('PDF report is ready. In the print window, choose Save as PDF.', 'success');
-    } catch (error) {
-        console.error('Knit PDF generation error:', error);
-        setKnitPriceStatus('PDF could not be opened. Please allow pop-ups and try again.', 'error');
+    const pdfOpened = generatePDF('Knit Fabric Cost Report', report);
+    if (!pdfOpened) {
+        setKnitPriceStatus('PDF window could not be opened. Please try again.', 'error');
+        return;
     }
+    setKnitPriceStatus('PDF report is ready. In the print window, choose Save as PDF.', 'success');
 }
 document.addEventListener('DOMContentLoaded', function() {
     const inputs = ['kfp-w', 'kfp-gsm', 'kfp-wid', 'kfp-pkg'];
