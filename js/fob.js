@@ -122,26 +122,23 @@ function downloadFOBReport() {
         '<div class="summary-card"><div class="metric-head">' + icon('summary') + '<span>C&amp;F PRICE</span></div><strong>' + safe(currency.symbol) + cfPrice.toFixed(2) + '</strong><small>Including freight per piece</small></div>' +
         '<div class="summary-card primary"><div class="metric-head">' + icon('summary') + '<span>CIF PRICE</span></div><strong>' + safe(currency.symbol) + cifPrice.toFixed(2) + '</strong><small>Including freight and insurance</small></div>' +
         '</div>' +
-        '<section class="section"><div class="section-head">' + icon('info') + '<span>COST BREAKDOWN</span></div><table><thead><tr><th>Cost Component</th><th>Amount (' + safe(currency.code) + ')</th><th>Share</th></tr></thead><tbody>' +
+        '<section class="section compact-fob-breakdown"><div class="section-head">' + icon('info') + '<span>COST BREAKDOWN</span></div><table><thead><tr><th>Cost Component</th><th>Amount (' + safe(currency.code) + ')</th><th>Share</th></tr></thead><tbody>' +
         '<tr><td>Fabric Cost</td><td>' + safe(currency.symbol) + fabric.toFixed(2) + '</td><td>' + share(fabric) + '</td></tr>' +
         '<tr><td>Trims Cost</td><td>' + safe(currency.symbol) + trims.toFixed(2) + '</td><td>' + share(trims) + '</td></tr>' +
         '<tr><td>CM (Cut &amp; Make)</td><td>' + safe(currency.symbol) + cm.toFixed(2) + '</td><td>' + share(cm) + '</td></tr>' +
         '<tr><td>Accessories</td><td>' + safe(currency.symbol) + accessories.toFixed(2) + '</td><td>' + share(accessories) + '</td></tr>' +
-        '<tr><td><strong>Total Manufacturing Cost</strong></td><td><strong>' + safe(currency.symbol) + totalCost.toFixed(2) + '</strong></td><td><strong>100%</strong></td></tr>' +
+        '<tr class="total-row"><td><strong>Total Manufacturing Cost</strong></td><td><strong>' + safe(currency.symbol) + totalCost.toFixed(2) + '</strong></td><td><strong>100%</strong></td></tr>' +
         '<tr><td>Overhead (' + overhead.toFixed(2) + '%)</td><td>' + safe(currency.symbol) + overheadAmount.toFixed(2) + '</td><td>—</td></tr>' +
         '<tr><td>Profit (' + profit.toFixed(2) + '%)</td><td>' + safe(currency.symbol) + profitAmount.toFixed(2) + '</td><td>—</td></tr>' +
-        '<tr><td><strong>FOB Price</strong></td><td><strong>' + safe(currency.symbol) + fobPrice.toFixed(2) + '</strong></td><td>—</td></tr>' +
         '<tr><td>Freight</td><td>' + safe(currency.symbol) + freight.toFixed(2) + '</td><td>—</td></tr>' +
-        '<tr><td><strong>C&amp;F Price</strong></td><td><strong>' + safe(currency.symbol) + cfPrice.toFixed(2) + '</strong></td><td>—</td></tr>' +
         '<tr><td>Insurance (' + insurance.toFixed(2) + '%)</td><td>' + safe(currency.symbol) + insuranceAmount.toFixed(2) + '</td><td>—</td></tr>' +
-        '<tr><td><strong>CIF Price</strong></td><td><strong>' + safe(currency.symbol) + cifPrice.toFixed(2) + '</strong></td><td>—</td></tr>' +
         '</tbody></table></section>' +
-        '<section class="section formula"><div class="section-head">' + icon('formula') + '<span>CALCULATION FORMULA</span></div><div class="formula-text">' +
-        '<strong>1. Total Manufacturing Cost</strong><br>Fabric + Trims + CM + Accessories<br>= ' + [fabric,trims,cm,accessories].map(v=>safe(currency.symbol)+v.toFixed(2)).join(' + ') + '<br>= <strong>' + safe(currency.symbol) + totalCost.toFixed(2) + '</strong><br><br>' +
-        '<strong>2. Cost with Overhead</strong><br>Total Cost × (1 + Overhead ÷ 100)<br>= ' + safe(currency.symbol) + totalCost.toFixed(2) + ' × (1 + ' + overhead.toFixed(2) + ' ÷ 100)<br>= <strong>' + safe(currency.symbol) + costWithOH.toFixed(2) + '</strong><br><br>' +
-        '<strong>3. FOB Price</strong><br>Cost with Overhead × (1 + Profit ÷ 100)<br>= ' + safe(currency.symbol) + costWithOH.toFixed(2) + ' × (1 + ' + profit.toFixed(2) + ' ÷ 100)<br>= <strong>' + safe(currency.symbol) + fobPrice.toFixed(2) + '</strong><br><br>' +
-        '<strong>4. C&amp;F Price</strong><br>FOB Price + Freight<br>= ' + safe(currency.symbol) + fobPrice.toFixed(2) + ' + ' + safe(currency.symbol) + freight.toFixed(2) + '<br>= <strong>' + safe(currency.symbol) + cfPrice.toFixed(2) + '</strong><br><br>' +
-        '<strong>5. CIF Price</strong><br>C&amp;F Price × (1 + Insurance ÷ 100)<br>= ' + safe(currency.symbol) + cfPrice.toFixed(2) + ' × (1 + ' + insurance.toFixed(2) + ' ÷ 100)<br>= <strong>' + safe(currency.symbol) + cifPrice.toFixed(2) + '</strong>' +
+        '<section class="section formula compact-fob-formula"><div class="section-head">' + icon('formula') + '<span>CALCULATION FORMULA</span></div><div class="formula-text">' +
+        '<div><strong>1. Manufacturing Cost:</strong> ' + [fabric,trims,cm,accessories].map(v=>safe(currency.symbol)+v.toFixed(2)).join(' + ') + ' = <strong>' + safe(currency.symbol) + totalCost.toFixed(2) + '</strong></div>' +
+        '<div><strong>2. Cost with Overhead:</strong> ' + safe(currency.symbol) + totalCost.toFixed(2) + ' × (1 + ' + overhead.toFixed(2) + '%) = <strong>' + safe(currency.symbol) + costWithOH.toFixed(2) + '</strong></div>' +
+        '<div><strong>3. FOB Price:</strong> ' + safe(currency.symbol) + costWithOH.toFixed(2) + ' × (1 + ' + profit.toFixed(2) + '%) = <strong>' + safe(currency.symbol) + fobPrice.toFixed(2) + '</strong></div>' +
+        '<div><strong>4. C&amp;F Price:</strong> ' + safe(currency.symbol) + fobPrice.toFixed(2) + ' + ' + safe(currency.symbol) + freight.toFixed(2) + ' = <strong>' + safe(currency.symbol) + cfPrice.toFixed(2) + '</strong></div>' +
+        '<div><strong>5. CIF Price:</strong> ' + safe(currency.symbol) + cfPrice.toFixed(2) + ' × (1 + ' + insurance.toFixed(2) + '%) = <strong>' + safe(currency.symbol) + cifPrice.toFixed(2) + '</strong></div>' +
         '</div></section>' +
         '<div class="report-footer"><span>Fabric Consumption • Garment Calculator Suite</span><span>' + dateText + ' · ' + timeText + ' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div>' +
         '</div>';
