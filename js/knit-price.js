@@ -13,7 +13,7 @@ function updatePricingCurrencyUI() {
     if (knitSymbol) knitSymbol.textContent = currency.symbol;
     const knitPriceIcon = document.getElementById('kfp-price-icon');
     if (knitPriceIcon) knitPriceIcon.textContent = currency.symbol;
-    document.querySelectorAll('.fob-currency-symbol').forEach(function(node) { node.textContent = currency.symbol; });
+    document.querySelectorAll('.fob-currency-symbol, .fob-price-icon').forEach(function(node) { node.textContent = currency.symbol; });
     if (typeof calcKnitPrice === 'function') calcKnitPrice();
     if (typeof calcFOB === 'function') calcFOB();
 }
