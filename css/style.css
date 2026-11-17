@@ -7346,3 +7346,17 @@ body.dark-mode #page-pricing #pricing-view-fob .pricing-knit-result-card.feature
   #page-pricing #pricing-view-fob .pricing-knit-result-card{min-height:105px;padding:11px}
   #page-pricing #pricing-view-fob .pricing-knit-result-card strong{font-size:19px}
 }
+
+
+/* FOB formula reference card */
+#page-pricing #pricing-view-fob .pricing-fob-formula{margin-top:14px;padding:16px 18px;border:1px solid var(--border,#e2e8f0);border-radius:12px;background:var(--card-bg,#fff);box-shadow:0 3px 12px rgba(15,23,42,.035)}
+#page-pricing #pricing-view-fob .pricing-fob-formula .fn-title{margin-bottom:12px;color:var(--text,#0f172a);font-size:13px;font-weight:800}
+#page-pricing #pricing-view-fob .pricing-fob-formula-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#page-pricing #pricing-view-fob .pricing-fob-formula-grid article{padding:11px 12px;border:1px solid var(--border,#e2e8f0);border-radius:8px;background:var(--soft-bg,#f8fafc)}
+#page-pricing #pricing-view-fob .pricing-fob-formula-grid article strong{display:block;margin-bottom:5px;color:#0284c7;font-size:10px;font-weight:800}
+#page-pricing #pricing-view-fob .pricing-fob-formula-grid article p{margin:0;color:var(--text,#334155);font-size:10px;line-height:1.55}
+#page-pricing #pricing-view-fob .pricing-fob-formula-note{margin:10px 1px 0;color:var(--muted,#64748b);font-size:9px}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-fob-formula{background:#111c2e;border-color:#334155}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-fob-formula-grid article{background:#0f1b2d;border-color:#334155}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-fob-formula-grid article p{color:#cbd5e1}
+@media(max-width:560px){#page-pricing #pricing-view-fob .pricing-fob-formula{padding:14px}#page-pricing #pricing-view-fob .pricing-fob-formula-grid{grid-template-columns:1fr}}
