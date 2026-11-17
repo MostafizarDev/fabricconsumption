@@ -258,6 +258,17 @@ function generatePDF(title, contentHtml) {
                 .consumption-table th:nth-child(7) { width: 6%; white-space: nowrap; font-size: 6.5px; }
                 .formula { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin: 14px 0; }
                 .formula-text { padding: 11px; font-family: monospace; font-size: 9px; line-height: 1.7; color: #334155; }
+                /* Compact FOB PDF sections to reduce unnecessary page height. */
+                .fob-cost-report .compact-fob-breakdown { margin: 8px 0; }
+                .fob-cost-report .compact-fob-breakdown .section-head,
+                .fob-cost-report .compact-fob-formula .section-head { padding: 5px 9px; font-size: 8px; }
+                .fob-cost-report .compact-fob-breakdown table { font-size: 8px; line-height: 1.15; }
+                .fob-cost-report .compact-fob-breakdown th,
+                .fob-cost-report .compact-fob-breakdown td { padding: 3px 6px; }
+                .fob-cost-report .compact-fob-formula { margin: 8px 0; }
+                .fob-cost-report .compact-fob-formula .formula-text { padding: 7px 10px; font-size: 8px; line-height: 1.35; }
+                .fob-cost-report .compact-fob-formula .formula-text > div { margin: 2px 0; }
+                .fob-cost-report .compact-fob-formula .formula-text strong { color: #0f172a; }
                 .note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 7px; padding: 9px 11px; font-size: 8px; color: #92400e; margin-top: 14px; }
                 .report-footer { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #e2e8f0; margin-top: 18px; padding-top: 9px; font-size: 8px; color: #94a3b8; }
                 .report-footer a { color: inherit; text-decoration: underline; cursor: pointer; }
