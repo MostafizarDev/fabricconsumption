@@ -7303,3 +7303,46 @@ body.dark-mode #page-pricing #pricing-view-knitprice .pricing-result-heading{bor
   #page-pricing .pricing-choice-copy small{font-size:10px}
 }
 
+
+
+/* ========== FOB COSTING — MATCH KNIT PRICE CALCULATOR THEME ========== */
+#page-pricing #pricing-view-fob .pricing-tool-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:0 0 14px}
+#page-pricing #pricing-view-fob .pricing-tool-heading .page-title{margin:0;color:var(--text,#0f172a);font-size:19px;font-weight:800}
+#page-pricing #pricing-view-fob .pricing-tool-subtitle{margin:5px 0 0;color:var(--muted,#64748b);font-size:11px;line-height:1.6}
+#page-pricing #pricing-view-fob .pricing-fob-panel{padding:20px;border:1px solid var(--border,#e2e8f0);border-radius:13px;background:var(--card-bg,#fff);box-shadow:0 4px 16px rgba(15,23,42,.045)}
+#page-pricing #pricing-view-fob .pricing-input-heading,#page-pricing #pricing-view-fob .pricing-result-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+#page-pricing #pricing-view-fob .pricing-input-heading h2,#page-pricing #pricing-view-fob .pricing-result-heading h2{margin:0;color:var(--text,#0f172a);font-size:14px;font-weight:800}
+#page-pricing #pricing-view-fob .pricing-input-heading p,#page-pricing #pricing-view-fob .pricing-result-heading p{margin:3px 0 0;color:var(--muted,#64748b);font-size:10px;line-height:1.5}
+#page-pricing #pricing-view-fob .pricing-fob-panel .field-row{gap:14px;margin-bottom:13px}
+#page-pricing #pricing-view-fob .pricing-fob-panel .f-group label{font-size:11px;font-weight:700;color:var(--text,#334155);margin-bottom:6px}
+#page-pricing #pricing-view-fob .pricing-fob-panel .inp-plain{box-sizing:border-box;width:100%;min-height:40px;padding:9px 11px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:500 12px Inter,Arial,sans-serif}
+#page-pricing #pricing-view-fob .pricing-fob-panel .inp-plain:focus{outline:none;border-color:#0284c7;box-shadow:0 0 0 3px rgba(2,132,199,.11)}
+#page-pricing #pricing-view-fob .pricing-result-heading{margin:20px 0 10px;padding-top:16px;border-top:1px solid var(--border,#e2e8f0)}
+#page-pricing #pricing-view-fob .pricing-result-live{padding:5px 8px;border-radius:5px;background:#ecfdf5;color:#047857;font-size:8px;font-weight:800;letter-spacing:.7px}
+#page-pricing #pricing-view-fob .pricing-fob-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#page-pricing #pricing-view-fob .pricing-knit-result-card{position:relative;display:grid;justify-items:start;gap:6px;min-width:0;min-height:116px;padding:15px;border:1px solid var(--border,#e2e8f0);border-radius:10px;background:var(--soft-bg,#f8fafc)}
+#page-pricing #pricing-view-fob .pricing-knit-result-card.featured{border-color:#bae6fd;background:linear-gradient(145deg,#eff6ff,#fff)}
+#page-pricing #pricing-view-fob .pricing-result-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:#eff6ff;color:#0284c7;font-size:17px;font-weight:800}
+#page-pricing #pricing-view-fob .pricing-result-icon.price-icon{background:#ecfdf5;color:#059669}
+#page-pricing #pricing-view-fob .pricing-result-label{color:var(--muted,#64748b);font-size:9px;font-weight:800;letter-spacing:.55px;text-transform:uppercase}
+#page-pricing #pricing-view-fob .pricing-knit-result-card strong{color:var(--text,#0f172a);font-size:22px;font-weight:800;line-height:1.2;overflow-wrap:anywhere}
+#page-pricing #pricing-view-fob .pricing-knit-result-card.featured strong{color:#0284c7}
+#page-pricing #pricing-view-fob .pricing-knit-result-card small{color:var(--muted,#64748b);font-size:9px;line-height:1.4}
+#page-pricing #pricing-view-fob .pricing-knit-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+#page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn{min-height:38px;padding:9px 15px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:var(--card-bg,#fff);color:var(--text,#334155);font-size:11px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .15s}
+#page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(15,23,42,.09)}
+#page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn.primary{border-color:#0284c7;background:#0284c7;color:#fff}
+#page-pricing #pricing-view-fob .pricing-knit-actions .pricing-download-btn{border-color:#059669;background:#059669;color:#fff}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-fob-panel{background:#111c2e;border-color:#334155}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-fob-panel .inp-plain{background:#0b1220;border-color:#475569;color:#e2e8f0}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-knit-result-card{background:#0f1b2d;border-color:#334155}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-knit-result-card.featured{background:linear-gradient(145deg,#102b42,#0f1b2d);border-color:#1d4ed8}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-knit-result-card strong{color:#e2e8f0}
+body.dark-mode #page-pricing #pricing-view-fob .pricing-knit-result-card.featured strong{color:#7dd3fc}
+@media(max-width:560px){
+  #page-pricing #pricing-view-fob .pricing-fob-panel{padding:14px}
+  #page-pricing #pricing-view-fob .pricing-tool-heading .page-title{font-size:17px}
+  #page-pricing #pricing-view-fob .pricing-fob-results{gap:8px}
+  #page-pricing #pricing-view-fob .pricing-knit-result-card{min-height:105px;padding:11px}
+  #page-pricing #pricing-view-fob .pricing-knit-result-card strong{font-size:19px}
+}
