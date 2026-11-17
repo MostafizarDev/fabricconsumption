@@ -7328,8 +7328,8 @@ body.dark-mode #page-pricing #pricing-view-knitprice .pricing-result-heading{bor
 #page-pricing #pricing-view-fob .pricing-knit-result-card strong{color:var(--text,#0f172a);font-size:22px;font-weight:800;line-height:1.2;overflow-wrap:anywhere}
 #page-pricing #pricing-view-fob .pricing-knit-result-card.featured strong{color:#0284c7}
 #page-pricing #pricing-view-fob .pricing-knit-result-card small{color:var(--muted,#64748b);font-size:9px;line-height:1.4}
-#page-pricing #pricing-view-fob .pricing-knit-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
-#page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn{min-height:38px;padding:9px 15px;border:1px solid var(--border,#cbd5e1);border-radius:8px;background:var(--card-bg,#fff);color:var(--text,#334155);font-size:11px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .15s}
+#page-pricing #pricing-view-fob .pricing-knit-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+#page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn{display:inline-flex;align-items:center;justify-content:center;flex:1 1 150px;min-height:40px;padding:10px 15px;border:1px solid #cbd5e1;border-radius:8px;background:#f8fafc;color:#334155;font:700 11px Inter,Arial,sans-serif;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s}
 #page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(15,23,42,.09)}
 #page-pricing #pricing-view-fob .pricing-knit-actions .marker-btn.primary{border-color:#0284c7;background:#0284c7;color:#fff}
 #page-pricing #pricing-view-fob .pricing-knit-actions .pricing-download-btn{border-color:#059669;background:#059669;color:#fff}
