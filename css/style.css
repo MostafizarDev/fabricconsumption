@@ -7647,3 +7647,9 @@ body.dark-mode #page-booking .booking-qty-toggle-label{color:#9aadc2}
 body.dark-mode #page-booking .booking-qty-toggle button{color:#a9bbcf}
 body.dark-mode #page-booking .booking-qty-toggle button.active{background:#1c3d5b;color:#8bd3ff;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 @media(max-width:600px){#page-booking .booking-size-controls{align-items:flex-start;flex-wrap:wrap}#page-booking .booking-qty-toggle button{padding:6px 8px}}
+
+
+/* Size Ratio: remove quantity selector and top total badge; widen TOTAL PCS column */
+#page-booking .booking-size-controls{justify-content:flex-end;min-height:0;margin:0 0 8px}
+#page-booking .booking-size-matrix .bk-total-head{width:94px;min-width:94px;white-space:nowrap;text-align:center}
+#page-booking .booking-size-matrix .bk-total-cell{min-width:94px;width:94px;text-align:center}
