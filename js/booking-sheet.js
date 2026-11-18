@@ -241,7 +241,7 @@
           {formula:`(D${r}+E${r})*(F${r}+G${r})*H${r}/1550000`,result:x.netMarker},
           x.pcs,{formula:`IF(J${r}>0,I${r}*12/J${r},0)`,result:x.netDozen},
           x.cut/100,{formula:`K${r}*(1+L${r})`,result:x.finalDozen},x.dia,x.diaType];
-        vals.forEach((v,j)=>put(ws.getCell(r,j+1),v,{font:{size:9,color:ink},fill:[8,10,12].includes(j)?fill(green):undefined,numFmt:[3,4,5,6,7,8,10,12,13].includes(j)?'0.0000':j===11?'0.0%':undefined}));
+        vals.forEach((v,j)=>put(ws.getCell(r,j+1),v,{font:{size:9,color:ink},fill:[8,10,12].includes(j)?fill(green):undefined,numFmt:[3,4,5,6,13].includes(j)?'0.00':[8,10,12].includes(j)?'0.0000':j===7?'0':j===11?'0.0%':undefined}));
         ws.getRow(r).height=20.1;
       });
       const totalRow=Math.max(21,12+data.length), dataEnd=11+data.length;
@@ -311,7 +311,7 @@
       [['DIA',first.dia],['LENGTH',first.ml+first.cla],['GSM',first.gsm],['PCS',first.pcs],['WASTAGE',first.cut/100]].forEach((x,i)=>{const r=4+i;cs.mergeCells(r,2,r,4);put(cs.getCell(r,2),x[0],{alignment:{horizontal:'left'},font:{bold:true,color:navy}});put(cs.getCell(r,5),x[1]);});
       cs.mergeCells('B9:D9');put(cs.getCell('B9'),'CONSUMPTION',{font:{bold:true,color:white},fill:fill(navy)});
       const consumption=first.pcs>0?(first.dia*(first.ml+first.cla)*first.gsm/1550000/first.pcs)*(1+first.cut/100):0;
-      put(cs.getCell('E9'),{formula:'IF(E7>0,(E4*E5*E6/1550000/E7)*(1+E8),0)',result:consumption},{fill:fill(green)});cs.getCell('E8').numFmt='0.0%';cs.getCell('E9').numFmt='0.0000';
+      put(cs.getCell('E9'),{formula:'IF(E7>0,(E4*E5*E6/1550000/E7)*(1+E8),0)',result:consumption},{fill:fill(green)});cs.getCell('E4').numFmt='0.00';cs.getCell('E5').numFmt='0.00';cs.getCell('E6').numFmt='0';cs.getCell('E8').numFmt='0.0%';cs.getCell('E9').numFmt='0.0000';
       cs.pageSetup={paperSize:cs.PAPER_A4,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1};cs.printArea='B2:E9';
       const buffer=await wb.xlsx.writeBuffer(),blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),url=URL.createObjectURL(blob),a=document.createElement('a');
       a.href=url;a.download='Fabric-Booking-Sheet.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
