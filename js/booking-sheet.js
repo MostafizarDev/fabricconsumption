@@ -19,7 +19,7 @@
     const headers=sizeRows();
     const rowsData=headers.map((header,i)=>({header,size:(header.querySelector('[data-size-label]')?.value||'').trim(),ratio:Math.max(0,Number(document.querySelector('[data-ratio-index="'+i+'"] [data-ratio]')?.value)||0)}));
     const totalRatio=rowsData.reduce((sum,x)=>sum+x.ratio,0);
-    const useCut=$('bk-ratio-qty-source')?.value==='cut';
+    const useCut=$('bk-ratio-qty-source')?.dataset.value==='cut';
     const orderQty=Math.max(0,Number($(useCut?'bk-cut-qty':'bk-order-qty')?.value)||0);
     rowsData.forEach(x=>{const btn=x.header.querySelector('.bk-size-remove');if(btn)btn.disabled=rowsData.length===1;});
     if($('bk-ratio-total')) $('bk-ratio-total').textContent='TOTAL: '+totalRatio+' PCS';
@@ -63,10 +63,23 @@
       '<td><input data-field="dia" type="number" step="0.01" value="0"></td><td><select data-field="diaType"><option>OPEN</option><option>TUBULAR</option></select></td><td><button type="button" class="bk-remove-row">×</button></td>';
     $('bk-fabric-rows').appendChild(tr); calculate();
   }
+  function nextStandardSize(existing) {
+    const order=['XXXS','XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'];
+    const normalized=existing.map(x=>String(x||'').trim().toUpperCase().replace(/\\s+/g,''));
+    const known=normalized.filter(x=>order.includes(x));
+    if(known.length){
+      const highest=Math.max(...known.map(x=>order.indexOf(x)));
+      return order[highest+1]||('NEW '+(existing.length+1));
+    }
+    const last=normalized[normalized.length-1]||'';
+    if(/^\\d+$/.test(last)) return String(Number(last)+2);
+    if(/^\\d+T$/.test(last)) return (Number(last.slice(0,-1))+1)+'T';
+    return 'NEW '+(existing.length+1);
+  }
   function addSize() {
     const headers=sizeRows(), existing=headers.map(h=>h.querySelector('[data-size-label]')?.value.trim());
-    let next=existing.length?String(Number(existing[existing.length-1])+6||'NEW'):'NEW';
-    if(existing.includes(next))next='NEW '+(existing.length+1);
+    let next=nextStandardSize(existing);
+    while(existing.some(x=>String(x).toUpperCase()===next.toUpperCase())) next='NEW '+(existing.length+1);
     const index=headers.length,th=document.createElement('th'),td=document.createElement('td');
     th.className='bk-size-item';th.dataset.sizeIndex=index;
     th.innerHTML='<div class="bk-size-head-cell"><input data-size-label value="'+safe(next)+'" aria-label="Size label"><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></div>';
@@ -171,7 +184,16 @@
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
     $('bk-size-headers').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){const index=Number(e.target.closest('.bk-size-item').dataset.sizeIndex);e.target.closest('.bk-size-item').remove();document.querySelector('[data-ratio-index="'+index+'"]')?.remove();document.querySelectorAll('#bk-size-headers .bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);document.querySelectorAll('#bk-ratio-row td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);calculate();}});
     $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
-    $('bk-ratio-qty-source').addEventListener('change',calculate);
+    const qtyToggle=$('bk-ratio-qty-source');
+    qtyToggle.dataset.value='order';
+    qtyToggle.addEventListener('click',e=>{
+      const btn=e.target.closest('[data-qty-source]');if(!btn)return;
+      qtyToggle.dataset.value=btn.dataset.qtySource;
+      qtyToggle.querySelectorAll('[data-qty-source]').forEach(b=>{
+        const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+      });
+      calculate();
+    });
     $('bk-calculate').addEventListener('click',calculate);$('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
     calculate();
   });
