@@ -7617,3 +7617,12 @@ body.dark-mode #page-booking .booking-total-ratio{
 body.dark-mode #page-booking #bk-size-note{
   color:#91a4ba !important;
 }
+
+
+/* Booking Sheet workspace: increase overall content width by 1 inch (96 CSS px) */
+#page-booking{
+  max-width:1296px;
+}
+@media(max-width:1328px){
+  #page-booking{max-width:100%}
+}
