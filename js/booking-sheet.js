@@ -203,15 +203,12 @@
       const fill=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});
       const put=(cell,value,opts={})=>{cell.value=value;cell.border=border;cell.alignment={vertical:'middle',horizontal:'center',wrapText:true,...opts.alignment};if(opts.font)cell.font=opts.font;if(opts.fill)cell.fill=opts.fill;};
       [14,18,17,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
-      ws.mergeCells('A1:B1');put(ws.getCell('A1'),'FC',{font:{name:'Arial',size:15,bold:true,color:{argb:white}},fill:fill('2563EB')});
-      ws.mergeCells('C1:J1');put(ws.getCell('C1'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:{argb:navy}},fill:fill(pale),alignment:{horizontal:'left',vertical:'middle',indent:1}});
-      ws.mergeCells('K1:O1');put(ws.getCell('K1'),{text:'fabricconsumption.vercel.app',hyperlink:'https://fabricconsumption.vercel.app/'},{font:{name:'Arial',size:9,bold:true,color:{argb:'0563C1'},underline:true},fill:fill(pale)});
-      ws.getRow(1).height=30;
+      // Reference-style header: one favicon image, all brand/report wording remains editable text.
       ws.mergeCells('C1:H1');put(ws.getCell('C1'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:17,bold:true,color:{argb:navy}},alignment:{horizontal:'left',vertical:'middle'}});
       ws.mergeCells('C2:H2');put(ws.getCell('C2'),'G A R M E N T   C A L C U L A T O R   S U I T E',{font:{name:'Arial',size:8,bold:true,color:{argb:grey}},alignment:{horizontal:'left',vertical:'middle'}});
       ws.mergeCells('I1:O1');put(ws.getCell('I1'),'FACTORY BOOKING REPORT',{font:{name:'Arial',size:10,bold:true,color:{argb:'2563EB'}},alignment:{horizontal:'right',vertical:'middle'}});
       ws.mergeCells('I2:O2');put(ws.getCell('I2'),'Fabric Booking Sheet',{font:{name:'Arial',size:17,bold:true,color:{argb:ink}},alignment:{horizontal:'right',vertical:'middle'}});
-      ws.getRow(1).height=27;ws.getRow(2).height=28;ws.mergeCells('A3:O3');ws.getRow(3).height=7;
+      ws.getRow(1).height=30;ws.getRow(2).height=28;ws.mergeCells('A3:O3');ws.getRow(3).height=7;
       try {
         const response=await fetch('/favicon.svg');
         if(response.ok){
