@@ -288,7 +288,7 @@
     ['bk-buyer','bk-style','bk-po','bk-description','bk-body-fabric','bk-order-qty','bk-cut-qty','bk-shipment','bk-ratio-label'].forEach(id=>$(id).value='');
     $('bk-size-preset').value='';
     $('bk-size-headers').querySelectorAll('.bk-size-item').forEach(el=>el.remove());
-    $('bk-ratio-row').querySelectorAll('td[data-ratio]').forEach(el=>el.remove());
+    $('bk-ratio-row').querySelectorAll('td[data-ratio-index]').forEach(el=>el.remove());
     $('bk-fabric-rows').innerHTML=
       '<tr data-row="1"><td><input data-field="parts" placeholder="BODY"></td><td><input data-field="fabric" placeholder="COTTON"></td><td><input data-field="ml" type="number" step="0.01" placeholder="92.04"></td><td><input data-field="cla" type="number" step="0.01" placeholder="2"></td><td><input data-field="mw" type="number" step="0.01" placeholder="72"></td><td><input data-field="cwa" type="number" step="0.01" placeholder="2"></td><td><input data-field="gsm" type="number" step="0.01" placeholder="280"></td><td class="bk-net-marker">—</td><td><input data-field="pcs" type="number" step="1" placeholder="12"></td><td class="bk-net-dozen">—</td><td><input data-field="cut" type="number" step="0.01" placeholder="6"></td><td class="bk-final">—</td><td><input data-field="dia" type="number" step="0.01" placeholder="72"></td><td><select data-field="diaType"><option>OPEN</option><option>TUBULAR</option></select></td><td><button type="button" class="bk-remove-row" disabled>×</button></td></tr>';
     // Restore one empty size column so users can start from a clean sheet.
