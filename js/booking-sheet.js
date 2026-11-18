@@ -13,15 +13,17 @@
   };
   const safe = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const rows = () => Array.from(document.querySelectorAll('#bk-fabric-rows tr'));
-  const sizeRows = () => Array.from(document.querySelectorAll('#bk-size-rows .bk-size-card'));
+  const sizeRows = () => Array.from(document.querySelectorAll('#bk-size-headers .bk-size-item'));
   const ratioTotal = () => sizeRows().reduce((sum,row) => sum + Math.max(0, Number(row.querySelector('[data-ratio]')?.value) || 0), 0);
   function sizeBreakdown() {
-    const rowsData=sizeRows().map(row=>({row,size:(row.querySelector('[data-size-label]')?.value||'').trim(),ratio:Math.max(0,Number(row.querySelector('[data-ratio]')?.value)||0)}));
+    const headers=sizeRows();
+    const rowsData=headers.map((header,i)=>({header,size:(header.querySelector('[data-size-label]')?.value||'').trim(),ratio:Math.max(0,Number(document.querySelector('[data-ratio-index="'+i+'"] [data-ratio]')?.value)||0)}));
     const totalRatio=rowsData.reduce((sum,x)=>sum+x.ratio,0);
     const useCut=$('bk-ratio-qty-source')?.value==='cut';
     const orderQty=Math.max(0,Number($(useCut?'bk-cut-qty':'bk-order-qty')?.value)||0);
-    rowsData.forEach(x=>{const btn=x.row.querySelector('.bk-size-remove');if(btn)btn.disabled=rowsData.length===1;});
+    rowsData.forEach(x=>{const btn=x.header.querySelector('.bk-size-remove');if(btn)btn.disabled=rowsData.length===1;});
     if($('bk-ratio-total')) $('bk-ratio-total').textContent='TOTAL: '+totalRatio+' PCS';
+    if($('bk-size-ratio-sum')) $('bk-size-ratio-sum').textContent=totalRatio;
     return {sizes:rowsData.map(({size,ratio})=>({size,ratio})),totalRatio,orderQty};
   }
   const readRow = row => {
@@ -61,12 +63,16 @@
     $('bk-fabric-rows').appendChild(tr); calculate();
   }
   function addSize() {
-    const existing=sizeRows().map(row=>row.querySelector('[data-size-label]')?.value.trim());
-    let next=existing.length?String(Number(existing[existing.length-1])+6||'NEW'):'74';
+    const headers=sizeRows(), existing=headers.map(h=>h.querySelector('[data-size-label]')?.value.trim());
+    let next=existing.length?String(Number(existing[existing.length-1])+6||'NEW'):'NEW';
     if(existing.includes(next))next='NEW '+(existing.length+1);
-    const card=document.createElement('div');card.className='bk-size-card';
-    card.innerHTML='<div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></div><input data-size-label value="'+safe(next)+'" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio for size '+safe(next)+'">';
-    $('bk-size-rows').appendChild(card);calculate();
+    const index=headers.length,th=document.createElement('th'),td=document.createElement('td');
+    th.className='bk-size-item';th.dataset.sizeIndex=index;
+    th.innerHTML='<div class="bk-size-head-cell"><input data-size-label value="'+safe(next)+'" aria-label="Size label"><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></div>';
+    td.dataset.ratioIndex=index;td.innerHTML='<input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio for '+safe(next)+'">';
+    $('bk-size-headers').insertBefore(th,$('bk-size-headers').lastElementChild);
+    $('bk-ratio-row').insertBefore(td,$('bk-ratio-row').lastElementChild);
+    calculate();
   }
   function orderInfo() {
     return [
@@ -78,11 +84,11 @@
     const result=calculate(), info=orderInfo(), data=result.data;
     const infoHtml=info.filter(x=>x[1]).map(x=>'<div><span>'+safe(x[0])+'</span><strong>'+safe(x[1])+'</strong></div>').join('');
     const body=data.map(x=>'<tr><td>'+safe(x.parts)+'</td><td>'+safe(x.fabric)+'</td><td>'+x.ml+'</td><td>'+x.cla+'</td><td>'+x.mw+'</td><td>'+x.cwa+'</td><td>'+x.gsm+'</td><td>'+x.netMarker.toFixed(4)+'</td><td>'+x.pcs+'</td><td>'+x.netDozen.toFixed(4)+'</td><td>'+x.cut+'%</td><td><strong>'+x.finalDozen.toFixed(4)+'</strong></td><td>'+x.dia+'</td><td>'+safe(x.diaType)+'</td></tr>').join('');
-    const sizeCells=result.sizing.sizes.map(x=>'<td>'+safe(x.size)+'</td>').join(''); const ratioCells=result.sizing.sizes.map(x=>'<td>'+x.ratio+'</td>').join('');
+    const sizeCells=result.sizing.sizes.map(x=>'<th>'+safe(x.size)+'</th>').join(''); const ratioCells=result.sizing.sizes.map(x=>'<td>'+x.ratio+'</td>').join('');
     const report='<div class="report booking-pdf-report"><div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">FACTORY BOOKING REPORT</div><h1>Style Wise Fabrics Consumption</h1><div class="report-id">BOOKING · '+new Date().toLocaleDateString('en-GB')+'</div></div></div>'+
       '<section class="section"><div class="section-head">ORDER INFORMATION</div><div class="info-grid">'+infoHtml+'</div></section>'+
       '<section class="section"><div class="section-head">FABRIC &amp; MARKER DETAILS</div><table><thead><tr><th>Parts</th><th>Fabric</th><th>ML</th><th>Cut L</th><th>MW</th><th>Cut W</th><th>GSM</th><th>Net/Marker</th><th>PCS</th><th>Net/Doz</th><th>Cut%</th><th>Final/Doz</th><th>DIA</th><th>Type</th></tr></thead><tbody>'+body+'</tbody></table></section>'+
-      '<section class="section"><div class="section-head">SIZE RATIO</div><table><tbody><tr><th>SIZE</th>'+sizeCells+'</tr><tr><th>RATIO</th>'+ratioCells+'</tr><tr><th>TOTAL</th><td colspan="'+Math.max(1,result.sizing.sizes.length)+'"><strong>'+result.sizing.totalRatio+' PCS</strong></td></tr></tbody></table></section>'+
+      '<section class="section"><div class="section-head">SIZE RATIO</div><table><thead><tr><th>SIZE</th>'+sizeCells+'<th>PCS</th></tr></thead><tbody><tr><th>RATIO (BODY+RIB)</th>'+ratioCells+'<td><strong>'+result.sizing.totalRatio+'</strong></td></tr></tbody></table></section>'+
       '<div class="summary-grid"><div class="summary-card primary"><div class="metric-head"><span>TOTAL FINAL CONSUMPTION / DOZEN</span></div><strong>'+result.grand.toFixed(4)+' KG</strong></div><div class="summary-card"><div class="metric-head"><span>TOTAL FABRIC REQUIREMENT</span></div><strong>'+(result.totalQty?result.requirement.toFixed(2)+' KG':'—')+'</strong><small>Based on '+result.totalQty+' pcs</small></div></div>'+
       '<section class="section formula"><div class="section-head">CALCULATION FORMULA</div><div class="formula-text"><strong>Net KG / Marker</strong> = (ML + Cut L) × (MW + Cut W) × GSM ÷ 1,550,000<br><strong>Net KG / Dozen</strong> = Net KG / Marker × 12 ÷ PCS / Marker<br><strong>Final KG / Dozen</strong> = Net KG / Dozen × (1 + Cutting % ÷ 100)<br><strong>Total Order Requirement</strong> = Total KG / Dozen × Order Quantity ÷ 12</div></section>'+
       '<div class="report-footer"><span>Fabric Consumption · Factory Booking Sheet</span><span>Generated '+new Date().toLocaleString()+'</span></div></div>';
@@ -162,8 +168,8 @@
     $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
     document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
-    $('bk-size-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){e.target.closest('.bk-size-card').remove();calculate();}});
-    $('bk-size-rows').addEventListener('input',calculate);
+    $('bk-size-headers').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){const index=Number(e.target.closest('.bk-size-item').dataset.sizeIndex);e.target.closest('.bk-size-item').remove();document.querySelector('[data-ratio-index="'+index+'"]')?.remove();document.querySelectorAll('#bk-size-headers .bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);document.querySelectorAll('#bk-ratio-row td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);calculate();}});
+    $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
     $('bk-ratio-qty-source').addEventListener('change',calculate);
     $('bk-calculate').addEventListener('click',calculate);$('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
     calculate();
