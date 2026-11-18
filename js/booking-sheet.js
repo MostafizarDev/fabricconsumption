@@ -276,10 +276,35 @@
       });
       [summaryHead,summaryValue,summaryNote].forEach(r=>ws.getRow(r).height=r===summaryValue?26:21);
       const commentsRow=totalRow+11;
-      ws.mergeCells(commentsRow,2,commentsRow,14);put(ws.getCell(commentsRow,2),'Comments : ',{font:{name:'Calibri',size:11,bold:true,color:navy},alignment:{horizontal:'left',vertical:'top'}});
-      ws.mergeCells(commentsRow+1,2,commentsRow+3,14);put(ws.getCell(commentsRow+1,2),'',{alignment:{horizontal:'left',vertical:'top'}});
+      ws.mergeCells(commentsRow,2,commentsRow,14);
+      put(ws.getCell(commentsRow,2),'COMMENTS / REMARKS',{font:{name:'Calibri',size:11,bold:true,color:navy},fill:fill(pale),alignment:{horizontal:'left',vertical:'middle',indent:1}});
+      ws.mergeCells(commentsRow+1,2,commentsRow+3,14);
+      put(ws.getCell(commentsRow+1,2),'',{alignment:{horizontal:'left',vertical:'top'}});
       ws.getRow(commentsRow+1).height=20;ws.getRow(commentsRow+2).height=20;ws.getRow(commentsRow+3).height=20;
-      const footerRow=commentsRow+5;ws.mergeCells(footerRow,2,footerRow,14);
+
+      const importantRow=commentsRow+5;
+      ws.mergeCells(importantRow,2,importantRow,14);
+      put(ws.getCell(importantRow,2),'IMPORTANT: Consumption estimate only. Verify marker measurements, GSM, cutting allowance, size ratio and order quantity against the approved marker and actual cutting-room consumption.',
+        {font:{name:'Calibri',size:9,italic:true,color:'8A5A00'},fill:fill('FFF7E6'),alignment:{horizontal:'left',vertical:'middle',indent:1}});
+      ws.getRow(importantRow).height=32;
+
+      const approvalHead=importantRow+2;
+      ws.mergeCells(approvalHead,2,approvalHead,14);
+      put(ws.getCell(approvalHead,2),'APPROVAL & SIGN-OFF',{font:{name:'Calibri',size:11,bold:true,color:white},fill:fill(navy),alignment:{horizontal:'left',vertical:'middle',indent:1}});
+      ws.getRow(approvalHead).height=23;
+      const approvalRow=approvalHead+1;
+      [['PREPARED BY',2],['CHECKED BY',7],['APPROVED BY',12]].forEach(([label,col])=>{
+        ws.mergeCells(approvalRow,col,approvalRow,col+2);
+        put(ws.getCell(approvalRow,col),label,{font:{name:'Calibri',size:10,bold:true,color:navy},alignment:{horizontal:'center'}});
+        ws.mergeCells(approvalRow+1,col,approvalRow+2,col+2);
+        put(ws.getCell(approvalRow+1,col),'',{alignment:{horizontal:'center',vertical:'bottom'}});
+        ws.getCell(approvalRow+2,col).border={bottom:{style:'thin',color:{argb:'FF'+line}}};
+        ws.mergeCells(approvalRow+3,col,approvalRow+3,col+2);
+        put(ws.getCell(approvalRow+3,col),'Name / Signature / Date',{font:{name:'Calibri',size:8,color:grey},alignment:{horizontal:'center'}});
+      });
+      ws.getRow(approvalRow).height=22;ws.getRow(approvalRow+1).height=20;ws.getRow(approvalRow+2).height=12;ws.getRow(approvalRow+3).height=19;
+
+      const footerRow=approvalRow+5;ws.mergeCells(footerRow,2,footerRow,14);
       const footerText='Fabric Consumption · Garment Calculator Suite  |  '+dateText+'  |  fabricconsumption.vercel.app';
       put(ws.getCell(footerRow,2),{text:footerText,hyperlink:'https://fabricconsumption.vercel.app/'},{font:{name:'Calibri',size:9,color:'0563C1',underline:true},alignment:{horizontal:'center'}});
       ws.getRow(footerRow).height=22;
