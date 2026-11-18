@@ -19,10 +19,8 @@
     const headers=sizeRows();
     const rowsData=headers.map((header,i)=>({header,size:(header.querySelector('[data-size-label]')?.value||'').trim(),ratio:Math.max(0,Number(document.querySelector('[data-ratio-index="'+i+'"] [data-ratio]')?.value)||0)}));
     const totalRatio=rowsData.reduce((sum,x)=>sum+x.ratio,0);
-    const useCut=$('bk-ratio-qty-source')?.dataset.value==='cut';
-    const orderQty=Math.max(0,Number($(useCut?'bk-cut-qty':'bk-order-qty')?.value)||0);
+    const orderQty=Math.max(0,Number($('bk-order-qty')?.value)||0);
     rowsData.forEach(x=>{const btn=x.header.querySelector('.bk-size-remove');if(btn)btn.disabled=rowsData.length===1;});
-    if($('bk-ratio-total')) $('bk-ratio-total').textContent='TOTAL: '+totalRatio+' PCS';
     if($('bk-size-ratio-sum')) $('bk-size-ratio-sum').textContent=totalRatio;
     return {sizes:rowsData.map(({size,ratio})=>({size,ratio})),totalRatio,orderQty};
   }
@@ -197,16 +195,6 @@
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
     $('bk-size-headers').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){const index=Number(e.target.closest('.bk-size-item').dataset.sizeIndex);e.target.closest('.bk-size-item').remove();document.querySelector('[data-ratio-index="'+index+'"]')?.remove();document.querySelectorAll('#bk-size-headers .bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);document.querySelectorAll('#bk-ratio-row td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);calculate();}});
     $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
-    const qtyToggle=$('bk-ratio-qty-source');
-    qtyToggle.dataset.value='order';
-    qtyToggle.addEventListener('click',e=>{
-      const btn=e.target.closest('[data-qty-source]');if(!btn)return;
-      qtyToggle.dataset.value=btn.dataset.qtySource;
-      qtyToggle.querySelectorAll('[data-qty-source]').forEach(b=>{
-        const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
-      });
-      calculate();
-    });
     $('bk-calculate').addEventListener('click',calculate);$('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
     calculate();
   });
