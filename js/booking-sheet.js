@@ -211,7 +211,7 @@
         if(opts.numFmt)cell.numFmt=opts.numFmt;
       };
       [15.14,16.86,14.71,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
-      ws.sheetView.showGridLines=false;
+      ws.views=[{state:'frozen',ySplit:11,showGridLines:false}];
       ws.mergeCells('A3:O3');
       put(ws.getCell('A3'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:white},fill:fill(navy),alignment:{horizontal:'center',vertical:'middle'}});
       ws.getRow(1).height=39.75;ws.getRow(2).height=30;ws.getRow(3).height=30;ws.getRow(4).height=7;
@@ -283,7 +283,7 @@
       const footerText='Fabric Consumption · Garment Calculator Suite  |  '+dateText+'  |  fabricconsumption.vercel.app';
       put(ws.getCell(footerRow,2),{text:footerText,hyperlink:'https://fabricconsumption.vercel.app/'},{font:{name:'Calibri',size:9,color:'0563C1',underline:true},alignment:{horizontal:'center'}});
       ws.getRow(footerRow).height=22;
-      ws.views=[{state:'frozen',ySplit:11}];
+      ws.views=[{state:'frozen',ySplit:11,showGridLines:false}];
       ws.pageSetup={paperSize:ws.PAPER_A4,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};
       ws.pageSetup.margins={left:0.2,right:0.2,top:0.35,bottom:0.35,header:0.15,footer:0.15};
       ws.printArea='A1:O'+footerRow;
@@ -299,7 +299,7 @@
         }
       }catch(imageError){console.warn('Website favicon could not be embedded:',imageError);}
       const cs=wb.addWorksheet('CONSUMPTION');
-      cs.getColumn(1).width=4;cs.getColumn(2).width=18;cs.getColumn(5).width=16;cs.sheetView.showGridLines=false;
+      cs.getColumn(1).width=4;cs.getColumn(2).width=18;cs.getColumn(5).width=16;cs.views=[{showGridLines:false}];
       cs.mergeCells('B2:E2');put(cs.getCell('B2'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:white},fill:fill(navy)});
       const first=data[0]||{dia:0,ml:0,cla:0,gsm:0,pcs:0,cut:0};
       [['DIA',first.dia],['LENGTH',first.ml+first.cla],['GSM',first.gsm],['PCS',first.pcs],['WASTAGE',first.cut/100]].forEach((x,i)=>{const r=4+i;cs.mergeCells(r,2,r,4);put(cs.getCell(r,2),x[0],{alignment:{horizontal:'left'},font:{bold:true,color:navy}});put(cs.getCell(r,5),x[1]);});
