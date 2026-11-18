@@ -32,6 +32,15 @@
     return {parts:text(row,'parts'),fabric:text(row,'fabric'),ml,cla,mw,cwa,gsm,netMarker,pcs,netDozen,cut,finalDozen,dia:num(row,'dia'),diaType:text(row,'diaType')};
   };
   function calculate() {
+    const sizing=sizeBreakdown();
+    // The total size ratio is the marker's PCS count; keep every fabric row in sync.
+    rows().forEach(row=>{
+      const pcsInput=row.querySelector('[data-field="pcs"]');
+      if(pcsInput){
+        const next=String(sizing.totalRatio);
+        if(pcsInput.value!==next) pcsInput.value=next;
+      }
+    });
     const data=rows().map(row=>({row,calc:readRow(row)}));
     let grand=0;
     data.forEach(({row,calc})=>{
@@ -40,7 +49,6 @@
       row.querySelector('.bk-net-dozen').textContent=calc.netDozen.toFixed(4);
       row.querySelector('.bk-final').textContent=calc.finalDozen.toFixed(4);
     });
-    const sizing=sizeBreakdown();
     sizing.label=($('bk-ratio-label')?.value||'RATIO (BODY+RIB)').trim();
     const totalQty=sizing.orderQty;
     const requirement=grand*totalQty/12;
