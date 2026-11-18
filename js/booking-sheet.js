@@ -140,16 +140,48 @@
   }
   function downloadPDF() {
     const result=calculate(), info=orderInfo(), data=result.data;
-    const infoHtml=info.filter(x=>x[1]).map(x=>'<div><span>'+safe(x[0])+'</span><strong>'+safe(x[1])+'</strong></div>').join('');
-    const body=data.map(x=>'<tr><td>'+safe(x.parts)+'</td><td>'+safe(x.fabric)+'</td><td>'+x.ml+'</td><td>'+x.cla+'</td><td>'+x.mw+'</td><td>'+x.cwa+'</td><td>'+x.gsm+'</td><td>'+x.netMarker.toFixed(4)+'</td><td>'+x.pcs+'</td><td>'+x.netDozen.toFixed(4)+'</td><td>'+x.cut+'%</td><td><strong>'+x.finalDozen.toFixed(4)+'</strong></td><td>'+x.dia+'</td><td>'+safe(x.diaType)+'</td></tr>').join('');
-    const sizeCells=result.sizing.sizes.map(x=>'<th>'+safe(x.size)+'</th>').join(''); const ratioCells=result.sizing.sizes.map(x=>'<td>'+x.ratio+'</td>').join('');
-    const report='<div class="report booking-pdf-report"><div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">FACTORY BOOKING REPORT</div><h1>Style Wise Fabrics Consumption</h1><div class="report-id">BOOKING · '+new Date().toLocaleDateString('en-GB')+'</div></div></div>'+
-      '<section class="section"><div class="section-head">ORDER INFORMATION</div><div class="info-grid">'+infoHtml+'</div></section>'+
-      '<section class="section"><div class="section-head">FABRIC &amp; MARKER DETAILS</div><table><thead><tr><th>Parts</th><th>Fabric</th><th>ML</th><th>Cut L</th><th>MW</th><th>Cut W</th><th>GSM</th><th>Net/Marker</th><th>PCS</th><th>Net/Doz</th><th>Cut%</th><th>Final/Doz</th><th>DIA</th><th>Type</th></tr></thead><tbody>'+body+'</tbody></table></section>'+
-      '<section class="section"><div class="section-head">SIZE RATIO</div><table><thead><tr><th>SIZE</th>'+sizeCells+'<th>PCS</th></tr></thead><tbody><tr><th>RATIO (BODY+RIB)</th>'+ratioCells+'<td><strong>'+result.sizing.totalRatio+'</strong></td></tr></tbody></table></section>'+
-      '<div class="summary-grid"><div class="summary-card primary"><div class="metric-head"><span>TOTAL FINAL CONSUMPTION / DOZEN</span></div><strong>'+result.grand.toFixed(4)+' KG</strong></div><div class="summary-card"><div class="metric-head"><span>TOTAL FABRIC REQUIREMENT</span></div><strong>'+(result.totalQty?result.requirement.toFixed(2)+' KG':'—')+'</strong><small>Based on '+result.totalQty+' pcs</small></div></div>'+
-      '<section class="section formula"><div class="section-head">CALCULATION FORMULA</div><div class="formula-text"><strong>Net KG / Marker</strong> = (ML + Cut L) × (MW + Cut W) × GSM ÷ 1,550,000<br><strong>Net KG / Dozen</strong> = Net KG / Marker × 12 ÷ PCS / Marker<br><strong>Final KG / Dozen</strong> = Net KG / Dozen × (1 + Cutting % ÷ 100)<br><strong>Total Order Requirement</strong> = Total KG / Dozen × Order Quantity ÷ 12</div></section>'+
-      '<div class="report-footer"><span>Fabric Consumption · Factory Booking Sheet</span><span>Generated '+new Date().toLocaleString()+'</span></div></div>';
+    const now=new Date(), reportDate=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}), reportTime=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    const reportId='FC-BKG-'+now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0');
+    const value=id=>$(id)?.value||'—';
+    const orderQty=result.totalQty||0;
+    const infoItems=[
+      ['BUYER NAME',value('bk-buyer')],['STYLE / ORDER NO.',value('bk-style')],['JOB / PO NO.',value('bk-po')],['DESCRIPTION',value('bk-description')],
+      ['BODY FABRIC',value('bk-body-fabric')],['ORDER QUANTITY',orderQty?orderQty.toLocaleString()+' pcs':'—'],
+      ['CUTTING QUANTITY',value('bk-cut-qty')?Number(value('bk-cut-qty')).toLocaleString()+' pcs':'—'],['SHIPMENT DATE',value('bk-shipment')]
+    ];
+    const infoHtml=infoItems.map(([k,v])=>'<div><span>'+safe(k)+'</span><strong>'+safe(v)+'</strong></div>').join('');
+    const markerRows=data.map((x,i)=>{
+      const netOrder=orderQty?x.netDozen*orderQty/12:0, finalOrder=orderQty?x.finalDozen*orderQty/12:0, waste=Math.max(0,finalOrder-netOrder);
+      return '<tr><td>'+(i+1)+'</td><td><strong>'+safe(x.parts||'—')+'</strong></td><td>'+safe(x.fabric||'—')+'</td><td>'+x.ml.toFixed(2)+'</td><td>'+x.cla.toFixed(2)+'</td><td>'+x.mw.toFixed(2)+'</td><td>'+x.cwa.toFixed(2)+'</td><td>'+x.gsm+'</td><td>'+x.pcs+'</td><td>'+x.cut.toFixed(1)+'%</td><td>'+x.finalDozen.toFixed(4)+' kg/dz</td><td><strong>'+finalOrder.toFixed(3)+' kg</strong></td></tr>';
+    }).join('');
+    const grouped={};
+    data.forEach(x=>{
+      const key=x.fabric||'Unspecified';
+      if(!grouped[key])grouped[key]={parts:[],net:0,waste:0,final:0,perDozen:0};
+      const g=grouped[key];g.parts.push(x.parts||'—');
+      const net=orderQty?x.netDozen*orderQty/12:0,final=orderQty?x.finalDozen*orderQty/12:0;
+      g.net+=net;g.waste+=Math.max(0,final-net);g.final+=final;g.perDozen+=x.finalDozen;
+    });
+    const fabricRows=Object.entries(grouped).map(([fabric,g],i)=>'<tr><td>'+(i+1)+'</td><td><strong>'+safe(fabric)+'</strong></td><td>'+safe([...new Set(g.parts)].join(', '))+'</td><td>'+g.net.toFixed(3)+' kg</td><td>'+g.waste.toFixed(3)+' kg</td><td>'+g.perDozen.toFixed(4)+' kg/dz</td><td><strong>'+g.final.toFixed(3)+' kg</strong></td><td>'+(result.requirement>0?(g.final/result.requirement*100).toFixed(1)+'%':'—')+'</td></tr>').join('');
+    const sizeHeads=result.sizing.sizes.map(x=>'<th>'+safe(x.size||'—')+'</th>').join('');
+    const sizeVals=result.sizing.sizes.map(x=>'<td>'+x.ratio+'</td>').join('');
+    const totalNet=data.reduce((sum,x)=>sum+(orderQty?x.netDozen*orderQty/12:0),0);
+    const totalWaste=Math.max(0,result.requirement-totalNet);
+    const totalPerPc=orderQty?result.requirement/orderQty:0;
+    const comments='<div class="booking-pdf-comments"><strong>COMMENTS / REMARKS</strong><div></div></div>';
+    const report='<div class="report booking-pdf-report">'+
+      '<div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">FACTORY BOOKING REPORT</div><h1>Fabric Booking Sheet</h1><div class="report-id">'+reportId+'</div></div></div>'+
+      '<div class="booking-pdf-meta"><div><span>REPORT DATE</span><strong>'+reportDate+'</strong></div><div><span>TIME</span><strong>'+reportTime+'</strong></div><div><span>RESULT UNIT</span><strong>KG</strong></div><div><span>ORDER QUANTITY</span><strong>'+(orderQty?orderQty.toLocaleString()+' pcs':'—')+'</strong></div></div>'+
+      '<section class="section"><div class="section-head">ORDER INFORMATION</div><div class="info-grid booking-pdf-info">'+infoHtml+'</div></section>'+
+      '<section class="section"><div class="section-head">FABRIC &amp; MARKER DETAILS</div><table><thead><tr><th>SL</th><th>PART / MARKER</th><th>FABRIC</th><th>ML</th><th>CUT L</th><th>MW</th><th>CUT W</th><th>GSM</th><th>PCS / MARKER</th><th>CUT %</th><th>FINAL / DOZEN</th><th>ORDER TOTAL</th></tr></thead><tbody>'+markerRows+'</tbody></table></section>'+
+      '<section class="section"><div class="section-head">SIZE RATIO</div><table><thead><tr><th>SIZE</th>'+sizeHeads+'<th>TOTAL PCS</th></tr></thead><tbody><tr><th>'+safe(result.sizing.label||'RATIO (BODY+RIB)')+'</th>'+sizeVals+'<td><strong>'+result.sizing.totalRatio+'</strong></td></tr></tbody></table></section>'+
+      '<section class="section"><div class="section-head">FABRIC-WISE SUMMARY</div><table><thead><tr><th>SL</th><th>FABRIC TYPE</th><th>PARTS</th><th>NET ORDER</th><th>WASTAGE</th><th>FINAL / DOZEN</th><th>ORDER TOTAL</th><th>SHARE</th></tr></thead><tbody>'+fabricRows+'</tbody></table></section>'+
+      '<section class="section formula"><div class="section-head">CALCULATION METHOD</div><div class="formula-text"><strong>Net KG / Marker</strong> = (ML + Cut L) × (MW + Cut W) × GSM ÷ 1,550,000<br><strong>Net KG / Dozen</strong> = Net KG / Marker × 12 ÷ PCS / Marker<br><strong>Final KG / Dozen</strong> = Net KG / Dozen × (1 + Cutting % ÷ 100)<br><strong>Fabric Requirement</strong> = Total Final KG / Dozen × Order Quantity ÷ 12</div></section>'+
+      '<div class="summary-grid booking-pdf-metrics"><div class="summary-card"><div class="metric-head"><span>NET CONSUMPTION</span></div><strong>'+totalNet.toFixed(3)+' kg</strong><small>Before cutting allowance · whole order</small></div><div class="summary-card"><div class="metric-head"><span>WASTAGE ADDED</span></div><strong>'+totalWaste.toFixed(3)+' kg</strong><small>Applied row by row</small></div><div class="summary-card primary"><div class="metric-head"><span>FINAL FABRIC REQUIREMENT</span></div><strong>'+result.requirement.toFixed(3)+' kg</strong><small>Including cutting allowance</small></div><div class="summary-card"><div class="metric-head"><span>PER GARMENT</span></div><strong>'+totalPerPc.toFixed(4)+' kg/pc</strong><small>Per dozen: '+result.grand.toFixed(4)+' kg/dozen</small></div></div>'+
+      comments+
+      '<div class="booking-pdf-note"><strong>IMPORTANT:</strong> Consumption estimate only. Verify marker measurements, GSM, cutting allowance, size ratio and order quantity against the approved marker and actual cutting-room consumption.</div>'+
+      '<div class="booking-pdf-signatures"><div><span>PREPARED BY</span><i></i><small>Name / Signature / Date</small></div><div><span>CHECKED BY</span><i></i><small>Name / Signature / Date</small></div><div><span>APPROVED BY</span><i></i><small>Name / Signature / Date</small></div></div>'+
+      '<div class="report-footer"><span>Fabric Consumption · Garment Calculator Suite</span><span>'+reportDate+' · '+reportTime+' · fabricconsumption.vercel.app</span></div></div>';
     if(typeof generatePDF==='function') generatePDF('Fabric Booking Sheet',report);
     else alert('PDF helper is not available. Please refresh and try again.');
   }
