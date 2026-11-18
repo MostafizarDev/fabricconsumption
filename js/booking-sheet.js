@@ -285,19 +285,8 @@
     calculate();$('bk-demo').setAttribute('aria-pressed','true');
   }
   function resetBooking(){
-    ['bk-buyer','bk-style','bk-po','bk-description','bk-body-fabric','bk-order-qty','bk-cut-qty','bk-shipment','bk-ratio-label'].forEach(id=>$(id).value='');
-    $('bk-size-preset').value='';
-    $('bk-size-headers').querySelectorAll('.bk-size-item').forEach(el=>el.remove());
-    $('bk-ratio-row').querySelectorAll('td[data-ratio-index]').forEach(el=>el.remove());
-    $('bk-fabric-rows').innerHTML=
-      '<tr data-row="1"><td><input data-field="parts" placeholder="BODY"></td><td><input data-field="fabric" placeholder="COTTON"></td><td><input data-field="ml" type="number" step="0.01" placeholder="92.04"></td><td><input data-field="cla" type="number" step="0.01" placeholder="2"></td><td><input data-field="mw" type="number" step="0.01" placeholder="72"></td><td><input data-field="cwa" type="number" step="0.01" placeholder="2"></td><td><input data-field="gsm" type="number" step="0.01" placeholder="280"></td><td class="bk-net-marker">—</td><td><input data-field="pcs" type="number" step="1" placeholder="12"></td><td class="bk-net-dozen">—</td><td><input data-field="cut" type="number" step="0.01" placeholder="6"></td><td class="bk-final">—</td><td><input data-field="dia" type="number" step="0.01" placeholder="72"></td><td><select data-field="diaType"><option>OPEN</option><option>TUBULAR</option></select></td><td><button type="button" class="bk-remove-row" disabled>×</button></td></tr>';
-    // Restore one empty size column so users can start from a clean sheet.
-    const th=document.createElement('th'),td=document.createElement('td');th.className='bk-size-item';th.dataset.sizeIndex='0';
-    th.innerHTML='<div class="bk-size-head-cell"><input data-size-label placeholder="XS" aria-label="Size label"><button type="button" class="bk-size-remove" disabled aria-label="Remove size">×</button></div>';
-    td.dataset.ratioIndex='0';td.innerHTML='<input data-ratio type="number" min="0" step="1" placeholder="1" aria-label="Ratio">';
-    $('bk-size-headers').insertBefore(th,$('bk-size-headers').lastElementChild);$('bk-ratio-row').insertBefore(td,$('bk-ratio-row').lastElementChild);
-    keepTotalLast();
-    calculate();$('bk-demo').setAttribute('aria-pressed','false');
+    // Restore the exact initial Booking Sheet state, just like a browser refresh.
+    window.location.reload();
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
