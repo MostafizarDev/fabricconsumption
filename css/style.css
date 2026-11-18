@@ -7915,3 +7915,27 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
   padding-top: 4px;
   padding-bottom: 4px;
 }
+
+
+/* Make the individual size-name header boxes (XS, S, M, L...) shorter */
+#page-booking .booking-size-matrix th.bk-size-item {
+  height: 32px;
+  padding: 2px 4px;
+}
+#page-booking .booking-size-matrix .bk-size-head-cell {
+  min-height: 24px;
+  gap: 3px;
+}
+#page-booking .booking-size-matrix .bk-size-head-cell input {
+  height: 22px;
+  min-height: 22px;
+  padding: 1px 3px;
+  line-height: 18px;
+}
+#page-booking .booking-size-matrix .bk-size-head-cell .bk-size-remove {
+  width: 16px;
+  height: 16px;
+  min-height: 16px;
+  line-height: 16px;
+  padding: 0;
+}
