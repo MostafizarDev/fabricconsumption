@@ -61,40 +61,29 @@
       '<td><input data-field="dia" type="number" step="0.01" value="0"></td><td><select data-field="diaType"><option>OPEN</option><option>TUBULAR</option></select></td><td><button type="button" class="bk-remove-row">×</button></td>';
     $('bk-fabric-rows').appendChild(tr); calculate();
   }
-  function nextStandardSize(existing) {
-    const order=['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'];
+  function nextPresetSize(key, existing) {
     const normalized=existing.map(x=>String(x||'').trim().toUpperCase().replace(/\\s+/g,''));
-    const missing=order.find(size=>!normalized.includes(size));
-    if(missing)return missing;
-    const last=normalized[normalized.length-1]||'';
-    if(/^\\d+$/.test(last)) return String(Number(last)+2);
-    if(/^\\d+T$/.test(last)) return (Number(last.slice(0,-1))+1)+'T';
-    return 'NEW '+(existing.length+1);
+    const sequences={
+      adult:['XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'],
+      kids:['2T','3T','4T','5T','6T','7T','8T','9T','10T','11T','12T'],
+      age:['2/3','3/4','4/5','5/6','6/7','7/8','8/9','9/10','10/11','11/12'],
+      numeric:['28','30','32','34','36','38','40','42','44','46','48','50']
+    };
+    const sequence=sequences[key]||sequences.adult;
+    return sequence.find(size=>!normalized.includes(size))||'NEW '+(existing.length+1);
   }
   function addSize() {
     const headers=sizeRows(), existing=headers.map(h=>h.querySelector('[data-size-label]')?.value.trim());
-    let next=nextStandardSize(existing);
-    while(existing.some(x=>String(x).toUpperCase()===next.toUpperCase())) next='NEW '+(existing.length+1);
-    const order=['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'];
-    const nextRank=order.indexOf(next.toUpperCase());
-    let insertAt=headers.length;
-    if(nextRank>=0){
-      const later=headers.findIndex(h=>{
-        const name=(h.querySelector('[data-size-label]')?.value||'').trim().toUpperCase().replace(/\\s+/g,'');
-        const rank=order.indexOf(name);
-        return rank>=0&&rank>nextRank;
-      });
-      if(later>=0)insertAt=later;
-    }
+    const preset=$('bk-size-preset').value;
+    const next=nextPresetSize(preset,existing);
     const th=document.createElement('th'),td=document.createElement('td');
     th.className='bk-size-item';
     th.innerHTML='<div class="bk-size-head-cell"><input data-size-label value="'+safe(next)+'" aria-label="Size label"><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></div>';
-    td.innerHTML='<input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio for '+safe(next)+'">';
+    td.dataset.ratioIndex=headers.length;
+    td.innerHTML='<input data-ratio type="number" min="0" step="1" value="1" aria-label="Ratio for '+safe(next)+'">';
     const headerRow=$('bk-size-headers'),ratioRow=$('bk-ratio-row');
-    const beforeHeader=headerRow.querySelectorAll('.bk-size-item')[insertAt];
-    const beforeRatio=ratioRow.querySelectorAll('td[data-ratio-index]')[insertAt];
-    if(beforeHeader)headerRow.insertBefore(th,beforeHeader);else headerRow.insertBefore(th,headerRow.lastElementChild);
-    if(beforeRatio)ratioRow.insertBefore(td,beforeRatio);else ratioRow.insertBefore(td,ratioRow.lastElementChild);
+    headerRow.insertBefore(th,headerRow.lastElementChild);
+    ratioRow.insertBefore(td,ratioRow.lastElementChild);
     headerRow.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
     ratioRow.querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
     calculate();
@@ -107,7 +96,7 @@
       numeric: {names:['28','30','32','34','36','38','40'], ratios:[1,1,1,1,1,1,1]},
       custom: {names:[], ratios:[]}
     };
-    const preset=presets[key]||presets.custom;
+    const preset=presets[key];\n    if(!preset)return;
     const headerRow=$('bk-size-headers'),ratioRow=$('bk-ratio-row');
     headerRow.querySelectorAll('.bk-size-item').forEach(el=>el.remove());
     ratioRow.querySelectorAll('td[data-ratio-index]').forEach(el=>el.remove());
@@ -121,7 +110,7 @@
       ratioRow.insertBefore(td,ratioRow.lastElementChild);
     });
     headerRow.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
-    ratioRow.querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
+    ratioRow.querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
     calculate();
   }
   function orderInfo() {
@@ -218,7 +207,7 @@
     $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
     document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
-    $('bk-size-preset').addEventListener('change',e=>loadSizePreset(e.target.value));
+    $('bk-size-preset').addEventListener('change',e=>{if(e.target.value)loadSizePreset(e.target.value);});
     $('bk-size-headers').addEventListener('click',e=>{
       const remove=e.target.closest('.bk-size-remove');
       if(!remove||sizeRows().length<=1)return;
@@ -230,7 +219,7 @@
       if(ratioCell)ratioCell.remove();
       // Re-index only size cells; TOTAL PCS remains the final, permanent column.
       $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
-      $('bk-ratio-row').querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
+      $('bk-ratio-row').querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
       calculate();
     });
     $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
