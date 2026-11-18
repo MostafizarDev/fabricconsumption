@@ -7796,3 +7796,27 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
 #page-booking .booking-factory-table td:nth-child(14) { width: 8%; }
 #page-booking .booking-factory-table th:nth-child(15),
 #page-booking .booking-factory-table td:nth-child(15) { width: 3%; }
+
+
+/* Improve readability of Fabric & Marker Details while keeping all columns visible */
+#page-booking .booking-factory-table {
+  font-size: 10px;
+}
+#page-booking .booking-factory-table th {
+  font-size: 9px;
+  line-height: 1.25;
+  padding: 7px 2px;
+}
+#page-booking .booking-factory-table th small {
+  font-size: 8px;
+}
+#page-booking .booking-factory-table input,
+#page-booking .booking-factory-table select {
+  font-size: 10px;
+  padding: 6px 2px;
+}
+#page-booking .booking-factory-table .bk-net-marker,
+#page-booking .booking-factory-table .bk-net-dozen,
+#page-booking .booking-factory-table .bk-final {
+  font-size: 10px;
+}
