@@ -8185,3 +8185,16 @@ body.dark-mode #page-booking .booking-meta-grid input:focus{border-color:#38a4df
   #page-booking > .booking-panel:first-of-type{padding:15px 13px 16px}
   #page-booking .booking-section-head p{margin-left:0}
 }
+
+
+/* Booking Sheet — give each section its own meaningful heading icon */
+#page-booking > section.booking-panel:nth-of-type(2) .booking-section-head h2::before{
+  content:"📋";
+  font-family:Inter,Arial,sans-serif;
+  font-size:15px;
+}
+#page-booking > section.booking-panel:nth-of-type(3) .booking-section-head h2::before{
+  content:"🧵";
+  font-family:Inter,Arial,sans-serif;
+  font-size:16px;
+}
