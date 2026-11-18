@@ -251,6 +251,8 @@
       put(ws.getCell(totalRow,14),'KG / DOZEN',{font:{name:'Calibri',size:11,bold:true,color:navy},fill:fill(blue)});
       put(ws.getCell(totalRow,15),'',{fill:fill(blue)});
       ws.getRow(totalRow).height=24;
+      // Ensure every cell in the main table block (Excel rows 10–21) has a visible border.
+      for(let r=10;r<=21;r++)for(let c=1;c<=15;c++)ws.getCell(r,c).border=border;
       const sizeHead=totalRow+2,sizeRow=totalRow+3;
       put(ws.getCell(sizeHead,3),'SIZE',{font:{name:'Calibri',size:11,bold:true,color:white},fill:fill(navy)});
       sizes.forEach((x,i)=>put(ws.getCell(sizeHead,4+i),x.size,{font:{name:'Calibri',size:11,bold:true,color:white},fill:fill(navy)}));
