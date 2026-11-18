@@ -7472,3 +7472,38 @@ body.dark-mode #page-booking .bk-size-card input{background:#0b1220;border-color
 #page-booking .booking-size-matrix .bk-total-cell{background:#eaf2f8;color:#17365d;font-weight:900;font-size:12px}
 body.dark-mode #page-booking .booking-size-matrix th,body.dark-mode #page-booking .booking-size-matrix td{border-color:#475569}
 body.dark-mode #page-booking .booking-size-matrix .bk-total-cell{background:#102b42;color:#bae6fd}
+
+
+/* Size ratio matrix — refined factory UI */
+#page-booking .booking-size-controls{align-items:end;margin:2px 0 12px}
+#page-booking .booking-size-controls label{gap:6px;color:#52647b;font-size:10px;font-weight:800;letter-spacing:.2px}
+#page-booking #bk-ratio-qty-source{min-height:38px;border:1px solid #cbd8e6;border-radius:9px;background:#f8fbff;color:#183653;padding:8px 12px;font:600 11px Inter,Arial,sans-serif;box-shadow:0 2px 5px rgba(20,50,80,.04)}
+#page-booking .booking-size-controls .booking-add-btn{min-height:36px;padding:8px 14px;border:1px solid #c6dcf4;border-radius:9px;background:linear-gradient(135deg,#eff7ff,#e4f1ff);color:#1762a3;font-size:10px;box-shadow:0 2px 6px rgba(30,90,150,.07);transition:all .18s ease}
+#page-booking .booking-size-controls .booking-add-btn:hover{transform:translateY(-1px);background:#dceeff;box-shadow:0 5px 12px rgba(30,90,150,.12)}
+#page-booking .booking-ratio-wrap{padding:2px 1px 4px}
+#page-booking .booking-size-matrix{border-collapse:separate;border-spacing:3px 4px;min-width:100%;border:0;overflow:visible}
+#page-booking .booking-size-matrix th,#page-booking .booking-size-matrix td{min-width:62px;padding:9px 7px;border:1px solid #dce6f0;border-radius:8px;background:#fff}
+#page-booking .booking-size-matrix .bk-matrix-label{min-width:154px;text-align:left;padding:10px 13px;border-color:#173c62;background:linear-gradient(135deg,#173c62,#24527d);color:#fff;font-size:10px;font-weight:850;letter-spacing:.35px}
+#page-booking .booking-size-matrix .bk-total-head{min-width:64px;border-color:#0d766e;background:linear-gradient(135deg,#0f766e,#0b9488);color:#fff;font-size:10px;font-weight:900}
+#page-booking .booking-size-matrix .bk-size-item{border-color:#244c72;background:linear-gradient(135deg,#173c62,#204d76)}
+#page-booking .bk-size-head-cell{gap:5px}
+#page-booking .bk-size-head-cell input{width:54px;min-height:31px;padding:6px 4px;border:1px solid #d7e3ef;border-radius:6px;background:#fff;color:#173c62;font-size:10px;font-weight:800;transition:border-color .15s,box-shadow .15s}
+#page-booking .bk-size-head-cell input:focus,#page-booking .booking-size-matrix td input:focus,#page-booking .bk-ratio-label-cell input:focus{outline:none;border-color:#38a3a5;box-shadow:0 0 0 3px rgba(20,150,145,.14)}
+#page-booking .bk-size-head-cell .bk-size-remove{width:20px;height:20px;border-radius:6px;background:#fff0f0;color:#d14343;font-size:13px;line-height:1;transition:background .15s}
+#page-booking .bk-size-head-cell .bk-size-remove:hover{background:#ffdada}
+#page-booking .booking-size-matrix td{background:#f7fafc}
+#page-booking .booking-size-matrix td input{width:58px;min-height:31px;padding:6px 4px;border:1px solid #d4e0ec;border-radius:6px;background:#fff;color:#173c62;font-size:11px;font-weight:800}
+#page-booking .booking-size-matrix .bk-total-cell{border-color:#c4e5df;background:linear-gradient(135deg,#e7f7f3,#d9f0ea);color:#08776c;font-size:13px;font-weight:900}
+#page-booking .bk-ratio-label-cell input{width:100%;min-width:130px;box-sizing:border-box;padding:5px 0;border:1px solid transparent;border-radius:5px;background:transparent;color:#fff;font:850 10px Inter,Arial,sans-serif;letter-spacing:.25px;text-align:left}
+#page-booking .bk-ratio-label-cell input:hover{border-color:rgba(255,255,255,.35)}
+#page-booking .booking-total-ratio{padding:7px 11px;border:1px solid #c8e9df;border-radius:8px;background:#eaf8f3;color:#087b65;font-size:9px;font-weight:900;letter-spacing:.35px}
+#page-booking #bk-size-note{margin-top:8px;font-size:9px;color:#718096}
+body.dark-mode #page-booking .booking-size-matrix th,body.dark-mode #page-booking .booking-size-matrix td{border-color:#40536a}
+body.dark-mode #page-booking .booking-size-matrix .bk-matrix-label{background:linear-gradient(135deg,#163653,#1d496d);color:#f0f7ff}
+body.dark-mode #page-booking .booking-size-matrix .bk-size-item{background:#183b5b}
+body.dark-mode #page-booking .booking-size-matrix td{background:#142438}
+body.dark-mode #page-booking .bk-size-head-cell input,body.dark-mode #page-booking .booking-size-matrix td input{background:#0b1727;border-color:#40536a;color:#e2eaf4}
+body.dark-mode #page-booking .bk-ratio-label-cell input{color:#fff}
+body.dark-mode #page-booking .booking-size-matrix .bk-total-cell{background:#123b3a;color:#8be0ce;border-color:#28645d}
+body.dark-mode #page-booking #bk-ratio-qty-source{background:#0b1727;border-color:#40536a;color:#e2eaf4}
+@media(max-width:760px){#page-booking .booking-size-matrix{min-width:720px}#page-booking .booking-ratio-wrap{overflow-x:auto}}
