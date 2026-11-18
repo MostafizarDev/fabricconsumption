@@ -207,8 +207,21 @@
       ws.mergeCells('C1:J1');put(ws.getCell('C1'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:{argb:navy}},fill:fill(pale),alignment:{horizontal:'left',vertical:'middle',indent:1}});
       ws.mergeCells('K1:O1');put(ws.getCell('K1'),{text:'fabricconsumption.vercel.app',hyperlink:'https://fabricconsumption.vercel.app/'},{font:{name:'Arial',size:9,bold:true,color:{argb:'0563C1'},underline:true},fill:fill(pale)});
       ws.getRow(1).height=30;
-      ws.mergeCells('A2:O2'); put(ws.getCell('A2'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:{argb:white}},fill:fill(navy)});
-      ws.getRow(2).height=30;ws.mergeCells('A3:O3');ws.getRow(3).height=7;
+      ws.mergeCells('C1:H1');put(ws.getCell('C1'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:17,bold:true,color:{argb:navy}},alignment:{horizontal:'left',vertical:'middle'}});
+      ws.mergeCells('C2:H2');put(ws.getCell('C2'),'G A R M E N T   C A L C U L A T O R   S U I T E',{font:{name:'Arial',size:8,bold:true,color:{argb:grey}},alignment:{horizontal:'left',vertical:'middle'}});
+      ws.mergeCells('I1:O1');put(ws.getCell('I1'),'FACTORY BOOKING REPORT',{font:{name:'Arial',size:10,bold:true,color:{argb:'2563EB'}},alignment:{horizontal:'right',vertical:'middle'}});
+      ws.mergeCells('I2:O2');put(ws.getCell('I2'),'Fabric Booking Sheet',{font:{name:'Arial',size:17,bold:true,color:{argb:ink}},alignment:{horizontal:'right',vertical:'middle'}});
+      ws.getRow(1).height=27;ws.getRow(2).height=28;ws.mergeCells('A3:O3');ws.getRow(3).height=7;
+      try {
+        const response=await fetch('/favicon.svg');
+        if(response.ok){
+          const svg=await response.text(),imageUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'})),image=new Image();
+          await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=imageUrl;});
+          const canvas=document.createElement('canvas');canvas.width=140;canvas.height=140;canvas.getContext('2d').drawImage(image,0,0,140,140);URL.revokeObjectURL(imageUrl);
+          const imageId=wb.addImage({base64:canvas.toDataURL('image/png').split(',')[1],extension:'png'});
+          ws.addImage(imageId,{tl:{col:0.12,row:0.12},ext:{width:42,height:42}});
+        }
+      } catch(imageError) { console.warn('Website favicon could not be embedded in Excel:',imageError); }
       [['DATE :',new Date().toLocaleDateString('en-GB')],['BUYER :',$('bk-buyer').value],['STYLE/ORD :',$('bk-style').value],['DESCRIPTION:',$('bk-description').value],['BODY FABRIC:',$('bk-body-fabric').value]].forEach((x,i)=>{
         const rr=4+i;put(ws.getCell(rr,1),x[0],{alignment:{horizontal:'left'},font:{name:'Arial',size:10,bold:true,color:{argb:navy}}});
         ws.mergeCells(rr,4,rr,15);put(ws.getCell(rr,4),x[1]||'',{alignment:{horizontal:'left'},font:{name:'Arial',size:10,color:{argb:ink}}});ws.getRow(rr).height=20;
@@ -242,7 +255,20 @@
        ws.mergeCells(dt,1,dt,Math.max(15,totalCol));put(ws.getCell(dt,1),'TOTAL FABRIC REQUIREMENT (KG)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
        put(ws.getCell(dt,Math.max(15,totalCol)),result.totalQty?result.requirement:'',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
        ws.views=[{state:'frozen',ySplit:10}];ws.pageSetup={paperSize:ws.PAPER_A4,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};ws.pageSetup.margins={left:0.2,right:0.2,top:0.35,bottom:0.35,header:0.15,footer:0.15};
-      ws.printArea='A1:'+ws.getColumn(Math.max(15,totalCol)).letter+dt;ws.headerFooter={oddFooter:'&LFabric Consumption · Factory Booking Sheet&CPage &P of &N'};
+      let signRow=dt+3;
+      ws.mergeCells(signRow,1,signRow,15);put(ws.getCell(signRow,1),'COMMENTS / REMARKS',{font:{name:'Arial',size:9,bold:true,color:{argb:navy}},alignment:{horizontal:'left'}});
+      ws.mergeCells(signRow+1,1,signRow+2,15);put(ws.getCell(signRow+1,1),'',{alignment:{horizontal:'left',vertical:'top'}});
+      ws.getRow(signRow+1).height=22;ws.getRow(signRow+2).height=18;
+      const approvalY=signRow+4;
+      [['PREPARED BY',1],['CHECKED BY',6],['APPROVED BY',11]].forEach(([label,col])=>{
+        put(ws.getCell(approvalY,col),label,{font:{name:'Arial',size:9,bold:true,color:{argb:grey}},alignment:{horizontal:'left'}});
+        ws.mergeCells(approvalY+2,col,approvalY+2,col+3);ws.getCell(approvalY+2,col).border={bottom:{style:'thin',color:{argb:'FF9EADBA'}}};
+        ws.mergeCells(approvalY+3,col,approvalY+3,col+3);put(ws.getCell(approvalY+3,col),'Name / Signature / Date',{font:{name:'Arial',size:8,color:{argb:grey}},alignment:{horizontal:'left'}});
+      });
+      const footerRow=approvalY+5;ws.mergeCells(footerRow,1,footerRow,15);
+      ws.getCell(footerRow,1).value={text:'Fabric Consumption · Garment Calculator Suite  |  '+new Date().toLocaleDateString('en-GB')+'  |  fabricconsumption.vercel.app',hyperlink:'https://fabricconsumption.vercel.app/'};
+      put(ws.getCell(footerRow,1),ws.getCell(footerRow,1).value,{font:{name:'Arial',size:8,color:{argb:'0563C1'},underline:true},alignment:{horizontal:'center'}});
+      ws.printArea='A1:'+ws.getColumn(Math.max(15,totalCol)).letter+footerRow;ws.headerFooter={oddFooter:'&LFabric Consumption · Factory Booking Sheet&CPage &P of &N'};
       const cs=wb.addWorksheet('CONSUMPTION');cs.getColumn(1).width=4;cs.getColumn(2).width=18;cs.getColumn(5).width=16;
       cs.mergeCells('B2:E2');put(cs.getCell('B2'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:{argb:white}},fill:fill(navy)});
       const first=data[0]||{dia:0,ml:0,cla:0,gsm:0,pcs:0,cut:0};
