@@ -807,7 +807,7 @@
   </section>
 
   <section class="panel booking-panel">
-    <div class="booking-section-head"><div><h2>01 · Order Information</h2><p>Enter the buyer, style and order details.</p></div></div>
+    <div class="booking-section-head"><div><h2>Order Information</h2><p>Enter the buyer, style and order details.</p></div></div>
     <div class="booking-meta-grid">
       <label>Date<input class="inp-plain" id="bk-date" type="date"></label>
       <label>Buyer<input class="inp-plain" id="bk-buyer" placeholder="Buyer name"></label>
@@ -822,7 +822,7 @@
   </section>
 
   <section class="panel booking-panel">
-    <div class="booking-section-head"><div><h2>02 · Fabric &amp; Marker Details</h2><p>Enter the same marker and cutting information used in your factory Excel.</p></div><button class="booking-add-btn" type="button" id="bk-add-row">＋ Add Fabric Row</button></div>
+    <div class="booking-section-head"><div><h2>Fabric &amp; Marker Details</h2><p>Enter the same marker and cutting information used in your factory Excel.</p></div><button class="booking-add-btn" type="button" id="bk-add-row">＋ Add Fabric Row</button></div>
     <div class="booking-table-wrap">
       <table class="booking-factory-table" id="booking-factory-table">
         <thead><tr><th>Parts</th><th>Fabric Type</th><th>Marker Length<br><small>inch</small></th><th>Cut Allow L<br><small>inch</small></th><th>Marker Width<br><small>inch</small></th><th>Cut Allow W<br><small>inch</small></th><th>GSM</th><th>Net / Marker<br><small>KG</small></th><th>PCS / Marker</th><th>Net / Dozen<br><small>KG</small></th><th>Cutting %</th><th>Final / Dozen<br><small>KG</small></th><th>Req. DIA<br><small>inch</small></th><th>DIA Type</th><th></th></tr></thead>
@@ -844,12 +844,11 @@
   </section>
 
   <section class="panel booking-panel">
-<div class="booking-section-head"><div><h2>03 · Size Ratio</h2><p>Select required sizes, edit size names and set each size ratio.</p></div></div>
-<div class="booking-size-controls"><button type="button" class="booking-add-btn" id="bk-add-size">＋ Add Size</button></div>
+<div class="booking-section-head"><div><h2>Size Ratio</h2><p>Select required sizes, edit size names and set each size ratio.</p></div><button class="booking-add-btn" type="button" id="bk-add-size">＋ Add Size</button></div>
 <div class="booking-ratio-wrap"><table class="booking-ratio-table booking-size-matrix"><thead><tr id="bk-size-headers"><th class="bk-matrix-label">SIZE</th><th class="bk-size-item" data-size-index="0"><div class="bk-size-head-cell"><input data-size-label value="XS" aria-label="Size label XS"><button type="button" class="bk-size-remove" disabled aria-label="Remove XS">×</button></div></th><th class="bk-size-item" data-size-index="1"><div class="bk-size-head-cell"><input data-size-label value="S" aria-label="Size label S"><button type="button" class="bk-size-remove"  aria-label="Remove S">×</button></div></th><th class="bk-size-item" data-size-index="2"><div class="bk-size-head-cell"><input data-size-label value="M" aria-label="Size label M"><button type="button" class="bk-size-remove"  aria-label="Remove M">×</button></div></th><th class="bk-size-item" data-size-index="3"><div class="bk-size-head-cell"><input data-size-label value="L" aria-label="Size label L"><button type="button" class="bk-size-remove"  aria-label="Remove L">×</button></div></th><th class="bk-size-item" data-size-index="4"><div class="bk-size-head-cell"><input data-size-label value="XL" aria-label="Size label XL"><button type="button" class="bk-size-remove"  aria-label="Remove XL">×</button></div></th><th class="bk-size-item" data-size-index="5"><div class="bk-size-head-cell"><input data-size-label value="3XL" aria-label="Size label 3XL"><button type="button" class="bk-size-remove"  aria-label="Remove 3XL">×</button></div></th><th class="bk-total-head">TOTAL PCS</th></tr></thead><tbody><tr id="bk-ratio-row"><th class="bk-matrix-label bk-ratio-label-cell"><input id="bk-ratio-label" type="text" value="RATIO (BODY+RIB)" aria-label="Ratio row label"></th><td data-ratio-index="0"><input data-ratio type="number" min="0" step="1" value="2" aria-label="Ratio for XS"></td><td data-ratio-index="1"><input data-ratio type="number" min="0" step="1" value="2" aria-label="Ratio for S"></td><td data-ratio-index="2"><input data-ratio type="number" min="0" step="1" value="2" aria-label="Ratio for M"></td><td data-ratio-index="3"><input data-ratio type="number" min="0" step="1" value="4" aria-label="Ratio for L"></td><td data-ratio-index="4"><input data-ratio type="number" min="0" step="1" value="1" aria-label="Ratio for XL"></td><td data-ratio-index="5"><input data-ratio type="number" min="0" step="1" value="1" aria-label="Ratio for 3XL"></td><td class="bk-total-cell" id="bk-size-ratio-sum">12</td></tr></tbody></table></div><p class="booking-note" id="bk-size-note">Add as many sizes as needed. TOTAL updates automatically from all entered ratios.</p></section>
 
   <section class="panel booking-panel">
-    <div class="booking-section-head"><div><h2>04 · Booking Summary</h2><p>Live calculation from each fabric row.</p></div><span class="booking-live-tag">LIVE CALCULATION</span></div>
+    <div class="booking-section-head"><div><h2>Booking Summary</h2><p>Live calculation from each fabric row.</p></div><span class="booking-live-tag">LIVE CALCULATION</span></div>
     <div class="booking-summary-grid" id="bk-summary"></div>
     <div class="booking-total-banner"><div><span>Total Final Consumption / Dozen</span><strong id="bk-grand-dozen">— kg/dz</strong></div><div><span>Total Fabric Requirement</span><strong id="bk-total-order">— kg</strong></div></div>
     <div class="booking-actions"><button class="calc-btn" type="button" id="bk-calculate">Calculate</button><button class="calc-btn pdf-btn" type="button" id="bk-download-pdf">📄 Download PDF</button><button class="calc-btn booking-excel-btn" type="button" id="bk-download-excel">▦ Download Excel</button></div>
