@@ -96,7 +96,8 @@
       numeric: {names:['28','30','32','34','36','38','40'], ratios:[1,1,1,1,1,1,1]},
       custom: {names:[], ratios:[]}
     };
-    const preset=presets[key];\n    if(!preset)return;
+    const preset=presets[key] || presets.custom;
+    if(!preset)return;
     const headerRow=$('bk-size-headers'),ratioRow=$('bk-ratio-row');
     headerRow.querySelectorAll('.bk-size-item').forEach(el=>el.remove());
     ratioRow.querySelectorAll('td[data-ratio-index]').forEach(el=>el.remove());
