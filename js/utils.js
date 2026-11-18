@@ -195,7 +195,7 @@ function generatePDF(title, contentHtml) {
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { font-family: 'Inter', Arial, sans-serif; padding: 10mm; width: 210mm; min-height: 297mm; max-width: none; margin: 0 auto; color: #0f172a; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                body { font-family: 'Inter', Arial, sans-serif; padding: 8mm; width: 210mm; min-height: 297mm; max-width: none; margin: 0 auto; color: #0f172a; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
                 h1 { color: #0f172a; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px; margin-bottom: 20px; }
                 h2 { color: #1e293b; font-size: 18px; margin: 20px 0 10px 0; }
                 h3 { color: #475569; font-size: 14px; margin: 15px 0 8px 0; }
@@ -296,10 +296,47 @@ function generatePDF(title, contentHtml) {
                 .good-text { color: #047857 !important; }
                 .draft-text { color: #b45309 !important; font-size: 8px !important; }
 
+                /* Booking Sheet PDF styles must live in this print window stylesheet. */
+                .booking-pdf-report { width:100%; max-width:194mm; margin:0 auto; font-size:9px; }
+                .booking-pdf-report .report-header { align-items:center; gap:12px; padding-bottom:10px; margin-bottom:10px; border-bottom:2px solid #2563eb; }
+                .booking-pdf-report .report-brand svg { width:260px; max-width:100%; height:auto; }
+                .booking-pdf-report .report-title { flex:0 0 42%; }
+                .booking-pdf-report .report-title h1 { font-size:19px; line-height:1.2; }
+                .booking-pdf-report .booking-pdf-meta { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin:9px 0 11px; }
+                .booking-pdf-report .booking-pdf-meta>div { min-width:0; padding:7px 8px; border:1px solid #e2e8f0; border-radius:6px; background:#f8fafc; }
+                .booking-pdf-report .booking-pdf-meta span,
+                .booking-pdf-report .booking-pdf-info span { display:block; margin:0 0 3px; color:#64748b; font-size:7px; font-weight:800; letter-spacing:.55px; }
+                .booking-pdf-report .booking-pdf-meta strong,
+                .booking-pdf-report .booking-pdf-info strong { display:block; color:#1e293b; font-size:9px; line-height:1.3; overflow-wrap:anywhere; }
+                .booking-pdf-report .section { margin:8px 0; border:1px solid #dbe3ed; border-radius:7px; overflow:hidden; page-break-inside:avoid; }
+                .booking-pdf-report .section-head { padding:6px 9px; font-size:8px; background:#eff6ff; }
+                .booking-pdf-report .booking-pdf-info { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px 10px; padding:9px 10px; }
+                .booking-pdf-report table { width:100%; table-layout:fixed; border-collapse:collapse; margin:0; font-size:7px; }
+                .booking-pdf-report th,.booking-pdf-report td { padding:5px 4px; border:1px solid #e2e8f0; text-align:center; vertical-align:middle; overflow-wrap:anywhere; line-height:1.25; }
+                .booking-pdf-report th { background:#f1f5f9; color:#334155; font-size:6.5px; letter-spacing:0; }
+                .booking-pdf-report td { color:#1e293b; }
+                .booking-pdf-report .formula { margin:8px 0; }
+                .booking-pdf-report .formula-text { padding:7px 9px; font-size:7px; line-height:1.45; }
+                .booking-pdf-report .booking-pdf-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin:9px 0; page-break-inside:avoid; }
+                .booking-pdf-report .booking-pdf-metrics .summary-card { min-width:0; padding:8px; border:1px solid #e2e8f0; border-radius:7px; background:#fff; }
+                .booking-pdf-report .booking-pdf-metrics .summary-card.primary { background:#eff6ff; border-color:#bfdbfe; }
+                .booking-pdf-report .booking-pdf-metrics .summary-card strong { display:block; font-size:14px; line-height:1.2; overflow-wrap:anywhere; }
+                .booking-pdf-report .booking-pdf-metrics .summary-card small { font-size:7px; line-height:1.3; }
+                .booking-pdf-report .booking-pdf-comments { margin:8px 0; padding:8px 9px; min-height:48px; border:1px solid #cbd5e1; border-radius:6px; page-break-inside:avoid; }
+                .booking-pdf-report .booking-pdf-comments strong { display:block; margin-bottom:5px; color:#475569; font-size:7px; letter-spacing:.7px; }
+                .booking-pdf-report .booking-pdf-comments>div { height:24px; }
+                .booking-pdf-report .booking-pdf-note { margin:8px 0; padding:7px 9px; border:1px solid #fde68a; border-radius:6px; background:#fffbeb; color:#92400e; font-size:7px; line-height:1.4; page-break-inside:avoid; }
+                .booking-pdf-report .booking-pdf-signatures { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:16px 0 10px; page-break-inside:avoid; }
+                .booking-pdf-report .booking-pdf-signatures>div { display:flex; flex-direction:column; min-height:44px; }
+                .booking-pdf-report .booking-pdf-signatures span { display:block; color:#64748b; font-size:7px; font-weight:800; letter-spacing:.7px; }
+                .booking-pdf-report .booking-pdf-signatures i { display:block; height:20px; margin-top:3px; border-bottom:1px solid #94a3b8; }
+                .booking-pdf-report .booking-pdf-signatures small { margin-top:3px; color:#94a3b8; font-size:6.5px; }
+                .booking-pdf-report .report-footer { margin-top:9px; padding-top:6px; font-size:7px; }
+
                 @page { size: A4 portrait; margin: 0; }
                 @media print {
                     html, body { width: 210mm; min-height: 297mm; margin: 0; }
-                    body { padding: 10mm; max-width: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                    body { padding: 8mm; max-width: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
                     .no-print { display: none !important; }
                 }
             </style>
