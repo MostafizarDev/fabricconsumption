@@ -96,7 +96,7 @@
     if(beforeHeader)headerRow.insertBefore(th,beforeHeader);else headerRow.insertBefore(th,headerRow.lastElementChild);
     if(beforeRatio)ratioRow.insertBefore(td,beforeRatio);else ratioRow.insertBefore(td,ratioRow.lastElementChild);
     headerRow.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
-    ratioRow.querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
+    ratioRow.querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
     calculate();
   }
   function loadSizePreset(key) {
@@ -115,6 +115,7 @@
       const th=document.createElement('th'),td=document.createElement('td');
       th.className='bk-size-item';
       th.innerHTML='<div class="bk-size-head-cell"><input data-size-label value="'+safe(name)+'" aria-label="Size label '+safe(name)+'"><button type="button" class="bk-size-remove" aria-label="Remove '+safe(name)+'">×</button></div>';
+      td.dataset.ratioIndex=i;
       td.innerHTML='<input data-ratio type="number" min="0" step="1" value="'+preset.ratios[i]+'" aria-label="Ratio for '+safe(name)+'">';
       headerRow.insertBefore(th,headerRow.lastElementChild);
       ratioRow.insertBefore(td,ratioRow.lastElementChild);
