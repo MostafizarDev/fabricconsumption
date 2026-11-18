@@ -8316,3 +8316,31 @@ body.dark-mode #page-booking .booking-section-head h2 > i[data-lucide]{
   align-items:center;
   gap:7px;
 }
+
+
+/* Booking Sheet — quick actions and example-only field values */
+#page-booking .booking-section-head{align-items:center}
+#page-booking .booking-quick-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;flex:0 0 auto}
+#page-booking .booking-quick-actions .knit-action-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:7px 11px;
+  border:1px solid var(--border,#cbd5e1);border-radius:8px;background:var(--card-bg,#fff);
+  color:var(--text,#334155);font-size:10px;font-weight:800;white-space:nowrap;cursor:pointer;
+}
+#page-booking .booking-quick-actions .knit-action-btn:first-child{border-color:#7dd3fc;color:#075985;background:#e0f2fe}
+#page-booking .booking-quick-actions .knit-action-btn svg{width:14px;height:14px;stroke-width:1.8}
+#page-booking .booking-quick-actions .knit-action-btn[aria-pressed="true"]{background:#dbeafe;border-color:#60a5fa}
+#page-booking .booking-recent-panel{position:relative;margin:-5px 0 13px auto;width:min(340px,100%);max-height:250px;overflow:auto;z-index:4}
+#page-booking .booking-recent-head{display:flex;align-items:center;justify-content:space-between;padding:9px 11px;border-bottom:1px solid var(--border,#e2e8f0);font-size:11px}
+#page-booking .booking-recent-head button{border:0;background:transparent;color:var(--muted,#64748b);font-size:18px;cursor:pointer}
+#page-booking .booking-recent-item{display:flex;width:100%;flex-direction:column;gap:3px;padding:9px 11px;border:0;border-bottom:1px solid var(--border,#e2e8f0);background:transparent;color:var(--text,#334155);text-align:left;cursor:pointer}
+#page-booking .booking-recent-item:hover{background:var(--soft-bg,#f8fafc)}
+#page-booking .booking-recent-item strong{font-size:10px}
+#page-booking .booking-recent-item small,#page-booking .booking-recent-empty{font-size:9px;color:var(--muted,#64748b)}
+#page-booking .booking-recent-empty{padding:12px;margin:0}
+#page-booking input::placeholder{color:#aeb8c5!important;opacity:1;font-style:italic}
+#page-booking .booking-size-matrix input::placeholder,
+#page-booking .booking-factory-table input::placeholder{color:#aeb8c5!important;opacity:1}
+body.dark-mode #page-booking input::placeholder{color:#718096!important}
+body.dark-mode #page-booking .booking-quick-actions .knit-action-btn{background:#172338;border-color:#475569;color:#cbd5e1}
+body.dark-mode #page-booking .booking-quick-actions .knit-action-btn:first-child{background:#12334b;border-color:#25658a;color:#7dd3fc}
+@media(max-width:600px){#page-booking .booking-section-head{align-items:flex-start}#page-booking .booking-quick-actions{width:100%;justify-content:flex-start}}
