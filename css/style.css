@@ -7457,3 +7457,18 @@ body.dark-mode #page-booking .booking-size-controls select{background:#0b1220;bo
 body.dark-mode #page-booking .bk-size-card{background:#0f1b2d;border-color:#334155}
 body.dark-mode #page-booking .bk-size-card-head{color:#bae6fd}
 body.dark-mode #page-booking .bk-size-card input{background:#0b1220;border-color:#475569;color:#e2e8f0}
+
+/* Booking size ratio table — factory matrix layout */
+#page-booking .booking-size-matrix{width:max-content;min-width:100%;border-collapse:collapse;table-layout:auto}
+#page-booking .booking-size-matrix th,#page-booking .booking-size-matrix td{min-width:68px;padding:8px 7px;border:1px solid #dbe3ed;text-align:center;vertical-align:middle}
+#page-booking .booking-size-matrix .bk-matrix-label{min-width:145px;text-align:left;white-space:nowrap;background:#17365d;color:#fff}
+#page-booking .booking-size-matrix .bk-total-head{min-width:65px;background:#17365d;color:#fff}
+#page-booking .booking-size-matrix .bk-size-item{background:#17365d}
+#page-booking .bk-size-head-cell{display:flex;align-items:center;justify-content:center;gap:4px}
+#page-booking .bk-size-head-cell input{width:54px;min-width:42px;box-sizing:border-box;padding:7px 3px;border:1px solid #cbd5e1;border-radius:4px;background:#fff;color:#17365d;text-align:center;font:700 11px Inter,Arial,sans-serif}
+#page-booking .bk-size-head-cell .bk-size-remove{width:20px;height:20px;padding:0;border:0;border-radius:4px;background:#fee2e2;color:#b91c1c;font-weight:900;cursor:pointer}
+#page-booking .bk-size-head-cell .bk-size-remove:disabled{opacity:.3;cursor:not-allowed}
+#page-booking .booking-size-matrix td input{width:55px;max-width:100%;box-sizing:border-box;padding:7px 4px;border:1px solid #cbd5e1;border-radius:4px;background:var(--input-bg,#fff);color:var(--text,#0f172a);text-align:center;font:700 11px Inter,Arial,sans-serif}
+#page-booking .booking-size-matrix .bk-total-cell{background:#eaf2f8;color:#17365d;font-weight:900;font-size:12px}
+body.dark-mode #page-booking .booking-size-matrix th,body.dark-mode #page-booking .booking-size-matrix td{border-color:#475569}
+body.dark-mode #page-booking .booking-size-matrix .bk-total-cell{background:#102b42;color:#bae6fd}
