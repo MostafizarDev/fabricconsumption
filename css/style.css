@@ -32,28 +32,18 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
-  width: auto;
+  width: 250px;
   height: 52px;
   flex-shrink: 0;
 }
 
 .logo-image {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 250px;
+  height: 52px;
   object-fit: contain;
-  flex: 0 0 42px;
-}
-
-.logo-wordmark {
-  color: #f8fafc;
-  font-size: 17px;
-  line-height: 1.15;
-  font-weight: 800;
-  letter-spacing: .35px;
-  white-space: nowrap;
+  object-position: left center;
 }
 
 .header-url {
