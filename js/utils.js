@@ -325,7 +325,7 @@ function generatePDF(title, contentHtml) {
                 .booking-pdf-report .booking-pdf-comments { margin:8px 0; padding:8px 9px; min-height:48px; border:1px solid #cbd5e1; border-radius:6px; page-break-inside:avoid; }
                 .booking-pdf-report .booking-pdf-comments strong { display:block; margin-bottom:5px; color:#475569; font-size:7px; letter-spacing:.7px; }
                 .booking-pdf-report .booking-pdf-comments>div { height:24px; }
-                .booking-pdf-report .booking-pdf-note { margin:8px 0; padding:7px 9px; border:1px solid #fde68a; border-radius:6px; background:#fffbeb; color:#92400e; font-size:7px; line-height:1.4; page-break-inside:avoid; }
+                .booking-pdf-report .booking-pdf-note { margin:14px 0 16px; padding:7px 9px; border:1px solid #fde68a; border-radius:6px; background:#fffbeb; color:#92400e; font-size:7px; line-height:1.4; page-break-inside:avoid; }
                 .booking-pdf-report .booking-pdf-signatures { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:16px 0 10px; page-break-inside:avoid; }
                 .booking-pdf-report .booking-pdf-signatures>div { display:flex; flex-direction:column; min-height:44px; }
                 .booking-pdf-report .booking-pdf-signatures span { display:block; color:#64748b; font-size:7px; font-weight:800; letter-spacing:.7px; }
