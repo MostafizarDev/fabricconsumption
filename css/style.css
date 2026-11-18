@@ -7678,3 +7678,10 @@ body.dark-mode #page-booking .booking-qty-toggle button.active{background:#1c3d5
   z-index:3;
 }
 #page-booking #bk-size-headers .bk-total-head{z-index:4}
+
+/* Booking Sheet size preset selector */
+#page-booking .booking-size-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#page-booking .booking-preset-field{color:var(--muted,#64748b);font-size:10px;font-weight:800;white-space:nowrap}
+#page-booking #bk-size-preset{min-height:36px;min-width:190px;padding:7px 10px;border:1px solid var(--border,#cbd5e1);border-radius:7px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:600 10px Inter,Arial,sans-serif}
+body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40536a;color:#e2eaf4}
+@media(max-width:520px){#page-booking .booking-size-actions{width:100%;align-items:stretch}#page-booking #bk-size-preset{flex:1;min-width:0}}
