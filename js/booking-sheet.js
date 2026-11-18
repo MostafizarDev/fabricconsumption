@@ -53,13 +53,11 @@
       row.querySelector('.bk-net-dozen').textContent=calc.netDozen.toFixed(4);
       row.querySelector('.bk-final').textContent=calc.finalDozen.toFixed(4);
     });
-    const qty=Math.max(0,Number($('bk-order-qty')?.value)||0);
-    const cutQty=Math.max(0,Number($('bk-cut-qty')?.value)||0);
-    const totalQty=cutQty||qty;
+    const sizing=sizeBreakdown();
+    const totalQty=sizing.orderQty;
     const requirement=grand*totalQty/12;
     $('bk-grand-dozen').textContent=grand.toFixed(4)+' kg/dz';
     $('bk-total-order').textContent=totalQty>0?requirement.toFixed(2)+' kg':'— kg';
-    const sizing=sizeBreakdown();
     $('bk-summary').innerHTML=data.map(({calc},i)=>'<article class="booking-result-card"><span>'+safe(calc.parts||('Fabric '+(i+1)))+' · '+safe(calc.fabric)+'</span><strong>'+calc.finalDozen.toFixed(4)+' kg/dz</strong><small>Net marker: '+calc.netMarker.toFixed(4)+' kg · Net/dozen: '+calc.netDozen.toFixed(4)+' kg</small></article>').join('');
     return {data:data.map(x=>x.calc),grand,totalQty,requirement,sizing};
   }
@@ -97,7 +95,7 @@
     const report='<div class="report booking-pdf-report"><div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">FACTORY BOOKING REPORT</div><h1>Style Wise Fabrics Consumption</h1><div class="report-id">BOOKING · '+new Date().toLocaleDateString('en-GB')+'</div></div></div>'+
       '<section class="section"><div class="section-head">ORDER INFORMATION</div><div class="info-grid">'+infoHtml+'</div></section>'+
       '<section class="section"><div class="section-head">FABRIC &amp; MARKER DETAILS</div><table><thead><tr><th>Parts</th><th>Fabric</th><th>ML</th><th>Cut L</th><th>MW</th><th>Cut W</th><th>GSM</th><th>Net/Marker</th><th>PCS</th><th>Net/Doz</th><th>Cut%</th><th>Final/Doz</th><th>DIA</th><th>Type</th></tr></thead><tbody>'+body+'</tbody></table></section>'+
-      '<section class="section"><div class="section-head">SIZE RATIO &amp; ORDER DISTRIBUTION</div><table><thead><tr><th>Size</th><th>Ratio</th><th>Order Qty</th><th>Share</th></tr></thead><tbody>'+ratios+'</tbody></table><p>Total Ratio: '+result.sizing.totalRatio+' · Distributed Qty: '+result.sizing.orderQty+'</p></section>'+
+      '<section class="section"><div class="section-head">SIZE RATIO &amp; ORDER DISTRIBUTION</div><table><thead><tr><th>Size</th><th>Ratio</th><th>Allocated Qty</th><th>Share</th></tr></thead><tbody>'+ratios+'</tbody></table><p>Total Ratio: '+result.sizing.totalRatio+' · Distributed Qty: '+result.sizing.orderQty+'</p></section>'+
       '<div class="summary-grid"><div class="summary-card primary"><div class="metric-head"><span>TOTAL FINAL CONSUMPTION / DOZEN</span></div><strong>'+result.grand.toFixed(4)+' KG</strong></div><div class="summary-card"><div class="metric-head"><span>TOTAL FABRIC REQUIREMENT</span></div><strong>'+(result.totalQty?result.requirement.toFixed(2)+' KG':'—')+'</strong><small>Based on '+result.totalQty+' pcs</small></div></div>'+
       '<section class="section formula"><div class="section-head">CALCULATION FORMULA</div><div class="formula-text"><strong>Net KG / Marker</strong> = (ML + Cut L) × (MW + Cut W) × GSM ÷ 1,550,000<br><strong>Net KG / Dozen</strong> = Net KG / Marker × 12 ÷ PCS / Marker<br><strong>Final KG / Dozen</strong> = Net KG / Dozen × (1 + Cutting % ÷ 100)<br><strong>Total Order Requirement</strong> = Total KG / Dozen × Order Quantity ÷ 12</div></section>'+
       '<div class="report-footer"><span>Fabric Consumption · Factory Booking Sheet</span><span>Generated '+new Date().toLocaleString()+'</span></div></div>';
@@ -154,7 +152,7 @@
       put(ws.getCell(sr,ratioCol),ratioSum+' PCS',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
       put(ws.getCell(rr,ratioCol),ratioSum,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
       const dt=rr+2;ws.mergeCells(dt,1,dt,15);put(ws.getCell(dt,1),'SIZE-WISE ORDER DISTRIBUTION',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
-      ['SIZE','RATIO','ORDER QTY (PCS)','ORDER SHARE'].forEach((v,i)=>put(ws.getCell(dt+1,i+1),v,{font:{bold:true,size:9,color:{argb:white}},fill:fill(navy)}));
+      ['SIZE','RATIO','ALLOCATED QTY (PCS)','ORDER SHARE'].forEach((v,i)=>put(ws.getCell(dt+1,i+1),v,{font:{bold:true,size:9,color:{argb:white}},fill:fill(navy)}));
       sizes.forEach((x,i)=>{const row=dt+2+i;[x.size,x.ratio,x.qty,x.share/100].forEach((v,j)=>put(ws.getCell(row,j+1),v));ws.getCell(row,4).numFmt='0.0%';});
       const sumRow=dt+3+sizes.length;ws.mergeCells(sumRow,1,sumRow,3);put(ws.getCell(sumRow,1),'TOTAL ORDER QUANTITY',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(sumRow,4),result.sizing.orderQty,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
       ws.mergeCells(sumRow+1,1,sumRow+1,3);put(ws.getCell(sumRow+1,1),'TOTAL FABRIC REQUIREMENT (KG)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(sumRow+1,4),result.totalQty?result.requirement:'',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
