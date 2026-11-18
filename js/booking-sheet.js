@@ -193,7 +193,20 @@
     $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
     document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
-    $('bk-size-headers').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){const index=Number(e.target.closest('.bk-size-item').dataset.sizeIndex);e.target.closest('.bk-size-item').remove();document.querySelector('[data-ratio-index="'+index+'"]')?.remove();document.querySelectorAll('#bk-size-headers .bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);document.querySelectorAll('#bk-ratio-row td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);calculate();}});
+    $('bk-size-headers').addEventListener('click',e=>{
+      const remove=e.target.closest('.bk-size-remove');
+      if(!remove||sizeRows().length<=1)return;
+      const header=remove.closest('.bk-size-item');
+      const index=Array.from($('bk-size-headers').querySelectorAll('.bk-size-item')).indexOf(header);
+      const ratioCell=$('bk-ratio-row').querySelector('td[data-ratio-index="'+index+'"]');
+      // Remove the size header and its matching ratio cell as one pair.
+      header.remove();
+      if(ratioCell)ratioCell.remove();
+      // Re-index only size cells; TOTAL PCS remains the final, permanent column.
+      $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
+      $('bk-ratio-row').querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
+      calculate();
+    });
     $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
     $('bk-calculate').addEventListener('click',calculate);$('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
     calculate();
