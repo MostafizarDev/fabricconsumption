@@ -7626,3 +7626,24 @@ body.dark-mode #page-booking #bk-size-note{
 @media(max-width:1328px){
   #page-booking{max-width:100%}
 }
+
+
+/* Compact size ratio matrix and quantity-basis segmented toggle */
+#page-booking .booking-size-controls{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+#page-booking .booking-qty-toggle-wrap{display:flex;flex-direction:column;gap:5px}
+#page-booking .booking-qty-toggle-label{font-size:10px;font-weight:750;color:#64748b}
+#page-booking .booking-qty-toggle{display:inline-flex;align-items:center;gap:3px;padding:3px;border:1px solid #d6e2ef;border-radius:8px;background:#f1f6fb}
+#page-booking .booking-qty-toggle button{min-height:29px;padding:6px 11px;border:0;border-radius:6px;background:transparent;color:#64748b;font:650 10px Inter,Arial,sans-serif;cursor:pointer;transition:all .15s ease}
+#page-booking .booking-qty-toggle button.active{background:#fff;color:#1769a6;box-shadow:0 1px 4px rgba(30,70,110,.13)}
+#page-booking .booking-size-matrix .bk-matrix-label{ text-align:center!important;vertical-align:middle}
+#page-booking .booking-size-matrix .bk-matrix-label:first-child{padding:6px 8px}
+#page-booking .booking-size-matrix th,#page-booking .booking-size-matrix td{padding-top:5px;padding-bottom:5px}
+#page-booking .bk-size-head-cell{min-height:27px}
+#page-booking .bk-size-head-cell input{height:27px}
+#page-booking .booking-size-matrix #bk-ratio-row td input{height:27px;padding-top:3px;padding-bottom:3px}
+#page-booking .bk-ratio-label-cell input{height:25px;padding-top:2px;padding-bottom:2px}
+body.dark-mode #page-booking .booking-qty-toggle{background:#0f1e30;border-color:#344a63}
+body.dark-mode #page-booking .booking-qty-toggle-label{color:#9aadc2}
+body.dark-mode #page-booking .booking-qty-toggle button{color:#a9bbcf}
+body.dark-mode #page-booking .booking-qty-toggle button.active{background:#1c3d5b;color:#8bd3ff;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+@media(max-width:600px){#page-booking .booking-size-controls{align-items:flex-start;flex-wrap:wrap}#page-booking .booking-qty-toggle button{padding:6px 8px}}
