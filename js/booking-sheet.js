@@ -159,7 +159,7 @@
     const date=$('bk-date'); if(date&&!date.value) date.value=new Date().toISOString().slice(0,10);
     $('bk-fabric-rows').addEventListener('input',calculate);
     $('bk-fabric-rows').addEventListener('change',calculate);
-    $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('.bk-size-card').remove();calculate();}});
+    $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
     document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
     $('bk-size-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){e.target.closest('tr').remove();calculate();}});
