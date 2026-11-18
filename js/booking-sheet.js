@@ -212,8 +212,10 @@
       };
       [15.14,16.86,14.71,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
       ws.views=[{state:'frozen',ySplit:11,showGridLines:false}];
-      // Remove the decorative top header entirely; keep the reference data layout below.
-      [1,2,3,4].forEach(r=>{ws.getRow(r).height=3;ws.getRow(r).hidden=true;});
+      // Simple reference-style report title only; no decorative brand header.
+      ws.mergeCells('A3:O3');
+      put(ws.getCell('A3'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:white},fill:fill(navy),alignment:{horizontal:'center',vertical:'middle'}});
+      ws.getRow(1).height=3;ws.getRow(2).height=3;ws.getRow(3).height=30;ws.getRow(4).height=7;
       // Order metadata follows the supplied reference: left and right columns.
       const meta=[
         [5,'DATE :',dateText,'SHIPMENT DT:',val('bk-shipment')],
