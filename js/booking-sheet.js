@@ -205,6 +205,7 @@
       const fill=c=>({type:'pattern',pattern:'solid',fgColor:{argb:'FF'+c}});
       const ws=wb.addWorksheet('BOOKING REPORT',{views:[{state:'frozen',ySplit:10}]});
       [8,16,16,12,12,12,12,10,13,11,13,13,13,13,12].forEach((w,i)=>ws.getColumn(i+1).width=w);
+      const safeMerge=(...args)=>{try{ws.mergeCells(...args);return true;}catch(error){console.warn('Skipped overlapping Excel merge:',args,error.message);return false;}};
       const put=(cell,value,opts={})=>{
         cell.value=value;cell.border=border;
         cell.alignment={vertical:'middle',horizontal:'center',wrapText:true,...opts.alignment};
@@ -212,7 +213,7 @@
         if(opts.fill)cell.fill=opts.fill;
         if(opts.numFmt)cell.numFmt=opts.numFmt;
       };
-      const mergeText=(range,value,opts={})=>{ws.mergeCells(range);put(ws.getCell(range.split(':')[0]),value,opts);};
+      const mergeText=(range,value,opts={})=>{safeMerge(range);put(ws.getCell(range.split(':')[0]),value,opts);};
       mergeText('A1:O1','FABRIC CONSUMPTION  |  GARMENT CALCULATOR SUITE',{font:{size:17,bold:true,color:{argb:'FF'+white}},fill:fill(navy),alignment:{horizontal:'left',vertical:'middle',indent:1}});
       ws.getRow(1).height=34;
       mergeText('A2:O2','FACTORY FABRIC BOOKING REPORT',{font:{size:10,bold:true,color:{argb:'FF'+navy}},fill:fill(blue),alignment:{horizontal:'left',indent:1}});
@@ -229,7 +230,7 @@
           const labelCell=ws.getCell(row,pair[0]),valueCell=ws.getCell(row,pair[1]);
           put(labelCell,r[k*2],{font:{bold:true,size:7,color:{argb:'FF'+navy}},fill:fill(pale),alignment:{horizontal:'left',indent:1}});
           put(valueCell,r[k*2+1],{font:{bold:true,size:8},alignment:{horizontal:'left',indent:1}});
-          const endCol=pair[1]+3;ws.mergeCells(row,pair[1],row,endCol);
+          const endCol=pair[1]+3;safeMerge(row,pair[1],row,endCol);
           for(let c=pair[1]+1;c<=endCol;c++)ws.getCell(row,c).border=border;
           if(r[k*2]==='WEBSITE')valueCell.value={text:'fabricconsumption.vercel.app',hyperlink:'https://fabricconsumption.vercel.app/'},valueCell.font={name:'Arial',size:8,bold:true,color:{argb:'FF'+ '0563C1'},underline:true};
         });
@@ -265,30 +266,30 @@
       row+=2;
       mergeText(`A${row}:O${row}`,'FABRIC-WISE SUMMARY',{font:{bold:true,size:10,color:{argb:'FF'+white}},fill:fill(navy),alignment:{horizontal:'left',indent:1}});row++;
       const sumHeads=['SL','FABRIC TYPE','PARTS','NET ORDER (KG)','WASTAGE (KG)','FINAL REQUIREMENT (KG)','FINAL / DOZEN (KG)'];
-      sumHeads.forEach((v,i)=>{if(i===0)put(ws.getCell(row,1),v,{font:{bold:true,color:{argb:'FF'+white}},fill:fill(navy)});else{ws.mergeCells(row,i*2,i===1?row:row,i*2+1);put(ws.getCell(row,i*2),v,{font:{bold:true,color:{argb:'FF'+white}},fill:fill(navy)});}});
+      sumHeads.forEach((v,i)=>{if(i===0)put(ws.getCell(row,1),v,{font:{bold:true,color:{argb:'FF'+white}},fill:fill(navy)});else{safeMerge(row,i*2,i===1?row:row,i*2+1);put(ws.getCell(row,i*2),v,{font:{bold:true,color:{argb:'FF'+white}},fill:fill(navy)});}});
       const groups={};
       data.forEach(x=>{const k=x.fabric||'Unspecified';if(!groups[k])groups[k]={parts:[],net:0,waste:0,final:0,dozen:0};const g=groups[k];g.parts.push(x.parts||'—');g.net+=qty?x.netDozen*qty/12:0;const final=qty?x.finalDozen*qty/12:0;g.final+=final;g.waste+=Math.max(0,final-(qty?x.netDozen*qty/12:0));g.dozen+=x.finalDozen;});
       Object.entries(groups).forEach(([fabric,g],i)=>{
         row++;const vals=[i+1,fabric,[...new Set(g.parts)].join(', '),g.net,g.waste,g.final,g.dozen];
-        put(ws.getCell(row,1),vals[0]);put(ws.getCell(row,2),vals[1]);ws.mergeCells(row,2,row,3);
-        for(let k=2;k<7;k++){const col=2+(k-1)*2;put(ws.getCell(row,col),vals[k],{numFmt:k>=3?'0.000':'General'});ws.mergeCells(row,col,row,col+1);}
+        put(ws.getCell(row,1),vals[0]);put(ws.getCell(row,2),vals[1]);safeMerge(row,2,row,3);
+        for(let k=2;k<7;k++){const col=2+(k-1)*2;put(ws.getCell(row,col),vals[k],{numFmt:k>=3?'0.000':'General'});safeMerge(row,col,row,col+1);}
         ws.getRow(row).height=21;
       });
       row+=2;
       mergeText(`A${row}:O${row}`,'BOOKING SUMMARY',{font:{bold:true,size:10,color:{argb:'FF'+white}},fill:fill(navy),alignment:{horizontal:'left',indent:1}});row++;
       const metrics=[['TOTAL FINAL CONSUMPTION / DOZEN',result.grand,'0.0000 "kg/dz"'],['ORDER QUANTITY',qty,'#,##0 "pcs"'],['TOTAL FABRIC REQUIREMENT',result.requirement,'0.000 "kg"'],['FABRIC REQUIREMENT / GARMENT',qty?result.requirement/qty:0,'0.0000 "kg/pc"']];
-      metrics.forEach((m,i)=>{const c=i*4+1;ws.mergeCells(row,c,row,c+2);put(ws.getCell(row,c),m[0],{font:{bold:true,size:7,color:{argb:'FF'+navy}},fill:fill(pale),alignment:{horizontal:'left',indent:1}});ws.mergeCells(row+1,c,row+1,c+2);put(ws.getCell(row+1,c),m[1],{font:{bold:true,size:13,color:{argb:'FF'+(i===2?'087443':navy)}},fill:fill(i===2?green:blue),numFmt:m[2]});});
+      metrics.forEach((m,i)=>{const c=i*4+1;safeMerge(row,c,row,c+2);put(ws.getCell(row,c),m[0],{font:{bold:true,size:7,color:{argb:'FF'+navy}},fill:fill(pale),alignment:{horizontal:'left',indent:1}});safeMerge(row+1,c,row+1,c+2);put(ws.getCell(row+1,c),m[1],{font:{bold:true,size:13,color:{argb:'FF'+(i===2?'087443':navy)}},fill:fill(i===2?green:blue),numFmt:m[2]});});
       ws.getRow(row).height=20;ws.getRow(row+1).height=28;row+=3;
       mergeText(`A${row}:O${row}`,'CALCULATION METHOD',{font:{bold:true,size:9,color:{argb:'FF'+white}},fill:fill(navy),alignment:{horizontal:'left',indent:1}});row++;
       const formulas=['Net KG / Marker = (Marker Length + Cut Allow L) × (Marker Width + Cut Allow W) × GSM ÷ 1,550,000','Net KG / Dozen = Net KG / Marker × 12 ÷ PCS / Marker','Final KG / Dozen = Net KG / Dozen × (1 + Cutting % ÷ 100)','Total Fabric Requirement = Total Final KG / Dozen × Order Quantity ÷ 12'];
       formulas.forEach(t=>{mergeText(`A${row}:O${row}`,'• '+t,{font:{size:8,color:{argb:'FF'+ink}},fill:fill('F8FAFC'),alignment:{horizontal:'left',indent:1}});ws.getRow(row).height=19;row++;});
       row+=1;
       mergeText(`A${row}:O${row}`,'COMMENTS / REMARKS',{font:{bold:true,size:8,color:{argb:'FF'+grey}},fill:fill(pale),alignment:{horizontal:'left',indent:1}});
-      ws.getRow(row+1).height=30;ws.mergeCells(row+1,1,row+1,15);put(ws.getCell(row+1,1),'',{fill:fill('FFFFFF'),alignment:{vertical:'top',horizontal:'left',wrapText:true}});
+      ws.getRow(row+1).height=30;safeMerge(row+1,1,row+1,15);put(ws.getCell(row+1,1),'',{fill:fill('FFFFFF'),alignment:{vertical:'top',horizontal:'left',wrapText:true}});
       row+=3;
       mergeText(`A${row}:O${row}`,'IMPORTANT: Consumption estimate only. Verify marker measurements, GSM, cutting allowance, size ratio and order quantity against the approved marker and actual cutting-room consumption.',{font:{italic:true,size:8,color:{argb:'FF'+grey}},fill:fill(amber),alignment:{horizontal:'left',vertical:'middle',indent:1}});
       ws.getRow(row).height=32;row+=2;
-      ['PREPARED BY','CHECKED BY','APPROVED BY'].forEach((label,i)=>{const c=i*5+1;ws.mergeCells(row,c,row,c+3);put(ws.getCell(row,c),label,{font:{bold:true,size:8,color:{argb:'FF'+navy}},alignment:{horizontal:'left'}});ws.mergeCells(row+1,c,row+1,c+3);put(ws.getCell(row+1,c),'',{border:{bottom:{style:'thin',color:{argb:'FF'+grey}}}});ws.mergeCells(row+2,c,row+2,c+3);put(ws.getCell(row+2,c),'Name / Signature / Date',{font:{size:7,color:{argb:'FF'+grey}},alignment:{horizontal:'left'}});});
+      ['PREPARED BY','CHECKED BY','APPROVED BY'].forEach((label,i)=>{const c=i*5+1;safeMerge(row,c,row,c+3);put(ws.getCell(row,c),label,{font:{bold:true,size:8,color:{argb:'FF'+navy}},alignment:{horizontal:'left'}});safeMerge(row+1,c,row+1,c+3);put(ws.getCell(row+1,c),'',{border:{bottom:{style:'thin',color:{argb:'FF'+grey}}}});safeMerge(row+2,c,row+2,c+3);put(ws.getCell(row+2,c),'Name / Signature / Date',{font:{size:7,color:{argb:'FF'+grey}},alignment:{horizontal:'left'}});});
       ws.getRow(row+1).height=24;row+=4;
       mergeText(`A${row}:O${row}`,'Fabric Consumption · Garment Calculator Suite  |  '+dateText+' · '+timeText+'  |  fabricconsumption.vercel.app',{font:{size:8,color:{argb:'FF'+grey},underline:true},alignment:{horizontal:'center'}});
       ws.getCell(row,1).value={text:'Fabric Consumption · Garment Calculator Suite  |  '+dateText+' · '+timeText+'  |  fabricconsumption.vercel.app',hyperlink:'https://fabricconsumption.vercel.app/'};
