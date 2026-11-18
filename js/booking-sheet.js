@@ -226,7 +226,7 @@
       meta.forEach(([r,l1,v1,l2,v2])=>{
         put(ws.getCell(r,2),l1,{font:{size:10,bold:true,color:navy},alignment:{horizontal:'left'}});
         ws.mergeCells(r,3,r,4);put(ws.getCell(r,3),v1,{font:{size:10,color:ink},alignment:{horizontal:'left'}});
-        put(ws.getCell(r,11),l2,{font:{size:10,bold:true,color:navy},alignment:{horizontal:'left'}});
+        ws.mergeCells(r,10,r,11);put(ws.getCell(r,10),l2,{font:{size:10,bold:true,color:navy},alignment:{horizontal:'left'}});
         ws.mergeCells(r,12,r,13);put(ws.getCell(r,12),v2,{font:{size:10,color:ink},alignment:{horizontal:'left'}});
         ws.getRow(r).height=20.1;
       });
