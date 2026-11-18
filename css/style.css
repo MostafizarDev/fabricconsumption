@@ -8428,7 +8428,7 @@ body.dark-mode #page-booking .booking-total-banner strong{color:#7dd3fc}
 /* ========== PROFESSIONAL SITE FOOTER ========== */
 .site-footer{margin-top:54px;background:#0b1729;color:#cbd5e1;border-top:1px solid #20334b}
 .footer-main{max-width:1440px;margin:0 auto;padding:48px 34px 38px;display:grid;grid-template-columns:minmax(240px,1.7fr) repeat(3,minmax(145px,1fr));gap:38px}
-.footer-brand-name{display:inline-block;color:#f8fafc;text-decoration:none;font-size:22px;font-weight:900;letter-spacing:-.7px}
+.footer-brand-name{display:inline-flex;align-items:center;gap:9px;color:#f8fafc;text-decoration:none;font-size:22px;font-weight:900;letter-spacing:-.7px}.footer-brand-logo{display:block;width:30px;height:30px;flex:0 0 30px;object-fit:contain;border-radius:7px}
 .footer-brand-name span{color:#38bdf8}
 .footer-brand>p{margin:7px 0;color:#a9b9cb;font-size:12px}
 .footer-brand .footer-tagline{max-width:300px;margin-top:17px;color:#94a3b8;font-size:13px;line-height:1.75}
