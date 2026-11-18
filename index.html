@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="/favicon.svg">
 <title>Fabric Consumption | Garment Calculator Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=20261118-factory-format-export-v3">
+<link rel="stylesheet" href="/css/style.css?v=20261118-size-ratio-matrix-v1">
 </head>
 <body>
 
@@ -844,17 +844,15 @@
   </section>
 
   <section class="panel booking-panel">
-    <div class="booking-section-head"><div><h2>03 · Size Ratio &amp; Order Distribution</h2><p>The sample starts with a 10 PCS ratio. Change the ratios to 12 PCS or any total you need, and add custom size labels whenever required.</p></div><span class="booking-total-ratio" id="bk-ratio-total">Total Ratio: 10</span></div>
-    <div class="booking-size-controls"><label>Distribution Quantity<select id="bk-ratio-qty-source"><option value="order">Order Quantity</option><option value="cut">Cutting Quantity</option></select></label><button type="button" class="booking-add-btn" id="bk-add-size">＋ Add Size</button></div>
-    <div class="booking-ratio-wrap"><table class="booking-ratio-table booking-size-table"><thead><tr><th>Size</th><th>Ratio</th><th>Allocated Qty (pcs)</th><th>Share</th><th>Action</th></tr></thead><tbody id="bk-size-rows">
-      <tr><td><input data-size-label value="74" aria-label="Size label"></td><td><input data-ratio="74" type="number" min="0" step="1" value="2" aria-label="Ratio"></td><td class="bk-size-qty">—</td><td class="bk-size-share">—</td><td><button type="button" class="bk-size-remove" disabled aria-label="Remove size">×</button></td></tr>
-      <tr><td><input data-size-label value="80" aria-label="Size label"></td><td><input data-ratio="80" type="number" min="0" step="1" value="2" aria-label="Ratio"></td><td class="bk-size-qty">—</td><td class="bk-size-share">—</td><td><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></td></tr>
-      <tr><td><input data-size-label value="86" aria-label="Size label"></td><td><input data-ratio="86" type="number" min="0" step="1" value="4" aria-label="Ratio"></td><td class="bk-size-qty">—</td><td class="bk-size-share">—</td><td><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></td></tr>
-      <tr><td><input data-size-label value="92" aria-label="Size label"></td><td><input data-ratio="92" type="number" min="0" step="1" value="1" aria-label="Ratio"></td><td class="bk-size-qty">—</td><td class="bk-size-share">—</td><td><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></td></tr>
-      <tr><td><input data-size-label value="98" aria-label="Size label"></td><td><input data-ratio="98" type="number" min="0" step="1" value="1" aria-label="Ratio"></td><td class="bk-size-qty">—</td><td class="bk-size-share">—</td><td><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></td></tr>
-    </tbody><tfoot><tr><th>Total</th><th id="bk-size-ratio-sum">10</th><th id="bk-size-qty-sum">—</th><th id="bk-size-share-sum">100%</th><th></th></tr></tfoot></table></div>
-    <p class="booking-note" id="bk-size-note">Quantity allocation uses proportional ratios with largest-remainder rounding, so the size quantities always add up exactly to the selected order quantity. Consumption calculations remain based on PCS per Marker, as in the factory workbook.</p>
-  </section>
+<div class="booking-section-head"><div><h2>03 · Size Ratio</h2><p>Select required sizes, edit size names and set each size ratio.</p></div><span class="booking-total-ratio" id="bk-ratio-total">TOTAL: 10 PCS</span></div>
+<div class="booking-size-controls"><label>Quantity Basis<select id="bk-ratio-qty-source"><option value="order">Order Quantity</option><option value="cut">Cutting Quantity</option></select></label><button type="button" class="booking-add-btn" id="bk-add-size">＋ Add Size</button></div>
+<div class="booking-ratio-wrap"><div class="booking-size-grid" id="bk-size-rows">
+<div class="bk-size-card"><div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove" disabled aria-label="Remove size">×</button></div><input data-size-label value="74" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="2" aria-label="Ratio for size 74"></div>
+<div class="bk-size-card"><div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove"  aria-label="Remove size">×</button></div><input data-size-label value="80" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="2" aria-label="Ratio for size 80"></div>
+<div class="bk-size-card"><div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove"  aria-label="Remove size">×</button></div><input data-size-label value="86" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="4" aria-label="Ratio for size 86"></div>
+<div class="bk-size-card"><div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove"  aria-label="Remove size">×</button></div><input data-size-label value="92" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="1" aria-label="Ratio for size 92"></div>
+<div class="bk-size-card"><div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove"  aria-label="Remove size">×</button></div><input data-size-label value="98" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="1" aria-label="Ratio for size 98"></div>
+</div></div><p class="booking-note" id="bk-size-note">Add as many sizes as needed. TOTAL updates automatically from all entered ratios.</p></section>
 
   <section class="panel booking-panel">
     <div class="booking-section-head"><div><h2>04 · Booking Summary</h2><p>Live calculation from each fabric row.</p></div><span class="booking-live-tag">LIVE CALCULATION</span></div>
