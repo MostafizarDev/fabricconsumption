@@ -59,7 +59,13 @@ const FC_PAGE_ROUTES = {
     fob: '/pricing-costing/fob-costing',
     sizeratio: '/size-ratio',
     converter: '/converter',
-    myformulas: '/my-formulas'
+    myformulas: '/my-formulas',
+    about: '/about',
+    contact: '/contact',
+    privacy: '/privacy-policy',
+    terms: '/terms-of-use',
+    disclaimer: '/disclaimer',
+    faq: '/faq'
 };
 
 const FC_PAGE_TITLES = {
@@ -75,7 +81,13 @@ const FC_PAGE_TITLES = {
     fob: 'FOB Costing',
     sizeratio: 'Size Ratio',
     converter: 'Unit Converter',
-    myformulas: 'My Formulas'
+    myformulas: 'My Workspace',
+    about: 'About Us',
+    contact: 'Contact Us',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Use',
+    disclaimer: 'Disclaimer',
+    faq: 'Help & FAQ'
 };
 
 function getPageIdFromPath(pathname = window.location.pathname) {
