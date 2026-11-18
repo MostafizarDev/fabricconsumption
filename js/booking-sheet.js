@@ -34,7 +34,7 @@
     if($('bk-size-ratio-sum')) $('bk-size-ratio-sum').textContent=totalRatio;
     if($('bk-size-qty-sum')) $('bk-size-qty-sum').textContent=totalRatio>0&&orderQty>0?qtys.reduce((s,n)=>s+n,0).toLocaleString():'—';
     if($('bk-size-share-sum')) $('bk-size-share-sum').textContent=totalRatio>0?'100%':'—';
-    if($('bk-ratio-total')) $('bk-ratio-total').textContent='Total Ratio: '+totalRatio;
+    if($('bk-ratio-total')) $('bk-ratio-total').textContent='Total Ratio: '+totalRatio+' PCS';
     return {sizes:rowsData.map(({size,ratio,qty,share})=>({size,ratio,qty,share})),totalRatio,orderQty};
   }
   const readRow = row => {
