@@ -8238,3 +8238,17 @@ body.dark-mode #page-booking .booking-meta-grid input:focus{border-color:#38a4df
 body.dark-mode #page-booking .booking-section-head h2 > i[data-lucide]{
   background:#173b58;color:#7dd3fc;
 }
+
+
+/* Booking Sheet — compact two-row order information layout */
+#page-booking .booking-meta-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px 15px;
+}
+#page-booking .booking-meta-grid .booking-span-2{grid-column:auto}
+@media(max-width:760px){
+  #page-booking .booking-meta-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+}
+@media(max-width:520px){
+  #page-booking .booking-meta-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+}
