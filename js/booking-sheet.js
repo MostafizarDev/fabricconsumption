@@ -212,6 +212,15 @@
       };
       [15.14,16.86,14.71,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
       ws.views=[{state:'frozen',ySplit:11,showGridLines:false}];
+      // Brand header: favicon remains the only image; all branding is editable text.
+      ws.mergeCells('B1:H1');
+      put(ws.getCell('B1'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:18,bold:true,color:navy},border:{},alignment:{horizontal:'left',vertical:'middle'}});
+      ws.mergeCells('B2:H2');
+      put(ws.getCell('B2'),'G A R M E N T   C A L C U L A T O R   S U I T E',{font:{name:'Arial',size:8,bold:true,color:grey},border:{},alignment:{horizontal:'left',vertical:'middle'}});
+      ws.mergeCells('J1:O1');
+      put(ws.getCell('J1'),'FABRIC BOOKING SHEET',{font:{name:'Arial',size:13,bold:true,color:navy},border:{},alignment:{horizontal:'right',vertical:'middle'}});
+      ws.mergeCells('J2:O2');
+      put(ws.getCell('J2'),'FACTORY WORKSHEET',{font:{name:'Arial',size:8,bold:true,color:grey},border:{},alignment:{horizontal:'right',vertical:'middle'}});
       ws.mergeCells('A3:O3');
       put(ws.getCell('A3'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:white},fill:fill(navy),alignment:{horizontal:'center',vertical:'middle'}});
       ws.getRow(1).height=39.75;ws.getRow(2).height=30;ws.getRow(3).height=30;ws.getRow(4).height=7;
@@ -286,7 +295,7 @@
       const approvalRow=commentsRow+5;
       [['PREPARED BY',2],['CHECKED BY',7],['APPROVED BY',12]].forEach(([label,col])=>{
         ws.mergeCells(approvalRow,col,approvalRow,col+2);
-        put(ws.getCell(approvalRow,col),label,{font:{name:'Calibri',size:10,bold:true,color:navy},alignment:{horizontal:'center'}});
+        put(ws.getCell(approvalRow,col),label,{font:{name:'Calibri',size:10,bold:true,color:navy},border:{},alignment:{horizontal:'center'}});
       });
       ws.getRow(approvalRow).height=24;
 
