@@ -15,6 +15,16 @@
   const rows = () => Array.from(document.querySelectorAll('#bk-fabric-rows tr'));
   const sizeRows = () => Array.from(document.querySelectorAll('#bk-size-headers .bk-size-item'));
   const ratioTotal = () => sizeRows().reduce((sum,row) => sum + Math.max(0, Number(row.querySelector('[data-ratio]')?.value) || 0), 0);
+  // Keep TOTAL PCS as the permanent final column after any size add/remove/preset change.
+  function keepTotalLast() {
+    const header=$('bk-size-headers'), ratio=$('bk-ratio-row');
+    const totalHead=header?.querySelector('.bk-total-head');
+    const totalCell=ratio?.querySelector('.bk-total-cell');
+    if(totalHead) header.appendChild(totalHead);
+    if(totalCell) ratio.appendChild(totalCell);
+    header?.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
+    ratio?.querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
+  }
   function sizeBreakdown() {
     const headers=sizeRows();
     const rowsData=headers.map((header,i)=>({header,size:(header.querySelector('[data-size-label]')?.value||'').trim(),ratio:Math.max(0,Number(document.querySelector('[data-ratio-index="'+i+'"] [data-ratio]')?.value)||0)}));
@@ -225,6 +235,7 @@
     const names=(data.sizes||[]);
     $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>{if(i>=names.length)el.remove();});
     $('bk-ratio-row').querySelectorAll('td[data-ratio]').forEach((el,i)=>{if(i>=names.length)el.remove();});
+    keepTotalLast();
     names.forEach((item,i)=>{
       if(i>=sizeRows().length)addSize();
       const th=sizeRows()[i];if(th){th.querySelector('[data-size-label]').value=item.name||'';$('bk-ratio-row').querySelectorAll('[data-ratio]')[i].value=item.ratio||'';}
@@ -285,6 +296,7 @@
     th.innerHTML='<div class="bk-size-head-cell"><input data-size-label placeholder="XS" aria-label="Size label"><button type="button" class="bk-size-remove" disabled aria-label="Remove size">×</button></div>';
     td.dataset.ratioIndex='0';td.innerHTML='<input data-ratio type="number" min="0" step="1" placeholder="1" aria-label="Ratio">';
     $('bk-size-headers').insertBefore(th,$('bk-size-headers').lastElementChild);$('bk-ratio-row').insertBefore(td,$('bk-ratio-row').lastElementChild);
+    keepTotalLast();
     calculate();$('bk-demo').setAttribute('aria-pressed','false');
   }
 
@@ -305,8 +317,7 @@
       header.remove();
       if(ratioCell)ratioCell.remove();
       // Re-index only size cells; TOTAL PCS remains the final, permanent column.
-      $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
-      $('bk-ratio-row').querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
+      keepTotalLast();
       calculate();
     });
     $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
