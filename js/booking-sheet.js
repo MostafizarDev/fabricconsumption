@@ -209,6 +209,85 @@
       a.href=url;a.download='Fabric-Booking-Sheet.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     } catch(err) { console.error(err); alert('Excel export failed: '+err.message); }
   }
+
+  const recentKey='fabricBookingRecentV1';
+  function snapshot(){
+    return {
+      order:['bk-buyer','bk-style','bk-po','bk-description','bk-body-fabric','bk-order-qty','bk-cut-qty','bk-shipment'].map(id=>[id,$(id).value]),
+      ratioLabel:$('bk-ratio-label').value,
+      sizes:sizeRows().map((th,i)=>({name:th.querySelector('[data-size-label]').value,ratio:$('bk-ratio-row').querySelectorAll('[data-ratio]')[i]?.value||''})),
+      fabrics:rows().map(row=>Object.fromEntries(['parts','fabric','ml','cla','mw','cwa','gsm','pcs','cut','dia','diaType'].map(key=>[key,row.querySelector('[data-field="'+key+'"]')?.value||''])))
+    };
+  }
+  function applySnapshot(data){
+    (data.order||[]).forEach(([id,value])=>{if($(id))$(id).value=value;});
+    $('bk-ratio-label').value=data.ratioLabel||'';
+    const names=(data.sizes||[]);
+    $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>{if(i>=names.length)el.remove();});
+    $('bk-ratio-row').querySelectorAll('td[data-ratio]').forEach((el,i)=>{if(i>=names.length)el.remove();});
+    names.forEach((item,i)=>{
+      if(i>=sizeRows().length)addSize();
+      const th=sizeRows()[i];if(th){th.querySelector('[data-size-label]').value=item.name||'';$('bk-ratio-row').querySelectorAll('[data-ratio]')[i].value=item.ratio||'';}
+    });
+    const body=$('bk-fabric-rows');
+    while(rows().length<(data.fabrics||[]).length)addRow();
+    while(rows().length>(data.fabrics||[]).length&&rows().length>1)rows().at(-1).remove();
+    (data.fabrics||[]).forEach((item,i)=>Object.entries(item).forEach(([key,value])=>{const el=rows()[i]?.querySelector('[data-field="'+key+'"]');if(el)el.value=value;}));
+    $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>{const b=el.querySelector('.bk-size-remove');if(b)b.disabled=sizeRows().length===1;});
+    calculate();
+  }
+  function saveRecent(){
+    try{
+      const item={savedAt:new Date().toLocaleString(),data:snapshot()};
+      const list=JSON.parse(localStorage.getItem(recentKey)||'[]');
+      list.unshift(item);localStorage.setItem(recentKey,JSON.stringify(list.slice(0,8)));
+    }catch(e){console.warn('Could not save booking recent item',e);}
+  }
+  function showRecent(){
+    const panel=$('bk-recent-panel'),btn=$('bk-recent-open');
+    const list=JSON.parse(localStorage.getItem(recentKey)||'[]');
+    panel.innerHTML='<div class="booking-recent-head"><strong>Recent Calculations</strong><button type="button" data-recent-close aria-label="Close">×</button></div>'+
+      (list.length?list.map((item,i)=>'<button type="button" class="booking-recent-item" data-recent-index="'+i+'"><strong>'+safe(item.data.order.find(x=>x[0]==='bk-style')?.[1]||'Untitled Style')+'</strong><small>'+safe(item.savedAt)+'</small></button>').join(''):'<p class="booking-recent-empty">No recent calculations yet. Click Calculate to save one.</p>');
+    panel.hidden=!panel.hidden;btn.setAttribute('aria-expanded',String(!panel.hidden));
+  }
+  function demoValues(){
+    $('bk-buyer').value='ABC Fashions Ltd.';$('bk-style').value='TS-2026-001';$('bk-po').value='PO-45821';
+    $('bk-description').value='Men’s Basic T-Shirt';$('bk-body-fabric').value='100% Cotton';
+    $('bk-order-qty').value='1200';$('bk-cut-qty').value='1250';$('bk-shipment').value='';
+    $('bk-ratio-label').value='RATIO (BODY+RIB)';
+    const demoSizes=[['XS','1'],['S','2'],['M','3'],['L','3'],['XL','2'],['2XL','1']];
+    const head=$('bk-size-headers'),ratio=$('bk-ratio-row');
+    head.querySelectorAll('.bk-size-item').forEach((el,i)=>{if(i>=demoSizes.length)el.remove();});
+    ratio.querySelectorAll('td[data-ratio]').forEach((el,i)=>{if(i>=demoSizes.length)el.remove();});
+    demoSizes.forEach((x,i)=>{
+      if(i>=sizeRows().length)addSize();
+      sizeRows()[i].querySelector('[data-size-label]').value=x[0];
+      ratio.querySelectorAll('[data-ratio]')[i].value=x[1];
+    });
+    const fabricDemo=[
+      {parts:'BODY',fabric:'COTTON',ml:'92.04',cla:'2',mw:'72',cwa:'2',gsm:'280',pcs:'12',cut:'6',dia:'72',diaType:'OPEN'},
+      {parts:'RIB',fabric:'COTTON',ml:'31.11',cla:'2',mw:'52',cwa:'2',gsm:'340',pcs:'12',cut:'6',dia:'52',diaType:'OPEN'}
+    ];
+    while(rows().length<2)addRow();
+    while(rows().length>2)rows().at(-1).remove();
+    fabricDemo.forEach((item,i)=>Object.entries(item).forEach(([key,value])=>{const el=rows()[i].querySelector('[data-field="'+key+'"]');if(el)el.value=value;}));
+    calculate();$('bk-demo').setAttribute('aria-pressed','true');
+  }
+  function resetBooking(){
+    ['bk-buyer','bk-style','bk-po','bk-description','bk-body-fabric','bk-order-qty','bk-cut-qty','bk-shipment','bk-ratio-label'].forEach(id=>$(id).value='');
+    $('bk-size-preset').value='';
+    $('bk-size-headers').querySelectorAll('.bk-size-item').forEach(el=>el.remove());
+    $('bk-ratio-row').querySelectorAll('td[data-ratio]').forEach(el=>el.remove());
+    $('bk-fabric-rows').innerHTML=
+      '<tr data-row="1"><td><input data-field="parts" placeholder="BODY"></td><td><input data-field="fabric" placeholder="COTTON"></td><td><input data-field="ml" type="number" step="0.01" placeholder="92.04"></td><td><input data-field="cla" type="number" step="0.01" placeholder="2"></td><td><input data-field="mw" type="number" step="0.01" placeholder="72"></td><td><input data-field="cwa" type="number" step="0.01" placeholder="2"></td><td><input data-field="gsm" type="number" step="0.01" placeholder="280"></td><td class="bk-net-marker">—</td><td><input data-field="pcs" type="number" step="1" placeholder="12"></td><td class="bk-net-dozen">—</td><td><input data-field="cut" type="number" step="0.01" placeholder="6"></td><td class="bk-final">—</td><td><input data-field="dia" type="number" step="0.01" placeholder="72"></td><td><select data-field="diaType"><option>OPEN</option><option>TUBULAR</option></select></td><td><button type="button" class="bk-remove-row" disabled>×</button></td></tr>';
+    // Restore one empty size column so users can start from a clean sheet.
+    const th=document.createElement('th'),td=document.createElement('td');th.className='bk-size-item';th.dataset.sizeIndex='0';
+    th.innerHTML='<div class="bk-size-head-cell"><input data-size-label placeholder="XS" aria-label="Size label"><button type="button" class="bk-size-remove" disabled aria-label="Remove size">×</button></div>';
+    td.dataset.ratioIndex='0';td.innerHTML='<input data-ratio type="number" min="0" step="1" placeholder="1" aria-label="Ratio">';
+    $('bk-size-headers').insertBefore(th,$('bk-size-headers').lastElementChild);$('bk-ratio-row').insertBefore(td,$('bk-ratio-row').lastElementChild);
+    calculate();$('bk-demo').setAttribute('aria-pressed','false');
+  }
+
   document.addEventListener('DOMContentLoaded',()=>{
     $('bk-fabric-rows').addEventListener('input',calculate);
     $('bk-fabric-rows').addEventListener('change',calculate);
@@ -231,7 +310,15 @@
       calculate();
     });
     $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
-    $('bk-calculate').addEventListener('click',calculate);$('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
+    $('bk-calculate').addEventListener('click',()=>{calculate();saveRecent();});
+    $('bk-demo').addEventListener('click',demoValues);
+    $('bk-reset').addEventListener('click',resetBooking);
+    $('bk-recent-open').addEventListener('click',showRecent);
+    $('bk-recent-panel').addEventListener('click',e=>{
+      if(e.target.closest('[data-recent-close]')){$('bk-recent-panel').hidden=true;$('bk-recent-open').setAttribute('aria-expanded','false');return;}
+      const item=e.target.closest('[data-recent-index]');if(item){const list=JSON.parse(localStorage.getItem(recentKey)||'[]');if(list[Number(item.dataset.recentIndex)])applySnapshot(list[Number(item.dataset.recentIndex)].data);$('bk-recent-panel').hidden=true;$('bk-recent-open').setAttribute('aria-expanded','false');}
+    });
+    $('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
     calculate();
   });
 })();
