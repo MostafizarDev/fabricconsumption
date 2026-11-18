@@ -114,22 +114,62 @@
   async function downloadExcel() {
     try {
       await loadExcelJS();
-      const result=calculate(), wb=new ExcelJS.Workbook(), ws=wb.addWorksheet('BOOKING SHEET',{views:[{state:'frozen',ySplit:10}]});
-      ws.columns=[{width:13},{width:19},{width:13},{width:13},{width:13},{width:13},{width:10},{width:14},{width:12},{width:14},{width:12},{width:14},{width:12},{width:13}];
-      const navy='17365D',blue='D9EAF7',light='EAF2F8',green='E2F0D9',white='FFFFFF',border={style:'thin',color:{argb:'FF9EADBA'}};
-      const title=(row,label)=>{ws.mergeCells(row,1,row,14);const c=ws.getCell(row,1);c.value=label;c.font={bold:true,size:row===2?15:11,color:{argb:row===2?white:navy}};c.fill={type:'pattern',pattern:'solid',fgColor:{argb:row===2?navy:blue}};c.alignment={vertical:'middle',horizontal:'center'};ws.getRow(row).height=row===2?28:21;};
-      title(2,'STYLE WISE FABRICS CONSUMPTION');
-      const fields=orderInfo();
-      fields.forEach((f,i)=>{const row=4+i;ws.getCell(row,1).value=f[0].toUpperCase();ws.getCell(row,1).font={bold:true,color:{argb:navy}};ws.mergeCells(row,2,row,4);ws.getCell(row,2).value=f[1]||'';});
-      title(14,'FABRIC & MARKER DETAILS');
-      const headers=['PARTS','FABRIC TYPE','MARKER LENGTH','CUTTING ALLOWANCE L','MARKER WIDTH','CUTTING ALLOWANCE W','GSM','NET CON, MARKER (KG)','PCS / MARKER','NET CON / DOZ (KG)','CUTTING %','FINAL / DOZ (KG)','REQ. FINISHED DIA','DIA TYPE'];
-      ws.addRow(headers);const headerRow=ws.getRow(15);headerRow.height=36;headerRow.eachCell(c=>{c.font={bold:true,color:{argb:white},size:9};c.fill={type:'pattern',pattern:'solid',fgColor:{argb:navy}};c.alignment={horizontal:'center',vertical:'middle',wrapText:true};c.border={top:border,bottom:border,left:border,right:border};});
-      result.data.forEach((x,i)=>{const r=16+i;ws.addRow([x.parts,x.fabric,x.ml,x.cla,x.mw,x.cwa,x.gsm,{formula:'(C'+r+'+D'+r+')*(E'+r+'+F'+r+')*G'+r+'/1550000',result:x.netMarker},x.pcs,{formula:'IF(I'+r+'>0,H'+r+'*12/I'+r+',0)',result:x.netDozen},x.cut,{formula:'J'+r+'*(1+K'+r+'/100)',result:x.finalDozen},x.dia,x.diaType]);const row=ws.getRow(r);row.eachCell(c=>{c.border={top:border,bottom:border,left:border,right:border};c.alignment={vertical:'middle',horizontal:'center'};if(c.value&&typeof c.value==='object'&&c.value.formula)c.fill={type:'pattern',pattern:'solid',fgColor:{argb:green}};});});
-      const sumRow=17+result.data.length;title(sumRow,'SIZE RATIO & ORDER DISTRIBUTION');ws.addRow(['SIZE','RATIO','ORDER QTY (PCS)','ORDER SHARE']);result.sizing.sizes.forEach(x=>ws.addRow([x.size,x.ratio,x.qty,x.share/100]));
-      const resultRow=sumRow+4;title(resultRow,'BOOKING SUMMARY');ws.getCell(resultRow+1,1).value='TOTAL FINAL CONSUMPTION / DOZEN';ws.getCell(resultRow+1,2).value=result.grand;ws.getCell(resultRow+2,1).value='TOTAL FABRIC REQUIREMENT (KG)';ws.getCell(resultRow+2,2).value=result.totalQty?result.requirement:'';
-      ws.eachRow(row=>row.eachCell(c=>{if(!c.border||!c.border.top)c.border={top:border,bottom:border,left:border,right:border};}));
-      ws.views=[{state:'frozen',ySplit:15}];ws.pageSetup={paperSize:ws.PAPER_A4,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};ws.pageSetup.margins={left:0.25,right:0.25,top:0.5,bottom:0.5,header:0.2,footer:0.2};ws.printArea='A1:N'+(resultRow+2);
-      const buffer=await wb.xlsx.writeBuffer();const blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Fabric-Booking-Sheet.xlsx';a.click();URL.revokeObjectURL(url);
+      const result=calculate(), data=result.data, sizes=result.sizing.sizes, wb=new ExcelJS.Workbook();
+      wb.creator='Fabric Consumption'; wb.title='Style Wise Fabrics Consumption';
+      const ws=wb.addWorksheet('BOOKING SHEET');
+      const navy='17365D',blue='D9EAF7',pale='EAF2F8',green='E2F0D9',white='FFFFFF',ink='1F2937',grey='64748B';
+      const edge={style:'thin',color:{argb:'FF9EADBA'}}, border={top:edge,bottom:edge,left:edge,right:edge};
+      const fill=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});
+      const put=(cell,value,opts={})=>{cell.value=value;cell.border=border;cell.alignment={vertical:'middle',horizontal:'center',wrapText:true,...opts.alignment};if(opts.font)cell.font=opts.font;if(opts.fill)cell.fill=opts.fill;};
+      [14,18,17,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
+      ws.mergeCells('A2:O2'); put(ws.getCell('A2'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:{argb:white}},fill:fill(navy)});
+      ws.getRow(2).height=30;ws.mergeCells('A3:O3');ws.getRow(3).height=7;
+      [['DATE :',$('bk-date').value],['BUYER :',$('bk-buyer').value],['STYLE/ORD :',$('bk-style').value],['DESCRIPTION:',$('bk-description').value],['BODY FABRIC:',$('bk-body-fabric').value]].forEach((x,i)=>{
+        const rr=4+i;put(ws.getCell(rr,1),x[0],{alignment:{horizontal:'left'},font:{name:'Arial',size:10,bold:true,color:{argb:navy}}});
+        ws.mergeCells(rr,4,rr,15);put(ws.getCell(rr,4),x[1]||'',{alignment:{horizontal:'left'},font:{name:'Arial',size:10,color:{argb:ink}}});ws.getRow(rr).height=20;
+      });
+      const heads=['GARMENT SIZE','PARTS','FABRIC TYPE','MARKER LENGTH','CUTTING ALLOWANCE LENGTH','MARKER WIDTH','CUTTING ALLOWANCE WIDTH','GSM','NET CON,MARKER','PCS MARKER','NET,CON,DOZ','FABRIC+ CUTTING%','NET,CON,DOZ','REQ,FINISHED DIA','DIA TYPE'];
+      const units=['','','','INCH','INCH','INCH','INCH','','KG','NO','KG','','KG','INCH',''];
+      heads.forEach((v,i)=>put(ws.getCell(9,i+1),v,{font:{name:'Arial',size:9,bold:true,color:{argb:white}},fill:fill(navy)}));
+      units.forEach((v,i)=>put(ws.getCell(10,i+1),v,{font:{name:'Arial',size:9,bold:true,color:{argb:grey}},fill:fill(pale)}));
+      ws.getRow(9).height=48;ws.getRow(10).height=19;
+      data.forEach((x,i)=>{
+        const rr=11+i, vals=[i===0?'ALL':'',x.parts,x.fabric,x.ml,x.cla,x.mw,x.cwa,x.gsm,
+          {formula:`(D${rr}+E${rr})*(F${rr}+G${rr})*H${rr}/1550000`,result:x.netMarker},x.pcs,
+          {formula:`IF(J${rr}>0,I${rr}*12/J${rr},0)`,result:x.netDozen},x.cut/100,
+          {formula:`K${rr}*(1+L${rr})`,result:x.finalDozen},x.dia,x.diaType];
+        vals.forEach((v,j)=>put(ws.getCell(rr,j+1),v,{font:{name:'Arial',size:9,color:{argb:ink}}}));
+        [9,11,13].forEach(c=>ws.getCell(rr,c).fill=fill(green));ws.getCell(rr,12).numFmt='0.0%';ws.getRow(rr).height=20;
+      });
+      const totalRow=Math.max(22,11+data.length);ws.mergeCells(totalRow,1,totalRow,11);
+      put(ws.getCell(totalRow,1),'TOTAL FABRIC CONSUMPTION / DOZEN',{alignment:{horizontal:'right'},font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      put(ws.getCell(totalRow,12),'TOTAL =',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      put(ws.getCell(totalRow,13),{formula:data.length?data.map((_,i)=>'M'+(11+i)).join('+'):'0',result:result.grand},{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      put(ws.getCell(totalRow,14),'KG / DOZEN',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(totalRow,15),'',{fill:fill(blue)});
+      const sr=totalRow+2,rr=sr+1;ws.mergeCells(sr,3,sr,5);ws.mergeCells(rr,3,rr,5);
+      put(ws.getCell(sr,3),'SIZE',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
+      put(ws.getCell(rr,3),'RATIO (BODY+RIB)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      sizes.forEach((x,i)=>{const c=6+i;if(c>15)ws.getColumn(c).width=12;put(ws.getCell(sr,c),x.size,{font:{bold:true,color:{argb:white}},fill:fill(navy)});put(ws.getCell(rr,c),x.ratio,{font:{bold:true,color:{argb:ink}},fill:fill(pale)});});
+      const ratioSum=sizes.reduce((s,x)=>s+x.ratio,0), ratioCol=Math.max(11,6+sizes.length);
+      put(ws.getCell(sr,ratioCol),ratioSum+' PCS',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
+      put(ws.getCell(rr,ratioCol),ratioSum,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      const dt=rr+2;ws.mergeCells(dt,1,dt,15);put(ws.getCell(dt,1),'SIZE-WISE ORDER DISTRIBUTION',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
+      ['SIZE','RATIO','ORDER QTY (PCS)','ORDER SHARE'].forEach((v,i)=>put(ws.getCell(dt+1,i+1),v,{font:{bold:true,size:9,color:{argb:white}},fill:fill(navy)}));
+      sizes.forEach((x,i)=>{const row=dt+2+i;[x.size,x.ratio,x.qty,x.share/100].forEach((v,j)=>put(ws.getCell(row,j+1),v));ws.getCell(row,4).numFmt='0.0%';});
+      const sumRow=dt+3+sizes.length;ws.mergeCells(sumRow,1,sumRow,3);put(ws.getCell(sumRow,1),'TOTAL ORDER QUANTITY',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(sumRow,4),result.sizing.orderQty,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      ws.mergeCells(sumRow+1,1,sumRow+1,3);put(ws.getCell(sumRow+1,1),'TOTAL FABRIC REQUIREMENT (KG)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(sumRow+1,4),result.totalQty?result.requirement:'',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+      ws.views=[{state:'frozen',ySplit:10}];ws.pageSetup={paperSize:ws.PAPER_A4,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};ws.pageSetup.margins={left:0.2,right:0.2,top:0.35,bottom:0.35,header:0.15,footer:0.15};
+      ws.printArea='A1:'+String.fromCharCode(64+Math.min(26,Math.max(15,ratioCol)))+(sumRow+1);ws.headerFooter={oddFooter:'&LFabric Consumption · Factory Booking Sheet&CPage &P of &N'};
+      const cs=wb.addWorksheet('CONSUMPTION');cs.getColumn(1).width=4;cs.getColumn(2).width=18;cs.getColumn(5).width=16;
+      cs.mergeCells('B2:E2');put(cs.getCell('B2'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:{argb:white}},fill:fill(navy)});
+      const first=data[0]||{dia:0,ml:0,cla:0,gsm:0,pcs:0,cut:0};
+      [['DIA',first.dia],['LENGTH',first.ml+first.cla],['GSM',first.gsm],['PCS',first.pcs],['WASTAGE',first.cut/100]].forEach((x,i)=>{const row=4+i;cs.mergeCells(row,2,row,4);put(cs.getCell(row,2),x[0],{alignment:{horizontal:'left'},font:{bold:true,color:{argb:navy}}});put(cs.getCell(row,5),x[1]);});
+      cs.mergeCells('B9:D9');put(cs.getCell('B9'),'CONSUMPTION',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
+      const consumption=first.pcs>0?(first.dia*(first.ml+first.cla)*first.gsm/1550000/first.pcs)*(1+first.cut/100):0;
+      put(cs.getCell('E9'),{formula:'IF(E7>0,(E4*E5*E6/1550000/E7)*(1+E8),0)',result:consumption},{fill:fill(green)});cs.getCell('E8').numFmt='0.0%';cs.getCell('E9').numFmt='0.0000';
+      cs.pageSetup={paperSize:cs.PAPER_A4,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1};cs.printArea='B2:E9';
+      const buffer=await wb.xlsx.writeBuffer(),blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download='Fabric-Booking-Sheet.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     } catch(err) { console.error(err); alert('Excel export failed: '+err.message); }
   }
   document.addEventListener('DOMContentLoaded',()=>{
