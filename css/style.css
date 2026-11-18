@@ -8344,3 +8344,42 @@ body.dark-mode #page-booking input::placeholder{color:#718096!important}
 body.dark-mode #page-booking .booking-quick-actions .knit-action-btn{background:#172338;border-color:#475569;color:#cbd5e1}
 body.dark-mode #page-booking .booking-quick-actions .knit-action-btn:first-child{background:#12334b;border-color:#25658a;color:#7dd3fc}
 @media(max-width:600px){#page-booking .booking-section-head{align-items:flex-start}#page-booking .booking-quick-actions{width:100%;justify-content:flex-start}}
+
+
+/* Booking Summary — display both total metrics as individual result cards */
+#page-booking .booking-total-banner{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
+  padding:0;
+  background:transparent;
+}
+#page-booking .booking-total-banner>div{
+  min-width:0;
+  padding:12px;
+  border:1px solid var(--border,#e2e8f0);
+  border-radius:9px;
+  background:var(--soft-bg,#f8fafc);
+}
+#page-booking .booking-total-banner span{
+  display:block;
+  color:var(--muted,#64748b);
+  font-size:9px;
+  font-weight:800;
+}
+#page-booking .booking-total-banner strong{
+  display:block;
+  margin:6px 0;
+  color:#0369a1;
+  font-size:19px;
+  font-weight:850;
+}
+body.dark-mode #page-booking .booking-total-banner>div{
+  background:#0f1b2d;
+  border-color:#334155;
+}
+body.dark-mode #page-booking .booking-total-banner strong{color:#7dd3fc}
+@media(max-width:520px){
+  #page-booking .booking-total-banner{grid-template-columns:1fr}
+}
