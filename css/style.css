@@ -7661,3 +7661,20 @@ body.dark-mode #page-booking .booking-qty-toggle button.active{background:#1c3d5
   width:112px;
   min-width:112px;
 }
+
+
+/* Keep TOTAL PCS as a fixed final column when size columns are removed */
+#page-booking .booking-size-matrix{
+  table-layout:fixed;
+}
+#page-booking #bk-size-headers .bk-total-head,
+#page-booking #bk-ratio-row .bk-total-cell{
+  width:112px !important;
+  min-width:112px !important;
+  max-width:112px !important;
+  white-space:nowrap;
+  position:sticky;
+  right:0;
+  z-index:3;
+}
+#page-booking #bk-size-headers .bk-total-head{z-index:4}
