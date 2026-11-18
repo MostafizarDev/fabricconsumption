@@ -64,13 +64,10 @@
     $('bk-fabric-rows').appendChild(tr); calculate();
   }
   function nextStandardSize(existing) {
-    const order=['XXXS','XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'];
+    const order=['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'];
     const normalized=existing.map(x=>String(x||'').trim().toUpperCase().replace(/\\s+/g,''));
-    const known=normalized.filter(x=>order.includes(x));
-    if(known.length){
-      const highest=Math.max(...known.map(x=>order.indexOf(x)));
-      return order[highest+1]||('NEW '+(existing.length+1));
-    }
+    const missing=order.find(size=>!normalized.includes(size));
+    if(missing)return missing;
     const last=normalized[normalized.length-1]||'';
     if(/^\\d+$/.test(last)) return String(Number(last)+2);
     if(/^\\d+T$/.test(last)) return (Number(last.slice(0,-1))+1)+'T';
@@ -80,12 +77,28 @@
     const headers=sizeRows(), existing=headers.map(h=>h.querySelector('[data-size-label]')?.value.trim());
     let next=nextStandardSize(existing);
     while(existing.some(x=>String(x).toUpperCase()===next.toUpperCase())) next='NEW '+(existing.length+1);
-    const index=headers.length,th=document.createElement('th'),td=document.createElement('td');
-    th.className='bk-size-item';th.dataset.sizeIndex=index;
+    const order=['XXS','XS','S','M','L','XL','2XL','3XL','4XL','5XL','6XL','7XL','8XL','9XL','10XL'];
+    const nextRank=order.indexOf(next.toUpperCase());
+    let insertAt=headers.length;
+    if(nextRank>=0){
+      const later=headers.findIndex(h=>{
+        const name=(h.querySelector('[data-size-label]')?.value||'').trim().toUpperCase().replace(/\\s+/g,'');
+        const rank=order.indexOf(name);
+        return rank>=0&&rank>nextRank;
+      });
+      if(later>=0)insertAt=later;
+    }
+    const th=document.createElement('th'),td=document.createElement('td');
+    th.className='bk-size-item';
     th.innerHTML='<div class="bk-size-head-cell"><input data-size-label value="'+safe(next)+'" aria-label="Size label"><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></div>';
-    td.dataset.ratioIndex=index;td.innerHTML='<input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio for '+safe(next)+'">';
-    $('bk-size-headers').insertBefore(th,$('bk-size-headers').lastElementChild);
-    $('bk-ratio-row').insertBefore(td,$('bk-ratio-row').lastElementChild);
+    td.innerHTML='<input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio for '+safe(next)+'">';
+    const headerRow=$('bk-size-headers'),ratioRow=$('bk-ratio-row');
+    const beforeHeader=headerRow.querySelectorAll('.bk-size-item')[insertAt];
+    const beforeRatio=ratioRow.querySelectorAll('td[data-ratio-index]')[insertAt];
+    if(beforeHeader)headerRow.insertBefore(th,beforeHeader);else headerRow.insertBefore(th,headerRow.lastElementChild);
+    if(beforeRatio)ratioRow.insertBefore(td,beforeRatio);else ratioRow.insertBefore(td,ratioRow.lastElementChild);
+    headerRow.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
+    ratioRow.querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
     calculate();
   }
   function orderInfo() {
