@@ -7689,3 +7689,30 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
 /* Compact Size Preset control */
 #page-booking #bk-size-preset{width:158px;min-width:158px;max-width:158px;padding-left:7px;padding-right:7px}
 @media(max-width:520px){#page-booking #bk-size-preset{width:auto;min-width:0;max-width:none;flex:1}}
+
+
+/* Fabric & Marker Details — compact input controls (keep table layout fluid) */
+#page-booking .booking-factory-table td input,
+#page-booking .booking-factory-table td select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-inline: auto;
+}
+#page-booking .booking-factory-table td:nth-child(1) input,
+#page-booking .booking-factory-table td:nth-child(2) input {
+  max-width: 92px;
+}
+#page-booking .booking-factory-table td:nth-child(3) input,
+#page-booking .booking-factory-table td:nth-child(4) input,
+#page-booking .booking-factory-table td:nth-child(5) input,
+#page-booking .booking-factory-table td:nth-child(6) input,
+#page-booking .booking-factory-table td:nth-child(7) input,
+#page-booking .booking-factory-table td:nth-child(9) input,
+#page-booking .booking-factory-table td:nth-child(11) input,
+#page-booking .booking-factory-table td:nth-child(13) input {
+  max-width: 66px;
+}
+#page-booking .booking-factory-table td:nth-child(14) select {
+  max-width: 82px;
+}
