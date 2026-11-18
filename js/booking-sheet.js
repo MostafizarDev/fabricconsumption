@@ -212,18 +212,8 @@
       };
       [15.14,16.86,14.71,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
       ws.views=[{state:'frozen',ySplit:11,showGridLines:false}];
-      // Brand header: favicon remains the only image; all branding is editable text.
-      ws.mergeCells('B1:H1');
-      put(ws.getCell('B1'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:18,bold:true,color:navy},border:{},alignment:{horizontal:'left',vertical:'middle'}});
-      ws.mergeCells('B2:H2');
-      put(ws.getCell('B2'),'G A R M E N T   C A L C U L A T O R   S U I T E',{font:{name:'Arial',size:8,bold:true,color:grey},border:{},alignment:{horizontal:'left',vertical:'middle'}});
-      ws.mergeCells('J1:O1');
-      put(ws.getCell('J1'),'FABRIC BOOKING SHEET',{font:{name:'Arial',size:13,bold:true,color:navy},border:{},alignment:{horizontal:'right',vertical:'middle'}});
-      ws.mergeCells('J2:O2');
-      put(ws.getCell('J2'),'FACTORY WORKSHEET',{font:{name:'Arial',size:8,bold:true,color:grey},border:{},alignment:{horizontal:'right',vertical:'middle'}});
-      ws.mergeCells('A3:O3');
-      put(ws.getCell('A3'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:white},fill:fill(navy),alignment:{horizontal:'center',vertical:'middle'}});
-      ws.getRow(1).height=39.75;ws.getRow(2).height=30;ws.getRow(3).height=30;ws.getRow(4).height=7;
+      // Remove the decorative top header entirely; keep the reference data layout below.
+      [1,2,3,4].forEach(r=>{ws.getRow(r).height=3;ws.getRow(r).hidden=true;});
       // Order metadata follows the supplied reference: left and right columns.
       const meta=[
         [5,'DATE :',dateText,'SHIPMENT DT:',val('bk-shipment')],
@@ -291,8 +281,10 @@
       put(ws.getCell(commentsRow+1,2),'',{alignment:{horizontal:'left',vertical:'top'}});
       ws.getRow(commentsRow+1).height=20;ws.getRow(commentsRow+2).height=20;ws.getRow(commentsRow+3).height=20;
 
-      // Keep the approval role labels directly after the comments area.
-      const approvalRow=commentsRow+5;
+      // Add a clean blank row above the approval labels; keep labels plain with no boxes.
+      const approvalTopRow=commentsRow+5;
+      ws.getRow(approvalTopRow).height=18;
+      const approvalRow=approvalTopRow+1;
       [['PREPARED BY',2],['CHECKED BY',7],['APPROVED BY',12]].forEach(([label,col])=>{
         ws.mergeCells(approvalRow,col,approvalRow,col+2);
         put(ws.getCell(approvalRow,col),label,{font:{name:'Calibri',size:10,bold:true,color:navy},border:{},alignment:{horizontal:'center'}});
@@ -308,16 +300,6 @@
       ws.pageSetup.margins={left:0.2,right:0.2,top:0.35,bottom:0.35,header:0.15,footer:0.15};
       ws.printArea='A1:O'+footerRow;
       ws.headerFooter={oddFooter:'&LFabric Consumption · Factory Booking Sheet&CPage &P of &N'};
-      try{
-        const response=await fetch('/favicon.svg');
-        if(response.ok){
-          const svg=await response.text(),objectUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'})),image=new Image();
-          await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=objectUrl;});
-          const canvas=document.createElement('canvas');canvas.width=140;canvas.height=140;canvas.getContext('2d').drawImage(image,0,0,140,140);URL.revokeObjectURL(objectUrl);
-          const imageId=wb.addImage({base64:canvas.toDataURL('image/png').split(',')[1],extension:'png'});
-          ws.addImage(imageId,{tl:{col:0.18,row:0.12},ext:{width:42,height:42}});
-        }
-      }catch(imageError){console.warn('Website favicon could not be embedded:',imageError);}
       const cs=wb.addWorksheet('CONSUMPTION');
       cs.getColumn(1).width=4;cs.getColumn(2).width=18;cs.getColumn(5).width=16;cs.views=[{showGridLines:false}];
       cs.mergeCells('B2:E2');put(cs.getCell('B2'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:white},fill:fill(navy)});
