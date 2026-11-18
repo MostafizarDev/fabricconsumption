@@ -7530,3 +7530,36 @@ body.dark-mode #page-booking .bk-size-head-cell input{color:#e2eaf4}
 body.dark-mode #page-booking .bk-size-head-cell input:focus{background:#0b1727}
 body.dark-mode #page-booking .bk-ratio-label-cell{background:#243b52!important;color:#e2eaf4!important}
 @media(max-width:760px){#page-booking .booking-size-matrix{min-width:720px}}
+
+
+/* Booking Sheet totals follow the site's primary sky-blue theme */
+#page-booking .booking-total-ratio{
+  border:1px solid #bae6fd;
+  background:#e0f2fe;
+  color:#0369a1;
+}
+#page-booking .booking-size-matrix .bk-total-head{
+  border-color:#bfdbfe;
+  background:#eaf4ff;
+  color:#075985;
+}
+#page-booking .booking-size-matrix .bk-total-cell{
+  border-color:#bfdbfe;
+  background:#e0f2fe;
+  color:#0369a1;
+}
+body.dark-mode #page-booking .booking-total-ratio{
+  border-color:#164e72;
+  background:#102b42;
+  color:#7dd3fc;
+}
+body.dark-mode #page-booking .booking-size-matrix .bk-total-head{
+  border-color:#254c70;
+  background:#173653;
+  color:#bae6fd;
+}
+body.dark-mode #page-booking .booking-size-matrix .bk-total-cell{
+  border-color:#254c70;
+  background:#12304a;
+  color:#7dd3fc;
+}
