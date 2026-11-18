@@ -7886,3 +7886,32 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
   margin-top: 11px;
   font-size: 10px;
 }
+
+
+/* Size Ratio — reduce vertical height for a tighter, balanced fit */
+#page-booking .booking-size-matrix th,
+#page-booking .booking-size-matrix td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+#page-booking .bk-size-head-cell input {
+  height: 27px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+#page-booking .bk-size-head-cell .bk-size-remove {
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+}
+#page-booking .booking-size-matrix td input,
+#page-booking .booking-size-matrix #bk-ratio-row td input {
+  height: 27px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 10px;
+}
+#page-booking .booking-size-matrix #bk-ratio-row td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
