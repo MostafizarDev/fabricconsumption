@@ -43,6 +43,7 @@
       row.querySelector('.bk-final').textContent=calc.finalDozen.toFixed(4);
     });
     const sizing=sizeBreakdown();
+    sizing.label=($('bk-ratio-label')?.value||'RATIO (BODY+RIB)').trim();
     const totalQty=sizing.orderQty;
     const requirement=grand*totalQty/12;
     $('bk-grand-dozen').textContent=grand.toFixed(4)+' kg/dz';
@@ -140,7 +141,7 @@
       const sr=totalRow+2,rr=sr+1;
        ws.mergeCells(sr,1,sr,5);ws.mergeCells(rr,1,rr,5);
        put(ws.getCell(sr,1),'SIZE',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
-       put(ws.getCell(rr,1),'RATIO',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+       put(ws.getCell(rr,1),result.sizing.label,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
        sizes.forEach((x,i)=>{const c=6+i;if(c>15)ws.getColumn(c).width=12;put(ws.getCell(sr,c),x.size,{font:{bold:true,color:{argb:white}},fill:fill(navy)});put(ws.getCell(rr,c),x.ratio,{font:{bold:true,color:{argb:ink}},fill:fill(pale)});});
        const totalCol=6+sizes.length,dt=rr+2;
        put(ws.getCell(sr,totalCol),'TOTAL',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
