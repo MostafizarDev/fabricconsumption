@@ -282,14 +282,8 @@
       put(ws.getCell(commentsRow+1,2),'',{alignment:{horizontal:'left',vertical:'top'}});
       ws.getRow(commentsRow+1).height=20;ws.getRow(commentsRow+2).height=20;ws.getRow(commentsRow+3).height=20;
 
-      const importantRow=commentsRow+5;
-      ws.mergeCells(importantRow,2,importantRow,14);
-      put(ws.getCell(importantRow,2),'IMPORTANT: Consumption estimate only. Verify marker measurements, GSM, cutting allowance, size ratio and order quantity against the approved marker and actual cutting-room consumption.',
-        {font:{name:'Calibri',size:9,italic:true,color:'8A5A00'},fill:fill('FFF7E6'),alignment:{horizontal:'left',vertical:'middle',indent:1}});
-      ws.getRow(importantRow).height=32;
-
-      // Keep only the three approval role labels; no sign-off heading, input boxes or helper text.
-      const approvalRow=importantRow+2;
+      // Keep the approval role labels directly after the comments area.
+      const approvalRow=commentsRow+5;
       [['PREPARED BY',2],['CHECKED BY',7],['APPROVED BY',12]].forEach(([label,col])=>{
         ws.mergeCells(approvalRow,col,approvalRow,col+2);
         put(ws.getCell(approvalRow,col),label,{font:{name:'Calibri',size:10,bold:true,color:navy},alignment:{horizontal:'center'}});
