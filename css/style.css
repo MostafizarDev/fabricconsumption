@@ -8453,6 +8453,7 @@ body.dark-mode #page-booking .booking-total-banner strong{color:#7dd3fc}
 .info-card p,.info-card li{color:#526174;font-size:13px;line-height:1.8}
 .info-card p{margin:0}
 .info-card ul{margin:9px 0 0;padding-left:20px}
+.info-card li{padding-left:3px;margin:5px 0}.info-card strong{color:#263f5d;font-weight:750}.info-card a:not(.info-action){color:#0369a1;text-underline-offset:3px}body.dark-mode .info-card strong{color:#e0efff}body.dark-mode .info-card a:not(.info-action){color:#7dd3fc}
 .info-note{margin:17px 0;padding:16px 19px;border-left:3px solid #0ea5e9;border-radius:8px;background:#eff8ff;color:#456078;font-size:12px;line-height:1.75}
 .contact-card{display:flex;align-items:flex-start;gap:18px}
 .info-icon{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:12px;background:#e0f2fe;color:#0369a1;font-size:21px}
