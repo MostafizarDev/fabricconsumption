@@ -7954,3 +7954,15 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
   padding: 3px 4px;
   line-height: 22px;
 }
+
+
+/* Reduce top and bottom padding in Size Ratio matrix cells */
+#page-booking .booking-size-matrix th,
+#page-booking .booking-size-matrix td {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+#page-booking .booking-size-matrix #bk-ratio-row td {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
