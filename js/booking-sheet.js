@@ -181,7 +181,7 @@
       comments+
       '<div class="booking-pdf-note"><strong>IMPORTANT:</strong> Consumption estimate only. Verify marker measurements, GSM, cutting allowance, size ratio and order quantity against the approved marker and actual cutting-room consumption.</div>'+
       '<div class="booking-pdf-signatures"><div><span>PREPARED BY</span><i></i><small>Name / Signature / Date</small></div><div><span>CHECKED BY</span><i></i><small>Name / Signature / Date</small></div><div><span>APPROVED BY</span><i></i><small>Name / Signature / Date</small></div></div>'+
-      '<div class="report-footer"><span>Fabric Consumption · Garment Calculator Suite</span><span>'+reportDate+' · '+reportTime+' · fabricconsumption.vercel.app</span></div></div>';
+      '<div class="report-footer"><span>Fabric Consumption · Garment Calculator Suite</span><span>'+reportDate+' · '+reportTime+' · <a href="https://fabricconsumption.vercel.app/" target="_blank" rel="noopener noreferrer">fabricconsumption.vercel.app</a></span></div></div>';
     if(typeof generatePDF==='function') generatePDF('Fabric Booking Sheet',report);
     else alert('PDF helper is not available. Please refresh and try again.');
   }
