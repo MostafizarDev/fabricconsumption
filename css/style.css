@@ -7685,3 +7685,7 @@ body.dark-mode #page-booking .booking-qty-toggle button.active{background:#1c3d5
 #page-booking #bk-size-preset{min-height:36px;min-width:190px;padding:7px 10px;border:1px solid var(--border,#cbd5e1);border-radius:7px;background:var(--input-bg,#fff);color:var(--text,#0f172a);font:600 10px Inter,Arial,sans-serif}
 body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40536a;color:#e2eaf4}
 @media(max-width:520px){#page-booking .booking-size-actions{width:100%;align-items:stretch}#page-booking #bk-size-preset{flex:1;min-width:0}}
+
+/* Compact Size Preset control */
+#page-booking #bk-size-preset{width:158px;min-width:158px;max-width:158px;padding-left:7px;padding-right:7px}
+@media(max-width:520px){#page-booking #bk-size-preset{width:auto;min-width:0;max-width:none;flex:1}}
