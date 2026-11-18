@@ -7939,3 +7939,18 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
   line-height: 16px;
   padding: 0;
 }
+
+
+/* Keep size-name input and RATIO (BODY+RIB) label input at matching 30px height */
+#page-booking .booking-size-matrix .bk-size-head-cell input {
+  height: 30px;
+  min-height: 30px;
+  line-height: 22px;
+}
+#page-booking .booking-size-matrix .bk-ratio-label-cell input {
+  height: 30px;
+  min-height: 30px;
+  box-sizing: border-box;
+  padding: 3px 4px;
+  line-height: 22px;
+}
