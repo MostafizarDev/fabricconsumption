@@ -7820,3 +7820,69 @@ body.dark-mode #page-booking #bk-size-preset{background:#0b1727;border-color:#40
 #page-booking .booking-factory-table .bk-final {
   font-size: 10px;
 }
+
+
+/* Fabric & Marker Details — balanced spacing and clearer typography */
+#page-booking .booking-factory-table {
+  font-size: 11px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+#page-booking .booking-factory-table thead th {
+  font-size: 10px;
+  line-height: 1.3;
+  padding: 9px 3px;
+  vertical-align: middle;
+}
+#page-booking .booking-factory-table thead th small {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 9px;
+}
+#page-booking .booking-factory-table tbody td {
+  padding: 4px 3px;
+  vertical-align: middle;
+  background: #f8fafc;
+  border-top: 1px solid #dbe5f0;
+  border-bottom: 1px solid #dbe5f0;
+}
+#page-booking .booking-factory-table tbody td:first-child {
+  border-left: 1px solid #dbe5f0;
+  border-radius: 6px 0 0 6px;
+}
+#page-booking .booking-factory-table tbody td:last-child {
+  border-right: 1px solid #dbe5f0;
+  border-radius: 0 6px 6px 0;
+}
+#page-booking .booking-factory-table input,
+#page-booking .booking-factory-table select {
+  min-height: 30px;
+  padding: 6px 3px;
+  font-size: 11px;
+  line-height: 1.25;
+}
+#page-booking .booking-factory-table .bk-net-marker,
+#page-booking .booking-factory-table .bk-net-dozen,
+#page-booking .booking-factory-table .bk-final {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1px;
+  border-top: 1px solid #dbe5f0;
+  border-bottom: 1px solid #dbe5f0;
+}
+#page-booking .booking-factory-table .bk-net-marker,
+#page-booking .booking-factory-table .bk-net-dozen {
+  background: #eff6ff;
+}
+#page-booking .booking-factory-table .bk-final {
+  background: #ecfdf5;
+}
+#page-booking .booking-factory-table .bk-remove-row {
+  min-width: 25px;
+  min-height: 28px;
+  font-size: 13px;
+}
+#page-booking .booking-note {
+  margin-top: 11px;
+  font-size: 10px;
+}
