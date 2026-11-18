@@ -8198,3 +8198,43 @@ body.dark-mode #page-booking .booking-meta-grid input:focus{border-color:#38a4df
   font-family:Inter,Arial,sans-serif;
   font-size:16px;
 }
+
+
+/* Booking Sheet — use the same Lucide outline icon language as the rest of the app */
+#page-booking .booking-section-head h2::before{content:none!important;display:none!important}
+#page-booking .booking-section-head h2{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+#page-booking .booking-section-head h2 > i[data-lucide]{
+  width:29px;
+  height:29px;
+  min-width:29px;
+  padding:6px;
+  box-sizing:border-box;
+  border-radius:8px;
+  background:#e5f3ff;
+  color:#0879bd;
+  stroke-width:1.8;
+}
+#page-booking .booking-hero h1{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+#page-booking .booking-hero h1 > i[data-lucide]{
+  width:23px;height:23px;color:currentColor;stroke-width:1.9;flex:none;
+}
+#page-booking .booking-actions button{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+}
+#page-booking .booking-actions button > i[data-lucide]{width:16px;height:16px;stroke-width:1.9}
+#page-booking .booking-formula-panel .fn-title{
+  display:flex;align-items:center;gap:8px;
+}
+#page-booking .booking-formula-panel .fn-title > i[data-lucide]{width:18px;height:18px;stroke-width:1.9}
+.tab-btn[data-page="booking"] > i[data-lucide]{width:16px;height:16px;stroke-width:1.9}
+body.dark-mode #page-booking .booking-section-head h2 > i[data-lucide]{
+  background:#173b58;color:#7dd3fc;
+}
