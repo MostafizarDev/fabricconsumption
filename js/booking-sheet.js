@@ -99,6 +99,30 @@
     ratioRow.querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
     calculate();
   }
+  function loadSizePreset(key) {
+    const presets = {
+      adult: {names:['XS','S','M','L','XL','2XL','3XL','4XL','5XL'], ratios:[1,2,3,3,2,1,1,1,1]},
+      kids: {names:['2T','3T','4T','5T','6T','7T'], ratios:[1,2,3,3,2,1]},
+      age: {names:['2/3','3/4','4/5','5/6','6/7','7/8'], ratios:[1,1,1,1,1,1]},
+      numeric: {names:['28','30','32','34','36','38','40'], ratios:[1,1,1,1,1,1,1]},
+      custom: {names:[], ratios:[]}
+    };
+    const preset=presets[key]||presets.custom;
+    const headerRow=$('bk-size-headers'),ratioRow=$('bk-ratio-row');
+    headerRow.querySelectorAll('.bk-size-item').forEach(el=>el.remove());
+    ratioRow.querySelectorAll('td[data-ratio-index]').forEach(el=>el.remove());
+    preset.names.forEach((name,i)=>{
+      const th=document.createElement('th'),td=document.createElement('td');
+      th.className='bk-size-item';
+      th.innerHTML='<div class="bk-size-head-cell"><input data-size-label value="'+safe(name)+'" aria-label="Size label '+safe(name)+'"><button type="button" class="bk-size-remove" aria-label="Remove '+safe(name)+'">×</button></div>';
+      td.innerHTML='<input data-ratio type="number" min="0" step="1" value="'+preset.ratios[i]+'" aria-label="Ratio for '+safe(name)+'">';
+      headerRow.insertBefore(th,headerRow.lastElementChild);
+      ratioRow.insertBefore(td,ratioRow.lastElementChild);
+    });
+    headerRow.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
+    ratioRow.querySelectorAll('td[data-ratio-index]').forEach((el,i)=>el.dataset.ratioIndex=i);
+    calculate();
+  }
   function orderInfo() {
     return [
       ['Date',$('bk-date').value],['Buyer',$('bk-buyer').value],['Style / Order No.',$('bk-style').value],['Job / PO No.',$('bk-po').value],
@@ -193,6 +217,7 @@
     $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
     document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
+    $('bk-size-preset').addEventListener('change',e=>loadSizePreset(e.target.value));
     $('bk-size-headers').addEventListener('click',e=>{
       const remove=e.target.closest('.bk-size-remove');
       if(!remove||sizeRows().length<=1)return;
