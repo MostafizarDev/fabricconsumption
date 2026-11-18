@@ -7563,3 +7563,57 @@ body.dark-mode #page-booking .booking-size-matrix .bk-total-cell{
   background:#12304a;
   color:#7dd3fc;
 }
+
+
+/* Dark mode: keep the entire size-ratio matrix dark and readable */
+body.dark-mode #page-booking .booking-size-matrix#bk-ratio-row td,
+body.dark-mode #page-booking .booking-size-matrix #bk-ratio-row td,
+body.dark-mode #page-booking .booking-size-matrix tbody td{
+  background:#17263a !important;
+  border-color:#344a63 !important;
+  color:#e2eaf4 !important;
+}
+body.dark-mode #page-booking .booking-size-matrix .bk-matrix-label,
+body.dark-mode #page-booking .booking-size-matrix .bk-ratio-label-cell{
+  background:#20364f !important;
+  border-color:#405873 !important;
+  color:#e5edf7 !important;
+}
+body.dark-mode #page-booking .booking-size-matrix .bk-size-item{
+  background:#20364f !important;
+  border-color:#405873 !important;
+}
+body.dark-mode #page-booking .bk-size-head-cell input{
+  background:transparent !important;
+  border-color:transparent !important;
+  color:#e5edf7 !important;
+}
+body.dark-mode #page-booking .bk-size-head-cell input:hover,
+body.dark-mode #page-booking .bk-size-head-cell input:focus{
+  background:#0d1929 !important;
+  border-color:#4d7298 !important;
+  color:#f8fbff !important;
+}
+body.dark-mode #page-booking .booking-size-matrix #bk-ratio-row td input{
+  background:#0d1929 !important;
+  border-color:#405873 !important;
+  color:#f1f6fc !important;
+}
+body.dark-mode #page-booking .booking-size-matrix .bk-total-head{
+  background:#173653 !important;
+  border-color:#315b7c !important;
+  color:#bae6fd !important;
+}
+body.dark-mode #page-booking .booking-size-matrix .bk-total-cell{
+  background:#123b54 !important;
+  border-color:#28617d !important;
+  color:#7dd3fc !important;
+}
+body.dark-mode #page-booking .booking-total-ratio{
+  background:#12334b !important;
+  border-color:#285775 !important;
+  color:#7dd3fc !important;
+}
+body.dark-mode #page-booking #bk-size-note{
+  color:#91a4ba !important;
+}
