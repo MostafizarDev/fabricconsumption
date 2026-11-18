@@ -7395,7 +7395,7 @@ body.dark-mode #page-pricing #pricing-view-fob .pricing-fob-formula-grid article
 #page-booking .booking-ratio-table th{padding:9px 12px;background:#17365d;color:white;text-align:center}
 #page-booking .booking-ratio-table td{padding:6px;border:1px solid #dbe3ed;text-align:center}
 #page-booking .booking-ratio-table input{width:65px;padding:7px;border:1px solid #cbd5e1;border-radius:5px;text-align:center}
-#page-booking #bk-add-size{border:0;border-radius:5px;padding:6px 10px;background:#eff6ff;color:#0369a1;font-weight:800;cursor:pointer}
+/* Add Size uses the shared .booking-add-btn styling. */
 #page-booking .booking-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 #page-booking .booking-result-card{padding:12px;border:1px solid var(--border,#e2e8f0);border-radius:9px;background:var(--soft-bg,#f8fafc)}
 #page-booking .booking-result-card span{display:block;color:var(--muted,#64748b);font-size:9px;font-weight:800;text-transform:uppercase}
