@@ -116,7 +116,7 @@
   }
   function orderInfo() {
     return [
-      ['Date',$('bk-date').value],['Buyer',$('bk-buyer').value],['Style / Order No.',$('bk-style').value],['Job / PO No.',$('bk-po').value],
+      ['Calculation Date',new Date().toLocaleDateString('en-GB')],['Buyer',$('bk-buyer').value],['Style / Order No.',$('bk-style').value],['Job / PO No.',$('bk-po').value],
       ['Description',$('bk-description').value],['Body Fabric',$('bk-body-fabric').value],['Order Quantity',$('bk-order-qty').value],['Cutting Quantity',$('bk-cut-qty').value],['Shipment Date',$('bk-shipment').value]
     ];
   }
@@ -155,7 +155,7 @@
       [14,18,17,14,17,14,17,10,15,12,15,16,15,16,13].forEach((w,i)=>ws.getColumn(i+1).width=w);
       ws.mergeCells('A2:O2'); put(ws.getCell('A2'),'STYLE WISE FABRICS CONSUMPTION',{font:{name:'Arial',size:16,bold:true,color:{argb:white}},fill:fill(navy)});
       ws.getRow(2).height=30;ws.mergeCells('A3:O3');ws.getRow(3).height=7;
-      [['DATE :',$('bk-date').value],['BUYER :',$('bk-buyer').value],['STYLE/ORD :',$('bk-style').value],['DESCRIPTION:',$('bk-description').value],['BODY FABRIC:',$('bk-body-fabric').value]].forEach((x,i)=>{
+      [['DATE :',new Date().toLocaleDateString('en-GB')],['BUYER :',$('bk-buyer').value],['STYLE/ORD :',$('bk-style').value],['DESCRIPTION:',$('bk-description').value],['BODY FABRIC:',$('bk-body-fabric').value]].forEach((x,i)=>{
         const rr=4+i;put(ws.getCell(rr,1),x[0],{alignment:{horizontal:'left'},font:{name:'Arial',size:10,bold:true,color:{argb:navy}}});
         ws.mergeCells(rr,4,rr,15);put(ws.getCell(rr,4),x[1]||'',{alignment:{horizontal:'left'},font:{name:'Arial',size:10,color:{argb:ink}}});ws.getRow(rr).height=20;
       });
@@ -202,7 +202,6 @@
     } catch(err) { console.error(err); alert('Excel export failed: '+err.message); }
   }
   document.addEventListener('DOMContentLoaded',()=>{
-    const date=$('bk-date'); if(date&&!date.value) date.value=new Date().toISOString().slice(0,10);
     $('bk-fabric-rows').addEventListener('input',calculate);
     $('bk-fabric-rows').addEventListener('change',calculate);
     $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
