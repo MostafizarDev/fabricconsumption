@@ -13,29 +13,16 @@
   };
   const safe = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const rows = () => Array.from(document.querySelectorAll('#bk-fabric-rows tr'));
-  const sizeRows = () => Array.from(document.querySelectorAll('#bk-size-rows tr'));
+  const sizeRows = () => Array.from(document.querySelectorAll('#bk-size-rows .bk-size-card'));
   const ratioTotal = () => sizeRows().reduce((sum,row) => sum + Math.max(0, Number(row.querySelector('[data-ratio]')?.value) || 0), 0);
   function sizeBreakdown() {
     const rowsData=sizeRows().map(row=>({row,size:(row.querySelector('[data-size-label]')?.value||'').trim(),ratio:Math.max(0,Number(row.querySelector('[data-ratio]')?.value)||0)}));
-    const totalRatio=rowsData.reduce((s,x)=>s+x.ratio,0);
+    const totalRatio=rowsData.reduce((sum,x)=>sum+x.ratio,0);
     const useCut=$('bk-ratio-qty-source')?.value==='cut';
     const orderQty=Math.max(0,Number($(useCut?'bk-cut-qty':'bk-order-qty')?.value)||0);
-    const raw=rowsData.map(x=>totalRatio>0?orderQty*x.ratio/totalRatio:0);
-    const qtys=raw.map(Math.floor);
-    let remaining=orderQty-qtys.reduce((s,n)=>s+n,0);
-    raw.map((v,i)=>({i,frac:v-Math.floor(v)})).sort((a,b)=>b.frac-a.frac||a.i-b.i).slice(0,remaining).forEach(x=>qtys[x.i]++);
-    rowsData.forEach((x,i)=>{
-      x.qty=totalRatio>0?qtys[i]:0;
-      x.share=totalRatio>0?x.ratio/totalRatio*100:0;
-      x.row.querySelector('.bk-size-qty').textContent=totalRatio>0&&orderQty>0?x.qty.toLocaleString():'—';
-      x.row.querySelector('.bk-size-share').textContent=totalRatio>0?x.share.toFixed(1)+'%':'—';
-      const remove=x.row.querySelector('.bk-size-remove'); if(remove) remove.disabled=rowsData.length===1;
-    });
-    if($('bk-size-ratio-sum')) $('bk-size-ratio-sum').textContent=totalRatio;
-    if($('bk-size-qty-sum')) $('bk-size-qty-sum').textContent=totalRatio>0&&orderQty>0?qtys.reduce((s,n)=>s+n,0).toLocaleString():'—';
-    if($('bk-size-share-sum')) $('bk-size-share-sum').textContent=totalRatio>0?'100%':'—';
-    if($('bk-ratio-total')) $('bk-ratio-total').textContent='Total Ratio: '+totalRatio+' PCS';
-    return {sizes:rowsData.map(({size,ratio,qty,share})=>({size,ratio,qty,share})),totalRatio,orderQty};
+    rowsData.forEach(x=>{const btn=x.row.querySelector('.bk-size-remove');if(btn)btn.disabled=rowsData.length===1;});
+    if($('bk-ratio-total')) $('bk-ratio-total').textContent='TOTAL: '+totalRatio+' PCS';
+    return {sizes:rowsData.map(({size,ratio})=>({size,ratio})),totalRatio,orderQty};
   }
   const readRow = row => {
     const ml=num(row,'ml'), cla=num(row,'cla'), mw=num(row,'mw'), cwa=num(row,'cwa'), gsm=num(row,'gsm'), pcs=num(row,'pcs'), cut=num(row,'cut');
@@ -76,10 +63,10 @@
   function addSize() {
     const existing=sizeRows().map(row=>row.querySelector('[data-size-label]')?.value.trim());
     let next=existing.length?String(Number(existing[existing.length-1])+6||'NEW'):'74';
-    if(existing.includes(next)) next='NEW '+(existing.length+1);
-    const tr=document.createElement('tr');
-    tr.innerHTML='<td><input data-size-label value="'+safe(next)+'" aria-label="Size label"></td><td><input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio"></td><td class="bk-size-qty">—</td><td class="bk-size-share">—</td><td><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></td>';
-    $('bk-size-rows').appendChild(tr); calculate();
+    if(existing.includes(next))next='NEW '+(existing.length+1);
+    const card=document.createElement('div');card.className='bk-size-card';
+    card.innerHTML='<div class="bk-size-card-head"><span>SIZE</span><button type="button" class="bk-size-remove" aria-label="Remove size">×</button></div><input data-size-label value="'+safe(next)+'" aria-label="Size label"><label>RATIO</label><input data-ratio type="number" min="0" step="1" value="0" aria-label="Ratio for size '+safe(next)+'">';
+    $('bk-size-rows').appendChild(card);calculate();
   }
   function orderInfo() {
     return [
@@ -91,11 +78,11 @@
     const result=calculate(), info=orderInfo(), data=result.data;
     const infoHtml=info.filter(x=>x[1]).map(x=>'<div><span>'+safe(x[0])+'</span><strong>'+safe(x[1])+'</strong></div>').join('');
     const body=data.map(x=>'<tr><td>'+safe(x.parts)+'</td><td>'+safe(x.fabric)+'</td><td>'+x.ml+'</td><td>'+x.cla+'</td><td>'+x.mw+'</td><td>'+x.cwa+'</td><td>'+x.gsm+'</td><td>'+x.netMarker.toFixed(4)+'</td><td>'+x.pcs+'</td><td>'+x.netDozen.toFixed(4)+'</td><td>'+x.cut+'%</td><td><strong>'+x.finalDozen.toFixed(4)+'</strong></td><td>'+x.dia+'</td><td>'+safe(x.diaType)+'</td></tr>').join('');
-    const ratios=result.sizing.sizes.map(x=>'<tr><td>'+safe(x.size)+'</td><td>'+x.ratio+'</td><td>'+x.qty.toLocaleString()+'</td><td>'+x.share.toFixed(1)+'%</td></tr>').join('');
+    const sizeCells=result.sizing.sizes.map(x=>'<td>'+safe(x.size)+'</td>').join(''); const ratioCells=result.sizing.sizes.map(x=>'<td>'+x.ratio+'</td>').join('');
     const report='<div class="report booking-pdf-report"><div class="report-header"><div><div class="brand">FABRIC <span>CONSUMPTION</span></div><div class="subtitle">GARMENT CALCULATOR SUITE</div></div><div class="report-title"><div class="eyebrow">FACTORY BOOKING REPORT</div><h1>Style Wise Fabrics Consumption</h1><div class="report-id">BOOKING · '+new Date().toLocaleDateString('en-GB')+'</div></div></div>'+
       '<section class="section"><div class="section-head">ORDER INFORMATION</div><div class="info-grid">'+infoHtml+'</div></section>'+
       '<section class="section"><div class="section-head">FABRIC &amp; MARKER DETAILS</div><table><thead><tr><th>Parts</th><th>Fabric</th><th>ML</th><th>Cut L</th><th>MW</th><th>Cut W</th><th>GSM</th><th>Net/Marker</th><th>PCS</th><th>Net/Doz</th><th>Cut%</th><th>Final/Doz</th><th>DIA</th><th>Type</th></tr></thead><tbody>'+body+'</tbody></table></section>'+
-      '<section class="section"><div class="section-head">SIZE RATIO &amp; ORDER DISTRIBUTION</div><table><thead><tr><th>Size</th><th>Ratio</th><th>Allocated Qty</th><th>Share</th></tr></thead><tbody>'+ratios+'</tbody></table><p>Total Ratio: '+result.sizing.totalRatio+' · Distributed Qty: '+result.sizing.orderQty+'</p></section>'+
+      '<section class="section"><div class="section-head">SIZE RATIO</div><table><tbody><tr><th>SIZE</th>'+sizeCells+'</tr><tr><th>RATIO</th>'+ratioCells+'</tr><tr><th>TOTAL</th><td colspan="'+Math.max(1,result.sizing.sizes.length)+'"><strong>'+result.sizing.totalRatio+' PCS</strong></td></tr></tbody></table></section>'+
       '<div class="summary-grid"><div class="summary-card primary"><div class="metric-head"><span>TOTAL FINAL CONSUMPTION / DOZEN</span></div><strong>'+result.grand.toFixed(4)+' KG</strong></div><div class="summary-card"><div class="metric-head"><span>TOTAL FABRIC REQUIREMENT</span></div><strong>'+(result.totalQty?result.requirement.toFixed(2)+' KG':'—')+'</strong><small>Based on '+result.totalQty+' pcs</small></div></div>'+
       '<section class="section formula"><div class="section-head">CALCULATION FORMULA</div><div class="formula-text"><strong>Net KG / Marker</strong> = (ML + Cut L) × (MW + Cut W) × GSM ÷ 1,550,000<br><strong>Net KG / Dozen</strong> = Net KG / Marker × 12 ÷ PCS / Marker<br><strong>Final KG / Dozen</strong> = Net KG / Dozen × (1 + Cutting % ÷ 100)<br><strong>Total Order Requirement</strong> = Total KG / Dozen × Order Quantity ÷ 12</div></section>'+
       '<div class="report-footer"><span>Fabric Consumption · Factory Booking Sheet</span><span>Generated '+new Date().toLocaleString()+'</span></div></div>';
@@ -144,20 +131,18 @@
       put(ws.getCell(totalRow,12),'TOTAL =',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
       put(ws.getCell(totalRow,13),{formula:data.length?data.map((_,i)=>'M'+(11+i)).join('+'):'0',result:result.grand},{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
       put(ws.getCell(totalRow,14),'KG / DOZEN',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(totalRow,15),'',{fill:fill(blue)});
-      const sr=totalRow+2,rr=sr+1;ws.mergeCells(sr,3,sr,5);ws.mergeCells(rr,3,rr,5);
-      put(ws.getCell(sr,3),'SIZE',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
-      put(ws.getCell(rr,3),'RATIO (BODY+RIB)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
-      sizes.forEach((x,i)=>{const c=6+i;if(c>15)ws.getColumn(c).width=12;put(ws.getCell(sr,c),x.size,{font:{bold:true,color:{argb:white}},fill:fill(navy)});put(ws.getCell(rr,c),x.ratio,{font:{bold:true,color:{argb:ink}},fill:fill(pale)});});
-      const ratioSum=sizes.reduce((s,x)=>s+x.ratio,0), ratioCol=Math.max(11,6+sizes.length);
-      put(ws.getCell(sr,ratioCol),ratioSum+' PCS',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
-      put(ws.getCell(rr,ratioCol),ratioSum,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
-      const dt=rr+2;ws.mergeCells(dt,1,dt,15);put(ws.getCell(dt,1),'SIZE-WISE ORDER DISTRIBUTION',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
-      ['SIZE','RATIO','ALLOCATED QTY (PCS)','ORDER SHARE'].forEach((v,i)=>put(ws.getCell(dt+1,i+1),v,{font:{bold:true,size:9,color:{argb:white}},fill:fill(navy)}));
-      sizes.forEach((x,i)=>{const row=dt+2+i;[x.size,x.ratio,x.qty,x.share/100].forEach((v,j)=>put(ws.getCell(row,j+1),v));ws.getCell(row,4).numFmt='0.0%';});
-      const sumRow=dt+3+sizes.length;ws.mergeCells(sumRow,1,sumRow,3);put(ws.getCell(sumRow,1),'TOTAL ORDER QUANTITY',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(sumRow,4),result.sizing.orderQty,{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
-      ws.mergeCells(sumRow+1,1,sumRow+1,3);put(ws.getCell(sumRow+1,1),'TOTAL FABRIC REQUIREMENT (KG)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});put(ws.getCell(sumRow+1,4),result.totalQty?result.requirement:'',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
-      ws.views=[{state:'frozen',ySplit:10}];ws.pageSetup={paperSize:ws.PAPER_A4,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};ws.pageSetup.margins={left:0.2,right:0.2,top:0.35,bottom:0.35,header:0.15,footer:0.15};
-      ws.printArea='A1:'+String.fromCharCode(64+Math.min(26,Math.max(15,ratioCol)))+(sumRow+1);ws.headerFooter={oddFooter:'&LFabric Consumption · Factory Booking Sheet&CPage &P of &N'};
+      const sr=totalRow+2,rr=sr+1;
+       ws.mergeCells(sr,1,sr,5);ws.mergeCells(rr,1,rr,5);
+       put(ws.getCell(sr,1),'SIZE',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
+       put(ws.getCell(rr,1),'RATIO',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+       sizes.forEach((x,i)=>{const c=6+i;if(c>15)ws.getColumn(c).width=12;put(ws.getCell(sr,c),x.size,{font:{bold:true,color:{argb:white}},fill:fill(navy)});put(ws.getCell(rr,c),x.ratio,{font:{bold:true,color:{argb:ink}},fill:fill(pale)});});
+       const totalCol=6+sizes.length,dt=rr+2;
+       put(ws.getCell(sr,totalCol),'TOTAL',{font:{bold:true,color:{argb:white}},fill:fill(navy)});
+       put(ws.getCell(rr,totalCol),sizes.reduce((sum,x)=>sum+x.ratio,0)+' PCS',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+       ws.mergeCells(dt,1,dt,Math.max(15,totalCol));put(ws.getCell(dt,1),'TOTAL FABRIC REQUIREMENT (KG)',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+       put(ws.getCell(dt,Math.max(15,totalCol)),result.totalQty?result.requirement:'',{font:{bold:true,color:{argb:navy}},fill:fill(blue)});
+       ws.views=[{state:'frozen',ySplit:10}];ws.pageSetup={paperSize:ws.PAPER_A4,orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0};ws.pageSetup.margins={left:0.2,right:0.2,top:0.35,bottom:0.35,header:0.15,footer:0.15};
+      ws.printArea='A1:'+ws.getColumn(Math.max(15,totalCol)).letter+dt;ws.headerFooter={oddFooter:'&LFabric Consumption · Factory Booking Sheet&CPage &P of &N'};
       const cs=wb.addWorksheet('CONSUMPTION');cs.getColumn(1).width=4;cs.getColumn(2).width=18;cs.getColumn(5).width=16;
       cs.mergeCells('B2:E2');put(cs.getCell('B2'),'FABRIC CONSUMPTION',{font:{name:'Arial',size:14,bold:true,color:{argb:white}},fill:fill(navy)});
       const first=data[0]||{dia:0,ml:0,cla:0,gsm:0,pcs:0,cut:0};
@@ -174,7 +159,7 @@
     const date=$('bk-date'); if(date&&!date.value) date.value=new Date().toISOString().slice(0,10);
     $('bk-fabric-rows').addEventListener('input',calculate);
     $('bk-fabric-rows').addEventListener('change',calculate);
-    $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
+    $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('.bk-size-card').remove();calculate();}});
     document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
     $('bk-size-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-size-remove')&&sizeRows().length>1){e.target.closest('tr').remove();calculate();}});
