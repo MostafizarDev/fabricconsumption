@@ -8527,3 +8527,48 @@ body.dark-mode .contact-person-photo{background:#172b40;border-color:#45647f;col
 body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
 @media(max-width:900px){.contact-topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-form-card{grid-template-columns:1fr;gap:20px}.contact-form-note{max-width:540px}}
 @media(max-width:600px){.contact-hero{padding:29px 23px}.contact-hero-points{gap:7px}.contact-hero-points span{font-size:10px}.contact-topic-grid{gap:9px}.contact-topic-card{padding:13px 11px;gap:9px}.contact-topic-icon{width:32px;height:32px;flex-basis:32px;font-size:17px}.contact-topic-card h3{font-size:12px}.contact-topic-card p{font-size:10px}.contact-form-card{padding:20px 16px;border-radius:13px}.contact-form-row{grid-template-columns:1fr}.contact-people-grid{grid-template-columns:1fr}.contact-person-card{padding:18px}.contact-person-bio{min-height:0}}
+
+
+/* Help Center & User Manual — styles are scoped to the FAQ page only. */
+#page-faq .faq-hero{position:relative}
+#page-faq .faq-hero-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+#page-faq .faq-hero-meta span{display:inline-flex;align-items:center;padding:7px 11px;border:1px solid var(--border-color,#dbe3ed);border-radius:999px;font-size:12px;font-weight:650;color:var(--text-secondary,#64748b);background:var(--surface-color,#fff)}
+#page-faq .faq-start-panel,#page-faq .faq-manual-section{margin:22px 0}
+#page-faq .faq-start-panel{padding:22px;border:1px solid var(--border-color,#dbe3ed);border-radius:16px;background:var(--card-bg,#fff)}
+#page-faq .faq-start-panel h2,#page-faq .faq-section-heading h2{margin:4px 0 8px}
+#page-faq .faq-start-panel p,#page-faq .faq-section-heading p{margin:0;color:var(--text-secondary,#64748b);line-height:1.65}
+#page-faq .faq-kicker{display:block;font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--accent-color,#2563eb)}
+#page-faq .faq-jump-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:18px}
+#page-faq .faq-jump-grid a{display:flex;align-items:center;min-height:42px;padding:9px 12px;border:1px solid var(--border-color,#dbe3ed);border-radius:10px;text-decoration:none;color:var(--text-color,inherit);font-size:13px;font-weight:650;background:var(--surface-color,#fff);transition:border-color .18s,transform .18s}
+#page-faq .faq-jump-grid a:hover{border-color:var(--accent-color,#2563eb);transform:translateY(-1px)}
+#page-faq .faq-section-heading{margin:0 0 15px}
+#page-faq .faq-step-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+#page-faq .faq-step{padding:15px;border:1px solid var(--border-color,#dbe3ed);border-radius:13px;background:var(--card-bg,#fff)}
+#page-faq .faq-step>span{display:inline-flex;margin-bottom:10px;font-size:11px;font-weight:850;letter-spacing:1px;color:var(--accent-color,#2563eb)}
+#page-faq .faq-step h3{margin:0 0 7px;font-size:14px}
+#page-faq .faq-step p{margin:0;color:var(--text-secondary,#64748b);font-size:12px;line-height:1.6}
+#page-faq .faq-caution{margin-top:13px;padding:15px 17px;border-left:3px solid var(--accent-color,#2563eb);border-radius:8px;background:var(--surface-color,#f8fafc)}
+#page-faq .faq-caution p{margin:5px 0 0;color:var(--text-secondary,#64748b);font-size:13px;line-height:1.65}
+#page-faq .faq-tool,#page-faq .faq-question{margin:10px 0;border:1px solid var(--border-color,#dbe3ed);border-radius:13px;background:var(--card-bg,#fff);overflow:hidden}
+#page-faq .faq-tool>summary{display:flex;align-items:center;gap:13px;padding:15px 17px;cursor:pointer;list-style:none}
+#page-faq .faq-tool>summary::-webkit-details-marker,#page-faq .faq-question>summary::-webkit-details-marker{display:none}
+#page-faq .faq-tool>summary:after,#page-faq .faq-question>summary:after{content:"+";margin-left:auto;font-size:21px;font-weight:400;color:var(--accent-color,#2563eb)}
+#page-faq .faq-tool[open]>summary:after,#page-faq .faq-question[open]>summary:after{content:"−"}
+#page-faq .faq-tool-number{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:10px;background:var(--surface-color,#eff6ff);color:var(--accent-color,#2563eb);font-size:12px;font-weight:850}
+#page-faq .faq-tool>summary strong{display:block;font-size:15px;color:var(--text-color,inherit)}
+#page-faq .faq-tool>summary small{display:block;margin-top:3px;color:var(--text-secondary,#64748b);font-size:12px}
+#page-faq .faq-tool-body{padding:3px 20px 20px;border-top:1px solid var(--border-color,#dbe3ed)}
+#page-faq .faq-tool-body h3{margin:17px 0 7px;font-size:14px}
+#page-faq .faq-tool-body p,#page-faq .faq-tool-body li{color:var(--text-secondary,#64748b);font-size:13px;line-height:1.7}
+#page-faq .faq-tool-body p{margin:7px 0}
+#page-faq .faq-tool-body ol{padding-left:21px;margin:7px 0}
+#page-faq .faq-formula{display:grid;gap:7px;padding:14px;border:1px solid var(--border-color,#dbe3ed);border-radius:11px;background:var(--surface-color,#f8fafc)}
+#page-faq .faq-formula strong{margin-top:3px;font-size:12px;color:var(--text-color,inherit)}
+#page-faq .faq-formula code{display:block;padding:7px 9px;border-radius:7px;background:var(--card-bg,#fff);color:var(--text-color,inherit);font-size:12px;line-height:1.55;white-space:normal;overflow-wrap:anywhere}
+#page-faq .faq-note{margin-top:12px!important;padding:11px 13px;border-radius:9px;background:var(--surface-color,#f8fafc);font-size:12px!important}
+#page-faq .faq-question>summary{padding:14px 16px;cursor:pointer;list-style:none;font-size:13px;font-weight:700;color:var(--text-color,inherit)}
+#page-faq .faq-question>p{margin:0;padding:0 16px 15px;color:var(--text-secondary,#64748b);font-size:13px;line-height:1.7}
+#page-faq .faq-question>.info-action{margin:0 16px 15px;display:inline-flex}
+#page-faq .faq-support-note{margin-top:18px}
+@media(max-width:900px){#page-faq .faq-step-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#page-faq .faq-jump-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){#page-faq .faq-start-panel{padding:16px}#page-faq .faq-step-grid,#page-faq .faq-jump-grid{grid-template-columns:1fr}#page-faq .faq-tool>summary{padding:13px}#page-faq .faq-tool-body{padding:2px 13px 15px}#page-faq .faq-formula{padding:10px}#page-faq .faq-formula code{font-size:11px}}
