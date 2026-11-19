@@ -8914,11 +8914,18 @@ body.dark-mode .site-footer { background: #081321; }
 
 .info-card p, .info-card li { color: #536a7f; }
 
-
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
-
-
+/* Keep compact page spacing limited to tablet and smaller layouts. */
+@media (max-width: 760px) {
   .page { padding: 20px 14px 36px; }
-
-
   .panel, .opt-panel { padding: 16px; }
+}
+
+/* Respect the user's motion preference without disabling transitions globally. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
