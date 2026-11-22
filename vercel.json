@@ -3,27 +3,27 @@
   "rewrites": [
     {
       "source": "/about",
-      "destination": "/index.html"
+      "destination": "/information/about.html"
     },
     {
       "source": "/contact",
-      "destination": "/index.html"
+      "destination": "/information/contact.html"
     },
     {
       "source": "/privacy-policy",
-      "destination": "/index.html"
+      "destination": "/information/privacy-policy.html"
     },
     {
       "source": "/terms-of-use",
-      "destination": "/index.html"
+      "destination": "/information/terms-of-use.html"
     },
     {
       "source": "/disclaimer",
-      "destination": "/index.html"
+      "destination": "/information/disclaimer.html"
     },
     {
       "source": "/faq",
-      "destination": "/index.html"
+      "destination": "/information/faq.html"
     },
     {
       "source": "/pricing-costing/:path*",
