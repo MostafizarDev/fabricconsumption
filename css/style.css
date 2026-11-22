@@ -8745,3 +8745,20 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
   height: 16px !important;
   flex: 0 0 16px !important;
 }
+
+
+/* Restore the original blue Calculate buttons on the Trims page.
+   Keep the shared 42px sizing; PDF buttons remain emerald. */
+#page-trims #btn-calc-thread,
+#page-trims #btn-calc-button,
+#page-trims #btn-calc-interlining {
+  border-color: #0284c7 !important;
+  background: linear-gradient(105deg, #0284c7, #2563eb) !important;
+  color: #ffffff !important;
+}
+#page-trims #btn-calc-thread:hover,
+#page-trims #btn-calc-button:hover,
+#page-trims #btn-calc-interlining:hover {
+  border-color: #1d4ed8 !important;
+  background: linear-gradient(105deg, #0369a1, #1d4ed8) !important;
+}
