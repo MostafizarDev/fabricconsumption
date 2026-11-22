@@ -8589,3 +8589,28 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
 .formula-card .formula-wastage {
   color: #f8fafc !important;
 }
+
+
+/* Unified download button color across all tools — emerald gradient */
+.pdf-btn,
+.sr-pdf-btn,
+.zipper-pdf-btn,
+#page-trims .trims-card-actions .trims-secondary-btn,
+.pricing-download-btn,
+.woven-pdf-btn,
+.pant-download-full-report {
+  background: linear-gradient(90deg, #10b981, #059669) !important;
+  border: 1px solid #059669 !important;
+  color: #fff !important;
+}
+
+.pdf-btn:hover,
+.sr-pdf-btn:hover,
+.zipper-pdf-btn:hover,
+#page-trims .trims-card-actions .trims-secondary-btn:hover,
+.pricing-download-btn:hover,
+.woven-pdf-btn:hover,
+.pant-download-full-report:hover {
+  background: linear-gradient(90deg, #059669, #047857) !important;
+  border-color: #047857 !important;
+}
