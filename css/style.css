@@ -8652,88 +8652,96 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
 }
 
 
-/* Unified primary calculation and report-export buttons across all tools.
-   Scope is limited to Calculate / PDF / Excel / report actions; utility controls are unchanged. */
+/* FINAL shared action-button design: Calculate / PDF / Excel / Report only.
+   Keep utility buttons (Demo, Recent, Reset, Add, etc.) untouched. */
 #page-marker .marker-actions .marker-btn.primary,
-#page-marker .marker-actions #mk-pdf,
+#page-marker #mk-pdf,
 #page-pricing .pricing-knit-actions .marker-btn.primary,
-#page-pricing .pricing-knit-actions .pricing-download-btn,
-#page-knit .calc-btn,
-#page-knit .pdf-btn,
-#page-knitpant .pant-actions .calc-btn,
-#page-knitpant .pant-download-full-report,
-#page-woven .calc-btn,
-#page-woven .woven-pdf-btn,
-#page-booking .booking-actions .calc-btn,
-#page-booking .booking-actions .booking-excel-btn,
-#page-zipper .zipper-action-row .trims-primary-btn,
-#page-zipper .zipper-action-row .zipper-pdf-btn,
-#page-trims .trims-card-actions .trims-primary-btn,
-#page-trims .trims-card-actions .trims-secondary-btn,
-#page-sizeratio .sr-calculate-btn,
-#page-sizeratio .sr-pdf-btn,
+#page-pricing .pricing-download-btn,
+#page-knit #btn-calc-knit,
+#page-knit #btn-pdf-knit,
+#page-knitpant #btn-calc-knitpant,
+#page-knitpant #btn-pdf-knitpant,
+#page-woven #btn-calc-woven,
+#page-woven #btn-pdf-woven,
+#page-booking #bk-calculate,
+#page-booking #bk-download-pdf,
+#page-booking #bk-download-excel,
+#page-zipper #btn-calc-zipper,
+#page-zipper #btn-pdf-zipper,
+#page-trims #btn-calc-thread,
+#page-trims #btn-calc-button,
+#page-trims #btn-calc-interlining,
+#page-sizeratio #btn-calc-sizeratio,
+#page-sizeratio #btn-pdf-sizeratio,
 #page-sizeratio #sr-pdf-generate {
-  box-sizing: border-box;
-  min-height: 42px;
-  padding: 10px 16px;
+  box-sizing: border-box !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding: 0 16px !important;
   border: 1px solid #059669 !important;
-  border-radius: 9px;
+  border-radius: 9px !important;
   background: linear-gradient(90deg, #10b981, #059669) !important;
-  color: #fff !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 750;
-  line-height: 1.2;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  box-shadow: none;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  box-shadow: none !important;
 }
 #page-marker .marker-actions .marker-btn.primary:hover,
-#page-marker .marker-actions #mk-pdf:hover,
+#page-marker #mk-pdf:hover,
 #page-pricing .pricing-knit-actions .marker-btn.primary:hover,
-#page-pricing .pricing-knit-actions .pricing-download-btn:hover,
-#page-knit .calc-btn:hover,
-#page-knit .pdf-btn:hover,
-#page-knitpant .pant-actions .calc-btn:hover,
-#page-knitpant .pant-download-full-report:hover,
-#page-woven .calc-btn:hover,
-#page-woven .woven-pdf-btn:hover,
-#page-booking .booking-actions .calc-btn:hover,
-#page-booking .booking-actions .booking-excel-btn:hover,
-#page-zipper .zipper-action-row .trims-primary-btn:hover,
-#page-zipper .zipper-action-row .zipper-pdf-btn:hover,
-#page-trims .trims-card-actions .trims-primary-btn:hover,
-#page-trims .trims-card-actions .trims-secondary-btn:hover,
-#page-sizeratio .sr-calculate-btn:hover,
-#page-sizeratio .sr-pdf-btn:hover,
+#page-pricing .pricing-download-btn:hover,
+#page-knit #btn-calc-knit:hover,
+#page-knit #btn-pdf-knit:hover,
+#page-knitpant #btn-calc-knitpant:hover,
+#page-knitpant #btn-pdf-knitpant:hover,
+#page-woven #btn-calc-woven:hover,
+#page-woven #btn-pdf-woven:hover,
+#page-booking #bk-calculate:hover,
+#page-booking #bk-download-pdf:hover,
+#page-booking #bk-download-excel:hover,
+#page-zipper #btn-calc-zipper:hover,
+#page-zipper #btn-pdf-zipper:hover,
+#page-trims #btn-calc-thread:hover,
+#page-trims #btn-calc-button:hover,
+#page-trims #btn-calc-interlining:hover,
+#page-sizeratio #btn-calc-sizeratio:hover,
+#page-sizeratio #btn-pdf-sizeratio:hover,
 #page-sizeratio #sr-pdf-generate:hover {
   background: linear-gradient(90deg, #059669, #047857) !important;
   border-color: #047857 !important;
 }
 #page-marker .marker-actions .marker-btn.primary svg,
-#page-marker .marker-actions #mk-pdf svg,
+#page-marker #mk-pdf svg,
 #page-pricing .pricing-knit-actions .marker-btn.primary svg,
-#page-pricing .pricing-knit-actions .pricing-download-btn svg,
-#page-knit .calc-btn svg,
-#page-knit .pdf-btn svg,
-#page-knitpant .pant-actions .calc-btn svg,
-#page-knitpant .pant-download-full-report svg,
-#page-woven .calc-btn svg,
-#page-woven .woven-pdf-btn svg,
-#page-booking .booking-actions .calc-btn svg,
-#page-booking .booking-actions .booking-excel-btn svg,
-#page-zipper .zipper-action-row .trims-primary-btn svg,
-#page-zipper .zipper-action-row .zipper-pdf-btn svg,
-#page-trims .trims-card-actions .trims-primary-btn svg,
-#page-trims .trims-card-actions .trims-secondary-btn svg,
-#page-sizeratio .sr-calculate-btn svg,
-#page-sizeratio .sr-pdf-btn svg,
+#page-pricing .pricing-download-btn svg,
+#page-knit #btn-calc-knit svg,
+#page-knit #btn-pdf-knit svg,
+#page-knitpant #btn-calc-knitpant svg,
+#page-knitpant #btn-pdf-knitpant svg,
+#page-woven #btn-calc-woven svg,
+#page-woven #btn-pdf-woven svg,
+#page-booking #bk-calculate svg,
+#page-booking #bk-download-pdf svg,
+#page-booking #bk-download-excel svg,
+#page-zipper #btn-calc-zipper svg,
+#page-zipper #btn-pdf-zipper svg,
+#page-trims #btn-calc-thread svg,
+#page-trims #btn-calc-button svg,
+#page-trims #btn-calc-interlining svg,
+#page-sizeratio #btn-calc-sizeratio svg,
+#page-sizeratio #btn-pdf-sizeratio svg,
 #page-sizeratio #sr-pdf-generate svg {
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: 16px !important;
+  height: 16px !important;
+  flex: 0 0 16px !important;
 }
