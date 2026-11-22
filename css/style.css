@@ -8759,3 +8759,27 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
   border-color: #1d4ed8 !important;
   background: linear-gradient(105deg, #0369a1, #1d4ed8) !important;
 }
+
+
+/* Make the two Thread action buttons exactly equal in width and height. */
+#page-trims #tr-thread-card #btn-calc-thread,
+#page-trims #tr-thread-card #btn-pdf-thread {
+  box-sizing: border-box !important;
+  width: 190px !important;
+  min-width: 190px !important;
+  max-width: 190px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  flex: 0 0 190px !important;
+  padding: 0 12px !important;
+}
+@media (max-width: 560px) {
+  #page-trims #tr-thread-card #btn-calc-thread,
+  #page-trims #tr-thread-card #btn-pdf-thread {
+    width: 165px !important;
+    min-width: 165px !important;
+    max-width: 165px !important;
+    flex-basis: 165px !important;
+  }
+}
