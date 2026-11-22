@@ -8614,3 +8614,39 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
   background: linear-gradient(90deg, #059669, #047857) !important;
   border-color: #047857 !important;
 }
+
+
+/* Normalize download button sizing and alignment across all tools */
+.pdf-btn,
+.sr-pdf-btn,
+.zipper-pdf-btn,
+#page-trims .trims-card-actions .trims-secondary-btn,
+.pricing-download-btn,
+.woven-pdf-btn,
+.pant-download-full-report {
+  box-sizing: border-box;
+  min-height: 42px;
+  padding: 10px 16px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.2;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.pdf-btn svg,
+.sr-pdf-btn svg,
+.zipper-pdf-btn svg,
+#page-trims .trims-card-actions .trims-secondary-btn svg,
+.pricing-download-btn svg,
+.woven-pdf-btn svg,
+.pant-download-full-report svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
