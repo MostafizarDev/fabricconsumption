@@ -8783,3 +8783,38 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
     flex-basis: 165px !important;
   }
 }
+
+
+/* One consistent blue gradient for every Calculate action across the website.
+   Export / Download buttons keep their existing green styling. */
+#page-marker #mk-calc,
+#page-pricing #btn-calc-knitprice,
+#page-pricing #btn-calc-fob,
+#page-knit #btn-calc-knit,
+#page-knitpant #btn-calc-knitpant,
+#page-woven #btn-calc-woven,
+#page-booking #bk-calculate,
+#page-zipper #btn-calc-zipper,
+#page-trims #btn-calc-thread,
+#page-trims #btn-calc-button,
+#page-trims #btn-calc-interlining,
+#page-sizeratio #btn-calc-sizeratio {
+  background: linear-gradient(105deg, #078fc7 0%, #2563eb 100%) !important;
+  border: 1px solid #087fcf !important;
+  color: #ffffff !important;
+}
+#page-marker #mk-calc:hover,
+#page-pricing #btn-calc-knitprice:hover,
+#page-pricing #btn-calc-fob:hover,
+#page-knit #btn-calc-knit:hover,
+#page-knitpant #btn-calc-knitpant:hover,
+#page-woven #btn-calc-woven:hover,
+#page-booking #bk-calculate:hover,
+#page-zipper #btn-calc-zipper:hover,
+#page-trims #btn-calc-thread:hover,
+#page-trims #btn-calc-button:hover,
+#page-trims #btn-calc-interlining:hover,
+#page-sizeratio #btn-calc-sizeratio:hover {
+  background: linear-gradient(105deg, #067eae 0%, #1d4ed8 100%) !important;
+  border-color: #1d4ed8 !important;
+}
