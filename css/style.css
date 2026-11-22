@@ -8572,3 +8572,20 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
 #page-faq .faq-support-note{margin-top:18px}
 @media(max-width:900px){#page-faq .faq-step-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#page-faq .faq-jump-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){#page-faq .faq-start-panel{padding:16px}#page-faq .faq-step-grid,#page-faq .faq-jump-grid{grid-template-columns:1fr}#page-faq .faq-tool>summary{padding:13px}#page-faq .faq-tool-body{padding:2px 13px 15px}#page-faq .faq-formula{padding:10px}#page-faq .faq-formula code{font-size:11px}}
+
+
+/* Restore original dark Formula Reference cards; scoped to formula cards only. */
+.formula-card {
+  background: #020617 !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #1e3a5f;
+}
+
+.formula-card .formula-code {
+  background: #020617 !important;
+  color: #e2e8f0 !important;
+}
+
+.formula-card .formula-wastage {
+  color: #f8fafc !important;
+}
