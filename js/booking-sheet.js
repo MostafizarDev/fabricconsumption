@@ -41,15 +41,12 @@
     const finalDozen = netDozen*(1+cut/100);
     return {parts:text(row,'parts'),fabric:text(row,'fabric'),ml,cla,mw,cwa,gsm,netMarker,pcs,netDozen,cut,finalDozen,dia:num(row,'dia'),diaType:text(row,'diaType')};
   };
-  function calculate() {
+  function calculate(syncMarkerPcs=false) {
     const sizing=sizeBreakdown();
-    // The total size ratio is the marker's PCS count; keep every fabric row in sync.
-    rows().forEach(row=>{
+    // Size ratio can populate PCS / Marker, while users may freely override each row.
+    if(syncMarkerPcs) rows().forEach(row=>{
       const pcsInput=row.querySelector('[data-field="pcs"]');
-      if(pcsInput){
-        const next=String(sizing.totalRatio);
-        if(pcsInput.value!==next) pcsInput.value=next;
-      }
+      if(pcsInput) pcsInput.value=String(sizing.totalRatio);
     });
     const data=rows().map(row=>({row,calc:readRow(row)}));
     let grand=0;
@@ -130,7 +127,7 @@
     });
     headerRow.querySelectorAll('.bk-size-item').forEach((el,i)=>el.dataset.sizeIndex=i);
     ratioRow.querySelectorAll('td[data-ratio]').forEach((el,i)=>el.dataset.ratioIndex=i);
-    calculate();
+    calculate(true);
   }
   function orderInfo() {
     return [
@@ -342,7 +339,7 @@
     while(rows().length>(data.fabrics||[]).length&&rows().length>1)rows().at(-1).remove();
     (data.fabrics||[]).forEach((item,i)=>Object.entries(item).forEach(([key,value])=>{const el=rows()[i]?.querySelector('[data-field="'+key+'"]');if(el)el.value=value;}));
     $('bk-size-headers').querySelectorAll('.bk-size-item').forEach((el,i)=>{const b=el.querySelector('.bk-size-remove');if(b)b.disabled=sizeRows().length===1;});
-    calculate();
+    calculate(true);
   }
   function saveRecent(){
     try{
@@ -379,7 +376,7 @@
     while(rows().length<2)addRow();
     while(rows().length>2)rows().at(-1).remove();
     fabricDemo.forEach((item,i)=>Object.entries(item).forEach(([key,value])=>{const el=rows()[i].querySelector('[data-field="'+key+'"]');if(el)el.value=value;}));
-    calculate();$('bk-demo').setAttribute('aria-pressed','true');
+    calculate(true);$('bk-demo').setAttribute('aria-pressed','true');
   }
   function resetBooking(){
     // Restore the exact initial Booking Sheet state, just like a browser refresh.
@@ -404,9 +401,9 @@
       if(ratioCell)ratioCell.remove();
       // Re-index only size cells; TOTAL PCS remains the final, permanent column.
       keepTotalLast();
-      calculate();
+      calculate(true);
     });
-    $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',calculate);
+    $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',()=>calculate(true));
     $('bk-calculate').addEventListener('click',()=>{calculate();saveRecent();});
     $('bk-demo').addEventListener('click',demoValues);
     $('bk-reset').addEventListener('click',resetBooking);
@@ -416,6 +413,6 @@
       const item=e.target.closest('[data-recent-index]');if(item){const list=JSON.parse(localStorage.getItem(recentKey)||'[]');if(list[Number(item.dataset.recentIndex)])applySnapshot(list[Number(item.dataset.recentIndex)].data);$('bk-recent-panel').hidden=true;$('bk-recent-open').setAttribute('aria-expanded','false');}
     });
     $('bk-download-pdf').addEventListener('click',downloadPDF);$('bk-download-excel').addEventListener('click',downloadExcel);
-    calculate();
+    calculate(true);
   });
 })();
