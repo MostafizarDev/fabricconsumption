@@ -9141,3 +9141,23 @@ body.dark-mode #page-contact .contact-person-links a:hover{
 .footer-social-btn.linkedin:hover{background:#0a66c2;border-color:#0a66c2}
 .footer-social-btn.copy-link:hover{background:#31506f;border-color:#7dd3fc}
 .footer-copy-status{min-width:72px;color:#7dd3fc;font-size:10px}
+
+
+/* Contact page community links */
+.contact-community{margin-top:19px;padding:15px 14px;border:1px solid #dce9f4;border-radius:11px;background:#f7fbff}
+.contact-community h3{margin:0 0 5px;color:#17365d;font-size:13px;font-weight:800}
+.contact-community>p{margin:0 0 12px;color:#647b91;font-size:11px;line-height:1.55}
+.contact-community-actions{display:grid;gap:8px}
+.contact-community-btn{display:flex;align-items:center;gap:9px;min-height:39px;padding:9px 11px;border:1px solid transparent;border-radius:8px;text-decoration:none;font-size:11px;font-weight:750;transition:transform .18s,filter .18s}
+.contact-community-btn:hover{transform:translateY(-1px);filter:brightness(.97)}
+.contact-community-btn>span:nth-child(2){flex:1}
+.contact-community-btn.whatsapp{background:#eaf8ef;border-color:#c8ecd4;color:#168344}
+.contact-community-btn.fab{background:#edf4ff;border-color:#d4e3fb;color:#2861a9}
+.contact-community-icon{width:21px;height:21px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.75);font-size:14px;font-weight:900}
+.contact-community>small{display:block;margin-top:9px;color:#8797a8;font-size:9px;line-height:1.45}
+body.dark-mode .contact-community{background:#10243a;border-color:#2b4057}
+body.dark-mode .contact-community h3{color:#e0efff}
+body.dark-mode .contact-community>p{color:#b2c2d4}
+body.dark-mode .contact-community>small{color:#91a6bb}
+body.dark-mode .contact-community-btn.whatsapp{background:#123426;border-color:#20583d;color:#86efac}
+body.dark-mode .contact-community-btn.fab{background:#172f4d;border-color:#294d78;color:#bfdbfe}
