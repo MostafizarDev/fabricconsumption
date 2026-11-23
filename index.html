@@ -1596,7 +1596,7 @@
       <label for="contact-message">Your Message<textarea id="contact-message" name="message" rows="6" placeholder="Describe your suggestion, issue or question..." required></textarea></label>
       <p class="contact-privacy-hint">Please do not include passwords, payment details or confidential buyer/order information.</p>
       <button class="contact-submit-btn" type="submit">Send Feedback <span aria-hidden="true">→</span></button>
-      <div class="contact-share-options"><span>Or share your message:</span><button type="button" onclick="shareFeedbackMessage('whatsapp')">Send via WhatsApp</button><button type="button" onclick="shareFeedbackMessage('telegram')">Send via Telegram</button></div>
+      <div class="contact-share-options"><span>Or share your message:</span><button type="button" onclick="shareFeedbackMessage('whatsapp', this)">Send via WhatsApp</button><button type="button" onclick="shareFeedbackMessage('telegram', this)">Send via Telegram</button></div>
     </form>
   </section>
 
@@ -1886,14 +1886,16 @@ function copyFooterShareLink(button){
 }
 </script>
 <script>
-function shareFeedbackMessage(platform){
-  const form=document.querySelector(".contact-form");
+function shareFeedbackMessage(platform, button){
+  const form=button && button.closest("form");
+  if(!form) return;
   if(!form.reportValidity()) return;
   const data=new FormData(form);
   const message=["Fabric Consumption — Feedback","","Name: "+(data.get("name")||""),"Email: "+(data.get("email")||""),"Feedback Type: "+(data.get("feedback_type")||""),"","Message:",data.get("message")||""].join("\n");
   const encoded=encodeURIComponent(message);
   const url=platform==="telegram"?"https://t.me/share/url?url="+encodeURIComponent("https://fabricconsumption.vercel.app/")+"&text="+encoded:"https://wa.me/?text="+encoded;
-  window.open(url,"_blank","noopener,noreferrer");
+  const popup=window.open(url,"_blank");
+  if(popup) popup.opener=null;
 }
 </script>
 <script src="/js/utils.js?v=20261119-info-pages-v1"></script>
