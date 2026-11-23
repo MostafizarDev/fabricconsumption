@@ -9166,3 +9166,9 @@ body.dark-mode .contact-community-icon-btn.whatsapp{color:#86efac}
 body.dark-mode .contact-community-icon-btn.fab{color:#bfdbfe}
 body.dark-mode .contact-community-icon-btn.whatsapp:hover{background:#123426;border-color:#25d366}
 body.dark-mode .contact-community-icon-btn.fab:hover{background:#172f4d;border-color:#1877f2}
+
+
+.contact-share-options{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:14px}
+.contact-share-options>span{width:100%;font-size:12px;color:var(--text-muted,#94a3b8)}
+.contact-share-options button{border:1px solid var(--border-color,#334155);border-radius:8px;padding:9px 13px;background:transparent;color:var(--text-color,inherit);font:inherit;font-size:13px;cursor:pointer}
+.contact-share-options button:hover{border-color:#22c55e;background:rgba(34,197,94,.08)}
