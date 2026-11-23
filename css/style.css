@@ -8917,3 +8917,142 @@ body.dark-mode #page-knitpant .pant-btn-quiet,
 body.dark-mode #page-woven .pant-btn-quiet{background:#172338!important;color:#cbd5e1!important;border-color:#334155!important}
 body.dark-mode #page-knitpant .pant-row-remove,
 body.dark-mode #page-woven .pant-row-remove{background:#2b1720!important;color:#fca5a5!important;border-color:#7f1d1d!important}
+
+/* DARK THEME FINISH — Size Ratio + Trims */
+body.dark-mode #page-sizeratio .sr-section,
+body.dark-mode #page-sizeratio .sr-results-section{
+  background:#111827!important;border-color:#26364c!important;box-shadow:none!important;
+}
+body.dark-mode #page-sizeratio .sr-section-heading h2{color:#f1f5f9!important}
+body.dark-mode #page-sizeratio .sr-section-heading p,
+body.dark-mode #page-sizeratio .sr-kicker,
+body.dark-mode #page-sizeratio .sr-size-tools label,
+body.dark-mode #page-sizeratio .sr-subtoolbar,
+body.dark-mode #page-sizeratio .sr-help,
+body.dark-mode #page-sizeratio .sr-note,
+body.dark-mode #page-sizeratio .sr-table-note{color:#94a3b8!important}
+body.dark-mode #page-sizeratio .sr-mode-btn{
+  border-color:#334155!important;background:#0b1220!important;color:#cbd5e1!important;
+}
+body.dark-mode #page-sizeratio .sr-mode-btn.active{
+  border-color:#0ea5e9!important;background:#102b40!important;color:#e0f2fe!important;
+  box-shadow:inset 0 0 0 1px rgba(14,165,233,.12)!important;
+}
+body.dark-mode #page-sizeratio input,
+body.dark-mode #page-sizeratio select,
+body.dark-mode #page-sizeratio textarea{
+  color:#e2e8f0!important;background:#0b1220!important;border-color:#334155!important;
+  color-scheme:dark;
+}
+body.dark-mode #page-sizeratio input::placeholder,
+body.dark-mode #page-sizeratio textarea::placeholder{color:#64748b!important}
+body.dark-mode #page-sizeratio input:focus,
+body.dark-mode #page-sizeratio select:focus,
+body.dark-mode #page-sizeratio textarea:focus{
+  border-color:#0ea5e9!important;box-shadow:0 0 0 2px rgba(14,165,233,.15)!important;outline:none;
+}
+body.dark-mode #page-sizeratio .sr-table{
+  border-color:#334155!important;background:#0b1220!important;
+}
+body.dark-mode #page-sizeratio .sr-table thead th{
+  color:#cbd5e1!important;background:#1e293b!important;border-color:#334155!important;
+}
+body.dark-mode #page-sizeratio .sr-table tbody td{
+  color:#cbd5e1!important;background:#111c2e!important;border-color:#26364c!important;
+}
+body.dark-mode #page-sizeratio .sr-table tbody tr:hover td{background:#17263b!important}
+body.dark-mode #page-sizeratio .sr-table tbody input{
+  background:#0b1220!important;border-color:#475569!important;color:#f1f5f9!important;
+}
+body.dark-mode #page-sizeratio .sr-table tfoot th{
+  color:#e2e8f0!important;background:#172554!important;border-color:#334155!important;
+}
+body.dark-mode #page-sizeratio .sr-icon-btn,
+body.dark-mode #page-sizeratio .sr-small-btn{
+  color:#cbd5e1!important;background:#172338!important;border-color:#475569!important;
+}
+body.dark-mode #page-sizeratio .sr-icon-btn:hover,
+body.dark-mode #page-sizeratio .sr-small-btn:hover{
+  color:#e0f2fe!important;background:#12334a!important;border-color:#0ea5e9!important;
+}
+body.dark-mode #page-sizeratio .sr-color-card,
+body.dark-mode #page-sizeratio .sr-summary-strip>div,
+body.dark-mode #page-sizeratio .sr-result-cards article,
+body.dark-mode #page-sizeratio .sr-formula-grid>div{
+  background:#0b1220!important;border-color:#334155!important;color:#e2e8f0!important;
+}
+body.dark-mode #page-sizeratio .sr-color-ratios{background:#102238!important;border-color:#164e63!important}
+body.dark-mode #page-sizeratio .sr-result-cards .sr-result-primary{
+  background:#172554!important;border-color:#1e40af!important;
+}
+body.dark-mode #page-sizeratio .sr-result-cards .sr-result-primary strong,
+body.dark-mode #page-sizeratio .sr-formula-grid code{color:#93c5fd!important}
+body.dark-mode #page-sizeratio .sr-validation{
+  color:#a7f3d0!important;background:#052e2b!important;border-color:#065f46!important;
+}
+body.dark-mode #page-sizeratio .sr-hero{
+  border-color:rgba(34,211,238,.24)!important;
+  background:linear-gradient(115deg,#101b32 0%,#142b4a 58%,#0e4053 100%)!important;
+}
+
+/* Trims: remove bright table headers and improve low-contrast disclosure text */
+body.dark-mode #page-trims .trims-section,
+body.dark-mode #page-trims .trims-results-section,
+body.dark-mode #page-trims .trims-card{
+  background:#111827!important;border-color:#26364c!important;box-shadow:none!important;
+}
+body.dark-mode #page-trims .trims-order-grid label,
+body.dark-mode #page-trims .trims-input-grid label{color:#cbd5e1!important}
+body.dark-mode #page-trims .trims-order-grid input,
+body.dark-mode #page-trims .trims-input-grid input,
+body.dark-mode #page-trims select,
+body.dark-mode #page-trims textarea{
+  color:#e2e8f0!important;background:#0b1220!important;border-color:#334155!important;
+  color-scheme:dark;
+}
+body.dark-mode #page-trims input::placeholder,
+body.dark-mode #page-trims textarea::placeholder{color:#64748b!important}
+body.dark-mode #page-trims .trims-table,
+body.dark-mode #page-trims table{
+  color:#cbd5e1!important;background:#0b1220!important;border-color:#334155!important;
+}
+body.dark-mode #page-trims .trims-table th,
+body.dark-mode #page-trims table thead th{
+  color:#cbd5e1!important;background:#1e293b!important;border-color:#334155!important;
+}
+body.dark-mode #page-trims .trims-table td,
+body.dark-mode #page-trims table tbody td{
+  color:#cbd5e1!important;background:#111c2e!important;border-color:#26364c!important;
+}
+body.dark-mode #page-trims .trims-table input,
+body.dark-mode #page-trims table input,
+body.dark-mode #page-trims table select{
+  color:#e2e8f0!important;background:#0b1220!important;border-color:#334155!important;
+}
+body.dark-mode #page-trims details,
+body.dark-mode #page-trims details>summary{
+  color:#cbd5e1!important;border-color:#334155!important;
+}
+body.dark-mode #page-trims details>summary:hover{color:#67e8f9!important}
+body.dark-mode #page-trims details p,
+body.dark-mode #page-trims details small,
+body.dark-mode #page-trims .trims-help,
+body.dark-mode #page-trims .trims-note{color:#94a3b8!important}
+body.dark-mode #page-trims .trims-result-grid>div,
+body.dark-mode #page-trims .trims-summary-grid article,
+body.dark-mode #page-trims .trims-formula-grid article{
+  background:#0b1220!important;border-color:#334155!important;
+}
+body.dark-mode #page-trims .trims-result-grid span,
+body.dark-mode #page-trims .trims-summary-grid span,
+body.dark-mode #page-trims .trims-summary-grid small,
+body.dark-mode #page-trims .trims-formula-grid small{color:#94a3b8!important}
+body.dark-mode #page-trims .trims-result-grid strong,
+body.dark-mode #page-trims .trims-summary-grid strong{color:#38bdf8!important}
+body.dark-mode #page-trims .trims-guidance{
+  color:#bae6fd!important;background:#102b43!important;border-color:#164e63!important;
+}
+body.dark-mode #page-trims .trims-hero{
+  border-color:rgba(34,211,238,.24)!important;
+  background:linear-gradient(115deg,#101b32 0%,#142b4a 58%,#0e4053 100%)!important;
+}
