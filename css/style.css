@@ -9056,3 +9056,65 @@ body.dark-mode #page-trims .trims-hero{
   border-color:rgba(34,211,238,.24)!important;
   background:linear-gradient(115deg,#101b32 0%,#142b4a 58%,#0e4053 100%)!important;
 }
+
+
+/* Contact team social links: compact icon-only single row */
+#page-contact .contact-person-links{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:9px;
+  padding-top:13px;
+}
+#page-contact .contact-person-links a{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  padding:0;
+  border:1px solid #d8e5ef;
+  border-radius:9px;
+  background:#f0f7fb;
+  color:#087eaa;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:700;
+  line-height:1;
+  overflow:visible;
+}
+#page-contact .contact-person-links a>span:first-child{
+  display:grid;
+  place-items:center;
+  width:auto;
+  height:auto;
+  flex:none;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:inherit;
+  font-size:inherit;
+}
+#page-contact .contact-person-links a:hover{
+  color:#0284c7;
+  border-color:#38bdf8;
+  background:#e0f2fe;
+  transform:translateY(-1px);
+}
+body.dark-mode #page-contact .contact-person-links a{
+  color:#7dd3fc;
+  background:#102b40;
+  border-color:#29465f;
+}
+body.dark-mode #page-contact .contact-person-links a:hover{
+  color:#e0f2fe;
+  background:#164e63;
+  border-color:#0ea5e9;
+}
+@media(max-width:520px){
+  #page-contact .contact-person-links{gap:7px;flex-wrap:wrap}
+  #page-contact .contact-person-links a{width:32px;height:32px;flex-basis:32px}
+}
