@@ -97,7 +97,7 @@
 
   <section class="contact-form-card" aria-labelledby="contact-form-title">
     <div class="contact-form-intro"><span class="contact-kicker">SEND A MESSAGE</span><h2 id="contact-form-title">Send us your feedback</h2><p>All types of feedback are equally important to us. Please share enough detail so we can understand your message.</p><div class="contact-form-note">Your feedback will be reviewed. Suggestions and custom requests will be considered for future improvements.</div></div>
-    <form class="contact-form" action="https://formsubmit.co/shamimalmamun211@gmail.com" method="POST">
+    <form class="contact-form" action="https://formsubmit.co/shamimalmamun211@gmail.com" method="POST" target="_blank">
       <input type="hidden" name="_subject" value="New Fabric Consumption Feedback">
       <input type="hidden" name="_cc" value="aiautomotionagent@gmail.com">
       <input type="hidden" name="_template" value="table">
@@ -110,7 +110,6 @@
       <label for="contact-message">Your Message<textarea id="contact-message" name="message" rows="6" placeholder="Describe your suggestion, issue or question..." required></textarea></label>
       <p class="contact-privacy-hint">Please do not include passwords, payment details or confidential buyer/order information.</p>
       <button class="contact-submit-btn" type="submit">Send Feedback <span aria-hidden="true">→</span></button>
-      <div class="contact-share-options"><span>Or share your message:</span><button type="button" onclick="shareContactFeedback('whatsapp')">Send via WhatsApp</button></div>
     </form>
   </section>
 
@@ -167,17 +166,6 @@
     applyTheme(!document.body.classList.contains('dark-mode'));
   });
 })();
-</script>
-<script>
-function shareContactFeedback(platform){
-  const form=document.querySelector(".contact-form");
-  if(!form.reportValidity()) return;
-  const data=new FormData(form);
-  const message=["Fabric Consumption — Feedback","","Name: "+(data.get("name")||""),"Email: "+(data.get("email")||""),"Feedback Type: "+(data.get("feedback_type")||""),"","Message:",data.get("message")||""].join("\n");
-  const encoded=encodeURIComponent(message);
-  const url=platform==="telegram"?"https://t.me/share/url?url="+encodeURIComponent("https://fabricconsumption.vercel.app/")+"&text="+encoded:( /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ? "https://wa.me/?text="+encoded : "https://web.whatsapp.com/send?text="+encoded);
-  const shareWindow=window.open(url,"_blank","noopener,noreferrer");
-}
 </script>
 </body>
 </html>
