@@ -175,7 +175,7 @@ function shareContactFeedback(platform){
   const message=["Fabric Consumption — Feedback","","Name: "+(data.get("name")||""),"Email: "+(data.get("email")||""),"Feedback Type: "+(data.get("feedback_type")||""),"","Message:",data.get("message")||""].join("\n");
   const encoded=encodeURIComponent(message);
   const url=platform==="telegram"?"https://t.me/share/url?url="+encodeURIComponent("https://fabricconsumption.vercel.app/")+"&text="+encoded:"https://wa.me/?text="+encoded;
-  window.open(url,"_blank","noopener,noreferrer");
+  window.location.href=url;
 }
 </script>
 </body>
