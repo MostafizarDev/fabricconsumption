@@ -1568,11 +1568,18 @@
   </section>
 
   <section class="contact-form-card" aria-labelledby="contact-form-title">
-    <div class="contact-form-intro"><span class="contact-kicker">SEND A MESSAGE</span><h2 id="contact-form-title">Send us your feedback</h2><p>All types of feedback are equally important to us. Please share enough detail so we can understand your message.</p><div class="contact-form-note">Your feedback will be reviewed. Suggestions and custom requests will be considered for future improvements.</div></div>
-    <form class="contact-form" action="https://formsubmit.co/demo@example.com" method="POST">
-      <input type="hidden" name="_subject" value="New Fabric Consumption Feedback">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
+    <div class="contact-form-intro"><span class="contact-kicker">SEND A MESSAGE</span><h2 id="contact-form-title">Send us your feedback</h2><p>All types of feedback are equally important to us. Please share enough detail so we can understand your message.</p><div class="contact-form-note">Your feedback will be reviewed. Suggestions and custom requests will be considered for future improvements.</div>
+      <div class="contact-community">
+        <h3>Join Our Community</h3>
+        <p>Connect with other members, ask questions and share ideas.</p>
+        <div class="contact-community-actions">
+          <a class="contact-community-btn whatsapp" href="https://chat.whatsapp.com/DOro6j9LcRmG8zZ0zbGuWw" target="_blank" rel="noopener noreferrer"><span class="contact-community-icon" aria-hidden="true">◉</span><span>Join WhatsApp Group</span><span aria-hidden="true">↗</span></a>
+          <a class="contact-community-btn fab" href="https://www.facebook.com/groups/" target="_blank" rel="noopener noreferrer"><span class="contact-community-icon" aria-hidden="true">f</span><span>Join FAB Group</span><span aria-hidden="true">↗</span></a>
+        </div>
+        <small>FAB Group link is a temporary demo and will be updated later.</small>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="return shareFeedbackToWhatsApp(event)">
       <div class="contact-form-row">
         <label for="contact-name">Your Name<input id="contact-name" name="name" type="text" placeholder="Enter your name" autocomplete="name" required></label>
         <label for="contact-email">Email Address<input id="contact-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></label>
@@ -1856,6 +1863,31 @@ function copyFooterShareLink(button){
     try{if(document.execCommand("copy"))showCopied();else status.textContent="Unable to copy link";}catch(error){status.textContent="Unable to copy link";}
     field.remove();
   }
+}
+</script>
+<script>
+function shareFeedbackToWhatsApp(event){
+  event.preventDefault();
+  const form=event.currentTarget;
+  if(!form.reportValidity()) return false;
+  const data=new FormData(form);
+  const message=[
+    "Fabric Consumption — Feedback",
+    "",
+    "Name: "+(data.get("name")||"Not provided"),
+    "Email: "+(data.get("email")||"Not provided"),
+    "Feedback Type: "+(data.get("feedback_type")||"Not selected"),
+    "",
+    "Message:",
+    data.get("message")||""
+  ].join("\n");
+  const shareUrl="https://wa.me/?text="+encodeURIComponent(message);
+  window.open(shareUrl,"_blank","noopener,noreferrer");
+  const button=form.querySelector(".contact-submit-btn");
+  const original=button.innerHTML;
+  button.innerHTML="Continue in WhatsApp <span aria-hidden=\"true\">↗</span>";
+  window.setTimeout(()=>{button.innerHTML=original;},2500);
+  return false;
 }
 </script>
 <script src="/js/utils.js?v=20261119-info-pages-v1"></script>
