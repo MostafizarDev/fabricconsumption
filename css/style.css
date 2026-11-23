@@ -8820,3 +8820,100 @@ body.dark-mode .contact-form-note{background:#102b42;color:#b7d6e9}
 }
 
 /* Deployment check: harmless comment-only update. */
+
+/* DARK THEME POLISH — Knit Pant & Woven Shirt, matched to Knit Garments */
+body.dark-mode #page-knitpant .pant-toolbar,
+body.dark-mode #page-knitpant .pant-section,
+body.dark-mode #page-knitpant .pant-summary-card,
+body.dark-mode #page-woven .pant-toolbar,
+body.dark-mode #page-woven .pant-section,
+body.dark-mode #page-woven .pant-summary-card,
+body.dark-mode #page-woven .kg-group-totals{background:#111827!important;color:#e2e8f0!important;border-color:#26364c!important;box-shadow:none!important}
+body.dark-mode #page-knitpant .pant-section-heading h2,
+body.dark-mode #page-knitpant .pant-summary-card h2,
+body.dark-mode #page-woven .pant-section-heading h2,
+body.dark-mode #page-woven .pant-summary-card h2,
+body.dark-mode #page-woven .kg-group-totals-title h3{color:#e2e8f0!important}
+body.dark-mode #page-knitpant .pant-section-heading p,
+body.dark-mode #page-knitpant .pant-field label,
+body.dark-mode #page-knitpant .pant-unit-control label,
+body.dark-mode #page-knitpant .pant-summary-caption,
+body.dark-mode #page-knitpant .pant-primary-result span,
+body.dark-mode #page-knitpant .pant-summary-metrics span,
+body.dark-mode #page-knitpant .pant-summary-breakdown span,
+body.dark-mode #page-woven .pant-section-heading p,
+body.dark-mode #page-woven .pant-field label,
+body.dark-mode #page-woven .pant-unit-control label,
+body.dark-mode #page-woven .pant-summary-caption,
+body.dark-mode #page-woven .pant-primary-result span,
+body.dark-mode #page-woven .pant-summary-breakdown span,
+body.dark-mode #page-woven .kg-group-totals-title p{color:#94a3b8!important}
+body.dark-mode #page-knitpant .pant-field input,
+body.dark-mode #page-knitpant .pant-field select,
+body.dark-mode #page-knitpant .pant-unit-control select,
+body.dark-mode #page-knitpant .pant-component-table input,
+body.dark-mode #page-knitpant .pant-component-picker select,
+body.dark-mode #page-woven .pant-field input,
+body.dark-mode #page-woven .pant-field select,
+body.dark-mode #page-woven .pant-unit-control select,
+body.dark-mode #page-woven .pant-component-table input,
+body.dark-mode #page-woven .pant-component-picker select,
+body.dark-mode #page-woven .woven-base-input{background:#0b1220!important;color:#e2e8f0!important;border-color:#334155!important;color-scheme:dark}
+body.dark-mode #page-woven .woven-allow-input,
+body.dark-mode #page-woven .pant-field input.woven-allow-input{background:#2a2412!important;color:#f8fafc!important;border-color:#a16207!important}
+body.dark-mode #page-knitpant .pant-field input::placeholder,
+body.dark-mode #page-woven .pant-field input::placeholder{color:#64748b!important}
+body.dark-mode #page-knitpant .pant-measure-total,
+body.dark-mode #page-woven .woven-measure-pair strong{background:#172554!important;color:#93c5fd!important}
+body.dark-mode #page-knitpant .pant-component-table th,
+body.dark-mode #page-woven .pant-component-table th{background:#172338!important;color:#cbd5e1!important}
+body.dark-mode #page-knitpant .pant-component-table td,
+body.dark-mode #page-knitpant .pant-table-wrap,
+body.dark-mode #page-woven .pant-component-table td,
+body.dark-mode #page-woven .pant-table-wrap{border-color:#334155!important}
+body.dark-mode #page-knitpant .pant-method-card,
+body.dark-mode #page-knitpant .pant-reference-grid article,
+body.dark-mode #page-woven .pant-method-card,
+body.dark-mode #page-woven .pant-reference-grid article,
+body.dark-mode #page-woven .ws-added-component{background:#0b1220!important;border-color:#334155!important;color:#e2e8f0!important}
+body.dark-mode #page-knitpant .pant-method-card.is-selected,
+body.dark-mode #page-knitpant .pant-component-checks label:has(input:checked),
+body.dark-mode #page-woven .pant-method-card.is-selected,
+body.dark-mode #page-woven .pant-component-checks label:has(input:checked){background:#102b40!important;border-color:#0284c7!important}
+body.dark-mode #page-knitpant .pant-method-title,
+body.dark-mode #page-knitpant .pant-reference-grid h3,
+body.dark-mode #page-woven .pant-method-title,
+body.dark-mode #page-woven .pant-reference-grid h3,
+body.dark-mode #page-woven .ws-added-component h3{color:#e2e8f0!important}
+body.dark-mode #page-knitpant .pant-method-desc,
+body.dark-mode #page-knitpant .pant-reference-grid p,
+body.dark-mode #page-knitpant .pant-table-note,
+body.dark-mode #page-woven .pant-method-desc,
+body.dark-mode #page-woven .pant-reference-grid p,
+body.dark-mode #page-woven .pant-table-note,
+body.dark-mode #page-woven .ws-added-component .pant-component-measure>span{color:#94a3b8!important}
+body.dark-mode #page-knitpant .pant-formula-box,
+body.dark-mode #page-woven .pant-formula-box{background:#111c2e!important;border-color:#334155!important}
+body.dark-mode #page-knitpant .pant-formula-box strong,
+body.dark-mode #page-woven .pant-formula-box strong{background:#172338!important;color:#e2e8f0!important;border-color:#334155!important}
+body.dark-mode #page-knitpant .pant-formula-box code,
+body.dark-mode #page-woven .pant-formula-box code{background:#0b1220!important;color:#cbd5e1!important;border-color:#334155!important}
+body.dark-mode #page-knitpant .pant-primary-result strong,
+body.dark-mode #page-knitpant .pant-summary-metrics strong,
+body.dark-mode #page-knitpant .pant-summary-breakdown strong,
+body.dark-mode #page-woven .pant-primary-result strong,
+body.dark-mode #page-woven .pant-summary-breakdown strong{color:#38bdf8!important}
+body.dark-mode #page-knitpant .pant-primary-result,
+body.dark-mode #page-knitpant .pant-summary-metrics,
+body.dark-mode #page-knitpant .pant-breakdown-row,
+body.dark-mode #page-woven .pant-primary-result,
+body.dark-mode #page-woven .pant-summary-metrics,
+body.dark-mode #page-woven .pant-breakdown-row,
+body.dark-mode #page-woven .pant-kg-total-row,
+body.dark-mode #page-woven .kg-group-total-row{border-color:#26364c!important}
+body.dark-mode #page-knitpant .pant-summary-warning,
+body.dark-mode #page-woven .pant-summary-warning{background:#2a2412!important;color:#fbbf24!important;border:1px solid #854d0e!important}
+body.dark-mode #page-knitpant .pant-btn-quiet,
+body.dark-mode #page-woven .pant-btn-quiet{background:#172338!important;color:#cbd5e1!important;border-color:#334155!important}
+body.dark-mode #page-knitpant .pant-row-remove,
+body.dark-mode #page-woven .pant-row-remove{background:#2b1720!important;color:#fca5a5!important;border-color:#7f1d1d!important}
