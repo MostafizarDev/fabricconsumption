@@ -9166,16 +9166,3 @@ body.dark-mode .contact-community-icon-btn.whatsapp{color:#86efac}
 body.dark-mode .contact-community-icon-btn.fab{color:#bfdbfe}
 body.dark-mode .contact-community-icon-btn.whatsapp:hover{background:#123426;border-color:#25d366}
 body.dark-mode .contact-community-icon-btn.fab:hover{background:#172f4d;border-color:#1877f2}
-
-
-/* Community links positioned inside the Information footer column */
-.footer-column .site-community{margin:22px 0 0;padding:0;border:0;border-radius:0;background:transparent;text-align:left}
-.footer-column .site-community h3{margin:0 0 9px;color:#fff;font-size:11px;font-weight:800;text-align:left;letter-spacing:.35px}
-.footer-column .site-community>p{display:none}
-.footer-column .site-community .contact-community-actions{justify-content:flex-start;gap:8px}
-.footer-column .site-community .contact-community-icon-btn{width:auto;min-height:34px;padding:0 10px;flex-direction:row;gap:7px;border:1px solid #30465f;border-radius:18px;background:#14263d;font-size:10px;color:#d8e6f7}
-.footer-column .site-community .contact-community-icon-btn svg{width:15px;height:15px}
-.footer-column .site-community .contact-community-icon-btn.whatsapp{color:#86efac}
-.footer-column .site-community .contact-community-icon-btn.fab{color:#bfdbfe}
-.footer-column .site-community .contact-community-icon-btn.whatsapp:hover{background:#123426;border-color:#25d366}
-.footer-column .site-community .contact-community-icon-btn.fab:hover{background:#172f4d;border-color:#1877f2}
