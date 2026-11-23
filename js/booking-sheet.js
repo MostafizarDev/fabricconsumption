@@ -71,7 +71,7 @@
       '<td><input data-field="ml" type="number" step="0.01" value="0"></td><td><input data-field="cla" type="number" step="0.01" value="0"></td>'+
       '<td><input data-field="mw" type="number" step="0.01" value="0"></td><td><input data-field="cwa" type="number" step="0.01" value="0"></td>'+
       '<td><input data-field="gsm" type="number" step="0.01" value="0"></td><td class="bk-net-marker">—</td>'+
-      '<td><input data-field="pcs" type="number" step="1" value="1"></td><td class="bk-net-dozen">—</td>'+
+      '<td><input data-field="pcs" type="number" min="0" step="1" value="'+ratioTotal()+'" aria-label="PCS per marker (customizable)"></td><td class="bk-net-dozen">—</td>'+
       '<td><input data-field="cut" type="number" step="0.01" value="0"></td><td class="bk-final">—</td>'+
       '<td><input data-field="dia" type="number" step="0.01" value="0"></td><td><select data-field="diaType"><option>OPEN</option><option>TUBULAR</option></select></td><td><button type="button" class="bk-remove-row">×</button></td>';
     $('bk-fabric-rows').appendChild(tr); calculate();
