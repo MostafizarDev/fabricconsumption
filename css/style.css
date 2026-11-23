@@ -9143,21 +9143,25 @@ body.dark-mode #page-contact .contact-person-links a:hover{
 .footer-copy-status{min-width:72px;color:#7dd3fc;font-size:10px}
 
 
-/* Contact page community links */
+/* Contact page community links — icon-first layout */
 .contact-community{margin-top:19px;padding:15px 14px;border:1px solid #dce9f4;border-radius:11px;background:#f7fbff}
 .contact-community h3{margin:0 0 5px;color:#17365d;font-size:13px;font-weight:800}
 .contact-community>p{margin:0 0 12px;color:#647b91;font-size:11px;line-height:1.55}
-.contact-community-actions{display:grid;gap:8px}
-.contact-community-btn{display:flex;align-items:center;gap:9px;min-height:39px;padding:9px 11px;border:1px solid transparent;border-radius:8px;text-decoration:none;font-size:11px;font-weight:750;transition:transform .18s,filter .18s}
-.contact-community-btn:hover{transform:translateY(-1px);filter:brightness(.97)}
-.contact-community-btn>span:nth-child(2){flex:1}
-.contact-community-btn.whatsapp{background:#eaf8ef;border-color:#c8ecd4;color:#168344}
-.contact-community-btn.fab{background:#edf4ff;border-color:#d4e3fb;color:#2861a9}
-.contact-community-icon{width:21px;height:21px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.75);font-size:14px;font-weight:900}
+.contact-community-actions{display:flex;align-items:center;gap:11px}
+.contact-community-icon-btn{width:66px;min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid #dce6ef;border-radius:11px;background:#fff;text-decoration:none;font-size:9px;font-weight:750;transition:transform .18s,box-shadow .18s,border-color .18s}
+.contact-community-icon-btn svg{width:25px;height:25px;display:block}
+.contact-community-icon-btn:hover{transform:translateY(-2px);box-shadow:0 5px 13px rgba(15,45,75,.09)}
+.contact-community-icon-btn.whatsapp{color:#168344}
+.contact-community-icon-btn.whatsapp:hover{border-color:#25d366;background:#effbf3}
+.contact-community-icon-btn.fab{color:#2861a9}
+.contact-community-icon-btn.fab:hover{border-color:#1877f2;background:#f0f6ff}
 .contact-community>small{display:block;margin-top:9px;color:#8797a8;font-size:9px;line-height:1.45}
 body.dark-mode .contact-community{background:#10243a;border-color:#2b4057}
 body.dark-mode .contact-community h3{color:#e0efff}
 body.dark-mode .contact-community>p{color:#b2c2d4}
 body.dark-mode .contact-community>small{color:#91a6bb}
-body.dark-mode .contact-community-btn.whatsapp{background:#123426;border-color:#20583d;color:#86efac}
-body.dark-mode .contact-community-btn.fab{background:#172f4d;border-color:#294d78;color:#bfdbfe}
+body.dark-mode .contact-community-icon-btn{background:#132a42;border-color:#38516b}
+body.dark-mode .contact-community-icon-btn.whatsapp{color:#86efac}
+body.dark-mode .contact-community-icon-btn.fab{color:#bfdbfe}
+body.dark-mode .contact-community-icon-btn.whatsapp:hover{background:#123426;border-color:#25d366}
+body.dark-mode .contact-community-icon-btn.fab:hover{background:#172f4d;border-color:#1877f2}
