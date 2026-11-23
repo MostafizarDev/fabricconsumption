@@ -9144,10 +9144,11 @@ body.dark-mode #page-contact .contact-person-links a:hover{
 
 
 /* Contact page community links — icon-first layout */
-.contact-community{margin-top:19px;padding:15px 14px;border:1px solid #dce9f4;border-radius:11px;background:#f7fbff}
-.contact-community h3{margin:0 0 5px;color:#17365d;font-size:13px;font-weight:800}
-.contact-community>p{margin:0 0 12px;color:#647b91;font-size:11px;line-height:1.55}
-.contact-community-actions{display:flex;align-items:center;gap:11px}
+.contact-community{margin-top:19px;padding:15px 14px;border:1px solid #dce9f4;border-radius:11px;background:#f7fbff;text-align:center}
+.contact-community h3{margin:0 0 5px;color:#17365d;font-size:13px;font-weight:800;text-align:center}
+.contact-community>p{margin:0 0 12px;color:#647b91;font-size:11px;line-height:1.55;text-align:center}
+.contact-community-actions{display:flex;align-items:center;justify-content:center;gap:11px}
+
 .contact-community-icon-btn{width:66px;min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid #dce6ef;border-radius:11px;background:#fff;text-decoration:none;font-size:9px;font-weight:750;transition:transform .18s,box-shadow .18s,border-color .18s}
 .contact-community-icon-btn svg{width:25px;height:25px;display:block}
 .contact-community-icon-btn:hover{transform:translateY(-2px);box-shadow:0 5px 13px rgba(15,45,75,.09)}
@@ -9155,7 +9156,7 @@ body.dark-mode #page-contact .contact-person-links a:hover{
 .contact-community-icon-btn.whatsapp:hover{border-color:#25d366;background:#effbf3}
 .contact-community-icon-btn.fab{color:#2861a9}
 .contact-community-icon-btn.fab:hover{border-color:#1877f2;background:#f0f6ff}
-.contact-community>small{display:block;margin-top:9px;color:#8797a8;font-size:9px;line-height:1.45}
+.contact-community>small{display:block;margin-top:9px;color:#8797a8;font-size:9px;line-height:1.45;text-align:center}
 body.dark-mode .contact-community{background:#10243a;border-color:#2b4057}
 body.dark-mode .contact-community h3{color:#e0efff}
 body.dark-mode .contact-community>p{color:#b2c2d4}
