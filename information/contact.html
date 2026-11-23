@@ -109,7 +109,7 @@
       <label for="contact-message">Your Message<textarea id="contact-message" name="message" rows="6" placeholder="Describe your suggestion, issue or question..." required></textarea></label>
       <p class="contact-privacy-hint">Please do not include passwords, payment details or confidential buyer/order information.</p>
       <button class="contact-submit-btn" type="submit">Send Feedback <span aria-hidden="true">→</span></button>
-      <div class="contact-share-options"><span>Or share your message:</span><button type="button" onclick="shareContactFeedback('whatsapp')">Send via WhatsApp</button><button type="button" onclick="shareContactFeedback('telegram')">Send via Telegram</button></div>
+      <div class="contact-share-options"><span>Or share your message:</span><button type="button" onclick="shareContactFeedback('whatsapp')">Send via WhatsApp</button></div>
     </form>
   </section>
 
@@ -176,7 +176,6 @@ function shareContactFeedback(platform){
   const encoded=encodeURIComponent(message);
   const url=platform==="telegram"?"https://t.me/share/url?url="+encodeURIComponent("https://fabricconsumption.vercel.app/")+"&text="+encoded:( /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ? "https://wa.me/?text="+encoded : "https://web.whatsapp.com/send?text="+encoded);
   const shareWindow=window.open(url,"_blank","noopener,noreferrer");
-  if(!shareWindow) window.location.href=url;
 }
 </script>
 </body>
