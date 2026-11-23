@@ -44,7 +44,7 @@
   function calculate(syncMarkerPcs=false) {
     const sizing=sizeBreakdown();
     // Size ratio can populate PCS / Marker, while users may freely override each row.
-    if(syncMarkerPcs) rows().forEach(row=>{
+    if(syncMarkerPcs === true) rows().forEach(row=>{
       const pcsInput=row.querySelector('[data-field="pcs"]');
       if(pcsInput) pcsInput.value=String(sizing.totalRatio);
     });
@@ -384,10 +384,10 @@
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
-    $('bk-fabric-rows').addEventListener('input',calculate);
-    $('bk-fabric-rows').addEventListener('change',calculate);
+    $('bk-fabric-rows').addEventListener('input',()=>calculate());
+    $('bk-fabric-rows').addEventListener('change',()=>calculate());
     $('bk-fabric-rows').addEventListener('click',e=>{if(e.target.classList.contains('bk-remove-row')){if(rows().length>1)e.target.closest('tr').remove();calculate();}});
-    document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',calculate));
+    document.querySelectorAll('#page-booking input,#page-booking select').forEach(el=>el.addEventListener('input',()=>calculate()));
     $('bk-add-row').addEventListener('click',addRow);$('bk-add-size').addEventListener('click',addSize);
     $('bk-size-preset').addEventListener('change',e=>{if(e.target.value)loadSizePreset(e.target.value);});
     $('bk-size-headers').addEventListener('click',e=>{
@@ -403,7 +403,7 @@
       keepTotalLast();
       calculate(true);
     });
-    $('bk-size-headers').addEventListener('input',calculate);$('bk-ratio-row').addEventListener('input',()=>calculate(true));
+    $('bk-size-headers').addEventListener('input',()=>calculate());$('bk-ratio-row').addEventListener('input',()=>calculate(true));
     $('bk-calculate').addEventListener('click',()=>{calculate();saveRecent();});
     $('bk-demo').addEventListener('click',demoValues);
     $('bk-reset').addEventListener('click',resetBooking);
