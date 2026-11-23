@@ -9118,3 +9118,10 @@ body.dark-mode #page-contact .contact-person-links a:hover{
   #page-contact .contact-person-links{gap:7px;flex-wrap:wrap}
   #page-contact .contact-person-links a{width:32px;height:32px;flex-basis:32px}
 }
+
+#page-contact .contact-person-links a>span:first-child svg{
+  display:block;
+  width:18px;
+  height:18px;
+  overflow:visible;
+}
