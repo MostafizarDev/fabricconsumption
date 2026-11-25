@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Personal workspace is not intended for search indexing
+Disallow: /my-formulas
+
+Sitemap: https://fabricconsumption.vercel.app/sitemap.xml
