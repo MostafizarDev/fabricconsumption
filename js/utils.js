@@ -102,6 +102,165 @@ function getRouteForPage(pageId) {
     return FC_PAGE_ROUTES[pageId] || '/';
 }
 
+ 
+// ========== SEO METADATA (HEAD ONLY; NO VISIBLE UI CHANGES) ==========
+const FC_SEO_PAGES = {
+    home: {
+        title: 'Fabric Consumption | Garment Calculator Suite',
+        description: 'Practical garment calculators for knit and woven fabric consumption, marker planning, fabric booking, size ratios, trims, zipper calculations and garment costing.',
+        canonical: '/'
+    },
+    marker: {
+        title: 'Garment Marker Consumption Calculator | Fabric Consumption',
+        description: 'Calculate garment marker fabric consumption using marker dimensions, fabric width, GSM, length and wastage. Prepare clear fabric consumption summaries.',
+        canonical: '/Marker-Consumption'
+    },
+    pricing: {
+        title: 'Garment Pricing & Costing Calculators | Fabric Consumption',
+        description: 'Explore garment pricing tools for knit fabric cost per meter and garment FOB, C&F and CIF costing calculations.',
+        canonical: '/pricing-costing'
+    },
+    knit: {
+        title: 'Knit Fabric Consumption Calculator | Fabric Consumption',
+        description: 'Estimate knit garment fabric consumption using body measurements, GSM, seam allowance, optional components and wastage.',
+        canonical: '/knit-garments'
+    },
+    knitpant: {
+        title: 'Knit Pant Fabric Consumption Calculator | Fabric Consumption',
+        description: 'Estimate fabric requirements for knit pants, joggers and related garment components using measurements, GSM, order quantity and wastage.',
+        canonical: '/knit-pant'
+    },
+    woven: {
+        title: 'Woven Shirt Fabric Consumption Calculator | Fabric Consumption',
+        description: 'Calculate woven shirt fabric requirements from garment measurements, fabric width, order quantity, components and wastage.',
+        canonical: '/woven-shirt'
+    },
+    booking: {
+        title: 'Garment Fabric Booking Sheet Calculator | Fabric Consumption',
+        description: 'Prepare a garment fabric booking sheet with style details, size ratio, marker information and fabric booking summaries.',
+        canonical: '/booking-sheet'
+    },
+    knitprice: {
+        title: 'Knit Fabric Cost Per Meter Calculator | Fabric Consumption',
+        description: 'Calculate knit fabric length and cost per meter using fabric weight, GSM, width and price per kilogram.',
+        canonical: '/pricing-costing/knit-price'
+    },
+    zipper: {
+        title: 'Garment Zipper Consumption Calculator | Fabric Consumption',
+        description: 'Plan garment zipper specifications, finished zipper length, required order quantity and optional zipper cost.',
+        canonical: '/zipper'
+    },
+    trims: {
+        title: 'Garment Trims Consumption Calculator | Fabric Consumption',
+        description: 'Estimate sewing thread, button and interlining requirements for garment production using standard ratios or measured inputs.',
+        canonical: '/trims'
+    },
+    fob: {
+        title: 'Garment FOB Costing Calculator | Fabric Consumption',
+        description: 'Calculate garment costing and estimate FOB, C&F and CIF prices using order and cost details.',
+        canonical: '/pricing-costing/fob-costing'
+    },
+    sizeratio: {
+        title: 'Garment Size Ratio & Assortment Calculator | Fabric Consumption',
+        description: 'Plan garment size ratios, color-wise quantities, marker assortment and carton packing for apparel orders.',
+        canonical: '/size-ratio'
+    },
+    converter: {
+        title: 'Fabric GSM & Measurement Unit Converter | Fabric Consumption',
+        description: 'Convert garment measurements, fabric length, area, weight, GSM and common textile production units.',
+        canonical: '/converter'
+    },
+    myformulas: {
+        title: 'My Workspace | Fabric Consumption',
+        description: 'Your personal workspace for saved garment formulas, work notes and useful references.',
+        canonical: '/my-formulas',
+        robots: 'noindex,nofollow'
+    },
+    about: {
+        title: 'About Fabric Consumption | Garment Calculator Suite',
+        description: 'Learn about Fabric Consumption, a practical browser-based toolkit for garment fabric calculations, production planning and costing.',
+        canonical: '/about'
+    },
+    contact: {
+        title: 'Contact Fabric Consumption | Feedback & Support',
+        description: 'Contact the Fabric Consumption team for feedback, calculation issues, questions and suggestions about the garment calculator tools.',
+        canonical: '/contact'
+    },
+    privacy: {
+        title: 'Privacy Policy | Fabric Consumption',
+        description: 'Read the Fabric Consumption privacy policy and learn how information and browser-based tool data are handled.',
+        canonical: '/privacy-policy'
+    },
+    terms: {
+        title: 'Terms of Use | Fabric Consumption',
+        description: 'Review the terms and conditions for using the Fabric Consumption garment calculator suite.',
+        canonical: '/terms-of-use'
+    },
+    disclaimer: {
+        title: 'Disclaimer | Fabric Consumption',
+        description: 'Read important information about calculation estimates, accuracy and production verification when using Fabric Consumption.',
+        canonical: '/disclaimer'
+    },
+    faq: {
+        title: 'Help & FAQ | Fabric Consumption',
+        description: 'Find help and answers about using Fabric Consumption garment calculators, entering measurements and preparing calculation reports.',
+        canonical: '/faq'
+    }
+};
+
+function fcSetMeta(selector, attribute, value, content) {
+    let node = document.head.querySelector(selector);
+    if (!node) {
+        node = document.createElement('meta');
+        node.setAttribute(attribute, value);
+        document.head.appendChild(node);
+    }
+    node.setAttribute('content', content);
+}
+
+function updatePageSEO(pageId) {
+    const isHome = window.location.pathname === '/';
+    const seo = FC_SEO_PAGES[isHome ? 'home' : pageId] || FC_SEO_PAGES.home;
+    const canonicalUrl = 'https://fabricconsumption.vercel.app' + seo.canonical;
+    document.title = seo.title;
+    fcSetMeta('meta[name="description"]', 'name', 'description', seo.description);
+    fcSetMeta('meta[name="robots"]', 'name', 'robots', seo.robots || 'index,follow,max-image-preview:large');
+    fcSetMeta('meta[property="og:type"]', 'property', 'og:type', 'website');
+    fcSetMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'Fabric Consumption');
+    fcSetMeta('meta[property="og:title"]', 'property', 'og:title', seo.title);
+    fcSetMeta('meta[property="og:description"]', 'property', 'og:description', seo.description);
+    fcSetMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
+    fcSetMeta('meta[property="og:image"]', 'property', 'og:image', 'https://fabricconsumption.vercel.app/favicon.svg');
+    fcSetMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary');
+    fcSetMeta('meta[name="twitter:title"]', 'name', 'twitter:title', seo.title);
+    fcSetMeta('meta[name="twitter:description"]', 'name', 'twitter:description', seo.description);
+
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalUrl;
+
+    const breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://fabricconsumption.vercel.app/' },
+            { '@type': 'ListItem', 'position': 2, 'name': seo.title.split(' | ')[0], 'item': canonicalUrl }
+        ]
+    };
+    let schema = document.getElementById('fc-page-breadcrumb-schema');
+    if (!schema) {
+        schema = document.createElement('script');
+        schema.type = 'application/ld+json';
+        schema.id = 'fc-page-breadcrumb-schema';
+        document.head.appendChild(schema);
+    }
+    schema.textContent = JSON.stringify(breadcrumb);
+}
+
 // ========== PAGE NAVIGATION ==========
 function showPage(pageId, btn, routeOptions = {}) {
     // Knit Price and FOB Costing now live as calculator views inside one Pricing & Costing page.
@@ -118,7 +277,7 @@ function showPage(pageId, btn, routeOptions = {}) {
     }
 
     const pageTitle = FC_PAGE_TITLES[pageId] || 'Garment Calculator Suite';
-    document.title = pageTitle + ' | Fabric Consumption';
+    updatePageSEO(pageId);
 
     // Hide all top-level pages, then show the selected workspace.
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
