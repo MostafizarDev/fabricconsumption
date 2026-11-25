@@ -109,7 +109,7 @@
 
   <section class="contact-form-card" aria-labelledby="contact-form-title">
     <div class="contact-form-intro"><span class="contact-kicker">SEND A MESSAGE</span><h2 id="contact-form-title">Send us your feedback</h2><p>All types of feedback are equally important to us. Please share enough detail so we can understand your message.</p><div class="contact-form-note">Your feedback will be reviewed. Suggestions and custom requests will be considered for future improvements.</div></div>
-    <form class="contact-form" action="https://formsubmit.co/shamimalmamun211@gmail.com" method="POST" target="_blank">
+    <form class="contact-form" action="https://formsubmit.co/shamimalmamun211@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New Fabric Consumption Feedback">
       <input type="hidden" name="_cc" value="aiautomotionagent@gmail.com">
       <input type="hidden" name="_template" value="table">
@@ -122,6 +122,7 @@
       <label for="contact-message">Your Message<textarea id="contact-message" name="message" rows="6" placeholder="Describe your suggestion, issue or question..." required></textarea></label>
       <p class="contact-privacy-hint">Please do not include passwords, payment details or confidential buyer/order information.</p>
       <button class="contact-submit-btn" type="submit">Send Feedback <span aria-hidden="true">→</span></button>
+      <p class="contact-form-status" role="status" aria-live="polite"></p>
     </form>
   </section>
 
@@ -179,5 +180,61 @@
   });
 })();
 </script>
+
+<script>
+(function () {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+
+  const button = form.querySelector('.contact-submit-btn');
+  const status = form.querySelector('.contact-form-status');
+  const buttonLabel = button.innerHTML;
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (!form.reportValidity() || button.disabled) return;
+
+    button.disabled = true;
+    button.innerHTML = 'Sending... <span aria-hidden="true">⏳</span>';
+    form.setAttribute('aria-busy', 'true');
+    status.textContent = 'Sending your feedback. Please wait...';
+    status.dataset.state = 'sending';
+
+    try {
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+      const endpoint = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+      const succeeded = result.success === true || result.success === 'true';
+
+      if (!response.ok || !succeeded) {
+        throw new Error(result.message || 'Your message could not be sent. Please try again.');
+      }
+
+      form.reset();
+      status.textContent = 'Thank you! Your feedback has been sent successfully.';
+      status.dataset.state = 'success';
+    } catch (error) {
+      status.textContent = error.message || 'Unable to send your message right now. Please try again.';
+      status.dataset.state = 'error';
+    } finally {
+      button.disabled = false;
+      button.innerHTML = buttonLabel;
+      form.removeAttribute('aria-busy');
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
