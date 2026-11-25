@@ -1626,7 +1626,7 @@
         </div>
       </div>
     </div>
-    <form class="contact-form" action="https://formsubmit.co/shamimalmamun211@gmail.com" method="POST" target="_blank">
+    <form class="contact-form" action="https://formsubmit.co/shamimalmamun211@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New Fabric Consumption Feedback">
       <input type="hidden" name="_cc" value="aiautomotionagent@gmail.com">
       <input type="hidden" name="_template" value="table">
@@ -1944,6 +1944,59 @@ function copyFooterShareLink(button){
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="/js/fabric-groups.js"></script>
 <script src="/js/app-init.js?v=20261108-init-restore"></script>
+
+
+<script>
+(function () {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+
+  const button = form.querySelector('.contact-submit-btn');
+  const status = form.querySelector('.contact-form-status');
+  const buttonLabel = button.innerHTML;
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (!form.reportValidity() || button.disabled) return;
+
+    button.disabled = true;
+    button.innerHTML = 'Sending... <span aria-hidden="true">⏳</span>';
+    form.setAttribute('aria-busy', 'true');
+    status.textContent = 'Sending your feedback. Please wait...';
+    status.dataset.state = 'sending';
+
+    try {
+      const payload = Object.fromEntries(new FormData(form).entries());
+      const endpoint = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      const succeeded = result.success === true || result.success === 'true';
+
+      if (!response.ok || !succeeded) {
+        throw new Error(result.message || 'Your message could not be sent. Please try again.');
+      }
+
+      form.reset();
+      status.textContent = 'Thank you! Your feedback has been sent successfully.';
+      status.dataset.state = 'success';
+    } catch (error) {
+      status.textContent = error.message || 'Unable to send your message right now. Please try again.';
+      status.dataset.state = 'error';
+    } finally {
+      button.disabled = false;
+      button.innerHTML = buttonLabel;
+      form.removeAttribute('aria-busy');
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
