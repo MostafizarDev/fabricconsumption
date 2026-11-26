@@ -360,55 +360,6 @@
     .hero-actions .btn-primary:before{display:none}
   }
 
-  
-  /* SEO-led hero and interactive category directory */
-  .hero-inner{grid-template-columns:minmax(0,1.02fr) minmax(410px,.98fr);gap:clamp(38px,5vw,72px)}
-  .hero-content{max-width:640px}
-  .eyebrow{display:inline-flex;align-items:center;min-height:36px;padding:8px 15px;font-size:11px;font-weight:900;letter-spacing:.14em;color:#9be8ff;border-color:#54c9ef55;background:linear-gradient(90deg,#0ea5e91c,#38bdf808);box-shadow:0 5px 20px #020b1d18}
-  .eyebrow:before{width:8px;height:8px;flex:0 0 8px;background:#38bdf8;box-shadow:0 0 0 4px #38bdf822}
-  .hero h1{max-width:680px;font-size:clamp(39px,4.45vw,59px);line-height:1.08;letter-spacing:-.052em}
-  .hero h1 em{color:#72def5}
-  .hero-copy{max-width:610px;font-size:14px;line-height:1.85}
-  .hero-actions .btn{min-height:49px;padding-inline:18px}
-  .showcase{padding:23px}
-  .showcase:after{display:none!important}
-  .showcase-head{display:flex;align-items:center}
-  .showcase-head>div{display:flex;flex-direction:column;gap:3px}
-  .showcase-kicker{color:#1682b7;font-size:8px;font-weight:900;letter-spacing:.15em}
-  .showcase-head strong{font-size:15px;color:#132b46}
-  .showcase-grid{gap:11px}
-  .show-item{display:flex;flex-direction:column;min-height:160px;padding:14px;text-decoration:none;color:#172a45}
-  .show-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
-  .show-icon{margin:0;width:38px;height:38px}
-  .show-count{padding:5px 7px;border:1px solid #dbeaf5;border-radius:6px;color:#52718b;background:#f5faff;font-size:8px;font-weight:900;letter-spacing:.07em}
-  .show-item b{font-size:11px;line-height:1.4}
-  .show-item small{min-height:30px;margin-top:4px;font-size:9px;line-height:1.55}
-  .show-item-link{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;color:#0879bd;font-size:9px;font-weight:850}
-  .show-item-link span{font-size:13px;transition:transform .2s}
-  .show-item:hover .show-item-link span{transform:translate(2px,-2px)}
-  .showcase-foot{font-size:10px}
-  body.dark-mode .showcase-head strong{color:#e2e8f0}
-  body.dark-mode .showcase-kicker{color:#7dd3fc}
-  body.dark-mode .show-count{background:#13263a;border-color:#29435d;color:#a8c7df}
-  body.dark-mode .show-item{color:#e2e8f0}
-  body.dark-mode .show-item-link{color:#7dd3fc}
-  body.dark-mode .show-item:hover{border-color:#38bdf8}
-  @media(max-width:900px){
-    .hero-inner{grid-template-columns:1fr}
-    .hero-content{max-width:760px}
-    .showcase{max-width:680px}
-  }
-  @media(max-width:620px){
-    .eyebrow{min-height:33px;padding:7px 11px;font-size:9px;letter-spacing:.1em}
-    .hero h1{font-size:clamp(35px,9.5vw,45px)}
-    .hero-copy{font-size:12px}
-    .showcase{padding:16px}
-    .showcase-head strong{font-size:13px}
-    .show-item{min-height:148px;padding:11px}
-    .show-item small{font-size:8px}
-    .show-item-link{font-size:8px}
-  }
-
   </style>
 </head>
 <body>
@@ -485,24 +436,24 @@
     </div>
   </header>
   <main>
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero">
       <div class="wrap hero-inner">
-        <div class="hero-content">
-          <div class="eyebrow">GARMENT &amp; TEXTILE WORKFLOW TOOLS</div>
-          <h1 id="hero-title">Garment Fabric Consumption &amp; Costing <em>Made Easier.</em></h1>
-          <p class="hero-copy">Calculate knit and woven fabric consumption, plan markers and materials, prepare fabric bookings, manage size ratios, estimate garment costs and convert common textile units — all with practical online garment calculators.</p>
-          <div class="hero-actions"><a class="btn btn-primary" href="#calculators">Explore All Garment Tools <span>→</span></a><a class="btn btn-ghost" href="/knit-garments">Calculate Knit Fabric Consumption</a></div>
-          <div class="trustline"><span>Garment-focused calculators</span><span>Clear, practical workflows</span><span>PDF &amp; Excel exports on supported tools</span></div>
+        <div>
+          <div class="eyebrow">Garment Calculator Suite · One practical workspace</div>
+          <h1>Make Garment Calculations <em>Clearer and Easier.</em></h1>
+          <p class="hero-copy">Fabric Consumption brings practical tools for knit and woven fabric consumption, marker planning, fabric booking, trims, size ratios, costing and unit conversion together in one browser-based workspace.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#calculators">Explore All Tools <span>→</span></a><a class="btn btn-ghost" href="/knit-garments">Start with Knit Consumption</a></div>
+          <div class="trustline"><span>Focused garment tools</span><span>Clear calculation workflows</span><span>PDF &amp; Excel on supported tools</span></div>
         </div>
-        <div class="showcase" aria-label="Explore garment calculator categories">
-          <div class="showcase-head"><div><span class="showcase-kicker">YOUR WORKFLOW, ORGANIZED</span><strong>Explore the calculator suite</strong></div><span class="pill">12 TOOLS</span></div>
+        <div class="showcase" aria-label="Overview of calculator categories">
+          <div class="showcase-head"><strong>Tools for everyday garment work</strong><span class="pill">12 TOOLS</span></div>
           <div class="showcase-grid">
-            <a class="show-item" href="/knit-garments" aria-label="Explore fabric consumption calculators"><span class="show-item-top"><span class="show-icon">▦</span><span class="show-count">03 TOOLS</span></span><b>Fabric Consumption</b><small>Knit garments · Knit pants · Woven shirts</small><span class="show-item-link">Explore calculators <span>↗</span></span></a>
-            <a class="show-item" href="/Marker-Consumption" aria-label="Explore marker and material calculators"><span class="show-item-top"><span class="show-icon">⌗</span><span class="show-count">03 TOOLS</span></span><b>Marker &amp; Materials</b><small>Marker planning · Trims · Zipper</small><span class="show-item-link">Explore calculators <span>↗</span></span></a>
-            <a class="show-item" href="/booking-sheet" aria-label="Explore production planning tools"><span class="show-item-top"><span class="show-icon">▤</span><span class="show-count">02 TOOLS</span></span><b>Production Planning</b><small>Fabric booking · Size ratio &amp; assortment</small><span class="show-item-link">Explore tools <span>↗</span></span></a>
-            <a class="show-item" href="/pricing-costing" aria-label="Explore garment costing and utility tools"><span class="show-item-top"><span class="show-icon">৳</span><span class="show-count">04 TOOLS</span></span><b>Costing &amp; Utilities</b><small>Knit fabric cost · FOB costing · Unit converter · Workspace</small><span class="show-item-link">Explore tools <span>↗</span></span></a>
+            <div class="show-item"><span class="show-icon">▦</span><b>Fabric Consumption</b><small>Knit garments · Pants · Woven shirts</small></div>
+            <div class="show-item"><span class="show-icon">⌗</span><b>Marker &amp; Material</b><small>Marker · Trims · Zipper</small></div>
+            <div class="show-item"><span class="show-icon">▤</span><b>Production Planning</b><small>Booking sheet · Size ratio</small></div>
+            <div class="show-item"><span class="show-icon">৳</span><b>Costing &amp; Utilities</b><small>Knit fabric cost · FOB · Converter</small></div>
           </div>
-          <div class="showcase-foot">Choose a category to find the right calculator, enter your details and review the result. Export options vary by tool.</div>
+          <div class="showcase-foot">Choose a tool, enter the required details and review the result. Available exports depend on the selected calculator.</div>
         </div>
       </div>
     </section>
