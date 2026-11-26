@@ -47,7 +47,7 @@
     },
     {
       "source": "/knit-garments",
-      "destination": "/index.html"
+      "destination": "/prerender/knit-garments.html"
     },
     {
       "source": "/knit-pant",
