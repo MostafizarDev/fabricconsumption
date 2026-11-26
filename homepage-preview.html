@@ -522,6 +522,68 @@
   @media(max-width:620px){.tool-directory{padding:52px 0 58px}.directory-hero{padding:23px 17px 17px;border-radius:17px}.directory-copy h2{font-size:clamp(34px,10vw,43px)}.directory-copy .section-intro{font-size:12px}.directory-search-wrap{padding:12px}.directory-stats{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:18px}.directory-stats>div:not(.directory-stat-note){padding:0;border:0;gap:7px}.directory-stats strong{font-size:17px}.directory-stat-note{grid-column:1/-1;margin:0}.directory-toolbar{grid-template-columns:1fr;gap:10px;margin:24px 0 15px}.directory-toolbar-title{display:block}.directory-toolbar-title small{display:block;margin-top:3px}.directory-toolbar .filters{grid-column:auto;display:flex;flex-wrap:wrap;width:100%;gap:5px;padding:6px}.directory-toolbar .filter{padding:8px 9px;font-size:9px}.directory-count{grid-column:auto;grid-row:auto;text-align:left}.tools-grid{grid-template-columns:1fr;gap:12px}.tool-card{min-height:0;padding:18px}.tool-card p{min-height:0}.tool-card-bottom{gap:10px}.tool-card-head{margin-bottom:13px}.directory-note{line-height:1.7}}
   @media(prefers-reduced-motion:reduce){.tool-card{animation:none!important;transition:none!important}.tool-card:before,.tool-card:after,.tool-icon,.tool-link b{transition:none!important}}
 
+  
+  /* Reference-inspired colorful calculator directory */
+  .tool-directory{position:relative;isolation:isolate;overflow:hidden;padding:76px 0 82px;background:radial-gradient(ellipse at 8% 0%,rgba(59,130,246,.12),transparent 34%),radial-gradient(ellipse at 92% 8%,rgba(139,92,246,.10),transparent 32%),linear-gradient(180deg,#f7faff 0%,#edf4fb 100%)}
+  .tool-directory:before,.tool-directory:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(1px)}
+  .tool-directory:before{width:560px;height:210px;left:-180px;top:-120px;background:rgba(96,165,250,.10);transform:rotate(-18deg)}
+  .tool-directory:after{width:620px;height:230px;right:-190px;top:-130px;background:rgba(167,139,250,.10);transform:rotate(-18deg)}
+  .directory-title{text-align:center;max-width:900px;margin:0 auto 26px}
+  .directory-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border:1px solid #dce8fb;border-radius:30px;background:rgba(255,255,255,.85);color:#0756bd;font-size:12px;font-weight:800;box-shadow:0 5px 16px rgba(30,64,175,.07)}
+  .directory-eyebrow svg{width:17px;height:17px}
+  .directory-title h2{margin:12px 0 5px;color:#101d3b;font-size:clamp(30px,4vw,43px);font-weight:850;letter-spacing:-.055em;line-height:1.12}
+  .directory-title p{margin:0;color:#526581;font-size:14px}
+  .directory-controls{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}
+  .directory-controls .filters{display:flex;flex-wrap:wrap;gap:9px;margin:0}
+  .directory-controls .filter{display:inline-flex;align-items:center;gap:8px;min-height:43px;padding:8px 14px;border:1px solid #dbe6f4;border-radius:28px;background:rgba(255,255,255,.88);color:#263e63;font-size:12px;font-weight:750;box-shadow:0 3px 10px rgba(15,45,75,.045);transition:transform .2s,border-color .2s,box-shadow .2s,background .2s}
+  .directory-controls .filter svg{width:17px;height:17px;color:#1559c7}
+  .directory-controls .filter span{display:grid;place-items:center;min-width:19px;height:19px;padding:0 5px;border-radius:20px;background:#eaf1fb;color:#315078;font-size:10px}
+  .directory-controls .filter:hover{transform:translateY(-2px);border-color:#93c5fd;box-shadow:0 7px 15px rgba(37,99,235,.09)}
+  .directory-controls .filter.active{background:linear-gradient(120deg,#0878ef,#0755d8);border-color:#0878ef;color:#fff;box-shadow:0 7px 17px rgba(37,99,235,.22)}
+  .directory-controls .filter.active svg{color:#fff}.directory-controls .filter.active span{background:#fff;color:#0755d8}
+  .directory-search{display:flex;align-items:center;gap:10px;flex:0 1 360px;min-width:230px;height:47px;padding:0 15px;border:1px solid #d8e3f2;border-radius:28px;background:#fff;box-shadow:0 4px 14px rgba(15,45,75,.06);transition:border-color .2s,box-shadow .2s}
+  .directory-search:focus-within{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(59,130,246,.11),0 7px 18px rgba(15,45,75,.08)}
+  .directory-search>svg{width:19px;height:19px;flex:0 0 auto;color:#35577f}
+  .directory-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#1e293b;font-size:12px}
+  .directory-count{margin:0 0 12px;color:#71839a;font-size:11px;text-align:right}.directory-count strong{color:#1d3558;font-size:13px}
+  .tools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+  .tool-card{--accent:#0ea5e9;--soft:#eaf5ff;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;min-height:188px;padding:17px 18px 16px;border:1px solid color-mix(in srgb,var(--accent) 17%,#e2e8f0);border-radius:19px;background:linear-gradient(145deg,#fff 0%,#fff 68%,var(--soft) 170%);box-shadow:0 4px 12px rgba(15,35,65,.055);transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s,border-color .28s}
+  .tool-card:before{content:"";position:absolute;z-index:-1;left:0;top:0;width:32%;height:4px;border-radius:0 0 5px 0;background:var(--accent);transition:width .3s ease}
+  .tool-card:after{content:"";position:absolute;z-index:-1;right:-42px;bottom:-75px;width:190px;height:120px;border-radius:50%;background:var(--soft);filter:blur(5px);opacity:.95;transition:transform .35s,opacity .35s}
+  .tool-card:hover{transform:translateY(-7px);border-color:color-mix(in srgb,var(--accent) 48%,#fff);box-shadow:0 17px 32px color-mix(in srgb,var(--accent) 15%,transparent)}
+  .tool-card:hover:before{width:70%}.tool-card:hover:after{transform:scale(1.35);opacity:1}
+  .tool-card[hidden]{display:none}
+  .tool-card-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px;margin-bottom:10px}
+  .tool-icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--accent) 10%,white);border-radius:14px;background:var(--soft);color:var(--accent);box-shadow:0 5px 12px color-mix(in srgb,var(--accent) 10%,transparent);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+  .tool-icon svg{width:27px;height:27px}.tool-card:hover .tool-icon{transform:translateY(-3px) rotate(-5deg) scale(1.07);box-shadow:0 9px 18px color-mix(in srgb,var(--accent) 18%,transparent)}
+  .tool-tag{padding:6px 10px;border-radius:22px;background:var(--soft);color:var(--accent);font-size:9px;font-weight:850;letter-spacing:.045em;white-space:nowrap}
+  .tool-card h3{position:relative;z-index:1;margin:0 0 5px;color:#10213d;font-size:14px;font-weight:800;letter-spacing:-.025em;line-height:1.35}
+  .tool-card p{position:relative;z-index:1;min-height:43px;margin:0 0 12px;color:#526581;font-size:10.5px;line-height:1.55}
+  .tool-link{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;box-shadow:0 5px 12px color-mix(in srgb,var(--accent) 20%,transparent);transition:gap .2s,transform .2s,filter .2s}
+  .tool-link b{font-size:15px;line-height:1}.tool-card:hover .tool-link{gap:12px;transform:translateY(-1px);filter:brightness(.96)}
+  .tool-art{position:absolute;right:15px;bottom:12px;z-index:0;color:var(--accent);opacity:.22;transform:translateY(3px);transition:opacity .25s,transform .3s}
+  .tool-art svg{width:53px;height:53px;stroke-width:1.25}.tool-card:hover .tool-art{opacity:.42;transform:translateY(-3px) rotate(-4deg)}
+  .palette-blue{--accent:#0878ee;--soft:#e4f1ff}.palette-violet{--accent:#7138d5;--soft:#f0eaff}.palette-green{--accent:#079b5b;--soft:#e3f8ed}.palette-orange{--accent:#ed7900;--soft:#fff0dd}.palette-pink{--accent:#e52b88;--soft:#ffebf5}.palette-teal{--accent:#08a9a4;--soft:#e2f8f6}
+  .directory-note{margin:17px 2px 0;color:#7c8da4;font-size:10px}
+  .empty{padding:30px 18px;text-align:center;border:1px dashed #cbd8e8;border-radius:15px;background:#fff;color:#64748b}.empty[hidden]{display:none}
+  body.dark-mode .tool-directory{background:radial-gradient(ellipse at 8% 0%,rgba(14,165,233,.10),transparent 34%),radial-gradient(ellipse at 92% 8%,rgba(139,92,246,.09),transparent 32%),linear-gradient(180deg,#101c2d,#0b1120)}
+  body.dark-mode .directory-eyebrow,body.dark-mode .directory-controls .filter,body.dark-mode .directory-search{background:#14243a;border-color:#30445d;color:#dbeafe}
+  body.dark-mode .directory-title h2{color:#e5efff}body.dark-mode .directory-title p{color:#a8bbd1}
+  body.dark-mode .directory-controls .filter span{background:#263a55;color:#c7d8eb}
+  body.dark-mode .directory-controls .filter.active{background:linear-gradient(120deg,#0878ef,#0755d8);color:#fff}
+  body.dark-mode .directory-controls .filter.active span{background:#fff;color:#0755d8}
+  body.dark-mode .directory-search input{color:#e2e8f0}
+  body.dark-mode .directory-count,body.dark-mode .directory-note{color:#8da2ba}body.dark-mode .directory-count strong{color:#e2e8f0}
+  body.dark-mode .tool-card{background:linear-gradient(145deg,#17263a,#111d2e 70%,color-mix(in srgb,var(--accent) 9%,#111d2e));border-color:color-mix(in srgb,var(--accent) 28%,#26384d);box-shadow:0 5px 17px rgba(0,0,0,.16)}
+  body.dark-mode .tool-card h3{color:#e8f1ff}body.dark-mode .tool-card p{color:#a9bbcf}
+  body.dark-mode .empty{background:#111c2d;border-color:#30445d;color:#a8b8ca}
+  @media(max-width:1100px){.tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.directory-controls{align-items:flex-start;flex-direction:column}.directory-search{flex-basis:auto;width:100%;max-width:480px}}
+  @media(max-width:760px){.tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.directory-controls .filters{gap:7px}.directory-controls .filter{font-size:10px;padding:8px 11px}}
+  @media(max-width:540px){.tool-directory{padding:54px 0 58px}.directory-title{margin-bottom:20px}.directory-title h2{font-size:30px}.directory-title p{font-size:12px;line-height:1.7}.directory-controls .filters{width:100%}.directory-controls .filter{flex:1 1 auto;justify-content:center}.tools-grid{grid-template-columns:1fr;gap:12px}.tool-card{min-height:180px;padding:17px}.tool-card p{min-height:0}}
+  @keyframes directory-card-enter{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @media(prefers-reduced-motion:no-preference){.tool-card{animation:directory-card-enter .55s both;animation-delay:calc(var(--card-order,0)*55ms)}.tool-card:nth-child(1){--card-order:0}.tool-card:nth-child(2){--card-order:1}.tool-card:nth-child(3){--card-order:2}.tool-card:nth-child(4){--card-order:3}.tool-card:nth-child(5){--card-order:4}.tool-card:nth-child(6){--card-order:5}.tool-card:nth-child(7){--card-order:6}.tool-card:nth-child(8){--card-order:7}.tool-card:nth-child(9){--card-order:8}.tool-card:nth-child(10){--card-order:9}.tool-card:nth-child(11){--card-order:10}.tool-card:nth-child(12){--card-order:11}}
+  @media(prefers-reduced-motion:reduce){.tool-card,.tool-card:before,.tool-card:after,.tool-icon,.tool-link,.tool-art,.directory-controls .filter{animation:none!important;transition:none!important}}
+
   </style>
 </head>
 <body>
@@ -627,96 +689,94 @@
     </div></div>
     <section class="section tool-directory" id="calculators" aria-labelledby="tools-title">
       <div class="wrap">
-        <div class="directory-hero">
-          <div class="directory-heading">
-            <div class="directory-copy">
-              <span class="directory-eyebrow"><i></i> THE FABRIC CONSUMPTION TOOLKIT</span>
-              <h2 id="tools-title">Your work. <span>Made simpler.</span></h2>
-              <p class="section-intro">A smarter place for everyday garment calculations. Find the right tool for fabric consumption, production planning, costing and textile utilities — all in one workspace.</p>
-            </div>
-            <div class="directory-search-wrap">
-              <label class="searchbar"><span aria-hidden="true">⌕</span><input id="toolSearch" type="search" placeholder="What are you working on today?" aria-label="Search garment calculators"></label>
-              <div class="search-suggestions"><span>Popular:</span><button type="button" data-search-term="GSM">GSM</button><button type="button" data-search-term="knit">Knit</button><button type="button" data-search-term="FOB">FOB</button></div>
-            </div>
-          </div>
-          <div class="directory-stats">
-            <div><strong>12</strong><span>Practical tools</span></div>
-            <div><strong>04</strong><span>Work categories</span></div>
-            <div><strong>01</strong><span>Connected workspace</span></div>
-            <div class="directory-stat-note"><span class="live-dot"></span> Choose a tool and get started</div>
-          </div>
+        <div class="directory-title">
+          <span class="directory-eyebrow"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg> Explore the platform</span>
+          <h2 id="tools-title">Find the tool for your next task</h2>
+          <p>Browse all available calculators, filter by work area or search by tool name. Open any card to go to that calculator.</p>
         </div>
-        <div class="directory-toolbar">
-          <div class="directory-toolbar-title"><span>Explore tools</span><small>Pick a work area to narrow your search</small></div>
+        <div class="directory-controls">
           <div class="filters" role="group" aria-label="Filter calculators">
-            <button class="filter active" data-filter="all" type="button">All tools <span>12</span></button>
-            <button class="filter" data-filter="consumption" type="button">Consumption <span>6</span></button>
-            <button class="filter" data-filter="planning" type="button">Planning <span>2</span></button>
-            <button class="filter" data-filter="costing" type="button">Costing <span>2</span></button>
-            <button class="filter" data-filter="utility" type="button">Workspace &amp; utility <span>2</span></button>
+            <button class="filter active" data-filter="all" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg> All Tools <span>12</span></button>
+            <button class="filter" data-filter="consumption" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 11 8 4 8-4"/></svg> Consumption <span>6</span></button>
+            <button class="filter" data-filter="planning" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4m8-4v4M4 10h16"/></svg> Planning <span>2</span></button>
+            <button class="filter" data-filter="costing" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v8c0 1.7 2.7 3 6 3m-6-7c0 1.7 2.7 3 6 3m5-8h7m-3-3v6"/></svg> Costing <span>2</span></button>
+            <button class="filter" data-filter="utility" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4a5 5 0 0 0-6 6L3 15l6 6 5-5a5 5 0 0 0 6-6l-3 3-4-4 3-3Z"/></svg> Workspace &amp; Utility <span>2</span></button>
           </div>
-          <p class="directory-count" aria-live="polite"><strong id="toolCount">12</strong> tools available</p>
+          <label class="directory-search"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg><input id="toolSearch" type="search" placeholder="Search a tool (e.g. knit, marker, costing...)" aria-label="Search garment calculators"></label>
         </div>
+        <p class="directory-count" aria-live="polite"><strong id="toolCount">12</strong> tools available</p>
         <div class="tools-grid">
-          <a class="tool-card" href="/knit-garments" data-category="consumption" data-search="knit fabric garment measurements gsm collar cuff pocket half moon" style="--card-accent:#0ea5e9;--card-glow:rgba(14,165,233,.13)">
-            <div class="tool-card-head"><span class="tool-icon">▦</span><span class="tool-index">01 / 12</span></div><span class="tool-tag">FABRIC CONSUMPTION</span>
-            <h3>Knit Fabric Consumption</h3><p>Calculate knit garment fabric requirements with measurements, GSM and component details.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Knitwear <i>·</i> Measurements <i>·</i> GSM</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="M5 10.5 9 6l3 2 3-2 4 4-2.2 2.1-1.5-1.4V20H8.7v-9.3l-1.5 1.4L5 10.5Z"/><path d="M9 6c.2 2 1.1 3 3 3s2.8-1 3-3"/>" href="/knit-garments" data-category="consumption" data-search="blue">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.5 4H6.5L5 7Z"/><path d="M7 11v7m10-7v7M7 18h10"/></svg></span><span class="tool-tag">CONSUMPTION</span></div>
+            <h3>Knit Fabric Consumption</h3><p>Work out knit garment fabric requirements using garment measurements and available component options.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/knit-pant" data-category="consumption" data-search="knit pant jogger trousers fabric consumption measurements" style="--card-accent:#14b8a6;--card-glow:rgba(20,184,166,.13)">
-            <div class="tool-card-head"><span class="tool-icon">▥</span><span class="tool-index">02 / 12</span></div><span class="tool-tag">FABRIC CONSUMPTION</span>
-            <h3>Knit Pant Consumption</h3><p>Estimate fabric use for knit pants, joggers and trousers with practical calculation methods.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Pants <i>·</i> Joggers <i>·</i> Fabric use</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="M7 4h10l1 16h-4l-2-8-2 8H6L7 4Z"/><path d="M7 7h10"/>" href="/knit-pant" data-category="consumption" data-search="violet">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h10l-1 15h-3l-1-8-2 8H7L7 5Z"/></svg></span><span class="tool-tag">CONSUMPTION</span></div>
+            <h3>Knit Pant Consumption</h3><p>Estimate fabric requirements for knit pants with the available quick and component-based methods.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/woven-shirt" data-category="consumption" data-search="woven shirt fabric consumption garment components" style="--card-accent:#8b5cf6;--card-glow:rgba(139,92,246,.13)">
-            <div class="tool-card-head"><span class="tool-icon">▧</span><span class="tool-index">03 / 12</span></div><span class="tool-tag">FABRIC CONSUMPTION</span>
-            <h3>Woven Shirt Consumption</h3><p>Work out woven shirt fabric requirements from key garment component measurements.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Woven <i>·</i> Shirt <i>·</i> Components</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="m8 5 4 2 4-2 5 4-2 4-3-2v9H8v-9l-3 2-2-4 5-4Z"/><path d="m9 5 3 4 3-4M12 9v3"/>" href="/woven-shirt" data-category="consumption" data-search="green">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14v12H5z"/><path d="m5 7 4-3 3 3 3-3 4 3"/></svg></span><span class="tool-tag">CONSUMPTION</span></div>
+            <h3>Woven Shirt Consumption</h3><p>Calculate woven shirt fabric needs from the garment component measurements provided.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/Marker-Consumption" data-category="consumption" data-search="marker consumption length width gsm fabric weight" style="--card-accent:#f59e0b;--card-glow:rgba(245,158,11,.14)">
-            <div class="tool-card-head"><span class="tool-icon">⌗</span><span class="tool-index">04 / 12</span></div><span class="tool-tag">MARKER PLANNING</span>
-            <h3>Marker Consumption</h3><p>Calculate marker-based fabric use with marker dimensions, weight and length methods.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Marker <i>·</i> Length <i>·</i> GSM</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<rect x="4" y="5" width="16" height="14" rx="1"/><path d="M8 5v14m8-14v14M4 9h16m-16 6h16"/>" href="/Marker-Consumption" data-category="consumption" data-search="orange">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M9 5v14m6-14v14M4 10h16m-16 4h16"/></svg></span><span class="tool-tag">CONSUMPTION</span></div>
+            <h3>Marker Consumption</h3><p>Calculate marker-based fabric use through the available marker dimension, weight or length methods.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/trims" data-category="consumption" data-search="trims thread button interlining consumption material planning" style="--card-accent:#ec4899;--card-glow:rgba(236,72,153,.13)">
-            <div class="tool-card-head"><span class="tool-icon">⌁</span><span class="tool-index">05 / 12</span></div><span class="tool-tag">MATERIAL PLANNING</span>
-            <h3>Trims Consumption</h3><p>Plan common garment trim requirements, including supported components and inputs.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Thread <i>·</i> Buttons <i>·</i> Interlining</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="5"/><circle cx="10" cy="10" r="1"/><circle cx="14" cy="10" r="1"/><circle cx="10" cy="14" r="1"/><circle cx="14" cy="14" r="1"/>" href="/trims" data-category="consumption" data-search="pink">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v16H7z"/><path d="M9 7h6m-6 3h6m-6 3h6m-6 3h6"/></svg></span><span class="tool-tag">CONSUMPTION</span></div>
+            <h3>Trims Consumption</h3><p>Plan common trim requirements, including the components and inputs supported by the calculator.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/zipper" data-category="consumption" data-search="zipper consumption length specification garment material planning" style="--card-accent:#64748b;--card-glow:rgba(100,116,139,.13)">
-            <div class="tool-card-head"><span class="tool-icon">⇅</span><span class="tool-index">06 / 12</span></div><span class="tool-tag">MATERIAL PLANNING</span>
+          <a class="tool-card palette-<path d="M9 4 7 7l3 3-2 3 2 3-1 4h6l-1-4 2-3-2-3 3-3-2-3"/><path d="M10 7h4m-4 3h4m-4 3h4m-3 3h2"/>" href="/zipper" data-category="consumption" data-search="teal">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 6 7l3 3-2 3 2 3-1 4h8l-1-4 2-3-2-3 3-3-2-3"/><path d="M10 8h4m-4 4h4m-3 4h2"/></svg></span><span class="tool-tag">CONSUMPTION</span></div>
             <h3>Zipper Consumption</h3><p>Work with zipper measurements and requirements for garment order planning.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Zipper <i>·</i> Length <i>·</i> Quantity</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/booking-sheet" data-category="planning" data-search="fabric booking sheet style size ratio marker details order" style="--card-accent:#0d9488;--card-glow:rgba(13,148,136,.13)">
-            <div class="tool-card-head"><span class="tool-icon">▤</span><span class="tool-index">07 / 12</span></div><span class="tool-tag">PRODUCTION PLANNING</span>
-            <h3>Fabric Booking Sheet</h3><p>Organize style-wise fabric booking, marker information and size ratios in a structured sheet.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Styles <i>·</i> Fabric <i>·</i> Order details</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="M7 4h8l4 4v12H7z"/><path d="M15 4v5h4M10 13h6m-6 3h6"/>" href="/booking-sheet" data-category="planning" data-search="blue">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h8l4 4v12H7z"/><path d="M15 4v5h4"/></svg></span><span class="tool-tag">PLANNING</span></div>
+            <h3>Fabric Booking Sheet</h3><p>Organize style-wise fabric booking details, marker information and required fabric quantity.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/size-ratio" data-category="planning" data-search="size ratio assortment sizes quantity preset custom" style="--card-accent:#6366f1;--card-glow:rgba(99,102,241,.13)">
-            <div class="tool-card-head"><span class="tool-icon">☷</span><span class="tool-index">08 / 12</span></div><span class="tool-tag">PRODUCTION PLANNING</span>
-            <h3>Size Ratio &amp; Assortment</h3><p>Build size distributions, manage quantities and review total pieces for an assortment.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Size set <i>·</i> Ratio <i>·</i> Quantity</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="m12 4 8 4-8 4-8-4 8-4Z"/><path d="m4 12 8 4 8-4M4 16l8 4 8-4"/>" href="/size-ratio" data-category="planning" data-search="violet">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 11 8 4 8-4m-16 8 8 4 8-4"/></svg></span><span class="tool-tag">PLANNING</span></div>
+            <h3>Size Ratio & Assortment</h3><p>Set size distributions, work with quantities and review the total assortment for production.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/pricing-costing/knit-price" data-category="costing" data-search="knit fabric cost price per meter gsm width weight price kg" style="--card-accent:#16a34a;--card-glow:rgba(22,163,74,.13)">
-            <div class="tool-card-head"><span class="tool-icon">৳</span><span class="tool-index">09 / 12</span></div><span class="tool-tag">FABRIC COSTING</span>
-            <h3>Knit Fabric Cost Calculator</h3><p>Estimate knit fabric cost per meter using fabric weight, GSM, width and price inputs.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">GSM <i>·</i> Width <i>·</i> Price per kg</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8M8 12h2m4 0h2m-8 4h2m4 0h2"/>" href="/pricing-costing/knit-price" data-category="costing" data-search="green">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="11" cy="7" rx="6" ry="2.5"/><path d="M5 7v9c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V7m-12 4c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="tool-tag">COSTING</span></div>
+            <h3>Knit Fabric Cost Calculator</h3><p>Review knit fabric cost per meter using the supported fabric parameters and cost inputs.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/pricing-costing/fob-costing" data-category="costing" data-search="garment fob costing manufacturing cost freight insurance cf cif" style="--card-accent:#ea580c;--card-glow:rgba(234,88,12,.13)">
-            <div class="tool-card-head"><span class="tool-icon">$</span><span class="tool-index">10 / 12</span></div><span class="tool-tag">GARMENT COSTING</span>
-            <h3>FOB Costing</h3><p>Organize garment cost components and review FOB, C&amp;F or CIF calculations where applicable.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">FOB <i>·</i> Cost breakdown <i>·</i> Export</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="m4 12 8-8h8v8l-8 8-8-8Z"/><circle cx="16" cy="8" r="1.3"/>" href="/pricing-costing/fob-costing" data-category="costing" data-search="orange">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 8-8h8v8l-8 8-8-8Z"/><circle cx="16" cy="8" r="1.2"/></svg></span><span class="tool-tag">COSTING</span></div>
+            <h3>FOB Cost Calculator</h3><p>Estimate FOB cost with fabric, trims, CM, overhead and other relevant garment cost inputs.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/converter" data-category="utility" data-search="unit converter length weight gsm area yarn count temperature" style="--card-accent:#0284c7;--card-glow:rgba(2,132,199,.13)">
-            <div class="tool-card-head"><span class="tool-icon">⇄</span><span class="tool-index">11 / 12</span></div><span class="tool-tag">TEXTILE UTILITY</span>
-            <h3>Unit Converter</h3><p>Convert common length, weight, fabric, GSM, area, yarn-count and other supported units.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Length <i>·</i> Weight <i>·</i> GSM</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"/>" href="/converter" data-category="utility" data-search="blue">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"/></svg></span><span class="tool-tag">WORKSPACE &amp; UTILITY</span></div>
+            <h3>Unit Converter</h3><p>Quickly convert between common garment and textile units, such as meter ↔ yard, gsm, inch and more.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
-          <a class="tool-card" href="/my-formulas" data-category="utility" data-search="my workspace saved formulas notes links screenshots backup" style="--card-accent:#7c3aed;--card-glow:rgba(124,58,237,.13)">
-            <div class="tool-card-head"><span class="tool-icon">▣</span><span class="tool-index">12 / 12</span></div><span class="tool-tag">PERSONAL WORKSPACE</span>
-            <h3>My Workspace</h3><p>Keep useful notes, formulas, links and screenshots together in your browser, with backup export.</p>
-            <div class="tool-card-bottom"><span class="tool-meta">Notes <i>·</i> Formulas <i>·</i> Saved links</span><span class="tool-link">Explore tool <b>↗</b></span></div>
+          <a class="tool-card palette-<path d="m12 4 8 4-8 4-8-4 8-4Z"/><path d="m4 12 8 4 8-4m-16 4 8 4 8-4"/>" href="/my-formulas" data-category="utility" data-search="violet">
+            <div class="tool-card-top"><span class="tool-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 11 8 4 8-4m-16 4 8 4 8-4"/></svg></span><span class="tool-tag">WORKSPACE &amp; UTILITY</span></div>
+            <h3>Style Wise Fabrics Consumption</h3><p>View fabric consumption style-wise with a clear summary and export-ready output.</p>
+            <span class="tool-link">Open calculator <b>→</b></span>
+            <span class="tool-art" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">undefined</svg></span>
           </a>
         </div>
         <div class="empty" id="emptyState" hidden><strong>No matching tools found.</strong><br>Try another keyword or choose a different work area.</div>
