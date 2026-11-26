@@ -125,6 +125,31 @@
   .footer-contact-cta:hover{border-color:#0ea5e9}
   .footer-column a:hover,.footer-bottom a:hover{color:#38bdf8}
   @media(max-width:620px){.nav{height:64px}.site-logo{width:220px;height:46px}.navlinks{top:64px;background:#0f172a}.hero-inner{padding:46px 0}.hero h1{font-size:clamp(34px,9vw,42px)}}
+
+  .theme-toggle{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border:1px solid #334155;border-radius:8px;background:#1e293b;color:#cbd5e1;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+  .theme-toggle:hover{border-color:#38bdf8;color:#38bdf8}.theme-toggle svg{width:19px;height:19px;display:block}
+  body.dark-mode{--ink:#e2e8f0;--muted:#94a3b8;--line:#263548;--paper:#0b1120;--white:#111827;--shadow:0 10px 28px rgba(0,0,0,.24);background:#0b1120;color:#e2e8f0}
+  body.dark-mode .topbar{background:#080e1a;color:#94a3b8}
+  body.dark-mode .proof,body.dark-mode .tool-card,body.dark-mode .searchbar,body.dark-mode .step,body.dark-mode .benefit{background:#111827;border-color:#263548;color:#e2e8f0}
+  body.dark-mode .proof-item b,body.dark-mode .section h2,body.dark-mode .tool-card h3,body.dark-mode .step h3,body.dark-mode .benefit h3{color:#e2e8f0}
+  body.dark-mode .proof-item,body.dark-mode .showcase-head{border-color:#263548}
+  body.dark-mode .showcase{background:#111827;color:#e2e8f0;border-color:#334155}
+  body.dark-mode .show-item{background:#0b1729;border-color:#263548}
+  body.dark-mode .show-item b{color:#e2e8f0}body.dark-mode .show-item small{color:#94a3b8}
+  body.dark-mode .showcase-foot{background:#102b42;color:#bae6fd}
+  body.dark-mode .searchbar input{color:#e2e8f0}
+  body.dark-mode .filter{background:#111827;border-color:#334155;color:#cbd5e1}
+  body.dark-mode .filter.active,body.dark-mode .filter:hover{background:#12304a;border-color:#0369a1;color:#7dd3fc}
+  body.dark-mode .tool-icon,body.dark-mode .step-no,body.dark-mode .benefit-icon{background:#102b42;color:#7dd3fc}
+  body.dark-mode .how{background:#0f172a;border-color:#263548}
+  body.dark-mode .audience{background:#0b1120}
+  body.dark-mode .audience-chip{background:#111827;border-color:#263548;color:#dbeafe}
+  body.dark-mode .empty{background:#111827;border-color:#334155;color:#94a3b8}
+  body.dark-mode .cta{background:#080e1a}body.dark-mode .site-footer{background:#080e1a;border-color:#263548}
+  body.dark-mode .footer-bottom{border-color:#263548}body.dark-mode .footer-contact-cta{border-color:#334155}
+  body.dark-mode .theme-toggle{background:#1e293b;color:#fbbf24;border-color:#475569}
+  body.dark-mode .theme-toggle:hover{color:#fde68a;border-color:#fbbf24}
+  @media(max-width:620px){.theme-toggle{margin-left:auto}.menu{margin-left:0}}
   </style>
 </head>
 <body>
@@ -196,6 +221,7 @@
         <a href="#calculators">Calculators</a><a href="#how-it-works">How It Works</a><a href="#features">Features</a><a href="/about">About</a><a href="/faq">Help &amp; FAQ</a>
         <a class="nav-cta" href="#calculators">Explore Tools <span>→</span></a>
       </nav>
+      <button class="theme-toggle" id="previewThemeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
       <button class="menu" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false">Menu</button>
     </div>
   </header>
@@ -316,6 +342,30 @@ function copyFooterShareLink(button){
   
 <script>
 (() => {
+
+ const themeButton=document.querySelector('#previewThemeToggle');
+ const themeMeta=document.querySelector('meta[name="theme-color"]');
+ const storageKey='fabric-consumption-preview-theme';
+ function setTheme(theme){
+   const dark=theme==='dark';
+   document.body.classList.toggle('dark-mode',dark);
+   if(themeButton){
+     themeButton.innerHTML=dark
+       ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+       : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+     themeButton.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+     themeButton.title=dark?'Switch to light mode':'Switch to dark mode';
+   }
+   if(themeMeta) themeMeta.setAttribute('content',dark?'#0b1120':'#0f172a');
+ }
+ let savedTheme='light';
+ try{savedTheme=localStorage.getItem(storageKey)||'light';}catch(error){}
+ setTheme(savedTheme);
+ themeButton?.addEventListener('click',()=>{
+   const next=document.body.classList.contains('dark-mode')?'light':'dark';
+   setTheme(next);
+   try{localStorage.setItem(storageKey,next);}catch(error){}
+ });
  const search = document.querySelector('#toolSearch');
  const cards = [...document.querySelectorAll('.tool-card')];
  const filters = [...document.querySelectorAll('[data-filter]')];
