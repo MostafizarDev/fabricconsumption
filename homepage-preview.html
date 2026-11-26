@@ -4,128 +4,317 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b1730">
-  <title>Homepage Concept Preview | Fabric Consumption</title>
-  <meta name="description" content="Preview concept for the Fabric Consumption calculator platform homepage. Explore garment fabric, marker, booking, size ratio and costing tools.">
+  <title>Homepage Preview | Fabric Consumption</title>
+  <meta name="description" content="Explore the Fabric Consumption garment calculator suite for knit and woven fabric consumption, marker planning, trims, booking, costing and more.">
   <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root{--navy:#0b1730;--navy2:#142746;--blue:#1688e8;--cyan:#35b8d8;--ink:#17243a;--muted:#637188;--line:#e4eaf2;--paper:#f5f8fc;--white:#fff;--green:#16845b;--shadow:0 14px 38px rgba(15,35,65,.08)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 40px));margin:auto}
-    .topbar{background:#071126;color:#c8d5e8;font-size:12px}.topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding:8px 0}.preview-note{color:#8bd9f4;font-weight:700;letter-spacing:.04em}
-    header{position:sticky;top:0;z-index:20;background:rgba(11,23,48,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.09)}.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;color:white;font-weight:850;letter-spacing:.035em;font-size:17px}.brand-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,#35b8d8,#1478df);display:grid;place-items:center;color:#fff;font-size:18px;font-weight:900;box-shadow:0 6px 18px #1688e844}.brand small{display:block;color:#93a7c3;font-size:9px;letter-spacing:.18em;font-weight:700}.navlinks{display:flex;align-items:center;gap:25px;color:#c4d0e2;font-size:13px;font-weight:600}.navlinks a:hover{color:#55c9ee}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:11px 17px;font-weight:750;font-size:13px;transition:.2s}.nav-cta,.btn-primary{background:var(--blue);color:white;box-shadow:0 7px 18px #1688e82b}.nav-cta:hover,.btn-primary:hover{background:#0874d0;transform:translateY(-1px)}.menu{display:none;background:none;border:1px solid #52627a;color:#fff;border-radius:8px;padding:8px 11px}
-    .hero{background:radial-gradient(ellipse at 80% 10%,#1d4776 0,transparent 36%),linear-gradient(120deg,#0b1730 0%,#102b50 68%,#0b2343 100%);color:white;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:500px;height:500px;border:1px solid #ffffff12;border-radius:50%;right:-140px;top:-220px;box-shadow:0 0 0 45px #ffffff08,0 0 0 90px #ffffff05}.hero-inner{position:relative;z-index:1;padding:82px 0 74px;display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#8ce0f6;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:2px;background:#38bce2}.hero h1{font-size:clamp(36px,5vw,58px);line-height:1.08;letter-spacing:-.045em;margin:18px 0 18px;max-width:690px}.hero h1 span{color:#55c8ed}.hero p{color:#c2d0e4;font-size:16px;max-width:620px;margin:0 0 27px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn-outline{border:1px solid #7186a4;color:#fff;background:#ffffff08}.btn-outline:hover{background:#ffffff16}.trustline{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;color:#a9bad1;font-size:11px}.trustline span:before{content:"✓";color:#5ed3b1;font-weight:900;margin-right:7px}
-    .hero-panel{background:#fff;color:var(--ink);border:1px solid #ffffff55;border-radius:18px;padding:23px;box-shadow:0 24px 70px #020b1d66;transform:rotate(1deg)}.panel-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:15px}.panel-head strong{font-size:13px}.live{font-size:10px;color:var(--green);font-weight:800}.live:before{content:"";display:inline-block;width:7px;height:7px;background:#20b47b;border-radius:50%;margin-right:6px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini-card{background:#f4f8fd;border:1px solid #e8eef6;border-radius:11px;padding:13px}.mini-icon{width:29px;height:29px;display:grid;place-items:center;background:#e3f2ff;color:#147bd2;border-radius:8px;font-size:15px;margin-bottom:9px}.mini-card b{display:block;font-size:12px}.mini-card small{color:var(--muted);font-size:10px}.panel-foot{background:#edf7ff;color:#32638a;border-radius:9px;padding:11px 13px;font-size:11px;margin-top:12px}
-    .stats{background:#fff;border-bottom:1px solid var(--line)}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:20px 0}.stat{padding:4px 22px;border-right:1px solid var(--line)}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat b{font-size:21px;color:#12345a;display:block;line-height:1.25}.stat span{font-size:11px;color:var(--muted)}
-    section{scroll-margin-top:90px}.section{padding:76px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:27px}.kicker{font-size:10px;color:var(--blue);font-weight:850;letter-spacing:.16em;text-transform:uppercase}.section h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.035em;line-height:1.15;margin:8px 0;color:#12233c}.section-head p{max-width:500px;color:var(--muted);font-size:13px;margin:0}.searchbar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:0 15px;max-width:420px;width:100%;box-shadow:0 3px 12px #102c4d08}.searchbar input{border:0;outline:0;width:100%;padding:14px 0;font:inherit;font-size:13px;background:transparent;color:var(--ink)}.searchbar span{color:#8290a4;font-size:17px}
-    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.filter{border:1px solid var(--line);background:#fff;color:#5d6c82;border-radius:30px;padding:8px 14px;font-size:11px;font-weight:750;cursor:pointer}.filter.active,.filter:hover{background:#eaf5ff;border-color:#b6daf9;color:#086fc5}.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.tool{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;min-height:206px;box-shadow:0 4px 14px #112a4905;transition:.2s}.tool:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#c4dff8}.tool-top{display:flex;justify-content:space-between;align-items:start}.tool-icon{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;background:#eaf5ff;color:#0879d5;font-size:20px}.tool-tag{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#718199;font-weight:800}.tool h3{font-size:16px;margin:16px 0 6px;color:#172a45}.tool p{font-size:12px;color:var(--muted);margin:0 0 18px;max-width:330px}.tool-link{margin-top:auto;color:#0878d4;font-size:12px;font-weight:800;display:flex;align-items:center;gap:7px}.tool-link:after{content:"→";font-size:16px;transition:.2s}.tool:hover .tool-link:after{transform:translateX(4px)}.empty{display:none;padding:25px;text-align:center;color:var(--muted);background:white;border:1px dashed var(--line);border-radius:12px}
-    .how{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}.step{padding:22px;border:1px solid var(--line);border-radius:13px;background:#fbfdff}.step-no{width:30px;height:30px;border-radius:9px;background:#e5f3ff;color:#0877d2;display:grid;place-items:center;font-size:12px;font-weight:900}.step h3{font-size:15px;margin:14px 0 6px}.step p{font-size:12px;color:var(--muted);margin:0}
-    .benefits{display:grid;grid-template-columns:1fr 1fr;gap:14px}.benefit{display:flex;gap:13px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px}.benefit-icon{flex:0 0 34px;height:34px;border-radius:10px;background:#eaf6f4;color:#13815f;display:grid;place-items:center;font-weight:900}.benefit h3{font-size:13px;margin:0 0 4px}.benefit p{font-size:11px;color:var(--muted);margin:0}
-    .cta{padding:46px 0;background:linear-gradient(110deg,#0d1e39,#153b65);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:25px}.cta h2{font-size:27px;margin:0 0 6px;letter-spacing:-.03em}.cta p{margin:0;color:#b8cbe1;font-size:12px}.cta .btn{white-space:nowrap}
-    footer{background:#071126;color:#c2cfe0;padding:38px 0 20px}.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding-bottom:28px}.footer-brand p{font-size:11px;color:#91a4bd;max-width:330px}.footer-col b{font-size:11px;color:white;display:block;margin-bottom:12px}.footer-col a{display:block;font-size:11px;color:#9fb0c6;margin:8px 0}.footer-col a:hover{color:#58c8ed}.copyright{border-top:1px solid #26344a;padding-top:17px;color:#8294ac;font-size:10px;display:flex;justify-content:space-between;gap:10px}
-    @media(max-width:850px){.hero-inner{grid-template-columns:1fr;gap:35px;padding:62px 0}.hero-panel{max-width:520px;transform:none}.navlinks{gap:14px}.tools-grid{grid-template-columns:repeat(2,1fr)}.section-head{align-items:start;flex-direction:column}.searchbar{max-width:none}.footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
-    @media(max-width:600px){.wrap{width:min(100% - 28px,1160px)}.topbar .wrap{font-size:10px}.nav{height:62px}.navlinks{display:none;position:absolute;top:62px;left:0;right:0;background:#0b1730;padding:18px 22px;flex-direction:column;align-items:stretch;border-top:1px solid #ffffff18}.navlinks.open{display:flex}.navlinks .nav-cta{text-align:center}.menu{display:block}.brand{font-size:14px}.brand-mark{width:34px;height:34px}.hero-inner{padding:48px 0}.hero h1{font-size:37px}.hero p{font-size:14px}.hero-panel{padding:17px}.stats-grid{grid-template-columns:1fr 1fr;row-gap:16px}.stat{padding:0 12px;border:0}.stat:nth-child(odd){padding-left:0}.section{padding:54px 0}.tools-grid{grid-template-columns:1fr}.tool{min-height:180px}.steps,.benefits{grid-template-columns:1fr}.cta-inner{align-items:start;flex-direction:column}.footer-top{grid-template-columns:1fr 1fr;gap:22px}.copyright{flex-direction:column}.trustline{gap:10px}}
+  :root{--navy:#0b1730;--navy2:#102b50;--blue:#1688e8;--cyan:#35b8d8;--ink:#17243a;--muted:#65748a;--line:#e3eaf2;--paper:#f4f7fb;--white:#fff;--green:#13845b;--shadow:0 16px 42px rgba(15,35,65,.10)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:94px}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}a{color:inherit;text-decoration:none}button,input{font:inherit}.wrap{width:min(1180px,calc(100% - 44px));margin:auto}
+  .topbar{background:#061126;color:#c6d4e7;font-size:11px}.topbar .wrap{min-height:34px;display:flex;justify-content:space-between;align-items:center;gap:12px}.top-note{color:#8ee0f5;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  header{position:sticky;top:0;z-index:30;background:rgba(10,22,45,.96);backdrop-filter:blur(16px);border-bottom:1px solid #ffffff16}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.site-logo{display:block;width:300px;max-width:42vw;height:58px;flex:0 0 auto}.site-logo svg{display:block;width:100%;height:100%;object-fit:contain;object-position:left center}.navlinks{display:flex;align-items:center;gap:22px;color:#cbd6e5;font-size:12px;font-weight:650}.navlinks>a:not(.nav-cta):hover{color:#69d2f0}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:10px;padding:12px 17px;font-size:12px;font-weight:800;transition:.2s}.nav-cta,.btn-primary{background:var(--blue);color:white;box-shadow:0 8px 22px #1688e83a}.nav-cta:hover,.btn-primary:hover{background:#0876d2;transform:translateY(-2px)}.btn-ghost{border:1px solid #7c91ae;color:white;background:#ffffff08}.btn-ghost:hover{background:#ffffff18}.menu{display:none;border:1px solid #60718a;color:white;background:transparent;border-radius:9px;padding:8px 12px}
+  .hero{position:relative;isolation:isolate;overflow:hidden;color:#fff;background:radial-gradient(ellipse at 82% 12%,#1d5b89 0,transparent 34%),radial-gradient(ellipse at 5% 95%,#173e65 0,transparent 40%),linear-gradient(118deg,#09152d,#102b4d 58%,#0a1f3c)}.hero:before,.hero:after{content:"";position:absolute;z-index:-1;border:1px solid #ffffff12;border-radius:50%;pointer-events:none}.hero:before{width:650px;height:650px;right:-260px;top:-380px;box-shadow:0 0 0 48px #ffffff08,0 0 0 96px #ffffff05}.hero:after{width:300px;height:300px;left:-190px;bottom:-200px;box-shadow:0 0 0 34px #ffffff07}.hero-inner{padding:78px 0 72px;display:grid;grid-template-columns:1.08fr .92fr;gap:58px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:#89def4;font-size:10px;font-weight:850;letter-spacing:.17em;text-transform:uppercase}.eyebrow:before{content:"";height:2px;width:24px;background:#35b8d8}.hero h1{font-size:clamp(38px,5vw,61px);line-height:1.06;letter-spacing:-.055em;margin:19px 0 17px;max-width:720px}.hero h1 em{font-style:normal;color:#62d0ef}.hero-copy{font-size:15px;color:#c4d2e4;max-width:610px;margin:0 0 26px}.hero-actions{display:flex;flex-wrap:wrap;gap:11px}.trustline{display:flex;gap:17px;flex-wrap:wrap;margin-top:25px;color:#aabbd1;font-size:10px}.trustline span:before{content:"✓";color:#61dbb5;font-weight:900;margin-right:7px}
+  .showcase{background:#fff;color:var(--ink);border:1px solid #ffffff7a;border-radius:19px;padding:22px;box-shadow:0 25px 75px #020b1d75;transform:rotate(.7deg)}.showcase-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}.showcase-head strong{font-size:12px}.pill{font-size:9px;font-weight:850;letter-spacing:.07em;color:#14845f;background:#e9f8f1;border-radius:30px;padding:6px 9px}.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.show-item{background:#f4f8fd;border:1px solid #e7eef6;border-radius:12px;padding:13px}.show-icon{width:34px;height:34px;display:grid;place-items:center;background:#e3f2ff;color:#167bd1;border-radius:10px;font-size:17px;margin-bottom:9px}.show-item b{display:block;font-size:11px}.show-item small{color:var(--muted);font-size:9px}.showcase-foot{margin-top:12px;padding:11px 13px;border-radius:10px;background:#edf7ff;color:#32638a;font-size:10px}
+  .proof{background:#fff;border-bottom:1px solid var(--line)}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:19px 0}.proof-item{padding:4px 22px;border-right:1px solid var(--line)}.proof-item:first-child{padding-left:0}.proof-item:last-child{border:0}.proof-item b{font-size:19px;color:#12345a;display:block;line-height:1.25}.proof-item span{font-size:10px;color:var(--muted)}
+  section{scroll-margin-top:96px}.section{padding:74px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:27px}.kicker{font-size:10px;color:#087bcf;font-weight:900;letter-spacing:.17em;text-transform:uppercase}.section h2{font-size:clamp(26px,3vw,37px);letter-spacing:-.045em;line-height:1.16;margin:8px 0;color:#12233c}.section-intro{color:var(--muted);font-size:13px;max-width:580px;margin:0}.searchbar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 14px;max-width:370px;width:100%;box-shadow:0 4px 15px #102c4d08}.searchbar input{border:0;outline:0;width:100%;padding:13px 0;font-size:12px;background:transparent;color:var(--ink)}.searchbar span{color:#71839a;font-size:19px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.filter{border:1px solid var(--line);background:#fff;color:#5d6c82;border-radius:30px;padding:8px 14px;font-size:10px;font-weight:800;cursor:pointer;transition:.18s}.filter.active,.filter:hover{background:#eaf5ff;border-color:#acd8fa;color:#0872c8}.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.tool-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px;display:flex;flex-direction:column;min-height:212px;box-shadow:0 4px 15px #112a4906;transition:.22s}.tool-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#bcdcf8}.tool-card[hidden]{display:none}.tool-top{display:flex;justify-content:space-between;align-items:start}.tool-icon{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;background:#eaf5ff;color:#0879d5;font-size:20px}.tool-tag{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#74839a;font-weight:850}.tool-card h3{font-size:15px;margin:15px 0 6px;color:#172a45;line-height:1.35}.tool-card p{font-size:11px;color:var(--muted);margin:0 0 17px}.tool-link{margin-top:auto;color:#0878d4;font-size:11px;font-weight:850;display:flex;align-items:center;gap:7px}.tool-link:after{content:"→";font-size:15px;transition:.2s}.tool-card:hover .tool-link:after{transform:translateX(4px)}.empty{padding:22px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:12px}.empty[hidden]{display:none}
+  .how{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:27px}.step{padding:21px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.step-no{width:31px;height:31px;border-radius:10px;background:#e5f3ff;color:#0877d2;display:grid;place-items:center;font-size:11px;font-weight:900}.step h3{font-size:14px;margin:13px 0 5px}.step p{font-size:11px;color:var(--muted);margin:0}.benefits{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:23px}.benefit{display:flex;gap:13px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px}.benefit-icon{flex:0 0 34px;height:34px;border-radius:10px;background:#eaf6f4;color:#13815f;display:grid;place-items:center;font-weight:900}.benefit h3{font-size:12px;margin:0 0 4px}.benefit p{font-size:10px;color:var(--muted);margin:0}
+  .audience{background:linear-gradient(120deg,#edf6ff,#f7fbff)}.audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}.audience-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.audience-chip{background:#fff;border:1px solid #dce9f6;border-radius:11px;padding:13px;font-size:11px;font-weight:750;color:#29415e}.audience-chip:before{content:"✓";color:#16946b;margin-right:8px;font-weight:900}
+  .cta{padding:45px 0;background:linear-gradient(110deg,#0c1d37,#153d67);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}.cta h2{font-size:26px;margin:0 0 6px;letter-spacing:-.035em;color:white}.cta p{margin:0;color:#b8cbe1;font-size:11px}.cta .btn{white-space:nowrap}
+  footer{background:#061126;color:#c2cfe0;padding:48px 0 19px}.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;padding-bottom:29px}.footer-logo{display:block;width:275px;max-width:100%;height:54px}.footer-logo svg{width:100%;height:100%;object-fit:contain;object-position:left center}.footer-about p{color:#91a4bd;font-size:10px;max-width:285px;margin:12px 0}.footer-col h3{font-size:10px;color:#fff;letter-spacing:.12em;margin:4px 0 13px}.footer-col a{display:block;color:#9fb0c6;font-size:10px;margin:8px 0;transition:.18s}.footer-col a:hover{color:#63cbed;transform:translateX(2px)}.social-title{display:block;color:#d7e2ef;font-size:10px;font-weight:800;margin:15px 0 8px}.socials{display:flex;gap:8px;flex-wrap:wrap}.socials a,.socials button{width:32px;height:32px;border:1px solid #2b415d;border-radius:9px;background:#102440;color:#cde8f6;display:grid;place-items:center;font-size:10px;font-weight:850;cursor:pointer}.socials a:hover,.socials button:hover{background:#17416a;border-color:#3a8bc4}.footer-bottom{border-top:1px solid #26344a;padding-top:16px;color:#8294ac;font-size:9px;display:flex;justify-content:space-between;gap:12px;align-items:center}.footer-bottom-links{display:flex;gap:14px}.footer-bottom a:hover{color:#6bd2ee}.back-top{border:0;background:none;color:#a9bdd4;font-size:10px;cursor:pointer}.back-top:hover{color:white}
+  @media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:32px;padding:60px 0}.showcase{max-width:540px;transform:none}.navlinks{gap:13px}.tools-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1.3fr 1fr 1fr}.footer-about{grid-column:1/-1}.section-head{align-items:start;flex-direction:column}.searchbar{max-width:none}.audience-grid{grid-template-columns:1fr}}
+  @media(max-width:620px){.wrap{width:calc(100% - 30px)}.topbar .wrap{font-size:9px}.nav{height:66px}.site-logo{width:230px;height:48px;max-width:72vw}.navlinks{display:none;position:absolute;top:66px;left:0;right:0;background:#0b1730;padding:17px 20px;flex-direction:column;align-items:stretch;border-top:1px solid #ffffff18}.navlinks.open{display:flex}.navlinks .nav-cta{text-align:center}.menu{display:block}.hero-inner{padding:48px 0}.hero h1{font-size:39px}.hero-copy{font-size:13px}.showcase{padding:16px}.proof-grid{grid-template-columns:1fr 1fr;row-gap:15px}.proof-item{padding:0 12px;border:0}.proof-item:nth-child(odd){padding-left:0}.section{padding:53px 0}.tools-grid,.steps,.benefits{grid-template-columns:1fr}.tool-card{min-height:180px}.audience-list{grid-template-columns:1fr 1fr}.cta-inner{align-items:flex-start;flex-direction:column}.footer-grid{grid-template-columns:1fr 1fr;gap:22px}.footer-about{grid-column:1/-1}.footer-logo{width:260px}.footer-bottom{align-items:flex-start;flex-direction:column}.trustline{gap:9px}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="wrap"><span>Practical tools for garment &amp; textile professionals</span><span class="preview-note">HOMEPAGE CONCEPT · PREVIEW ONLY</span></div></div>
+  <div class="topbar"><div class="wrap"><span>Practical tools for garment &amp; textile professionals</span><span class="top-note">HOMEPAGE CONCEPT · PREVIEW ONLY</span></div></div>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="/" aria-label="Fabric Consumption home"><span class="brand-mark">FC</span><span>FABRIC CONSUMPTION<small>GARMENT CALCULATOR SUITE</small></span></a>
-      <nav class="navlinks" id="navlinks"><a href="#calculators">Calculators</a><a href="#how-it-works">How It Works</a><a href="#features">Why Use It</a><a href="/about">About</a><a class="nav-cta" href="#calculators">Explore Calculators&nbsp; →</a></nav>
-      <button class="menu" id="menuBtn" aria-label="Open navigation" aria-expanded="false">Menu</button>
+      <a class="site-logo" href="/" aria-label="Fabric Consumption home">
+    <svg class="logo-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 100" width="100%" height="100%" aria-hidden="true">
+      <defs>
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#60A5FA" />
+          <stop offset="100%" stop-color="#22D3EE" />
+        </linearGradient>
+        <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#60A5FA" />
+          <stop offset="100%" stop-color="#22D3EE" />
+        </linearGradient>
+        <linearGradient id="iconBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#475569" />
+          <stop offset="100%" stop-color="#2563EB" />
+        </linearGradient>
+        <linearGradient id="innerHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12" />
+          <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDE68A" />
+          <stop offset="50%" stop-color="#F59E0B" />
+          <stop offset="100%" stop-color="#B45309" />
+        </linearGradient>
+        <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#1E293B" />
+          <stop offset="100%" stop-color="#0F172A" />
+        </linearGradient>
+        <filter id="whiteShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.5" />
+        </filter>
+      </defs>
+      <g transform="translate(10, 15)">
+        <rect x="0" y="0" width="70" height="70" rx="16" fill="url(#iconBgGrad)" stroke="url(#borderGrad)" stroke-width="2.5"/>
+        <rect x="1" y="1" width="68" height="35" rx="15" fill="url(#innerHighlight)" />
+        <rect x="18" y="15" width="12" height="42" rx="4" fill="url(#goldGrad)" />
+        <g stroke="#1E293B" stroke-width="1.5" opacity="0.8">
+          <line x1="21" y1="20" x2="27" y2="20" />
+          <line x1="21" y1="26" x2="27" y2="26" />
+          <line x1="21" y1="32" x2="27" y2="32" />
+          <line x1="21" y1="38" x2="27" y2="38" />
+          <line x1="21" y1="44" x2="27" y2="44" />
+          <line x1="21" y1="50" x2="27" y2="50" />
+        </g>
+        <rect x="18" y="55" width="12" height="3" rx="1" fill="#94A3B8" />
+        <rect x="30" y="15" width="26" height="12" rx="4" fill="url(#screenGrad)" stroke="#22D3EE" stroke-width="1.5" />
+        <text x="35" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="8" fill="#22D3EE">+</text>
+        <text x="42" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="8" fill="#22D3EE">=</text>
+        <rect x="49" y="19" width="3" height="4" rx="1" fill="#22D3EE" />
+        <rect x="30" y="33" width="20" height="12" rx="4" fill="#3B82F6" />
+        <circle cx="35" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
+        <circle cx="40" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
+        <circle cx="45" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
+      </g>
+      <g transform="translate(100, 0)">
+        <text x="0" y="52" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="800" font-size="38" fill="#FFFFFF" letter-spacing="-0.5" filter="url(#whiteShadow)" textLength="165" lengthAdjust="spacingAndGlyphs">FABRIC</text>
+        <text x="173" y="52" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="800" font-size="38" fill="url(#blueGrad)" stroke="url(#blueGrad)" stroke-width="0.8" letter-spacing="-0.5" textLength="240" lengthAdjust="spacingAndGlyphs">CONSUMPTION</text>
+        <text x="0" y="78" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="600" font-size="14" fill="#94A3B8" textLength="413" lengthAdjust="spacing" letter-spacing="2.5">GARMENT CALCULATOR SUITE</text>
+      </g>
+    </svg>
+  </a>
+      <nav class="navlinks" id="navlinks" aria-label="Main navigation">
+        <a href="#calculators">Calculators</a><a href="#how-it-works">How It Works</a><a href="#features">Features</a><a href="/about">About</a><a href="/faq">Help &amp; FAQ</a>
+        <a class="nav-cta" href="#calculators">Explore Tools <span>→</span></a>
+      </nav>
+      <button class="menu" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false">Menu</button>
     </div>
   </header>
   <main>
     <section class="hero">
       <div class="wrap hero-inner">
         <div>
-          <div class="eyebrow">One platform · Multiple garment tools</div>
-          <h1>Smarter Garment Calculations. <span>Simpler Workflows.</span></h1>
-          <p>A practical calculator platform for fabric consumption, marker planning, booking sheets, size ratios, trims and garment costing — built to make everyday production calculations easier.</p>
-          <div class="hero-actions"><a class="btn btn-primary" href="#calculators">Explore All Calculators <span>→</span></a><a class="btn btn-outline" href="/knit-garments">Start with Knit Consumption</a></div>
-          <div class="trustline"><span>Easy-to-use tools</span><span>Instant calculations</span><span>PDF &amp; Excel reports on supported tools</span></div>
+          <div class="eyebrow">Garment Calculator Suite · One practical workspace</div>
+          <h1>Make Garment Calculations <em>Clearer and Easier.</em></h1>
+          <p class="hero-copy">Fabric Consumption brings practical tools for knit and woven fabric consumption, marker planning, fabric booking, trims, size ratios, costing and unit conversion together in one browser-based workspace.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#calculators">Explore All Tools <span>→</span></a><a class="btn btn-ghost" href="/knit-garments">Start with Knit Consumption</a></div>
+          <div class="trustline"><span>Focused garment tools</span><span>Clear calculation workflows</span><span>PDF &amp; Excel on supported tools</span></div>
         </div>
-        <div class="hero-panel" aria-label="Calculator platform overview">
-          <div class="panel-head"><strong>Explore the calculator suite</strong><span class="live">TOOL COLLECTION</span></div>
-          <div class="mini-grid">
-            <div class="mini-card"><div class="mini-icon">▦</div><b>Fabric Consumption</b><small>Knit · Pant · Woven</small></div>
-            <div class="mini-card"><div class="mini-icon">⌗</div><b>Marker Planning</b><small>Weight &amp; length methods</small></div>
-            <div class="mini-card"><div class="mini-icon">▤</div><b>Production Planning</b><small>Booking · Size Ratio</small></div>
-            <div class="mini-card"><div class="mini-icon">৳</div><b>Costing Tools</b><small>Knit price · FOB</small></div>
+        <div class="showcase" aria-label="Overview of calculator categories">
+          <div class="showcase-head"><strong>Tools for everyday garment work</strong><span class="pill">12 TOOLS</span></div>
+          <div class="showcase-grid">
+            <div class="show-item"><span class="show-icon">▦</span><b>Fabric Consumption</b><small>Knit garments · Pants · Woven shirts</small></div>
+            <div class="show-item"><span class="show-icon">⌗</span><b>Marker &amp; Material</b><small>Marker · Trims · Zipper</small></div>
+            <div class="show-item"><span class="show-icon">▤</span><b>Production Planning</b><small>Booking sheet · Size ratio</small></div>
+            <div class="show-item"><span class="show-icon">৳</span><b>Costing &amp; Utilities</b><small>Knit fabric cost · FOB · Converter</small></div>
           </div>
-          <div class="panel-foot">Choose a tool, enter your details and review the calculation results in one focused workspace.</div>
+          <div class="showcase-foot">Choose a tool, enter the required details and review the result. Available exports depend on the selected calculator.</div>
         </div>
       </div>
     </section>
-    <div class="stats"><div class="wrap stats-grid">
-      <div class="stat"><b>12</b><span>Dedicated calculator tools</span></div>
-      <div class="stat"><b>Garment-focused</b><span>Made for apparel workflows</span></div>
-      <div class="stat"><b>One workspace</b><span>Tools in one browser platform</span></div>
-      <div class="stat"><b>Easy access</b><span>Open tools directly by category</span></div>
+    <div class="proof"><div class="wrap proof-grid">
+      <div class="proof-item"><b>12 Tools</b><span>Dedicated garment calculators</span></div>
+      <div class="proof-item"><b>One Workspace</b><span>Access from your browser</span></div>
+      <div class="proof-item"><b>Multiple Workflows</b><span>Consumption · Planning · Costing</span></div>
+      <div class="proof-item"><b>Useful Exports</b><span>PDF &amp; Excel where supported</span></div>
     </div></div>
     <section class="section" id="calculators">
       <div class="wrap">
         <div class="section-head">
-          <div><div class="kicker">Calculator directory</div><h2>Find the right tool for your task</h2><p>Choose a calculator below. Each tool has its own workspace for entering details and reviewing results.</p></div>
-          <label class="searchbar"><span>⌕</span><input id="toolSearch" type="search" placeholder="Search calculators..." aria-label="Search calculators"></label>
+          <div><div class="kicker">Explore the platform</div><h2>Find the tool for your next task</h2><p class="section-intro">Browse all available calculators, filter by work area or search by tool name. Open any card to go to that calculator.</p></div>
+          <label class="searchbar"><span>⌕</span><input id="toolSearch" type="search" placeholder="Search tools, e.g. marker, GSM, costing..." aria-label="Search calculators"></label>
         </div>
         <div class="filters" role="group" aria-label="Filter calculators">
-          <button class="filter active" data-filter="all">All Tools</button><button class="filter" data-filter="consumption">Consumption</button><button class="filter" data-filter="planning">Planning</button><button class="filter" data-filter="costing">Costing</button><button class="filter" data-filter="utility">Utilities</button>
+          <button class="filter active" data-filter="all" type="button">All Tools</button><button class="filter" data-filter="consumption" type="button">Consumption</button><button class="filter" data-filter="planning" type="button">Planning</button><button class="filter" data-filter="costing" type="button">Costing</button><button class="filter" data-filter="utility" type="button">Workspace &amp; Utility</button>
         </div>
-        <div class="tools-grid" id="toolsGrid">
-          <a class="tool" href="/knit-garments" data-category="consumption" data-search="knit fabric garment body measurements gsm collar cuff pocket half moon"><div class="tool-top"><span class="tool-icon">▦</span><span class="tool-tag">Consumption</span></div><h3>Knit Fabric Consumption</h3><p>Estimate main fabric and optional components such as collar, cuff, pocket and half-moon.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/knit-pant" data-category="consumption" data-search="knit pant jogger trousers fabric consumption measurements"><div class="tool-top"><span class="tool-icon">▥</span><span class="tool-tag">Consumption</span></div><h3>Knit Pant Consumption</h3><p>Estimate fabric requirements for knit pants, joggers and related garment components.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/woven-shirt" data-category="consumption" data-search="woven shirt fabric consumption measurements"><div class="tool-top"><span class="tool-icon">▧</span><span class="tool-tag">Consumption</span></div><h3>Woven Shirt Consumption</h3><p>Calculate woven shirt fabric requirements from measurements and order details.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/Marker-Consumption" data-category="consumption" data-search="marker consumption fabric width gsm marker length wastage"><div class="tool-top"><span class="tool-icon">⌗</span><span class="tool-tag">Consumption</span></div><h3>Marker Consumption</h3><p>Calculate fabric consumption using marker dimensions, GSM or length-based methods.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/trims" data-category="consumption" data-search="trims thread button interlining consumption"><div class="tool-top"><span class="tool-icon">⌁</span><span class="tool-tag">Consumption</span></div><h3>Trims Consumption</h3><p>Estimate sewing thread, buttons and interlining requirements for production.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/zipper" data-category="consumption" data-search="zipper consumption length order quantity garment"><div class="tool-top"><span class="tool-icon">⇅</span><span class="tool-tag">Consumption</span></div><h3>Zipper Consumption</h3><p>Plan zipper specifications, finished length and required order quantity.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/booking-sheet" data-category="planning" data-search="fabric booking sheet order size ratio marker details"><div class="tool-top"><span class="tool-icon">▤</span><span class="tool-tag">Planning</span></div><h3>Fabric Booking Sheet</h3><p>Organize style, order and fabric booking information in a structured sheet.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/size-ratio" data-category="planning" data-search="size ratio assortment quantity color carton packing"><div class="tool-top"><span class="tool-icon">☷</span><span class="tool-tag">Planning</span></div><h3>Size Ratio &amp; Assortment</h3><p>Plan garment size ratios, color-wise quantities and assortment details.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/pricing-costing/knit-price" data-category="costing" data-search="knit fabric price cost per meter gsm width weight price kg"><div class="tool-top"><span class="tool-icon">৳</span><span class="tool-tag">Costing</span></div><h3>Knit Fabric Cost Calculator</h3><p>Calculate fabric length and cost per meter from weight, GSM, width and price per kg.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/pricing-costing/fob-costing" data-category="costing" data-search="garment fob costing manufacturing cost freight insurance cf cif"><div class="tool-top"><span class="tool-icon">$</span><span class="tool-tag">Costing</span></div><h3>FOB Costing</h3><p>Estimate manufacturing cost, FOB, C&amp;F and CIF prices using cost components.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool" href="/converter" data-category="utility" data-search="fabric gsm measurement unit converter length weight area"><div class="tool-top"><span class="tool-icon">⇄</span><span class="tool-tag">Utility</span></div><h3>GSM &amp; Unit Converter</h3><p>Convert common textile measurements, fabric length, area, weight and GSM units.</p><span class="tool-link">Open converter</span></a>
-          <a class="tool" href="/my-formulas" data-category="utility" data-search="my workspace saved formulas work notes references"><div class="tool-top"><span class="tool-icon">▣</span><span class="tool-tag">Workspace</span></div><h3>My Workspace</h3><p>Keep saved formulas, work notes and useful references in your personal workspace.</p><span class="tool-link">Open workspace</span></a>
+        <div class="tools-grid">
+          <a class="tool-card" href="/knit-garments" data-category="consumption" data-search="knit fabric garment measurements gsm collar cuff pocket half moon"><div class="tool-top"><span class="tool-icon">▦</span><span class="tool-tag">Consumption</span></div><h3>Knit Fabric Consumption</h3><p>Work out knit garment fabric requirements using garment measurements and available component options.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/knit-pant" data-category="consumption" data-search="knit pant jogger trousers fabric consumption measurements"><div class="tool-top"><span class="tool-icon">▥</span><span class="tool-tag">Consumption</span></div><h3>Knit Pant Consumption</h3><p>Estimate fabric requirements for knit pants with the available quick and component-based methods.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/woven-shirt" data-category="consumption" data-search="woven shirt fabric consumption garment components"><div class="tool-top"><span class="tool-icon">▧</span><span class="tool-tag">Consumption</span></div><h3>Woven Shirt Consumption</h3><p>Calculate woven shirt fabric needs from the garment component measurements provided.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/Marker-Consumption" data-category="consumption" data-search="marker consumption length width gsm fabric weight"><div class="tool-top"><span class="tool-icon">⌗</span><span class="tool-tag">Consumption</span></div><h3>Marker Consumption</h3><p>Calculate marker-based fabric use through the available marker dimension, weight or length methods.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/trims" data-category="consumption" data-search="trims thread button interlining consumption"><div class="tool-top"><span class="tool-icon">⌁</span><span class="tool-tag">Material planning</span></div><h3>Trims Consumption</h3><p>Plan common trim requirements, including the components and inputs supported by the calculator.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/zipper" data-category="consumption" data-search="zipper consumption length specification garment"><div class="tool-top"><span class="tool-icon">⇅</span><span class="tool-tag">Material planning</span></div><h3>Zipper Consumption</h3><p>Work with zipper measurements and requirements for garment order planning.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/booking-sheet" data-category="planning" data-search="fabric booking sheet style size ratio marker details order"><div class="tool-top"><span class="tool-icon">▤</span><span class="tool-tag">Planning</span></div><h3>Fabric Booking Sheet</h3><p>Organize style-wise fabric booking details, marker information and size ratios in a structured sheet.</p><span class="tool-link">Open booking sheet</span></a>
+          <a class="tool-card" href="/size-ratio" data-category="planning" data-search="size ratio assortment sizes quantity preset custom"><div class="tool-top"><span class="tool-icon">☷</span><span class="tool-tag">Planning</span></div><h3>Size Ratio &amp; Assortment</h3><p>Set size distributions, work with quantities and review the total pieces for an assortment.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/pricing-costing/knit-price" data-category="costing" data-search="knit fabric cost price per meter gsm width weight price kg"><div class="tool-top"><span class="tool-icon">৳</span><span class="tool-tag">Costing</span></div><h3>Knit Fabric Cost Calculator</h3><p>Review knit fabric cost per meter using the supported fabric weight, GSM, width and price inputs.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/pricing-costing/fob-costing" data-category="costing" data-search="garment fob costing manufacturing cost freight insurance cf cif"><div class="tool-top"><span class="tool-icon">$</span><span class="tool-tag">Costing</span></div><h3>FOB Costing</h3><p>Organize garment cost components and review FOB, C&amp;F or CIF calculations where applicable.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool-card" href="/converter" data-category="utility" data-search="unit converter length weight gsm area yarn count temperature"><div class="tool-top"><span class="tool-icon">⇄</span><span class="tool-tag">Utility</span></div><h3>Unit Converter</h3><p>Convert common length, weight, fabric, GSM, area, yarn-count and other supported units.</p><span class="tool-link">Open converter</span></a>
+          <a class="tool-card" href="/my-formulas" data-category="utility" data-search="my workspace saved formulas notes links screenshots backup"><div class="tool-top"><span class="tool-icon">▣</span><span class="tool-tag">Workspace</span></div><h3>My Workspace</h3><p>Keep personal notes, formulas, links and screenshots in the browser, with an available backup export.</p><span class="tool-link">Open workspace</span></a>
         </div>
-        <div class="empty" id="emptyState">No calculators match your search. Try another keyword.</div>
+        <div class="empty" id="emptyState" hidden>No tools match your search. Try a different keyword or category.</div>
       </div>
     </section>
     <section class="section how" id="how-it-works">
-      <div class="wrap"><div class="kicker">Simple workflow</div><h2>How it works</h2><p style="color:var(--muted);font-size:13px;max-width:560px">Move from input to result with a straightforward process. The exact fields and outputs depend on the calculator you choose.</p>
+      <div class="wrap"><div class="kicker">A clear process</div><h2>How to use Fabric Consumption</h2><p class="section-intro">Start with the task you need to complete. Each calculator has its own input fields and output format.</p>
         <div class="steps">
-          <article class="step"><span class="step-no">01</span><h3>Choose a calculator</h3><p>Open the tool that matches your garment, fabric or production task.</p></article>
-          <article class="step"><span class="step-no">02</span><h3>Enter your details</h3><p>Add the required measurements, GSM, quantity, fabric details or cost values.</p></article>
-          <article class="step"><span class="step-no">03</span><h3>Review your result</h3><p>Calculate, review the summary and use available report or download options.</p></article>
+          <article class="step"><span class="step-no">01</span><h3>Choose your tool</h3><p>Select the calculator that matches your garment, fabric, material, planning or costing task.</p></article>
+          <article class="step"><span class="step-no">02</span><h3>Enter the information</h3><p>Provide the required measurements, units, order quantities or cost details for that calculator.</p></article>
+          <article class="step"><span class="step-no">03</span><h3>Calculate and review</h3><p>Check the result and use PDF or spreadsheet downloads wherever the tool provides them.</p></article>
         </div>
       </div>
     </section>
     <section class="section" id="features">
-      <div class="wrap"><div class="kicker">Designed for everyday work</div><h2>One platform for common garment calculations</h2><p style="color:var(--muted);font-size:13px;max-width:600px;margin:0 0 25px">A clear starting point for garment professionals who need practical calculation tools without moving between multiple websites.</p>
+      <div class="wrap"><div class="kicker">Why this platform</div><h2>Practical tools, grouped around real work</h2><p class="section-intro">A straightforward starting point for common garment calculations, with dedicated areas for different tasks.</p>
         <div class="benefits">
-          <article class="benefit"><span class="benefit-icon">✓</span><div><h3>Focused calculator workspaces</h3><p>Each tool is organized around a specific calculation task.</p></div></article>
-          <article class="benefit"><span class="benefit-icon">↗</span><div><h3>Direct access to tools</h3><p>Open the calculator you need from a single directory.</p></div></article>
-          <article class="benefit"><span class="benefit-icon">▤</span><div><h3>Reports and downloads</h3><p>PDF or spreadsheet options are available on supported tools.</p></div></article>
-          <article class="benefit"><span class="benefit-icon">⌘</span><div><h3>Useful across workflows</h3><p>Consumption, planning, costing and conversion tools in one place.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">✓</span><div><h3>Task-focused workspaces</h3><p>Open a dedicated calculator instead of searching through unrelated features.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">↗</span><div><h3>Easy tool discovery</h3><p>Search the directory or filter the tools by work area.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">▤</span><div><h3>Useful reports</h3><p>PDF and Excel exports are available in supported calculators.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">⌘</span><div><h3>Multiple garment workflows</h3><p>Consumption, planning, material, costing and conversion tools in one place.</p></div></article>
         </div>
       </div>
     </section>
-    <section class="cta"><div class="wrap cta-inner"><div><h2>Ready to make your calculations easier?</h2><p>Choose a calculator and start with the information you already have.</p></div><a class="btn btn-primary" href="#calculators">Browse All Calculators&nbsp; →</a></div></section>
+    <section class="section audience">
+      <div class="wrap audience-grid">
+        <div><div class="kicker">Made for garment work</div><h2>Useful across apparel teams and learning</h2><p class="section-intro">The tools may support people who regularly work with garment measurements, fabric planning, order quantities and costing.</p></div>
+        <div class="audience-list"><div class="audience-chip">Garment Merchandisers</div><div class="audience-chip">Fabric &amp; Production Teams</div><div class="audience-chip">Technical &amp; Print Teams</div><div class="audience-chip">Apparel Costing Teams</div><div class="audience-chip">Textile Students</div><div class="audience-chip">Garment Professionals</div></div>
+      </div>
+    </section>
+    <section class="cta"><div class="wrap cta-inner"><div><h2>Start with the calculation you need.</h2><p>Choose a tool and follow its input steps to review your result.</p></div><a class="btn btn-primary" href="#calculators">Browse All Tools <span>→</span></a></div></section>
   </main>
-  <footer><div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand"><a class="brand" href="/"><span class="brand-mark">FC</span><span>FABRIC CONSUMPTION<small>GARMENT CALCULATOR SUITE</small></span></a><p>A practical browser-based toolkit for garment fabric consumption, production planning, conversion and costing calculations.</p></div>
-      <div class="footer-col"><b>CALCULATORS</b><a href="/knit-garments">Knit Fabric Consumption</a><a href="/Marker-Consumption">Marker Consumption</a><a href="/booking-sheet">Fabric Booking Sheet</a><a href="/size-ratio">Size Ratio</a><a href="/pricing-costing">Pricing &amp; Costing</a></div>
-      <div class="footer-col"><b>INFORMATION</b><a href="/about">About</a><a href="/faq">Help &amp; FAQ</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></div>
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="footer-logo" href="/" aria-label="Fabric Consumption home">
+    <svg class="logo-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 100" width="100%" height="100%" aria-hidden="true">
+      <defs>
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#60A5FA" />
+          <stop offset="100%" stop-color="#22D3EE" />
+        </linearGradient>
+        <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#60A5FA" />
+          <stop offset="100%" stop-color="#22D3EE" />
+        </linearGradient>
+        <linearGradient id="iconBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#475569" />
+          <stop offset="100%" stop-color="#2563EB" />
+        </linearGradient>
+        <linearGradient id="innerHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12" />
+          <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDE68A" />
+          <stop offset="50%" stop-color="#F59E0B" />
+          <stop offset="100%" stop-color="#B45309" />
+        </linearGradient>
+        <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#1E293B" />
+          <stop offset="100%" stop-color="#0F172A" />
+        </linearGradient>
+        <filter id="whiteShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.5" />
+        </filter>
+      </defs>
+      <g transform="translate(10, 15)">
+        <rect x="0" y="0" width="70" height="70" rx="16" fill="url(#iconBgGrad)" stroke="url(#borderGrad)" stroke-width="2.5"/>
+        <rect x="1" y="1" width="68" height="35" rx="15" fill="url(#innerHighlight)" />
+        <rect x="18" y="15" width="12" height="42" rx="4" fill="url(#goldGrad)" />
+        <g stroke="#1E293B" stroke-width="1.5" opacity="0.8">
+          <line x1="21" y1="20" x2="27" y2="20" />
+          <line x1="21" y1="26" x2="27" y2="26" />
+          <line x1="21" y1="32" x2="27" y2="32" />
+          <line x1="21" y1="38" x2="27" y2="38" />
+          <line x1="21" y1="44" x2="27" y2="44" />
+          <line x1="21" y1="50" x2="27" y2="50" />
+        </g>
+        <rect x="18" y="55" width="12" height="3" rx="1" fill="#94A3B8" />
+        <rect x="30" y="15" width="26" height="12" rx="4" fill="url(#screenGrad)" stroke="#22D3EE" stroke-width="1.5" />
+        <text x="35" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="8" fill="#22D3EE">+</text>
+        <text x="42" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="8" fill="#22D3EE">=</text>
+        <rect x="49" y="19" width="3" height="4" rx="1" fill="#22D3EE" />
+        <rect x="30" y="33" width="20" height="12" rx="4" fill="#3B82F6" />
+        <circle cx="35" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
+        <circle cx="40" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
+        <circle cx="45" cy="39" r="2" fill="#FFFFFF" opacity="0.9" />
+      </g>
+      <g transform="translate(100, 0)">
+        <text x="0" y="52" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="800" font-size="38" fill="#FFFFFF" letter-spacing="-0.5" filter="url(#whiteShadow)" textLength="165" lengthAdjust="spacingAndGlyphs">FABRIC</text>
+        <text x="173" y="52" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="800" font-size="38" fill="url(#blueGrad)" stroke="url(#blueGrad)" stroke-width="0.8" letter-spacing="-0.5" textLength="240" lengthAdjust="spacingAndGlyphs">CONSUMPTION</text>
+        <text x="0" y="78" font-family="'Inter', system-ui, -apple-system, sans-serif" font-weight="600" font-size="14" fill="#94A3B8" textLength="413" lengthAdjust="spacing" letter-spacing="2.5">GARMENT CALCULATOR SUITE</text>
+      </g>
+    </svg>
+  </a>
+          <p>A practical browser-based toolkit for garment fabric consumption, material planning, booking, conversion and costing calculations.</p>
+          <span class="social-title">Share the website</span>
+          <div class="socials" aria-label="Share website">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffabricconsumption.vercel.app%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">f</a>
+            <a href="https://wa.me/?text=Fabric%20Consumption%20https%3A%2F%2Ffabricconsumption.vercel.app%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp">WA</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffabricconsumption.vercel.app%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">in</a>
+            <a href="https://t.me/share/url?url=https%3A%2F%2Ffabricconsumption.vercel.app%2F&text=Fabric%20Consumption" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">TG</a>
+            <button id="copySiteLink" type="button" aria-label="Copy website link">↗</button>
+          </div><span id="copyStatus" aria-live="polite"></span>
+          <span class="social-title">Join the community</span>
+          <div class="socials"><a href="https://chat.whatsapp.com/DOro6j9LcRmG8zZ0zbGuWw" target="_blank" rel="noopener noreferrer" aria-label="Join WhatsApp Community">WA</a></div>
+        </div>
+        <div class="footer-col"><h3>CALCULATORS</h3>
+          <a href="/knit-garments">Knit Fabric Consumption</a><a href="/knit-pant">Knit Pant</a><a href="/woven-shirt">Woven Shirt</a><a href="/Marker-Consumption">Marker Consumption</a><a href="/booking-sheet">Fabric Booking Sheet</a><a href="/pricing-costing">Pricing &amp; Costing</a>
+        </div>
+        <div class="footer-col"><h3>MORE TOOLS</h3>
+          <a href="/trims">Trims Consumption</a><a href="/zipper">Zipper Consumption</a><a href="/size-ratio">Size Ratio &amp; Assortment</a><a href="/converter">Unit Converter</a><a href="/my-formulas">My Workspace</a><a href="/faq">Help &amp; FAQ</a>
+        </div>
+        <div class="footer-col"><h3>INFORMATION</h3>
+          <a href="/about">About Us</a><a href="/contact">Contact Us</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a><a href="/disclaimer">Disclaimer</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-year></span> Fabric Consumption. All rights reserved.</span><span class="footer-bottom-links"><a href="/privacy-policy">Privacy</a><a href="/terms-of-use">Terms</a><a href="/disclaimer">Disclaimer</a></span><button class="back-top" id="backToTop" type="button">Back to top ↑</button></div>
     </div>
-    <div class="copyright"><span>© 2026 Fabric Consumption. All rights reserved.</span><span>Homepage concept preview · Not connected to the live homepage design.</span></div>
-  </div></footer>
-  <script>
-    const search=document.getElementById('toolSearch');
-    const cards=[...document.querySelectorAll('.tool')];
-    const filters=[...document.querySelectorAll('.filter')];
-    let active='all';
-    function applyFilter(){const q=(search.value||'').trim().toLowerCase();let shown=0;cards.forEach(card=>{const matchCategory=active==='all'||card.dataset.category===active;const matchText=(card.dataset.search+' '+card.innerText).toLowerCase().includes(q);const visible=matchCategory&&matchText;card.style.display=visible?'flex':'none';if(visible)shown++});document.getElementById('emptyState').style.display=shown?'none':'block'}
-    search.addEventListener('input',applyFilter);
-    filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(item=>item.classList.remove('active'));btn.classList.add('active');active=btn.dataset.filter;applyFilter()}));
-    const menuBtn=document.getElementById('menuBtn'),nav=document.getElementById('navlinks');menuBtn.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}));
-  </script>
+  </footer>
+  
+<script>
+(() => {
+ const search = document.querySelector('#toolSearch');
+ const cards = [...document.querySelectorAll('.tool-card')];
+ const filters = [...document.querySelectorAll('[data-filter]')];
+ let active = 'all';
+ function apply(){
+   const q=(search?.value||'').trim().toLowerCase();
+   let shown=0;
+   cards.forEach(card=>{
+     const category=active==='all'||card.dataset.category===active;
+     const text=(card.dataset.search+' '+card.innerText).toLowerCase();
+     const visible=category&&text.includes(q);
+     card.hidden=!visible;
+     if(visible) shown++;
+   });
+   const empty=document.querySelector('#emptyState');
+   if(empty) empty.hidden=shown!==0;
+ }
+ search?.addEventListener('input',apply);
+ filters.forEach(btn=>btn.addEventListener('click',()=>{
+   filters.forEach(x=>x.classList.toggle('active',x===btn));
+   active=btn.dataset.filter; apply();
+ }));
+ const toggle=document.querySelector('#menuBtn'), nav=document.querySelector('#navlinks');
+ toggle?.addEventListener('click',()=>{
+   const open=nav.classList.toggle('open');
+   toggle.setAttribute('aria-expanded',String(open));
+ });
+ nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+   nav.classList.remove('open'); toggle?.setAttribute('aria-expanded','false');
+ }));
+ document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
+ document.querySelector('#backToTop')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+ const copy=document.querySelector('#copySiteLink');
+ copy?.addEventListener('click',async()=>{
+   const status=document.querySelector('#copyStatus');
+   try{await navigator.clipboard.writeText('https://fabricconsumption.vercel.app/');status.textContent='Website link copied';}
+   catch{status.textContent='Copy unavailable in this browser';}
+ });
+})();
+</script>
 </body>
 </html>
