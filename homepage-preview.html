@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1730">
+  <title>Homepage Concept Preview | Fabric Consumption</title>
+  <meta name="description" content="Preview concept for the Fabric Consumption calculator platform homepage. Explore garment fabric, marker, booking, size ratio and costing tools.">
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--navy:#0b1730;--navy2:#142746;--blue:#1688e8;--cyan:#35b8d8;--ink:#17243a;--muted:#637188;--line:#e4eaf2;--paper:#f5f8fc;--white:#fff;--green:#16845b;--shadow:0 14px 38px rgba(15,35,65,.08)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 40px));margin:auto}
+    .topbar{background:#071126;color:#c8d5e8;font-size:12px}.topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding:8px 0}.preview-note{color:#8bd9f4;font-weight:700;letter-spacing:.04em}
+    header{position:sticky;top:0;z-index:20;background:rgba(11,23,48,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.09)}.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;color:white;font-weight:850;letter-spacing:.035em;font-size:17px}.brand-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,#35b8d8,#1478df);display:grid;place-items:center;color:#fff;font-size:18px;font-weight:900;box-shadow:0 6px 18px #1688e844}.brand small{display:block;color:#93a7c3;font-size:9px;letter-spacing:.18em;font-weight:700}.navlinks{display:flex;align-items:center;gap:25px;color:#c4d0e2;font-size:13px;font-weight:600}.navlinks a:hover{color:#55c9ee}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:11px 17px;font-weight:750;font-size:13px;transition:.2s}.nav-cta,.btn-primary{background:var(--blue);color:white;box-shadow:0 7px 18px #1688e82b}.nav-cta:hover,.btn-primary:hover{background:#0874d0;transform:translateY(-1px)}.menu{display:none;background:none;border:1px solid #52627a;color:#fff;border-radius:8px;padding:8px 11px}
+    .hero{background:radial-gradient(ellipse at 80% 10%,#1d4776 0,transparent 36%),linear-gradient(120deg,#0b1730 0%,#102b50 68%,#0b2343 100%);color:white;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:500px;height:500px;border:1px solid #ffffff12;border-radius:50%;right:-140px;top:-220px;box-shadow:0 0 0 45px #ffffff08,0 0 0 90px #ffffff05}.hero-inner{position:relative;z-index:1;padding:82px 0 74px;display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#8ce0f6;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:2px;background:#38bce2}.hero h1{font-size:clamp(36px,5vw,58px);line-height:1.08;letter-spacing:-.045em;margin:18px 0 18px;max-width:690px}.hero h1 span{color:#55c8ed}.hero p{color:#c2d0e4;font-size:16px;max-width:620px;margin:0 0 27px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn-outline{border:1px solid #7186a4;color:#fff;background:#ffffff08}.btn-outline:hover{background:#ffffff16}.trustline{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;color:#a9bad1;font-size:11px}.trustline span:before{content:"✓";color:#5ed3b1;font-weight:900;margin-right:7px}
+    .hero-panel{background:#fff;color:var(--ink);border:1px solid #ffffff55;border-radius:18px;padding:23px;box-shadow:0 24px 70px #020b1d66;transform:rotate(1deg)}.panel-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:15px}.panel-head strong{font-size:13px}.live{font-size:10px;color:var(--green);font-weight:800}.live:before{content:"";display:inline-block;width:7px;height:7px;background:#20b47b;border-radius:50%;margin-right:6px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini-card{background:#f4f8fd;border:1px solid #e8eef6;border-radius:11px;padding:13px}.mini-icon{width:29px;height:29px;display:grid;place-items:center;background:#e3f2ff;color:#147bd2;border-radius:8px;font-size:15px;margin-bottom:9px}.mini-card b{display:block;font-size:12px}.mini-card small{color:var(--muted);font-size:10px}.panel-foot{background:#edf7ff;color:#32638a;border-radius:9px;padding:11px 13px;font-size:11px;margin-top:12px}
+    .stats{background:#fff;border-bottom:1px solid var(--line)}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:20px 0}.stat{padding:4px 22px;border-right:1px solid var(--line)}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat b{font-size:21px;color:#12345a;display:block;line-height:1.25}.stat span{font-size:11px;color:var(--muted)}
+    section{scroll-margin-top:90px}.section{padding:76px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:27px}.kicker{font-size:10px;color:var(--blue);font-weight:850;letter-spacing:.16em;text-transform:uppercase}.section h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.035em;line-height:1.15;margin:8px 0;color:#12233c}.section-head p{max-width:500px;color:var(--muted);font-size:13px;margin:0}.searchbar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:0 15px;max-width:420px;width:100%;box-shadow:0 3px 12px #102c4d08}.searchbar input{border:0;outline:0;width:100%;padding:14px 0;font:inherit;font-size:13px;background:transparent;color:var(--ink)}.searchbar span{color:#8290a4;font-size:17px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.filter{border:1px solid var(--line);background:#fff;color:#5d6c82;border-radius:30px;padding:8px 14px;font-size:11px;font-weight:750;cursor:pointer}.filter.active,.filter:hover{background:#eaf5ff;border-color:#b6daf9;color:#086fc5}.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.tool{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;min-height:206px;box-shadow:0 4px 14px #112a4905;transition:.2s}.tool:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#c4dff8}.tool-top{display:flex;justify-content:space-between;align-items:start}.tool-icon{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;background:#eaf5ff;color:#0879d5;font-size:20px}.tool-tag{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#718199;font-weight:800}.tool h3{font-size:16px;margin:16px 0 6px;color:#172a45}.tool p{font-size:12px;color:var(--muted);margin:0 0 18px;max-width:330px}.tool-link{margin-top:auto;color:#0878d4;font-size:12px;font-weight:800;display:flex;align-items:center;gap:7px}.tool-link:after{content:"→";font-size:16px;transition:.2s}.tool:hover .tool-link:after{transform:translateX(4px)}.empty{display:none;padding:25px;text-align:center;color:var(--muted);background:white;border:1px dashed var(--line);border-radius:12px}
+    .how{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}.step{padding:22px;border:1px solid var(--line);border-radius:13px;background:#fbfdff}.step-no{width:30px;height:30px;border-radius:9px;background:#e5f3ff;color:#0877d2;display:grid;place-items:center;font-size:12px;font-weight:900}.step h3{font-size:15px;margin:14px 0 6px}.step p{font-size:12px;color:var(--muted);margin:0}
+    .benefits{display:grid;grid-template-columns:1fr 1fr;gap:14px}.benefit{display:flex;gap:13px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px}.benefit-icon{flex:0 0 34px;height:34px;border-radius:10px;background:#eaf6f4;color:#13815f;display:grid;place-items:center;font-weight:900}.benefit h3{font-size:13px;margin:0 0 4px}.benefit p{font-size:11px;color:var(--muted);margin:0}
+    .cta{padding:46px 0;background:linear-gradient(110deg,#0d1e39,#153b65);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:25px}.cta h2{font-size:27px;margin:0 0 6px;letter-spacing:-.03em}.cta p{margin:0;color:#b8cbe1;font-size:12px}.cta .btn{white-space:nowrap}
+    footer{background:#071126;color:#c2cfe0;padding:38px 0 20px}.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding-bottom:28px}.footer-brand p{font-size:11px;color:#91a4bd;max-width:330px}.footer-col b{font-size:11px;color:white;display:block;margin-bottom:12px}.footer-col a{display:block;font-size:11px;color:#9fb0c6;margin:8px 0}.footer-col a:hover{color:#58c8ed}.copyright{border-top:1px solid #26344a;padding-top:17px;color:#8294ac;font-size:10px;display:flex;justify-content:space-between;gap:10px}
+    @media(max-width:850px){.hero-inner{grid-template-columns:1fr;gap:35px;padding:62px 0}.hero-panel{max-width:520px;transform:none}.navlinks{gap:14px}.tools-grid{grid-template-columns:repeat(2,1fr)}.section-head{align-items:start;flex-direction:column}.searchbar{max-width:none}.footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
+    @media(max-width:600px){.wrap{width:min(100% - 28px,1160px)}.topbar .wrap{font-size:10px}.nav{height:62px}.navlinks{display:none;position:absolute;top:62px;left:0;right:0;background:#0b1730;padding:18px 22px;flex-direction:column;align-items:stretch;border-top:1px solid #ffffff18}.navlinks.open{display:flex}.navlinks .nav-cta{text-align:center}.menu{display:block}.brand{font-size:14px}.brand-mark{width:34px;height:34px}.hero-inner{padding:48px 0}.hero h1{font-size:37px}.hero p{font-size:14px}.hero-panel{padding:17px}.stats-grid{grid-template-columns:1fr 1fr;row-gap:16px}.stat{padding:0 12px;border:0}.stat:nth-child(odd){padding-left:0}.section{padding:54px 0}.tools-grid{grid-template-columns:1fr}.tool{min-height:180px}.steps,.benefits{grid-template-columns:1fr}.cta-inner{align-items:start;flex-direction:column}.footer-top{grid-template-columns:1fr 1fr;gap:22px}.copyright{flex-direction:column}.trustline{gap:10px}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="wrap"><span>Practical tools for garment &amp; textile professionals</span><span class="preview-note">HOMEPAGE CONCEPT · PREVIEW ONLY</span></div></div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="Fabric Consumption home"><span class="brand-mark">FC</span><span>FABRIC CONSUMPTION<small>GARMENT CALCULATOR SUITE</small></span></a>
+      <nav class="navlinks" id="navlinks"><a href="#calculators">Calculators</a><a href="#how-it-works">How It Works</a><a href="#features">Why Use It</a><a href="/about">About</a><a class="nav-cta" href="#calculators">Explore Calculators&nbsp; →</a></nav>
+      <button class="menu" id="menuBtn" aria-label="Open navigation" aria-expanded="false">Menu</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <div class="eyebrow">One platform · Multiple garment tools</div>
+          <h1>Smarter Garment Calculations. <span>Simpler Workflows.</span></h1>
+          <p>A practical calculator platform for fabric consumption, marker planning, booking sheets, size ratios, trims and garment costing — built to make everyday production calculations easier.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#calculators">Explore All Calculators <span>→</span></a><a class="btn btn-outline" href="/knit-garments">Start with Knit Consumption</a></div>
+          <div class="trustline"><span>Easy-to-use tools</span><span>Instant calculations</span><span>PDF &amp; Excel reports on supported tools</span></div>
+        </div>
+        <div class="hero-panel" aria-label="Calculator platform overview">
+          <div class="panel-head"><strong>Explore the calculator suite</strong><span class="live">TOOL COLLECTION</span></div>
+          <div class="mini-grid">
+            <div class="mini-card"><div class="mini-icon">▦</div><b>Fabric Consumption</b><small>Knit · Pant · Woven</small></div>
+            <div class="mini-card"><div class="mini-icon">⌗</div><b>Marker Planning</b><small>Weight &amp; length methods</small></div>
+            <div class="mini-card"><div class="mini-icon">▤</div><b>Production Planning</b><small>Booking · Size Ratio</small></div>
+            <div class="mini-card"><div class="mini-icon">৳</div><b>Costing Tools</b><small>Knit price · FOB</small></div>
+          </div>
+          <div class="panel-foot">Choose a tool, enter your details and review the calculation results in one focused workspace.</div>
+        </div>
+      </div>
+    </section>
+    <div class="stats"><div class="wrap stats-grid">
+      <div class="stat"><b>12</b><span>Dedicated calculator tools</span></div>
+      <div class="stat"><b>Garment-focused</b><span>Made for apparel workflows</span></div>
+      <div class="stat"><b>One workspace</b><span>Tools in one browser platform</span></div>
+      <div class="stat"><b>Easy access</b><span>Open tools directly by category</span></div>
+    </div></div>
+    <section class="section" id="calculators">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">Calculator directory</div><h2>Find the right tool for your task</h2><p>Choose a calculator below. Each tool has its own workspace for entering details and reviewing results.</p></div>
+          <label class="searchbar"><span>⌕</span><input id="toolSearch" type="search" placeholder="Search calculators..." aria-label="Search calculators"></label>
+        </div>
+        <div class="filters" role="group" aria-label="Filter calculators">
+          <button class="filter active" data-filter="all">All Tools</button><button class="filter" data-filter="consumption">Consumption</button><button class="filter" data-filter="planning">Planning</button><button class="filter" data-filter="costing">Costing</button><button class="filter" data-filter="utility">Utilities</button>
+        </div>
+        <div class="tools-grid" id="toolsGrid">
+          <a class="tool" href="/knit-garments" data-category="consumption" data-search="knit fabric garment body measurements gsm collar cuff pocket half moon"><div class="tool-top"><span class="tool-icon">▦</span><span class="tool-tag">Consumption</span></div><h3>Knit Fabric Consumption</h3><p>Estimate main fabric and optional components such as collar, cuff, pocket and half-moon.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/knit-pant" data-category="consumption" data-search="knit pant jogger trousers fabric consumption measurements"><div class="tool-top"><span class="tool-icon">▥</span><span class="tool-tag">Consumption</span></div><h3>Knit Pant Consumption</h3><p>Estimate fabric requirements for knit pants, joggers and related garment components.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/woven-shirt" data-category="consumption" data-search="woven shirt fabric consumption measurements"><div class="tool-top"><span class="tool-icon">▧</span><span class="tool-tag">Consumption</span></div><h3>Woven Shirt Consumption</h3><p>Calculate woven shirt fabric requirements from measurements and order details.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/Marker-Consumption" data-category="consumption" data-search="marker consumption fabric width gsm marker length wastage"><div class="tool-top"><span class="tool-icon">⌗</span><span class="tool-tag">Consumption</span></div><h3>Marker Consumption</h3><p>Calculate fabric consumption using marker dimensions, GSM or length-based methods.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/trims" data-category="consumption" data-search="trims thread button interlining consumption"><div class="tool-top"><span class="tool-icon">⌁</span><span class="tool-tag">Consumption</span></div><h3>Trims Consumption</h3><p>Estimate sewing thread, buttons and interlining requirements for production.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/zipper" data-category="consumption" data-search="zipper consumption length order quantity garment"><div class="tool-top"><span class="tool-icon">⇅</span><span class="tool-tag">Consumption</span></div><h3>Zipper Consumption</h3><p>Plan zipper specifications, finished length and required order quantity.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/booking-sheet" data-category="planning" data-search="fabric booking sheet order size ratio marker details"><div class="tool-top"><span class="tool-icon">▤</span><span class="tool-tag">Planning</span></div><h3>Fabric Booking Sheet</h3><p>Organize style, order and fabric booking information in a structured sheet.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/size-ratio" data-category="planning" data-search="size ratio assortment quantity color carton packing"><div class="tool-top"><span class="tool-icon">☷</span><span class="tool-tag">Planning</span></div><h3>Size Ratio &amp; Assortment</h3><p>Plan garment size ratios, color-wise quantities and assortment details.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/pricing-costing/knit-price" data-category="costing" data-search="knit fabric price cost per meter gsm width weight price kg"><div class="tool-top"><span class="tool-icon">৳</span><span class="tool-tag">Costing</span></div><h3>Knit Fabric Cost Calculator</h3><p>Calculate fabric length and cost per meter from weight, GSM, width and price per kg.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/pricing-costing/fob-costing" data-category="costing" data-search="garment fob costing manufacturing cost freight insurance cf cif"><div class="tool-top"><span class="tool-icon">$</span><span class="tool-tag">Costing</span></div><h3>FOB Costing</h3><p>Estimate manufacturing cost, FOB, C&amp;F and CIF prices using cost components.</p><span class="tool-link">Open calculator</span></a>
+          <a class="tool" href="/converter" data-category="utility" data-search="fabric gsm measurement unit converter length weight area"><div class="tool-top"><span class="tool-icon">⇄</span><span class="tool-tag">Utility</span></div><h3>GSM &amp; Unit Converter</h3><p>Convert common textile measurements, fabric length, area, weight and GSM units.</p><span class="tool-link">Open converter</span></a>
+          <a class="tool" href="/my-formulas" data-category="utility" data-search="my workspace saved formulas work notes references"><div class="tool-top"><span class="tool-icon">▣</span><span class="tool-tag">Workspace</span></div><h3>My Workspace</h3><p>Keep saved formulas, work notes and useful references in your personal workspace.</p><span class="tool-link">Open workspace</span></a>
+        </div>
+        <div class="empty" id="emptyState">No calculators match your search. Try another keyword.</div>
+      </div>
+    </section>
+    <section class="section how" id="how-it-works">
+      <div class="wrap"><div class="kicker">Simple workflow</div><h2>How it works</h2><p style="color:var(--muted);font-size:13px;max-width:560px">Move from input to result with a straightforward process. The exact fields and outputs depend on the calculator you choose.</p>
+        <div class="steps">
+          <article class="step"><span class="step-no">01</span><h3>Choose a calculator</h3><p>Open the tool that matches your garment, fabric or production task.</p></article>
+          <article class="step"><span class="step-no">02</span><h3>Enter your details</h3><p>Add the required measurements, GSM, quantity, fabric details or cost values.</p></article>
+          <article class="step"><span class="step-no">03</span><h3>Review your result</h3><p>Calculate, review the summary and use available report or download options.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="features">
+      <div class="wrap"><div class="kicker">Designed for everyday work</div><h2>One platform for common garment calculations</h2><p style="color:var(--muted);font-size:13px;max-width:600px;margin:0 0 25px">A clear starting point for garment professionals who need practical calculation tools without moving between multiple websites.</p>
+        <div class="benefits">
+          <article class="benefit"><span class="benefit-icon">✓</span><div><h3>Focused calculator workspaces</h3><p>Each tool is organized around a specific calculation task.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">↗</span><div><h3>Direct access to tools</h3><p>Open the calculator you need from a single directory.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">▤</span><div><h3>Reports and downloads</h3><p>PDF or spreadsheet options are available on supported tools.</p></div></article>
+          <article class="benefit"><span class="benefit-icon">⌘</span><div><h3>Useful across workflows</h3><p>Consumption, planning, costing and conversion tools in one place.</p></div></article>
+        </div>
+      </div>
+    </section>
+    <section class="cta"><div class="wrap cta-inner"><div><h2>Ready to make your calculations easier?</h2><p>Choose a calculator and start with the information you already have.</p></div><a class="btn btn-primary" href="#calculators">Browse All Calculators&nbsp; →</a></div></section>
+  </main>
+  <footer><div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand"><a class="brand" href="/"><span class="brand-mark">FC</span><span>FABRIC CONSUMPTION<small>GARMENT CALCULATOR SUITE</small></span></a><p>A practical browser-based toolkit for garment fabric consumption, production planning, conversion and costing calculations.</p></div>
+      <div class="footer-col"><b>CALCULATORS</b><a href="/knit-garments">Knit Fabric Consumption</a><a href="/Marker-Consumption">Marker Consumption</a><a href="/booking-sheet">Fabric Booking Sheet</a><a href="/size-ratio">Size Ratio</a><a href="/pricing-costing">Pricing &amp; Costing</a></div>
+      <div class="footer-col"><b>INFORMATION</b><a href="/about">About</a><a href="/faq">Help &amp; FAQ</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></div>
+    </div>
+    <div class="copyright"><span>© 2026 Fabric Consumption. All rights reserved.</span><span>Homepage concept preview · Not connected to the live homepage design.</span></div>
+  </div></footer>
+  <script>
+    const search=document.getElementById('toolSearch');
+    const cards=[...document.querySelectorAll('.tool')];
+    const filters=[...document.querySelectorAll('.filter')];
+    let active='all';
+    function applyFilter(){const q=(search.value||'').trim().toLowerCase();let shown=0;cards.forEach(card=>{const matchCategory=active==='all'||card.dataset.category===active;const matchText=(card.dataset.search+' '+card.innerText).toLowerCase().includes(q);const visible=matchCategory&&matchText;card.style.display=visible?'flex':'none';if(visible)shown++});document.getElementById('emptyState').style.display=shown?'none':'block'}
+    search.addEventListener('input',applyFilter);
+    filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(item=>item.classList.remove('active'));btn.classList.add('active');active=btn.dataset.filter;applyFilter()}));
+    const menuBtn=document.getElementById('menuBtn'),nav=document.getElementById('navlinks');menuBtn.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}));
+  </script>
+</body>
+</html>
