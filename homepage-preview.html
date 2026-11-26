@@ -640,6 +640,46 @@
   @keyframes fc-card-enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
   @media(prefers-reduced-motion:reduce){.tool-card,.tool-card:before,.tool-card:after,.tool-icon,.tool-link,.tool-link:after,.tool-art,.directory-toolbar .filter{animation:none!important;transition:none!important}}
 
+  
+  /* Reference-match refinements: larger cards, always-visible garment art and blue text links */
+  .tool-directory{padding:58px 0 76px;background:#f0f4f8}
+  .tool-directory>.wrap{width:calc(100% - 64px);max-width:1380px}
+  .directory-heading{grid-template-columns:minmax(0,1fr) 340px;gap:44px;margin-bottom:28px}
+  .directory-eyebrow{padding:7px 13px;border:1px solid #d8e9fb;border-radius:24px;background:#fff;color:#0284c7;box-shadow:0 3px 12px rgba(15,23,42,.035)}
+  .directory-copy h2{font-size:clamp(32px,3.2vw,42px);margin:12px 0 8px}
+  .directory-copy .section-intro{font-size:12px;max-width:610px}
+  .directory-search{height:48px;border-radius:11px;padding:0 15px}
+  .directory-toolbar{margin-bottom:18px}
+  .directory-toolbar .filters{gap:8px}
+  .directory-toolbar .filter{min-height:36px;padding:8px 14px;border-radius:9px;font-size:10px}
+  .directory-toolbar .filter.active{background:#e0f2fe;border-color:#7dd3fc;color:#0369a1;box-shadow:0 3px 9px rgba(14,165,233,.08)}
+  .directory-count{margin-bottom:10px}
+  .tools-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+  .tool-card{min-height:236px;padding:20px 20px 18px;border-radius:12px;box-shadow:0 3px 9px rgba(15,23,42,.045);border-color:#d8e4ef}
+  .tool-card:before{height:3px}
+  .tool-card:after{left:-5%;right:-5%;bottom:-4px;height:82px;border-radius:50% 50% 0 0/38% 38% 0 0;background:linear-gradient(180deg,rgba(224,242,254,.05),rgba(186,230,253,.64));transform:none;opacity:.8}
+  .tool-card:hover:after{opacity:1;transform:translateY(-3px) scaleX(1.02)}
+  .tool-card-top{margin-bottom:12px}
+  .tool-icon{width:58px;height:58px;border-radius:16px;background:linear-gradient(145deg,#f0f9ff,#d9f0ff);border-color:#d7efff;box-shadow:0 5px 14px rgba(14,165,233,.08)}
+  .tool-icon svg{width:35px;height:35px;stroke-width:1.7}
+  .tool-card:hover .tool-icon{transform:translateY(-4px) rotate(-4deg) scale(1.06)}
+  .tool-tag{padding:6px 10px;border-radius:18px;background:#e5f3ff;color:#0369a1;font-size:9px;letter-spacing:.035em}
+  .tool-card h3{font-size:16px;margin:0 0 7px}
+  .tool-card p{font-size:11.5px;line-height:1.6;min-height:48px;margin-bottom:12px;max-width:92%}
+  .tool-directory .tool-link{display:inline-flex!important;align-items:center;justify-content:flex-start!important;gap:9px!important;width:auto!important;min-height:0!important;margin-top:auto!important;padding:5px 0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#0284c7!important;font-size:12px!important;font-weight:850!important;letter-spacing:0!important}
+  .tool-directory .tool-link:after{content:"→";font-size:18px;line-height:1;transition:transform .22s}
+  .tool-card:hover .tool-link{gap:13px!important;color:#0369a1!important;transform:none!important;filter:none!important}
+  .tool-card:hover .tool-link:after{transform:translateX(4px)}
+  .tool-art{right:15px;bottom:8px;z-index:1;opacity:.48;transform:translateY(0) scale(1);color:#0284c7}
+  .tool-art svg{width:76px;height:76px;stroke-width:1.15}
+  .tool-card:hover .tool-art{opacity:.72;transform:translateY(-4px) scale(1.03)}
+  body.dark-mode .directory-eyebrow{background:#111c2d;border-color:#293b51;color:#7dd3fc}
+  body.dark-mode .directory-toolbar .filter.active{background:#12304a;border-color:#2476a5;color:#7dd3fc}
+  body.dark-mode .tool-card:after{background:linear-gradient(180deg,rgba(14,165,233,.02),rgba(14,165,233,.18))}
+  body.dark-mode .tool-art{color:#38bdf8}
+  @media(max-width:900px){.tool-directory>.wrap{width:calc(100% - 40px)}.directory-heading{grid-template-columns:1fr;gap:17px}.directory-search{max-width:460px}.tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:620px){.tool-directory{padding:48px 0 56px}.tool-directory>.wrap{width:calc(100% - 30px)}.directory-copy h2{font-size:29px}.tools-grid{grid-template-columns:1fr;gap:13px}.tool-card{min-height:218px;padding:17px}.tool-card h3{font-size:15px}.tool-card p{min-height:0;font-size:11px}.tool-icon{width:52px;height:52px}.tool-icon svg{width:31px;height:31px}.tool-art svg{width:66px;height:66px}}
+
   </style>
 </head>
 <body>
