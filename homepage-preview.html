@@ -150,6 +150,58 @@
   body.dark-mode .theme-toggle{background:#1e293b;color:#fbbf24;border-color:#475569}
   body.dark-mode .theme-toggle:hover{color:#fde68a;border-color:#fbbf24}
   @media(max-width:620px){.theme-toggle{margin-left:auto}.menu{margin-left:0}}
+  
+  /* Refined responsive header */
+  header{background:rgba(15,23,42,.97);border-bottom:1px solid rgba(148,163,184,.16);box-shadow:0 8px 26px rgba(2,6,23,.16)}
+  .nav{height:74px;gap:clamp(12px,2vw,25px)}
+  .site-logo{width:244px;height:52px;max-width:31vw;transition:opacity .2s,transform .2s}
+  .site-logo:hover{opacity:.94;transform:translateY(-1px)}
+  .navlinks{gap:clamp(13px,1.7vw,22px);font-size:12px;font-weight:650}
+  .navlinks>a:not(.nav-cta){position:relative;padding:9px 0;color:#cbd5e1;transition:color .2s}
+  .navlinks>a:not(.nav-cta):after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:2px;border-radius:2px;background:#38bdf8;transition:right .2s}
+  .navlinks>a:not(.nav-cta):hover{color:#fff}
+  .navlinks>a:not(.nav-cta):hover:after{right:0}
+  .navlinks .nav-cta{min-height:42px;padding:0 17px;border:1px solid rgba(125,211,252,.2);border-radius:9px;background:#0ea5e9;color:#fff;box-shadow:0 5px 16px rgba(14,165,233,.2);white-space:nowrap}
+  .navlinks .nav-cta:hover{background:#0284c7;transform:translateY(-1px);box-shadow:0 7px 20px rgba(14,165,233,.28)}
+  .theme-toggle{width:40px;height:40px;flex-basis:40px;border-radius:10px;background:#1e293b;border-color:#3b4b61;color:#dbeafe}
+  .theme-toggle:hover{background:#26364d;border-color:#38bdf8;color:#7dd3fc;transform:translateY(-1px)}
+  .menu{width:40px;height:40px;padding:0;display:none;place-items:center;border:1px solid #3b4b61;border-radius:10px;background:#1e293b;color:#e2e8f0}
+  .menu svg{width:19px;height:19px}
+  .topbar{font-size:10px;letter-spacing:.01em}
+  .topbar .wrap{min-height:32px}
+  .top-note{font-size:9px;letter-spacing:.13em}
+  body.dark-mode header{background:rgba(8,15,29,.97);border-bottom-color:#263548}
+  body.dark-mode .theme-toggle{background:#111c2e;border-color:#34465e;color:#cbd5e1}
+  body.dark-mode .menu{background:#111c2e;border-color:#34465e}
+  @media(max-width:900px){
+    .nav{gap:12px}
+    .site-logo{width:230px;max-width:34vw}
+    .navlinks{gap:13px}
+    .navlinks .nav-cta{padding:0 13px}
+  }
+  @media(max-width:700px){
+    .nav{height:66px}
+    .site-logo{width:220px;height:47px;max-width:calc(100% - 112px)}
+    .navlinks{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;padding:12px 18px 18px;gap:2px;align-items:stretch;background:#0f172a;border:1px solid #26364c;border-top:0;border-radius:0 0 14px 14px;box-shadow:0 18px 30px rgba(2,6,23,.28)}
+    .navlinks.open{display:flex}
+    .navlinks>a:not(.nav-cta){padding:12px 10px;border-radius:8px}
+    .navlinks>a:not(.nav-cta):after{display:none}
+    .navlinks>a:not(.nav-cta):hover{background:#1e293b}
+    .navlinks .nav-cta{margin-top:8px;justify-content:center}
+    .menu{display:grid}
+    .topbar .wrap{min-height:30px}
+    .topbar .wrap>span:first-child{font-size:9px}
+    .top-note{font-size:8px}
+    body.dark-mode .navlinks{background:#0b1120;border-color:#263548}
+    body.dark-mode .navlinks>a:not(.nav-cta):hover{background:#172337}
+  }
+  @media(max-width:420px){
+    .topbar .top-note{display:none}
+    .nav{gap:8px}
+    .site-logo{width:205px;max-width:calc(100% - 100px)}
+    .theme-toggle,.menu{width:36px;height:36px;flex-basis:36px}
+  }
+
   </style>
 </head>
 <body>
@@ -222,7 +274,7 @@
         <a class="nav-cta" href="#calculators">Explore Tools <span>→</span></a>
       </nav>
       <button class="theme-toggle" id="previewThemeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-      <button class="menu" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false">Menu</button>
+      <button class="menu" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </header>
   <main>
