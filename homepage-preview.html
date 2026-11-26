@@ -360,6 +360,68 @@
     .hero-actions .btn-primary:before{display:none}
   }
 
+
+  /* Tool directory: clearer discovery and more engaging calculator cards */
+  .tool-directory{padding-top:78px;padding-bottom:82px;background:linear-gradient(180deg,#f8fbff 0%,#f0f4f8 100%)}
+  .directory-heading{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);align-items:end;gap:42px;margin-bottom:30px}
+  .directory-copy .kicker{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #bae6fd;border-radius:6px;background:#e0f2fe;font-size:9px;letter-spacing:.13em}
+  .directory-copy h2{max-width:680px;margin:13px 0 11px;font-size:clamp(29px,3.7vw,43px);line-height:1.1;letter-spacing:-.055em}
+  .directory-copy .section-intro{max-width:650px;font-size:13px;line-height:1.85}
+  .directory-search{padding:14px;border:1px solid #dce7f2;border-radius:13px;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.045)}
+  .directory-search .searchbar{max-width:none;border:0;box-shadow:none;padding:0 3px}
+  .directory-search .searchbar input{font-size:12px}
+  .search-hint{display:block;margin:4px 0 0 32px;color:#94a3b8;font-size:9px}
+  .directory-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 19px;padding:13px 14px;border:1px solid #e1eaf3;border-radius:11px;background:#fff}
+  .directory-toolbar .filters{margin:0;gap:7px}
+  .directory-toolbar .filter{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;font-size:10px}
+  .directory-toolbar .filter span{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:20px;background:#f1f5f9;color:#64748b;font-size:9px}
+  .directory-toolbar .filter.active span{background:#cceaff;color:#075985}
+  .directory-count{flex:0 0 auto;margin:0;color:#718096;font-size:10px}
+  .directory-count strong{color:#0f172a;font-size:13px}
+  .tools-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .tool-card{position:relative;overflow:hidden;min-height:226px;padding:20px;border:1px solid #e1eaf3;border-radius:13px;background:#fff;box-shadow:0 4px 14px rgba(15,23,42,.035);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .tool-card:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#0ea5e9,#67e8f9);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+  .tool-card:hover{transform:translateY(-5px);border-color:#9bdcf8;box-shadow:0 16px 32px rgba(15,45,75,.10)}
+  .tool-card:hover:before{transform:scaleX(1)}
+  .tool-top{align-items:center}
+  .tool-icon{width:44px;height:44px;border:1px solid #d7edfb;border-radius:12px;background:linear-gradient(145deg,#eff9ff,#dff2ff);font-size:20px;transition:transform .22s ease}
+  .tool-card:hover .tool-icon{transform:rotate(-5deg) scale(1.06)}
+  .tool-tag{padding:5px 8px;border-radius:5px;background:#f1f7fc;color:#54708c;font-size:8px;letter-spacing:.07em}
+  .tool-card h3{margin:16px 0 7px;font-size:15px;letter-spacing:-.025em}
+  .tool-card p{min-height:52px;margin:0 0 15px;font-size:10.5px;line-height:1.75;color:#64748b}
+  .tool-card-bottom{display:flex;flex-direction:column;gap:11px;margin-top:auto;padding-top:12px;border-top:1px solid #edf2f7}
+  .tool-meta{color:#94a3b8;font-size:8px;font-weight:650;letter-spacing:.025em}
+  .tool-link{display:flex;justify-content:space-between;align-items:center;width:100%;font-size:10px}
+  .tool-link span{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#eaf6ff;color:#0284c7;font-size:13px;transition:transform .2s,background .2s}
+  .tool-card:hover .tool-link span{transform:translate(2px,-2px);background:#d8f0ff}
+  .directory-note{margin:17px 2px 0;color:#8795a8;font-size:10px}
+  .empty{padding:30px 18px;line-height:1.8}
+  .empty strong{color:#334155}
+  body.dark-mode .tool-directory{background:linear-gradient(180deg,#0e1929,#0b1120)}
+  body.dark-mode .directory-copy .kicker{background:#102b42;border-color:#24506e;color:#7dd3fc}
+  body.dark-mode .directory-search,body.dark-mode .directory-toolbar{background:#111c2d;border-color:#293b51}
+  body.dark-mode .directory-search .searchbar input{color:#e2e8f0}
+  body.dark-mode .directory-toolbar .filter{background:#172337;border-color:#30445d;color:#b7c7d9}
+  body.dark-mode .directory-toolbar .filter.active{background:#12304a;border-color:#2476a5;color:#7dd3fc}
+  body.dark-mode .directory-toolbar .filter span{background:#26374b;color:#b5c4d6}
+  body.dark-mode .directory-toolbar .filter.active span{background:#16486a;color:#bae6fd}
+  body.dark-mode .directory-count strong{color:#e2e8f0}
+  body.dark-mode .tool-card{background:linear-gradient(155deg,#142237,#101a2a);border-color:#293b51;box-shadow:0 5px 18px rgba(0,0,0,.13)}
+  body.dark-mode .tool-card:hover{border-color:#2476a5;box-shadow:0 16px 32px rgba(0,0,0,.28)}
+  body.dark-mode .tool-icon{background:linear-gradient(145deg,#173650,#12304a);border-color:#24506e;color:#7dd3fc}
+  body.dark-mode .tool-tag{background:#1b2c41;color:#a8bfd5}
+  body.dark-mode .tool-card h3{color:#e2e8f0}
+  body.dark-mode .tool-card p{color:#9aacc0}
+  body.dark-mode .tool-card-bottom{border-color:#26384d}
+  body.dark-mode .tool-meta{color:#8499b0}
+  body.dark-mode .tool-link span{background:#12304a;color:#7dd3fc}
+  body.dark-mode .directory-note{color:#71849b}
+  body.dark-mode .empty{background:#111c2d;border-color:#30445d;color:#a8b8ca}
+  body.dark-mode .empty strong{color:#e2e8f0}
+  @media(max-width:900px){.directory-heading{grid-template-columns:1fr;gap:18px}.directory-search{max-width:520px}.directory-toolbar{align-items:flex-start;flex-direction:column}.tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:620px){.tool-directory{padding:54px 0 58px}.directory-heading{gap:17px;margin-bottom:21px}.directory-copy h2{font-size:clamp(28px,8vw,36px)}.directory-copy .section-intro{font-size:12px}.directory-search{padding:11px}.directory-toolbar{padding:11px;gap:12px}.directory-toolbar .filters{width:100%;gap:6px}.directory-toolbar .filter{padding:8px 9px;font-size:9px}.directory-count{align-self:flex-end}.tools-grid{grid-template-columns:1fr;gap:11px}.tool-card{min-height:0;padding:17px}.tool-card p{min-height:0}.tool-card-bottom{gap:9px}.tool-card h3{margin-top:13px}.directory-note{line-height:1.7}}
+  @media(prefers-reduced-motion:reduce){.tool-card,.tool-card:before,.tool-icon,.tool-link span{transition:none!important}}
+
   </style>
 </head>
 <body>
@@ -463,30 +525,93 @@
       <div class="proof-item"><b>Multiple Workflows</b><span>Consumption · Planning · Costing</span></div>
       <div class="proof-item"><b>Useful Exports</b><span>PDF &amp; Excel where supported</span></div>
     </div></div>
-    <section class="section" id="calculators">
+    <section class="section tool-directory" id="calculators" aria-labelledby="tools-title">
       <div class="wrap">
-        <div class="section-head">
-          <div><div class="kicker">Explore the platform</div><h2>Find the tool for your next task</h2><p class="section-intro">Browse all available calculators, filter by work area or search by tool name. Open any card to go to that calculator.</p></div>
-          <label class="searchbar"><span>⌕</span><input id="toolSearch" type="search" placeholder="Search tools, e.g. marker, GSM, costing..." aria-label="Search calculators"></label>
+        <div class="directory-heading">
+          <div class="directory-copy">
+            <div class="kicker">THE TOOL DIRECTORY</div>
+            <h2 id="tools-title">The right calculator for every garment task</h2>
+            <p class="section-intro">From fabric consumption and marker planning to garment costing and everyday textile conversions — find a practical tool, get to work and keep your workflow moving.</p>
+          </div>
+          <div class="directory-search">
+            <label class="searchbar"><span aria-hidden="true">⌕</span><input id="toolSearch" type="search" placeholder="Search by tool, task or keyword..." aria-label="Search garment calculators"></label>
+            <span class="search-hint">Try “GSM”, “knit pant” or “FOB costing”</span>
+          </div>
         </div>
-        <div class="filters" role="group" aria-label="Filter calculators">
-          <button class="filter active" data-filter="all" type="button">All Tools</button><button class="filter" data-filter="consumption" type="button">Consumption</button><button class="filter" data-filter="planning" type="button">Planning</button><button class="filter" data-filter="costing" type="button">Costing</button><button class="filter" data-filter="utility" type="button">Workspace &amp; Utility</button>
+        <div class="directory-toolbar">
+          <div class="filters" role="group" aria-label="Filter calculators">
+            <button class="filter active" data-filter="all" type="button">All tools <span>12</span></button>
+            <button class="filter" data-filter="consumption" type="button">Consumption <span>6</span></button>
+            <button class="filter" data-filter="planning" type="button">Planning <span>2</span></button>
+            <button class="filter" data-filter="costing" type="button">Costing <span>2</span></button>
+            <button class="filter" data-filter="utility" type="button">Workspace &amp; utility <span>2</span></button>
+          </div>
+          <p class="directory-count" aria-live="polite"><strong id="toolCount">12</strong> tools to explore</p>
         </div>
         <div class="tools-grid">
-          <a class="tool-card" href="/knit-garments" data-category="consumption" data-search="knit fabric garment measurements gsm collar cuff pocket half moon"><div class="tool-top"><span class="tool-icon">▦</span><span class="tool-tag">Consumption</span></div><h3>Knit Fabric Consumption</h3><p>Work out knit garment fabric requirements using garment measurements and available component options.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/knit-pant" data-category="consumption" data-search="knit pant jogger trousers fabric consumption measurements"><div class="tool-top"><span class="tool-icon">▥</span><span class="tool-tag">Consumption</span></div><h3>Knit Pant Consumption</h3><p>Estimate fabric requirements for knit pants with the available quick and component-based methods.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/woven-shirt" data-category="consumption" data-search="woven shirt fabric consumption garment components"><div class="tool-top"><span class="tool-icon">▧</span><span class="tool-tag">Consumption</span></div><h3>Woven Shirt Consumption</h3><p>Calculate woven shirt fabric needs from the garment component measurements provided.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/Marker-Consumption" data-category="consumption" data-search="marker consumption length width gsm fabric weight"><div class="tool-top"><span class="tool-icon">⌗</span><span class="tool-tag">Consumption</span></div><h3>Marker Consumption</h3><p>Calculate marker-based fabric use through the available marker dimension, weight or length methods.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/trims" data-category="consumption" data-search="trims thread button interlining consumption"><div class="tool-top"><span class="tool-icon">⌁</span><span class="tool-tag">Material planning</span></div><h3>Trims Consumption</h3><p>Plan common trim requirements, including the components and inputs supported by the calculator.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/zipper" data-category="consumption" data-search="zipper consumption length specification garment"><div class="tool-top"><span class="tool-icon">⇅</span><span class="tool-tag">Material planning</span></div><h3>Zipper Consumption</h3><p>Work with zipper measurements and requirements for garment order planning.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/booking-sheet" data-category="planning" data-search="fabric booking sheet style size ratio marker details order"><div class="tool-top"><span class="tool-icon">▤</span><span class="tool-tag">Planning</span></div><h3>Fabric Booking Sheet</h3><p>Organize style-wise fabric booking details, marker information and size ratios in a structured sheet.</p><span class="tool-link">Open booking sheet</span></a>
-          <a class="tool-card" href="/size-ratio" data-category="planning" data-search="size ratio assortment sizes quantity preset custom"><div class="tool-top"><span class="tool-icon">☷</span><span class="tool-tag">Planning</span></div><h3>Size Ratio &amp; Assortment</h3><p>Set size distributions, work with quantities and review the total pieces for an assortment.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/pricing-costing/knit-price" data-category="costing" data-search="knit fabric cost price per meter gsm width weight price kg"><div class="tool-top"><span class="tool-icon">৳</span><span class="tool-tag">Costing</span></div><h3>Knit Fabric Cost Calculator</h3><p>Review knit fabric cost per meter using the supported fabric weight, GSM, width and price inputs.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/pricing-costing/fob-costing" data-category="costing" data-search="garment fob costing manufacturing cost freight insurance cf cif"><div class="tool-top"><span class="tool-icon">$</span><span class="tool-tag">Costing</span></div><h3>FOB Costing</h3><p>Organize garment cost components and review FOB, C&amp;F or CIF calculations where applicable.</p><span class="tool-link">Open calculator</span></a>
-          <a class="tool-card" href="/converter" data-category="utility" data-search="unit converter length weight gsm area yarn count temperature"><div class="tool-top"><span class="tool-icon">⇄</span><span class="tool-tag">Utility</span></div><h3>Unit Converter</h3><p>Convert common length, weight, fabric, GSM, area, yarn-count and other supported units.</p><span class="tool-link">Open converter</span></a>
-          <a class="tool-card" href="/my-formulas" data-category="utility" data-search="my workspace saved formulas notes links screenshots backup"><div class="tool-top"><span class="tool-icon">▣</span><span class="tool-tag">Workspace</span></div><h3>My Workspace</h3><p>Keep personal notes, formulas, links and screenshots in the browser, with an available backup export.</p><span class="tool-link">Open workspace</span></a>
+          <a class="tool-card" href="/knit-garments" data-category="consumption" data-search="knit fabric garment measurements gsm collar cuff pocket half moon">
+            <div class="tool-top"><span class="tool-icon">▦</span><span class="tool-tag">Fabric consumption</span></div>
+            <h3>Knit Fabric Consumption</h3><p>Calculate fabric requirements for knit garments using measurements, GSM and component details.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Knitwear · Measurements · GSM</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/knit-pant" data-category="consumption" data-search="knit pant jogger trousers fabric consumption measurements">
+            <div class="tool-top"><span class="tool-icon">▥</span><span class="tool-tag">Fabric consumption</span></div>
+            <h3>Knit Pant Consumption</h3><p>Estimate fabric use for knit pants, joggers and trousers with practical calculation methods.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Pants · Joggers · Fabric use</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/woven-shirt" data-category="consumption" data-search="woven shirt fabric consumption garment components">
+            <div class="tool-top"><span class="tool-icon">▧</span><span class="tool-tag">Fabric consumption</span></div>
+            <h3>Woven Shirt Consumption</h3><p>Work out woven shirt fabric requirements from the measurements of key garment components.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Woven · Shirt · Components</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/Marker-Consumption" data-category="consumption" data-search="marker consumption length width gsm fabric weight">
+            <div class="tool-top"><span class="tool-icon">⌗</span><span class="tool-tag">Marker planning</span></div>
+            <h3>Marker Consumption</h3><p>Calculate marker-based fabric use with the available marker dimensions, weight and length methods.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Marker · Length · Width · GSM</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/trims" data-category="consumption" data-search="trims thread button interlining consumption material planning">
+            <div class="tool-top"><span class="tool-icon">⌁</span><span class="tool-tag">Material planning</span></div>
+            <h3>Trims Consumption</h3><p>Plan common garment trim requirements, including the components and inputs supported by the tool.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Thread · Buttons · Interlining</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/zipper" data-category="consumption" data-search="zipper consumption length specification garment material planning">
+            <div class="tool-top"><span class="tool-icon">⇅</span><span class="tool-tag">Material planning</span></div>
+            <h3>Zipper Consumption</h3><p>Work with zipper measurements and requirements for accurate garment order planning.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Zipper · Length · Quantity</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/booking-sheet" data-category="planning" data-search="fabric booking sheet style size ratio marker details order">
+            <div class="tool-top"><span class="tool-icon">▤</span><span class="tool-tag">Production planning</span></div>
+            <h3>Fabric Booking Sheet</h3><p>Organize style-wise fabric booking, marker information and size ratios in one structured sheet.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Styles · Fabric · Order details</span><span class="tool-link">Open booking sheet <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/size-ratio" data-category="planning" data-search="size ratio assortment sizes quantity preset custom">
+            <div class="tool-top"><span class="tool-icon">☷</span><span class="tool-tag">Production planning</span></div>
+            <h3>Size Ratio &amp; Assortment</h3><p>Build size distributions, manage quantities and review total pieces for an assortment.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Size set · Ratio · Quantity</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/pricing-costing/knit-price" data-category="costing" data-search="knit fabric cost price per meter gsm width weight price kg">
+            <div class="tool-top"><span class="tool-icon">৳</span><span class="tool-tag">Fabric costing</span></div>
+            <h3>Knit Fabric Cost Calculator</h3><p>Estimate knit fabric cost per meter using fabric weight, GSM, width and price inputs.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">GSM · Width · Price per kg</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/pricing-costing/fob-costing" data-category="costing" data-search="garment fob costing manufacturing cost freight insurance cf cif">
+            <div class="tool-top"><span class="tool-icon">$</span><span class="tool-tag">Garment costing</span></div>
+            <h3>FOB Costing</h3><p>Organize garment cost components and review FOB, C&amp;F or CIF calculations where applicable.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">FOB · Cost breakdown · Export</span><span class="tool-link">Open calculator <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/converter" data-category="utility" data-search="unit converter length weight gsm area yarn count temperature">
+            <div class="tool-top"><span class="tool-icon">⇄</span><span class="tool-tag">Textile utility</span></div>
+            <h3>Unit Converter</h3><p>Convert common length, weight, fabric, GSM, area, yarn-count and other supported units.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Length · Weight · GSM · Yarn count</span><span class="tool-link">Open converter <span aria-hidden="true">↗</span></span></div>
+          </a>
+          <a class="tool-card" href="/my-formulas" data-category="utility" data-search="my workspace saved formulas notes links screenshots backup">
+            <div class="tool-top"><span class="tool-icon">▣</span><span class="tool-tag">Personal workspace</span></div>
+            <h3>My Workspace</h3><p>Keep useful notes, formulas, links and screenshots together in your browser, with backup export.</p>
+            <div class="tool-card-bottom"><span class="tool-meta">Notes · Formulas · Saved links</span><span class="tool-link">Open workspace <span aria-hidden="true">↗</span></span></div>
+          </a>
         </div>
-        <div class="empty" id="emptyState" hidden>No tools match your search. Try a different keyword or category.</div>
+        <div class="empty" id="emptyState" hidden><strong>No matching tools found.</strong><br>Try another keyword or choose a different work area.</div>
+        <p class="directory-note">Choose a calculator to open its dedicated workspace. Available features and export options may vary by tool.</p>
       </div>
     </section>
     <section class="section how" id="how-it-works">
@@ -592,6 +717,10 @@ function copyFooterShareLink(button){
    });
    const empty=document.querySelector('#emptyState');
    if(empty) empty.hidden=shown!==0;
+   const count=document.querySelector('#toolCount');
+   if(count) count.textContent=String(shown);
+   const countLabel=document.querySelector('.directory-count');
+   if(countLabel) countLabel.lastChild.textContent=shown===1?' tool found': ' tools to explore';
  }
  search?.addEventListener('input',apply);
  filters.forEach(btn=>btn.addEventListener('click',()=>{
