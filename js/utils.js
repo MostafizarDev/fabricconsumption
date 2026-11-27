@@ -269,8 +269,18 @@ function showPage(pageId, btn, routeOptions = {}) {
     if (isPricingView) window.FC_ACTIVE_PRICING_VIEW = pageId;
     if (pageId === 'pricing' && !window.FC_ACTIVE_PRICING_VIEW) window.FC_ACTIVE_PRICING_VIEW = 'knitprice';
 
-    // Keep browser URL, refresh, bookmarks, and browser back/forward in sync.
+    // Each deployed calculator page contains only its own workspace.
+    // If the requested workspace is not part of this document, load its dedicated route.
     const route = getRouteForPage(pageId);
+    const targetPage = document.getElementById('page-' + mainPageId);
+    if (!targetPage) {
+        if (route && window.location.pathname !== route) {
+            window.location.assign(route);
+        }
+        return;
+    }
+
+    // Keep browser URL, refresh, bookmarks, and browser back/forward in sync.
     if (!routeOptions.fromHistory && route && window.location.pathname !== route) {
         const method = routeOptions.replace ? 'replaceState' : 'pushState';
         window.history[method]({ pageId }, '', route);
@@ -279,10 +289,9 @@ function showPage(pageId, btn, routeOptions = {}) {
     const pageTitle = FC_PAGE_TITLES[pageId] || 'Garment Calculator Suite';
     updatePageSEO(pageId);
 
-    // Hide all top-level pages, then show the selected workspace.
+    // Hide the current document's pages, then show its workspace.
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-    const targetPage = document.getElementById('page-' + mainPageId);
-    if (targetPage) targetPage.classList.add('active');
+    targetPage.classList.add('active');
 
     // Switch the calculator view inside Pricing & Costing.
     if (mainPageId === 'pricing') {
