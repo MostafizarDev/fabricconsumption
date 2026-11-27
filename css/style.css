@@ -9275,7 +9275,8 @@ header .logo .logo-wordmark small{
    ========================================== */
 body > header {
   height: 66px;
-  padding: 0 clamp(16px, 2.2vw, 32px);
+  /* Align the logo bar's inner content with the footer's centered 1440px layout and 34px inner padding. */
+  padding: 0 max(34px, calc((100% - 1440px) / 2 + 34px));
   gap: 20px;
   background: #0b1425;
   border-bottom: 1px solid rgba(148,163,184,.14);
@@ -9357,7 +9358,7 @@ body > header .theme-toggle:hover {
   box-shadow: 0 0 10px rgba(56,189,248,.22);
 }
 @media (max-width: 760px) {
-  body > header { height: 62px; padding: 0 12px; gap: 10px; }
+  body > header { height: 62px; padding: 0 16px; gap: 10px; }
   body > header .logo-image { width: 36px; height: 36px; flex-basis: 36px; }
   body > header .logo-wordmark { font-size: 14px; }
   body > header .logo-wordmark small { font-size: 7px; letter-spacing: 1.6px; }
