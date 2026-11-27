@@ -95,3 +95,35 @@
 @media(max-width:900px){.home-page .home-hero-grid{grid-template-columns:1fr 1fr;gap:22px}.home-page .trust-items>div{padding:0 12px}.home-page .reference-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-page .benefits-grid{gap:25px}}
 @media(max-width:720px){.home-page .home-hero-grid{grid-template-columns:1fr}.home-page .home-hero{padding:48px 0}.home-page .home-trust-strip{overflow:auto}.home-page .trust-items{min-width:650px}.home-page .trust-items>div{padding:0 14px}.home-page .tools-heading{gap:13px}.home-page .tool-search{width:100%}.home-page .reference-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-page .benefits-grid{grid-template-columns:1fr}.home-page .audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.home-page .reference-tool-grid{grid-template-columns:1fr}.home-page .reference-tool-card{min-height:unset}.home-page .benefit-list{grid-template-columns:1fr}.home-page .workspace-preview{padding:15px}.home-page .workspace-preview-card{min-height:82px;padding:9px}.home-page .trust-items{min-width:610px}}
+
+
+/* Header alignment: use the exact same centered content width as homepage sections */
+.home-page .home-header{padding-inline:0;min-height:80px}
+.home-page .home-header-inner{
+  width:min(1160px,calc(100% - 48px));
+  max-width:1160px;
+  min-height:80px;
+  margin-inline:auto;
+  gap:24px;
+}
+.home-page .home-brand{margin:0;flex-shrink:0}
+.home-page .home-nav{margin-left:auto;gap:clamp(14px,1.8vw,27px)}
+.home-page .home-header-actions{flex-shrink:0}
+.home-page .home-mobile-nav{
+  width:min(1160px,calc(100% - 48px));
+  max-width:1160px;
+  margin-inline:auto;
+  padding:0 0 16px;
+}
+@media(max-width:950px){
+  .home-page .home-header-inner{gap:18px}
+  .home-page .home-nav{gap:14px}
+}
+@media(max-width:720px){
+  .home-page .home-header{padding-inline:0;min-height:68px}
+  .home-page .home-header-inner{width:calc(100% - 36px);min-height:68px}
+  .home-page .home-mobile-nav{width:calc(100% - 36px)}
+}
+@media(max-width:420px){
+  .home-page .home-header-inner,.home-page .home-mobile-nav{width:calc(100% - 32px)}
+}
