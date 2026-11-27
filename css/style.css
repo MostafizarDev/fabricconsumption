@@ -9181,3 +9181,23 @@ body.dark-mode .contact-community-icon-btn.fab:hover{background:#172f4d;border-c
 .contact-form-status[data-state="success"]{color:#15803d}
 .contact-form-status[data-state="error"]{color:#dc2626}
 .contact-submit-btn:disabled{opacity:.7;cursor:wait;transform:none;filter:none}
+
+
+/* Footer brand subtitle — spread the lettering to the wordmark width */
+.site-footer .footer-brand-subtitle{
+  display:block;
+  width:100%;
+  margin:5px 0 0;
+  color:#a9b9cb;
+  font-size:10px;
+  font-weight:800;
+  line-height:1.4;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  text-align:justify;
+  text-align-last:justify;
+}
+@media(max-width:520px){
+  .site-footer .footer-brand-subtitle{letter-spacing:2.5px;font-size:9px}
+}
