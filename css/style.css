@@ -9185,19 +9185,20 @@ body.dark-mode .contact-community-icon-btn.fab:hover{background:#172f4d;border-c
 
 /* Footer brand subtitle — spread the lettering to the wordmark width */
 .site-footer .footer-brand-subtitle{
-  display:block;
-  width:100%;
+  display:inline-block;
+  width:auto;
+  max-width:100%;
   margin:5px 0 0;
   color:#a9b9cb;
   font-size:10px;
   font-weight:800;
   line-height:1.4;
-  letter-spacing:3px;
+  letter-spacing:2.6px;
   text-transform:uppercase;
   white-space:nowrap;
-  text-align:justify;
-  text-align-last:justify;
+  text-align:left;
+  text-align-last:auto;
 }
 @media(max-width:520px){
-  .site-footer .footer-brand-subtitle{letter-spacing:2.5px;font-size:9px}
+  .site-footer .footer-brand-subtitle{letter-spacing:2px;font-size:9px}
 }
