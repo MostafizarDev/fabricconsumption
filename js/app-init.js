@@ -270,32 +270,16 @@ function setupUnitButtons() {
 
 // Setup global input listeners for real-time updates
 function setupGlobalInputListeners() {
-    // Knit Garments inputs
-    setupKnitGarmentsListeners();
-    
-    // Knit Pant inputs
-    setupKnitPantListeners();
-    
-    // Woven Shirt inputs
-    setupWovenListeners();
-    
-    // Booking Sheet inputs
-    setupBookingListeners();
-    
-    // Knit Price inputs
-    setupKnitPriceListeners();
-    
-    // Zipper inputs
-    setupZipperListeners();
-    
-    // Trims inputs
-    setupTrimsListeners();
-    
-    // FOB inputs
-    setupFOBListeners();
-    
-    // Size Ratio inputs
-    setupSizeRatioListeners();
+    // Each route loads only its own calculator module; initialize only available listeners.
+    if (typeof setupKnitGarmentsListeners === 'function') setupKnitGarmentsListeners();
+    if (typeof setupKnitPantListeners === 'function') setupKnitPantListeners();
+    if (typeof setupWovenListeners === 'function') setupWovenListeners();
+    if (typeof setupBookingListeners === 'function') setupBookingListeners();
+    if (typeof setupKnitPriceListeners === 'function') setupKnitPriceListeners();
+    if (typeof setupZipperListeners === 'function') setupZipperListeners();
+    if (typeof setupTrimsListeners === 'function') setupTrimsListeners();
+    if (typeof setupFOBListeners === 'function') setupFOBListeners();
+    if (typeof setupSizeRatioListeners === 'function') setupSizeRatioListeners();
 }
 
 function setupKnitGarmentsListeners() {
