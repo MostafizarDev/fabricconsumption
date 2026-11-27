@@ -6,16 +6,17 @@ const output = path.join(root, "dist");
 const header = fs.readFileSync(path.join(root, "components/workspace-header.html"), "utf8").trim();
 const footer = fs.readFileSync(path.join(root, "components/workspace-footer.html"), "utf8").trim();
 
+// Copy each project entry into dist individually. Copying the project root
+// directly into its own child directory causes ERR_FS_CP_EINVAL in Node.js.
 fs.rmSync(output, { recursive: true, force: true });
-fs.cpSync(root, output, {
-  recursive: true,
-  filter(entry) {
-    const relative = path.relative(root, entry);
-    if (!relative) return true;
-    const first = relative.split(path.sep)[0];
-    return ![".git", ".vercel", "node_modules", "dist", "components", "scripts"].includes(first);
-  }
-});
+fs.mkdirSync(output, { recursive: true });
+const excluded = new Set([".git", ".vercel", "node_modules", "dist", "components", "scripts"]);
+for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+  if (excluded.has(entry.name)) continue;
+  const source = path.join(root, entry.name);
+  const destination = path.join(output, entry.name);
+  fs.cpSync(source, destination, { recursive: true });
+}
 
 function replaceFooterBlock(html, replacement, file) {
   const start = html.indexOf('<div class="site-footer"');
