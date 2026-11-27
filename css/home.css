@@ -30,3 +30,68 @@
 @media(max-width:720px){.home-header{padding:0 18px}.home-header-inner{min-height:68px}.home-nav,.home-header-cta{display:none}.home-header-actions{margin-left:auto}.home-menu-toggle{display:grid}.home-hero{padding:58px 0 55px}.home-hero-grid{grid-template-columns:1fr;gap:25px}.hero-copy h1{font-size:clamp(34px,8vw,46px);letter-spacing:-1.4px}.hero-description{font-size:13px}.hero-proof{gap:10px}.hero-visual{min-height:340px;margin:0 12px}.calc-window{max-width:420px}.chip-top{right:-8px;top:6px}.chip-bottom{left:-8px;bottom:4px}.visual-orbit{width:330px;height:330px}.orbit-two{width:390px;height:390px}.trust-items{gap:13px;justify-content:flex-start;overflow:auto;white-space:nowrap;font-size:9px}.trust-items>i{flex-shrink:0}.home-section{padding:62px 0}.section-heading{align-items:flex-start;flex-direction:column;gap:13px}.section-heading h2,.benefits-copy h2,.faq-intro h2{font-size:27px}.tool-category-grid{gap:9px;margin-bottom:42px}.category-card{padding:12px 10px;gap:8px}.category-icon{width:32px;height:32px}.category-card b{font-size:10px}.category-card small{font-size:8px}.tool-card{padding:15px;min-height:130px}.tool-card-content b{font-size:12px}.tool-card-content small{font-size:10px}.steps-grid{grid-template-columns:1fr;gap:11px}.step-card{padding:20px}.step-icon{margin-bottom:12px}.benefits-grid,.faq-layout{grid-template-columns:1fr;gap:30px}.benefit-list{gap:18px}.audience-grid{grid-template-columns:repeat(2,1fr)}.final-cta-inner{align-items:flex-start;flex-direction:column}.home-final-cta{padding:38px 0}.footer-main{grid-template-columns:repeat(2,1fr);gap:30px 22px}.footer-brand-block{grid-column:1/-1}.footer-bottom{padding:15px 0;flex-wrap:wrap}.footer-bottom>span:nth-child(2){order:3;width:100%}}
 @media(max-width:420px){.home-container{width:calc(100% - 32px)}.home-brand>span{font-size:14px}.home-brand img{width:33px;height:33px}.home-hero{padding-top:48px}.hero-copy h1{font-size:33px}.hero-actions{flex-direction:column;align-items:stretch}.hero-proof{display:grid;gap:8px}.hero-visual{min-height:300px;margin:0}.calc-window-body{padding:14px}.visual-metric{padding:10px}.visual-metric strong{font-size:16px}.floating-chip{padding:8px}.chip-bottom{left:-5px}.chip-top{right:-5px}.tool-category-grid{grid-template-columns:1fr}.tool-grid,.tool-grid-two{grid-template-columns:1fr}.tool-card{min-height:unset}.benefit-list{grid-template-columns:1fr}.footer-main{gap:25px 14px}.footer-links a{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.home-page *,.home-page *:before,.home-page *:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Reference homepage refinements — scoped to .home-page only */
+.home-page .home-hero{background:#0d2440;padding:55px 0 58px}
+.home-page .home-hero-grid{grid-template-columns:1.05fr .95fr;gap:46px}
+.home-page .hero-copy h1{max-width:560px;font-size:clamp(35px,4vw,48px);line-height:1.08;letter-spacing:-1.8px}
+.home-page .hero-copy h1 span{display:block;color:#54d5ed}
+.home-page .eyebrow{border:1px solid #1e5274;background:#0d3552;border-radius:999px;padding:7px 12px;font-size:9px;letter-spacing:1px}
+.home-page .btn-primary,.home-page .home-header-cta{background:#08a7df}
+.home-page .btn-primary:hover,.home-page .home-header-cta:hover{background:#078dc0}
+.home-page .hero-proof span{border:1px solid #ffffff18;background:#ffffff09;border-radius:6px;padding:7px 9px;font-size:9px}
+.home-page .hero-visual{min-height:340px}
+.home-page .workspace-preview{position:relative;width:min(100%,440px);padding:22px;background:#f8fbff;color:#14243a;border:1px solid #dbe7f3;border-radius:17px;box-shadow:0 20px 55px #02061755}
+.home-page .workspace-preview:before{content:"GARMENT WORKSPACE PREVIEW";position:absolute;right:16px;top:-11px;background:#dff6ff;color:#087da9;border:1px solid #b9e9fb;border-radius:999px;padding:5px 10px;font-size:7px;font-weight:800;letter-spacing:.6px}
+.home-page .workspace-preview-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:12px}
+.home-page .workspace-pill{border-radius:999px;background:#e4f8ec;color:#16814c;font-size:8px;font-weight:800;padding:5px 8px}
+.home-page .workspace-preview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.home-page .workspace-preview-card{min-height:90px;background:#fff;border:1px solid #e1eaf4;border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:flex-start}
+.home-page .preview-icon{width:27px;height:27px;border-radius:7px;background:#e3f4ff;color:#078ed0;display:grid;place-items:center;margin-bottom:8px}
+.home-page .preview-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.home-page .workspace-preview-card b{font-size:9px;color:#1b3049}
+.home-page .workspace-preview-card small{font-size:7px;color:#75869a;margin-top:4px}
+.home-page .workspace-preview-note{display:flex;gap:8px;align-items:flex-start;background:#edf8ff;border:1px solid #d5edfa;color:#547084;padding:11px;border-radius:8px;margin-top:12px;font-size:8px;line-height:1.6}
+.home-page .workspace-preview-note span{color:#0b9d63;font-weight:900}
+.home-page .trust-items{display:grid;grid-template-columns:repeat(4,1fr);gap:0;min-height:68px}
+.home-page .trust-items>div{padding:0 24px;border-right:1px solid var(--home-line)}
+.home-page .trust-items>div:first-child{padding-left:0}.home-page .trust-items>div:last-child{border-right:0}
+.home-page .trust-items b,.home-page .trust-items small{display:block}
+.home-page .trust-items b{font-size:14px;color:var(--home-ink)}.home-page .trust-items small{font-size:8px;font-weight:500;color:var(--home-muted);margin-top:4px}
+.home-page .tools-section{background:#eef3f9}.home-page.dark-mode .tools-section{background:#0b1220}
+.home-page .tools-heading{align-items:end;margin-bottom:17px}.home-page .tools-heading h2{font-size:28px}.home-page .tools-heading p{font-size:11px;max-width:480px}
+.home-page .tool-search{height:39px;width:min(100%,280px);display:flex;align-items:center;gap:8px;padding:0 12px;background:var(--home-surface);border:1px solid var(--home-line);border-radius:7px}
+.home-page .tool-search svg{width:14px;height:14px;fill:none;stroke:var(--home-muted);stroke-width:1.8;stroke-linecap:round}
+.home-page .tool-search input{width:100%;border:0;outline:0;background:transparent;color:var(--home-ink);font:inherit;font-size:9px}
+.home-page .tool-filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 13px}
+.home-page .tool-filter{border:1px solid var(--home-line);background:var(--home-surface);color:var(--home-muted);border-radius:6px;padding:7px 11px;font:inherit;font-size:9px;font-weight:700;cursor:pointer}
+.home-page .tool-filter.is-active{background:#e1f5ff;color:#087da9;border-color:#b8e7fa}
+.home-page.dark-mode .tool-filter.is-active{background:#143653;color:#91dcf7;border-color:#225575}
+.home-page .reference-tool-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.home-page .reference-tool-card{min-height:145px;padding:14px;gap:11px;border-radius:8px;background:var(--home-surface)}
+.home-page .reference-tool-card .tool-icon{width:34px;height:34px;border-radius:7px;background:#e1f4ff;color:#0796d4}
+.home-page .reference-tool-card .tool-icon svg{width:17px;height:17px}
+.home-page .reference-tool-card .tool-card-content{width:100%;min-width:0}
+.home-page .reference-tool-card .tool-category{font-size:7px;font-weight:800;letter-spacing:.8px;color:#7688a0;margin:0 0 4px;align-self:flex-end}
+.home-page .reference-tool-card .tool-card-content b{font-size:11px;color:var(--home-ink)}
+.home-page .reference-tool-card .tool-card-content p{font-size:8px;line-height:1.55;color:var(--home-muted);margin:5px 0 8px}
+.home-page .reference-tool-card .tool-card-content em{font-size:8px;padding-top:0;margin-top:auto;color:#078ed0}
+.home-page .reference-tool-card:hover{box-shadow:0 9px 22px #0f172a0c}
+.home-page .reference-tool-card[hidden]{display:none}
+.home-page .tool-no-results{grid-column:1/-1;color:var(--home-muted);font-size:12px;padding:24px;text-align:center}
+.home-page .steps-grid{margin-top:25px;gap:10px}.home-page .step-card{padding:18px;background:var(--home-surface)}
+.home-page .step-number{position:static;display:block;width:max-content;background:#e1f4ff;color:#078ed0;padding:6px 8px;border-radius:5px;margin-bottom:12px;font-size:8px}
+.home-page .step-card h3{font-size:11px;margin-bottom:5px}.home-page .step-card p{font-size:8px}
+.home-page .benefits-grid{grid-template-columns:.8fr 1.2fr;gap:48px}
+.home-page .benefit-list{grid-template-columns:repeat(2,1fr);gap:12px}
+.home-page .benefit-list article{background:var(--home-surface);border:1px solid var(--home-line);border-radius:8px;padding:12px;gap:9px}
+.home-page .benefit-icon{width:28px;height:28px;border-radius:6px}.home-page .benefit-icon svg{width:15px;height:15px}
+.home-page .benefit-list h3{font-size:9px}.home-page .benefit-list p{font-size:8px}
+.home-page .audience-grid{grid-template-columns:repeat(2,1fr);margin-top:22px}
+.home-page .audience-grid span{text-align:left;background:var(--home-surface);padding:12px;font-size:9px}
+.home-page .home-final-cta{background:#0f172a;padding:33px 0}
+.home-page .home-final-cta h2{font-size:18px}.home-page .home-final-cta p{font-size:9px}
+.home-page .home-final-cta .btn-light{background:#08a7df;color:#fff;min-height:36px;font-size:9px}
+@media(max-width:900px){.home-page .home-hero-grid{grid-template-columns:1fr 1fr;gap:22px}.home-page .trust-items>div{padding:0 12px}.home-page .reference-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-page .benefits-grid{gap:25px}}
+@media(max-width:720px){.home-page .home-hero-grid{grid-template-columns:1fr}.home-page .home-hero{padding:48px 0}.home-page .home-trust-strip{overflow:auto}.home-page .trust-items{min-width:650px}.home-page .trust-items>div{padding:0 14px}.home-page .tools-heading{gap:13px}.home-page .tool-search{width:100%}.home-page .reference-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-page .benefits-grid{grid-template-columns:1fr}.home-page .audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.home-page .reference-tool-grid{grid-template-columns:1fr}.home-page .reference-tool-card{min-height:unset}.home-page .benefit-list{grid-template-columns:1fr}.home-page .workspace-preview{padding:15px}.home-page .workspace-preview-card{min-height:82px;padding:9px}.home-page .trust-items{min-width:610px}}
