@@ -13,7 +13,7 @@ fs.cpSync(root, output, {
     const relative = path.relative(root, entry);
     if (!relative) return true;
     const first = relative.split(path.sep)[0];
-    return ![".git", ".vercel", "node_modules", "dist"].includes(first);
+    return ![".git", ".vercel", "node_modules", "dist", "components", "scripts"].includes(first);
   }
 });
 

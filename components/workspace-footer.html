@@ -47,3 +47,37 @@
   </div>
   <div class="footer-bottom"><span>© 2026 Fabric Consumption. All rights reserved.</span><span class="footer-bottom-links"><a href="/privacy-policy" data-footer-page="privacy">Privacy</a><a href="/terms-of-use" data-footer-page="terms">Terms</a><a href="/disclaimer" data-footer-page="disclaimer">Disclaimer</a></span><button type="button" class="footer-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button></div>
 </div>
+
+<script>
+if (typeof window.copyFooterShareLink !== "function") {
+  window.copyFooterShareLink = function (button) {
+    const url = "https://fabricconsumption.vercel.app/";
+    const wrapper = button.closest(".footer-social-share");
+    const status = wrapper && wrapper.querySelector(".footer-copy-status");
+    const showCopied = function () {
+      if (status) status.textContent = "Link copied";
+      button.setAttribute("aria-label", "Link copied");
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(showCopied).catch(function () {
+        if (status) status.textContent = "Unable to copy link";
+      });
+      return;
+    }
+    const field = document.createElement("textarea");
+    field.value = url;
+    field.setAttribute("readonly", "");
+    field.style.position = "absolute";
+    field.style.left = "-9999px";
+    document.body.appendChild(field);
+    field.select();
+    try {
+      if (document.execCommand("copy")) showCopied();
+      else if (status) status.textContent = "Unable to copy link";
+    } catch (error) {
+      if (status) status.textContent = "Unable to copy link";
+    }
+    field.remove();
+  };
+}
+</script>
