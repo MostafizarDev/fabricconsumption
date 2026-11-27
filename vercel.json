@@ -1,5 +1,17 @@
 {
   "version": 2,
+  "redirects": [
+    {
+      "source": "/knit-price",
+      "destination": "/pricing-costing/knit-price",
+      "permanent": true
+    },
+    {
+      "source": "/fob-costing",
+      "destination": "/pricing-costing/fob-costing",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/",
@@ -7,91 +19,79 @@
     },
     {
       "source": "/about",
-      "destination": "/calculator.html"
+      "destination": "/information/about.html"
     },
     {
       "source": "/contact",
-      "destination": "/calculator.html"
+      "destination": "/information/contact.html"
     },
     {
       "source": "/privacy-policy",
-      "destination": "/calculator.html"
+      "destination": "/information/privacy-policy.html"
     },
     {
       "source": "/terms-of-use",
-      "destination": "/calculator.html"
+      "destination": "/information/terms-of-use.html"
     },
     {
       "source": "/disclaimer",
-      "destination": "/calculator.html"
+      "destination": "/information/disclaimer.html"
     },
     {
       "source": "/faq",
-      "destination": "/calculator.html"
-    },
-    {
-      "source": "/pricing-costing/:path*",
-      "destination": "/calculator.html"
-    },
-    {
-      "source": "/pricing-costing/fob-costing",
-      "destination": "/calculator.html"
-    },
-    {
-      "source": "/pricing-costing/knit-price",
-      "destination": "/calculator.html"
-    },
-    {
-      "source": "/pricing-costing",
-      "destination": "/calculator.html"
+      "destination": "/pages/help-faq.html"
     },
     {
       "source": "/Marker-Consumption",
-      "destination": "/calculator.html"
+      "destination": "/pages/marker-consumption.html"
     },
     {
       "source": "/knit-garments",
-      "destination": "/calculator.html"
+      "destination": "/pages/knit-garments.html"
     },
     {
       "source": "/knit-pant",
-      "destination": "/calculator.html"
+      "destination": "/pages/knit-pant.html"
     },
     {
       "source": "/woven-shirt",
-      "destination": "/calculator.html"
+      "destination": "/pages/woven-shirt.html"
     },
     {
       "source": "/booking-sheet",
-      "destination": "/calculator.html"
+      "destination": "/pages/booking-sheet.html"
     },
     {
-      "source": "/knit-price",
-      "destination": "/calculator.html"
+      "source": "/pricing-costing",
+      "destination": "/pages/pricing-costing.html"
+    },
+    {
+      "source": "/pricing-costing/knit-price",
+      "destination": "/pages/knit-fabric-cost.html"
+    },
+    {
+      "source": "/pricing-costing/fob-costing",
+      "destination": "/pages/fob-costing.html"
     },
     {
       "source": "/zipper",
-      "destination": "/calculator.html"
+      "destination": "/pages/zipper.html"
     },
     {
       "source": "/trims",
-      "destination": "/calculator.html"
-    },
-    {
-      "source": "/fob-costing",
-      "destination": "/calculator.html"
+      "destination": "/pages/trims.html"
     },
     {
       "source": "/size-ratio",
-      "destination": "/calculator.html"
+      "destination": "/pages/size-ratio.html"
     },
     {
       "source": "/converter",
-      "destination": "/calculator.html"
+      "destination": "/pages/unit-converter.html"
     },
     {
       "source": "/my-formulas",
-      "destination": "/calculator.html"
+      "destination": "/pages/my-workspace.html"
     }
   ]
 }
