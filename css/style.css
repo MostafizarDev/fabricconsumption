@@ -9404,14 +9404,18 @@ body > header .logo-wordmark small {
 }
 
 
-/* Work-page tagline: use natural word spacing with evenly tracked letters */
+/* Work-page tagline: match reference image 1 — tracked letters, natural word gaps */
 body > header .logo-wordmark small {
-  width: auto;
+  display: block;
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
   text-align: left;
   text-align-last: auto;
-  letter-spacing: 6px;
-  word-spacing: normal;
+  letter-spacing: 4px;
+  word-spacing: 0;
+  margin-top: 5px;
 }
 @media (max-width: 760px) {
-  body > header .logo-wordmark small { letter-spacing: 3px; }
+  body > header .logo-wordmark small { letter-spacing: 2.2px; }
 }
