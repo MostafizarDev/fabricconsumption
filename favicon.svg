@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="70" height="70">
   <defs>
     <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#38BDF8"/>
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
     </linearGradient>
     <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#38BDF8"/>
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
     </linearGradient>
     <linearGradient id="iconBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#475569"/>
-      <stop offset="100%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#2563EB"/>
     </linearGradient>
     <linearGradient id="innerHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12"/>
@@ -39,11 +39,11 @@
       <line x1="21" y1="50" x2="27" y2="50"/>
     </g>
     <rect x="18" y="55" width="12" height="3" rx="1" fill="#94A3B8"/>
-    <rect x="30" y="15" width="26" height="12" rx="4" fill="url(#screenGrad)" stroke="#38BDF8" stroke-width="1.5"/>
-    <text x="35" y="24" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#38BDF8">+</text>
-    <text x="42" y="24" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#38BDF8">=</text>
-    <rect x="49" y="19" width="3" height="4" rx="1" fill="#38BDF8"/>
-    <rect x="30" y="33" width="20" height="12" rx="4" fill="#38BDF8"/>
+    <rect x="30" y="15" width="26" height="12" rx="4" fill="url(#screenGrad)" stroke="#22D3EE" stroke-width="1.5"/>
+    <text x="35" y="24" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#22D3EE">+</text>
+    <text x="42" y="24" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#22D3EE">=</text>
+    <rect x="49" y="19" width="3" height="4" rx="1" fill="#22D3EE"/>
+    <rect x="30" y="33" width="20" height="12" rx="4" fill="#3B82F6"/>
     <circle cx="35" cy="39" r="2" fill="#FFFFFF" opacity="0.9"/>
     <circle cx="40" cy="39" r="2" fill="#FFFFFF" opacity="0.9"/>
     <circle cx="45" cy="39" r="2" fill="#FFFFFF" opacity="0.9"/>
