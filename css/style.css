@@ -9507,19 +9507,19 @@ body > header .logo-wordmark small {
   }
 }
 
-/* Logo subtitle: expand the letter spacing, not the spaces between words. */
+/* Final logo subtitle correction:
+   Keep normal word spacing; increase only the spacing between individual letters. */
 body > header .logo-wordmark {
-  width: max-content;
+  width: max-content !important;
 }
 body > header .logo-wordmark small {
-  display: block;
-  width: max-content;
-  max-width: none;
+  display: block !important;
+  width: max-content !important;
+  max-width: none !important;
   box-sizing: border-box;
-  white-space: nowrap;
-  text-align: left;
-  text-align-last: left;
-  word-spacing: normal;
-  letter-spacing: 2.6px;
+  white-space: nowrap !important;
+  text-align: left !important;
+  text-align-last: left !important;
+  word-spacing: normal !important;
+  letter-spacing: 2.8px !important;
 }
-
