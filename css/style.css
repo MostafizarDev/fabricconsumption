@@ -9313,7 +9313,7 @@ body > header .theme-toggle:hover {
   min-height: 46px;
   align-items: stretch;
   gap: 4px;
-  padding: 0 clamp(10px, 1.8vw, 26px);
+  padding: 0 clamp(44px, 5vw, 80px);
   background: #172338;
   border-bottom: 1px solid rgba(148,163,184,.12);
   box-shadow: 0 4px 12px rgba(2,8,23,.10);
@@ -9362,7 +9362,7 @@ body > header .theme-toggle:hover {
   body > header .logo-wordmark { font-size: 14px; }
   body > header .logo-wordmark small { font-size: 7px; letter-spacing: 1.6px; }
   body > header .header-url { display: none; }
-  .tab-bar { top: 62px; min-height: 44px; padding: 0 8px; gap: 3px; }
+  .tab-bar { top: 62px; min-height: 44px; padding: 0 24px; gap: 3px; }
   .tab-btn { min-height: 44px; padding: 0 11px; font-size: 11px; }
 }
 
