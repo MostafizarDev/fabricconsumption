@@ -19,7 +19,7 @@ fs.cpSync(root, output, {
 
 function replaceFooterBlock(html, replacement, file) {
   const start = html.indexOf('<div class="site-footer"');
-  if (start < 0) throw new Error(\`Footer wrapper not found in \${file}\`);
+  if (start < 0) throw new Error(`Footer wrapper not found in ${file}`);
   const tags = /<\/?div\b[^>]*>/gi;
   tags.lastIndex = start;
   let depth = 0;
@@ -31,7 +31,7 @@ function replaceFooterBlock(html, replacement, file) {
       return html.slice(0, start) + replacement + html.slice(tags.lastIndex);
     }
   }
-  throw new Error(\`Footer wrapper is not balanced in \${file}\`);
+  throw new Error(`Footer wrapper is not balanced in ${file}`);
 }
 
 const folders = ["pages", "information"];
@@ -46,7 +46,7 @@ for (const folder of folders) {
     const outputFile = path.join(outputDir, name);
     let html = fs.readFileSync(sourceFile, "utf8");
     if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
-      throw new Error(\`Header not found in \${folder}/\${name}\`);
+      throw new Error(`Header not found in ${folder}/${name}`);
     }
     html = html.replace(/<header\b[\s\S]*?<\/header>/i, header);
     html = replaceFooterBlock(html, footer, sourceFile);
@@ -56,6 +56,6 @@ for (const folder of folders) {
   }
 }
 if (processed !== 19) {
-  throw new Error(\`Expected 19 workspace/information pages; built \${processed}\`);
+  throw new Error(`Expected 19 workspace/information pages; built ${processed}`);
 }
-console.log(\`Built \${processed} pages with one shared workspace header and footer.\`);
+console.log(`Built ${processed} pages with one shared workspace header and footer.`);
