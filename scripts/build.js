@@ -53,10 +53,10 @@ const expectedWorkspacePages = {
 };
 
 function validateDedicatedPage(html, expectedId, file) {
-  const wrappers = [...html.matchAll(/<(?:div|section)\\b[^>]*>/gi)]
+  const wrappers = [...html.matchAll(/<(?:div|section)\b[^>]*>/gi)]
     .map(match => match[0])
-    .filter(tag => /\\bclass=["'][^"']*\\bpage\\b[^"']*["']/i.test(tag))
-    .map(tag => (tag.match(/\\bid=["']([^"']+)["']/i) || [])[1])
+    .filter(tag => /\bclass=["'][^"']*\bpage\b[^"']*["']/i.test(tag))
+    .map(tag => (tag.match(/\bid=["']([^"']+)["']/i) || [])[1])
     .filter(Boolean);
   if (wrappers.length !== 1 || wrappers[0] !== expectedId) {
     throw new Error(
