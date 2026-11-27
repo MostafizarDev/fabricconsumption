@@ -9385,3 +9385,20 @@ body > header .logo-wordmark small {
   body > header .logo-wordmark { font-size: 14px; }
   body > header .logo-wordmark small { font-size: 7px; letter-spacing: 1.6px; }
 }
+
+
+/* Match the work-page subtitle width to the homepage wordmark */
+body > header .logo-wordmark { min-width: 0; }
+body > header .logo-wordmark small {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-align: justify;
+  text-align-last: justify;
+  letter-spacing: 2.8px;
+  line-height: 1.35;
+  margin-top: 5px;
+}
+@media (max-width: 760px) {
+  body > header .logo-wordmark small { letter-spacing: 2.2px; }
+}
