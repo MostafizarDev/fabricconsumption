@@ -9462,3 +9462,43 @@ body > header .logo-wordmark small {
   }
 }
 
+/* Tool navigation alignment and responsive swipe:
+   Match the page content's 16px horizontal padding on both sides.
+   Keep tabs in one row and allow horizontal touch/trackpad scrolling on small displays. */
+.tab-bar {
+  box-sizing: border-box;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+}
+.tab-bar::-webkit-scrollbar {
+  display: none;
+}
+.tab-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  color: #38bdf8;
+}
+@media (max-width: 768px) {
+  .tab-bar {
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 3px;
+    scroll-snap-type: x proximity;
+  }
+  .tab-btn {
+    scroll-snap-align: start;
+  }
+}
+
