@@ -9222,3 +9222,49 @@ body.dark-mode .contact-community-icon-btn.fab:hover{background:#172f4d;border-c
 @media(max-width:520px){
   .site-footer .footer-brand-subtitle{letter-spacing:2px;font-size:9px}
 }
+
+
+/* Final override: main calculator header uses the same brand lockup as homepage */
+header .logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:auto;
+  min-width:0;
+  height:52px;
+  flex:0 0 auto;
+  overflow:visible;
+}
+header .logo .logo-image{
+  display:block;
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  object-fit:contain;
+  object-position:center;
+}
+header .logo .logo-wordmark{
+  display:block;
+  color:#fff;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:-.55px;
+  line-height:1.1;
+  white-space:nowrap;
+}
+header .logo .logo-wordmark strong{color:#60a5fa;font-weight:800}
+header .logo .logo-wordmark small{
+  display:block;
+  margin-top:5px;
+  color:#94a3b8;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:2px;
+  line-height:1.2;
+}
+@media(max-width:600px){
+  header .logo{width:auto;height:48px;flex:0 1 auto;gap:8px}
+  header .logo .logo-image{width:34px;height:34px;flex-basis:34px}
+  header .logo .logo-wordmark{font-size:14px;letter-spacing:-.4px}
+  header .logo .logo-wordmark small{font-size:7px;letter-spacing:1.45px;margin-top:4px}
+}
