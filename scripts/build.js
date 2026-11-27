@@ -136,6 +136,19 @@ for (const folder of folders) {
     }
     html = html.replace(/<header\b[\s\S]*?<\/header>/i, header);
     html = replaceFooterBlock(html, footer, sourceFile);
+
+    // Set the correct navigation tab in the generated HTML before first paint.
+    // Source page templates historically mark Knit Garments active on every page,
+    // which causes a visible flash before app-init.js applies URL routing.
+    if (folder === "pages" && expectedWorkspacePages[name]) {
+      const initialPageId = expectedWorkspacePages[name].replace(/^page-/, "");
+      html = html.replace(/class="tab-btn active"(?=[^>]*data-page="knit")/, 'class="tab-btn"');
+      const activeTabPattern = new RegExp('class="tab-btn"(?=[^>]*data-page="' + initialPageId + '")');
+      if (activeTabPattern.test(html)) {
+        html = html.replace(activeTabPattern, 'class="tab-btn active"');
+      }
+    }
+
     html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261127-shared-layout-v1");
     html = injectPageTransition(html);
     fs.writeFileSync(outputFile, html, "utf8");
