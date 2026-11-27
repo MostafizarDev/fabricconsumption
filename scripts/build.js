@@ -18,6 +18,17 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   fs.cpSync(source, destination, { recursive: true });
 }
 
+const pageTransitionHead = "<style id=\"fc-page-transition\">\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n@view-transition { navigation: auto; }\n::view-transition-old(root),\n::view-transition-new(root) { animation-duration: 140ms; animation-timing-function: ease-out; }\n::view-transition-old(root) { animation-name: fc-page-fade-out; }\n::view-transition-new(root) { animation-name: fc-page-fade-in; }\n@keyframes fc-page-fade-out { to { opacity: 0; } }\n@keyframes fc-page-fade-in { from { opacity: 0; } to { opacity: 1; } }\n@media (prefers-reduced-motion: reduce) {\n  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 1ms; }\n}\n</style>\n<script id=\"fc-theme-early\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>";
+
+function injectPageTransition(html) {
+  if (html.includes('id="fc-page-transition"')) return html;
+  const headStart = html.toLowerCase().indexOf("<head");
+  if (headStart < 0) throw new Error("Head element not found while injecting page transition");
+  const headEnd = html.indexOf(">", headStart);
+  if (headEnd < 0) throw new Error("Head opening tag is incomplete");
+  return html.slice(0, headEnd + 1) + "\n" + pageTransitionHead + "\n" + html.slice(headEnd + 1);
+}
+
 function replaceFooterBlock(html, replacement, file) {
   const start = html.indexOf('<div class="site-footer"');
   if (start < 0) throw new Error(`Footer wrapper not found in ${file}`);
@@ -126,6 +137,7 @@ for (const folder of folders) {
     html = html.replace(/<header\b[\s\S]*?<\/header>/i, header);
     html = replaceFooterBlock(html, footer, sourceFile);
     html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261127-shared-layout-v1");
+    html = injectPageTransition(html);
     fs.writeFileSync(outputFile, html, "utf8");
     processed++;
   }
