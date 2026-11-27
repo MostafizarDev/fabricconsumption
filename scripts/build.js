@@ -52,6 +52,46 @@ const expectedWorkspacePages = {
   "zipper.html": "page-zipper"
 };
 
+
+const expectedPageScripts = {
+  "booking-sheet.html": ["booking-sheet.js"],
+  "fob-costing.html": ["knit-price.js", "fob.js"],
+  "help-faq.html": [],
+  "knit-fabric-cost.html": ["knit-price.js", "fob.js"],
+  "knit-garments.html": ["knit-garments.js", "fabric-groups.js"],
+  "knit-pant.html": ["knit-pant.js", "pant-fabric-groups.js"],
+  "marker-consumption.html": ["marker-consumption.js"],
+  "my-workspace.html": ["my-formulas.js"],
+  "pricing-costing.html": ["knit-price.js", "fob.js"],
+  "size-ratio.html": ["size-ratio.js"],
+  "trims.html": ["trims.js"],
+  "unit-converter.html": ["converter.js"],
+  "woven-shirt.html": ["woven-shirt.js"],
+  "zipper.html": ["zipper.js"]
+};
+
+function validatePageScripts(html, file) {
+  const expected = expectedPageScripts[file];
+  if (!expected) return;
+  const actual = [...html.matchAll(/<script\\b[^>]*\\bsrc=["']([^"']+)["'][^>]*>/gi)]
+    .map((match) => match[1].split("?")[0])
+    .filter((src) => src.startsWith("/js/"))
+    .map((src) => path.basename(src))
+    .filter((name) => !["utils.js", "app-init.js"].includes(name));
+  const sortedActual = [...actual].sort();
+  const sortedExpected = [...expected].sort();
+  if (JSON.stringify(sortedActual) !== JSON.stringify(sortedExpected)) {
+    throw new Error(
+      `Unexpected calculator scripts in pages/${file}. Expected [${sortedExpected.join(", ")}], found [${sortedActual.join(", ")}]`
+    );
+  }
+  for (const script of expected) {
+    if (!fs.existsSync(path.join(root, "js", script))) {
+      throw new Error(`Missing calculator script js/${script} required by pages/${file}`);
+    }
+  }
+}
+
 function validateDedicatedPage(html, expectedId, file) {
   const wrappers = [...html.matchAll(/<(?:div|section)\b[^>]*>/gi)]
     .map(match => match[0])
@@ -78,6 +118,7 @@ for (const folder of folders) {
     let html = fs.readFileSync(sourceFile, "utf8");
     if (folder === "pages" && expectedWorkspacePages[name]) {
       validateDedicatedPage(html, expectedWorkspacePages[name], `${folder}/${name}`);
+      validatePageScripts(html, name);
     }
     if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
