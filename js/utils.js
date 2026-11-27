@@ -95,7 +95,9 @@ function getPageIdFromPath(pathname = window.location.pathname) {
     if (path === '/knit-price') return 'knitprice';
     if (path === '/fob-costing') return 'fob';
     const match = Object.entries(FC_PAGE_ROUTES).find(([, route]) => route === path);
-    return match ? match[0] : 'knit';
+    // Never silently fall back to Knit Garments: an unknown URL must not
+    // briefly activate the wrong calculator during page initialization.
+    return match ? match[0] : null;
 }
 
 function getRouteForPage(pageId) {
@@ -263,6 +265,9 @@ function updatePageSEO(pageId) {
 
 // ========== PAGE NAVIGATION ==========
 function showPage(pageId, btn, routeOptions = {}) {
+    // Ignore unknown routes instead of activating a default calculator.
+    if (!pageId || !FC_PAGE_ROUTES[pageId]) return;
+
     // Knit Price and FOB Costing now live as calculator views inside one Pricing & Costing page.
     const isPricingView = ['knitprice', 'fob'].includes(pageId);
     const mainPageId = isPricingView ? 'pricing' : pageId;
