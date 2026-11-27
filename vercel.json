@@ -7,91 +7,91 @@
     },
     {
       "source": "/about",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/contact",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/privacy-policy",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/terms-of-use",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/disclaimer",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/faq",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/pricing-costing/:path*",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/pricing-costing/fob-costing",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/pricing-costing/knit-price",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/pricing-costing",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/Marker-Consumption",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/knit-garments",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/knit-pant",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/woven-shirt",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/booking-sheet",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/knit-price",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/zipper",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/trims",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/fob-costing",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/size-ratio",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/converter",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     },
     {
       "source": "/my-formulas",
-      "destination": "/index.html"
+      "destination": "/calculator.html"
     }
   ]
 }
