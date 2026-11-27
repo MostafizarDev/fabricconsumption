@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://fabricconsumption.vercel.app/</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/Marker-Consumption</loc></url>
-  <url><loc>https://fabricconsumption.vercel.app/pricing-costing</loc></url>
-  <url><loc>https://fabricconsumption.vercel.app/pricing-costing/knit-price</loc></url>
-  <url><loc>https://fabricconsumption.vercel.app/pricing-costing/fob-costing</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/knit-garments</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/knit-pant</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/woven-shirt</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/booking-sheet</loc></url>
+  <url><loc>https://fabricconsumption.vercel.app/pricing-costing</loc></url>
+  <url><loc>https://fabricconsumption.vercel.app/pricing-costing/knit-price</loc></url>
+  <url><loc>https://fabricconsumption.vercel.app/pricing-costing/fob-costing</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/zipper</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/trims</loc></url>
   <url><loc>https://fabricconsumption.vercel.app/size-ratio</loc></url>
