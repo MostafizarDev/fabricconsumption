@@ -9464,12 +9464,12 @@ body > header .logo-wordmark small {
 }
 
 /* Tool navigation alignment and responsive swipe:
-   Match the page content's 16px horizontal padding on both sides.
-   Keep tabs in one row and allow horizontal touch/trackpad scrolling on small displays. */
+   Align the top navigation content with the same centered 1440px layout and 34px
+   inner spacing used by the footer. Preserve one-row swipe navigation on small screens. */
 .tab-bar {
   box-sizing: border-box;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: max(34px, calc((100% - 1440px) / 2 + 34px));
+  padding-right: max(34px, calc((100% - 1440px) / 2 + 34px));
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
