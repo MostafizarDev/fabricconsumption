@@ -127,3 +127,20 @@
 @media(max-width:420px){
   .home-page .home-header-inner,.home-page .home-mobile-nav{width:calc(100% - 32px)}
 }
+
+
+/* Brand tagline: spread the lettering across the full brand-name width */
+.home-page .home-brand>span{min-width:0}
+.home-page .home-brand small{
+  display:block;
+  width:100%;
+  white-space:nowrap;
+  text-align:justify;
+  text-align-last:justify;
+  letter-spacing:2.8px;
+  line-height:1.35;
+  margin-top:5px;
+}
+@media(max-width:420px){
+  .home-page .home-brand small{letter-spacing:2.2px}
+}
