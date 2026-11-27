@@ -9402,3 +9402,16 @@ body > header .logo-wordmark small {
 @media (max-width: 760px) {
   body > header .logo-wordmark small { letter-spacing: 2.2px; }
 }
+
+
+/* Work-page tagline: use natural word spacing with evenly tracked letters */
+body > header .logo-wordmark small {
+  width: auto;
+  text-align: left;
+  text-align-last: auto;
+  letter-spacing: 6px;
+  word-spacing: normal;
+}
+@media (max-width: 760px) {
+  body > header .logo-wordmark small { letter-spacing: 3px; }
+}
