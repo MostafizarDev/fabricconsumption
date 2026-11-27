@@ -9507,18 +9507,19 @@ body > header .logo-wordmark small {
   }
 }
 
-/* Keep the logo subtitle aligned to the full width of the FABRIC CONSUMPTION wordmark. */
+/* Logo subtitle: expand the letter spacing, not the spaces between words. */
 body > header .logo-wordmark {
   width: max-content;
 }
 body > header .logo-wordmark small {
   display: block;
-  width: 100%;
-  max-width: 100%;
+  width: max-content;
+  max-width: none;
   box-sizing: border-box;
   white-space: nowrap;
-  text-align: justify;
-  text-align-last: justify;
-  letter-spacing: 2px;
+  text-align: left;
+  text-align-last: left;
+  word-spacing: normal;
+  letter-spacing: 2.6px;
 }
 
