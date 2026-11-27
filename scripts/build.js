@@ -35,6 +35,36 @@ function replaceFooterBlock(html, replacement, file) {
   throw new Error(`Footer wrapper is not balanced in ${file}`);
 }
 
+const expectedWorkspacePages = {
+  "booking-sheet.html": "page-booking",
+  "fob-costing.html": "page-pricing",
+  "help-faq.html": "page-faq",
+  "knit-fabric-cost.html": "page-pricing",
+  "knit-garments.html": "page-knit",
+  "knit-pant.html": "page-knitpant",
+  "marker-consumption.html": "page-marker",
+  "my-workspace.html": "page-myformulas",
+  "pricing-costing.html": "page-pricing",
+  "size-ratio.html": "page-sizeratio",
+  "trims.html": "page-trims",
+  "unit-converter.html": "page-converter",
+  "woven-shirt.html": "page-woven",
+  "zipper.html": "page-zipper"
+};
+
+function validateDedicatedPage(html, expectedId, file) {
+  const wrappers = [...html.matchAll(/<(?:div|section)\\b[^>]*>/gi)]
+    .map(match => match[0])
+    .filter(tag => /\\bclass=["'][^"']*\\bpage\\b[^"']*["']/i.test(tag))
+    .map(tag => (tag.match(/\\bid=["']([^"']+)["']/i) || [])[1])
+    .filter(Boolean);
+  if (wrappers.length !== 1 || wrappers[0] !== expectedId) {
+    throw new Error(
+      `Expected only ${expectedId} in ${file}; found: ${wrappers.join(", ") || "no page wrapper"}`
+    );
+  }
+}
+
 const folders = ["pages", "information"];
 let processed = 0;
 for (const folder of folders) {
@@ -46,6 +76,9 @@ for (const folder of folders) {
     const sourceFile = path.join(sourceDir, name);
     const outputFile = path.join(outputDir, name);
     let html = fs.readFileSync(sourceFile, "utf8");
+    if (folder === "pages" && expectedWorkspacePages[name]) {
+      validateDedicatedPage(html, expectedWorkspacePages[name], `${folder}/${name}`);
+    }
     if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
     }
