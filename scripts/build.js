@@ -73,7 +73,7 @@ const expectedPageScripts = {
 function validatePageScripts(html, file) {
   const expected = expectedPageScripts[file];
   if (!expected) return;
-  const actual = [...html.matchAll(/<script\\b[^>]*\\bsrc=["']([^"']+)["'][^>]*>/gi)]
+  const actual = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)]
     .map((match) => match[1].split("?")[0])
     .filter((src) => src.startsWith("/js/"))
     .map((src) => path.basename(src))
