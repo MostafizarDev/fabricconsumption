@@ -18,7 +18,18 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   fs.cpSync(source, destination, { recursive: true });
 }
 
-const transitionStyle = `<style id="fc-page-transition">\n@view-transition { navigation: auto; }\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n::view-transition-old(root) { animation: fc-page-out 140ms ease-out both; }\n::view-transition-new(root) { animation: fc-page-in 180ms ease-out both; }\n@keyframes fc-page-out { to { opacity: 0; } }\n@keyframes fc-page-in { from { opacity: 0; } to { opacity: 1; } }\n@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }\n</style>`;\n\nconst pageTransitionHead = transitionStyle + "\n<script id=\\"fc-theme-early\\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>";
+const transitionStyle = `<style id="fc-page-transition">\n@view-transition { navigation: auto; }\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n::view-transition-old(root) { animation: fc-page-out 140ms ease-out both; }\n::view-transition-new(root) { animation: fc-page-in 180ms ease-out both; }\n@keyframes fc-page-out { to { opacity: 0; } }\n@keyframes fc-page-in { from { opacity: 0; } to { opacity: 1; } }\n@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }\n</style>`;\n\nconst pageTransitionHead = [
+  transitionStyle,
+  '<script id="fc-theme-early">',
+  '(function () {',
+  '  try {',
+  "    var savedTheme = localStorage.getItem('fc-theme');",
+  "    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;",
+  "    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');",
+  '  } catch (error) {}',
+  '})();',
+  '</script>'
+].join("\n");
 
 function replaceFooterBlock(html, replacement, sourceFile) {
   const start = html.indexOf('<div class="site-footer"');
