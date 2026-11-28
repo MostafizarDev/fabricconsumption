@@ -3,12 +3,14 @@ const path = require("node:path");
 
 const root = process.cwd();
 const output = path.join(root, "dist");
+const header = fs.readFileSync(path.join(root, "components/workspace-header.html"), "utf8").trim();
+const footer = fs.readFileSync(path.join(root, "components/workspace-footer.html"), "utf8").trim();
 
 // Copy each project entry into dist individually. Copying the project root
 // directly into its own child directory causes ERR_FS_CP_EINVAL in Node.js.
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
-const excluded = new Set([".git", ".vercel", "node_modules", "dist", "scripts"]);
+const excluded = new Set([".git", ".vercel", "node_modules", "dist", "components", "scripts"]);
 for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   if (excluded.has(entry.name)) continue;
   const source = path.join(root, entry.name);
@@ -17,6 +19,26 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
 }
 
 const pageTransitionHead = "<style id=\"fc-page-transition\">\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n</style>\n<script id=\"fc-theme-early\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>";
+
+function replaceFooterBlock(html, replacement, sourceFile) {
+  const start = html.indexOf('<div class="site-footer"');
+  if (start < 0) throw new Error(`Footer not found in ${sourceFile}`);
+  const tags = /<div\\b[^>]*>|<\\/div>/gi;
+  tags.lastIndex = start;
+  let depth = 0;
+  let match;
+  let end = -1;
+  while ((match = tags.exec(html))) {
+    if (/^<div\\b/i.test(match[0])) depth++;
+    else depth--;
+    if (depth === 0) { end = tags.lastIndex; break; }
+  }
+  if (end < 0) throw new Error(`Footer markup is unbalanced in ${sourceFile}`);
+  const trailing = html.slice(end);
+  const scriptMatch = trailing.match(/^\\s*<script>\\s*if \\(typeof window\\.copyFooterShareLink[\\s\\S]*?<\\/script>/);
+  if (scriptMatch) end += scriptMatch[0].length;
+  return html.slice(0, start) + replacement + html.slice(end);
+}
 
 function injectPageTransition(html) {
   if (html.includes('id="fc-page-transition"')) return html;
@@ -112,12 +134,11 @@ for (const folder of folders) {
       validateDedicatedPage(html, expectedWorkspacePages[name], `${folder}/${name}`);
       validatePageScripts(html, name);
     }
-    if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
+    if (!/<header\\b[\\s\\S]*?<\\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
     }
-    if (!/<div class="site-footer"[\s\S]*?<\/div>/i.test(html)) {
-      throw new Error(`Footer wrapper not found in ${folder}/${name}`);
-    }
+    html = html.replace(/<header\\b[\\s\\S]*?<\\/header>/i, header);
+    html = replaceFooterBlock(html, footer, sourceFile);
 
     // Set the correct navigation tab in the generated HTML before first paint.
     // Source page templates historically mark Knit Garments active on every page,
@@ -140,4 +161,4 @@ for (const folder of folders) {
 if (processed !== 19) {
   throw new Error(`Expected 19 workspace/information pages; built ${processed}`);
 }
-console.log(`Built ${processed} pages with page-local header and footer markup.`);
+console.log(`Built ${processed} pages with one shared workspace header and footer.`);
