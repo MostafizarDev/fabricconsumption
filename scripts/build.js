@@ -78,6 +78,30 @@ html.fc-embedded-workspace main { padding-top: 0; }
     var params = new URLSearchParams(window.location.search);
     if (window.self === window.top || params.get('embed') !== '1') return;
     document.documentElement.classList.add('fc-embedded-workspace');
+    var workspaceRoutes = {
+      '/Marker-Consumption': 'marker',
+      '/knit-garments': 'knit',
+      '/knit-pant': 'knitpant',
+      '/woven-shirt': 'woven',
+      '/booking-sheet': 'booking',
+      '/pricing-costing': 'pricing',
+      '/pricing-costing/knit-price': 'knitprice',
+      '/pricing-costing/fob-costing': 'fob',
+      '/zipper': 'zipper',
+      '/trims': 'trims',
+      '/size-ratio': 'sizeratio',
+      '/converter': 'converter',
+      '/my-formulas': 'myformulas'
+    };
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest && event.target.closest('a[href]');
+      if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      var target;
+      try { target = new URL(link.href, window.location.href); } catch (error) { return; }
+      if (target.origin !== window.location.origin || !workspaceRoutes[target.pathname]) return;
+      event.preventDefault();
+      window.parent.postMessage({ type: 'fc-workspace-route', pageId: workspaceRoutes[target.pathname] }, window.location.origin);
+    });
     window.addEventListener('message', function (event) {
       if (event.origin !== window.location.origin || !event.data) return;
       if (event.data.type === 'fc-theme') {
@@ -217,10 +241,7 @@ function buildWorkspaceShells() {
     var pageId = event.data.pageId;
     var item = routes[pageId];
     if (!item) return;
-    currentId = pageId;
-    if (window.location.pathname !== item.route) window.history.pushState({ workspacePage: pageId }, '', item.route);
-    setActive(pageId);
-    updateMetadata(item);
+    loadPage(pageId, true);
   });
 
   if (themeButton) themeButton.addEventListener('click', function () {
