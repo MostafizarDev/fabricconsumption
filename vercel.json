@@ -14,6 +14,58 @@
   ],
   "rewrites": [
     {
+      "source": "/Marker-Consumption",
+      "destination": "/workspace/Marker-Consumption.html"
+    },
+    {
+      "source": "/knit-garments",
+      "destination": "/workspace/knit-garments.html"
+    },
+    {
+      "source": "/knit-pant",
+      "destination": "/workspace/knit-pant.html"
+    },
+    {
+      "source": "/woven-shirt",
+      "destination": "/workspace/woven-shirt.html"
+    },
+    {
+      "source": "/booking-sheet",
+      "destination": "/workspace/booking-sheet.html"
+    },
+    {
+      "source": "/pricing-costing",
+      "destination": "/workspace/pricing-costing.html"
+    },
+    {
+      "source": "/pricing-costing/knit-price",
+      "destination": "/workspace/pricing-costing-knit-price.html"
+    },
+    {
+      "source": "/pricing-costing/fob-costing",
+      "destination": "/workspace/pricing-costing-fob-costing.html"
+    },
+    {
+      "source": "/zipper",
+      "destination": "/workspace/zipper.html"
+    },
+    {
+      "source": "/trims",
+      "destination": "/workspace/trims.html"
+    },
+    {
+      "source": "/size-ratio",
+      "destination": "/workspace/size-ratio.html"
+    },
+    {
+      "source": "/converter",
+      "destination": "/workspace/converter.html"
+    },
+    {
+      "source": "/my-formulas",
+      "destination": "/workspace/my-formulas.html"
+    },
+    {
       "source": "/",
       "destination": "/home.html"
     },
@@ -40,58 +92,6 @@
     {
       "source": "/faq",
       "destination": "/pages/help-faq.html"
-    },
-    {
-      "source": "/Marker-Consumption",
-      "destination": "/pages/marker-consumption.html"
-    },
-    {
-      "source": "/knit-garments",
-      "destination": "/pages/knit-garments.html"
-    },
-    {
-      "source": "/knit-pant",
-      "destination": "/pages/knit-pant.html"
-    },
-    {
-      "source": "/woven-shirt",
-      "destination": "/pages/woven-shirt.html"
-    },
-    {
-      "source": "/booking-sheet",
-      "destination": "/pages/booking-sheet.html"
-    },
-    {
-      "source": "/pricing-costing",
-      "destination": "/pages/pricing-costing.html"
-    },
-    {
-      "source": "/pricing-costing/knit-price",
-      "destination": "/pages/knit-fabric-cost.html"
-    },
-    {
-      "source": "/pricing-costing/fob-costing",
-      "destination": "/pages/fob-costing.html"
-    },
-    {
-      "source": "/zipper",
-      "destination": "/pages/zipper.html"
-    },
-    {
-      "source": "/trims",
-      "destination": "/pages/trims.html"
-    },
-    {
-      "source": "/size-ratio",
-      "destination": "/pages/size-ratio.html"
-    },
-    {
-      "source": "/converter",
-      "destination": "/pages/unit-converter.html"
-    },
-    {
-      "source": "/my-formulas",
-      "destination": "/pages/my-workspace.html"
     }
   ],
   "buildCommand": "npm run build",

@@ -111,7 +111,11 @@ function runAllCalculations() {
 // Setup tab navigation
 // URL routing: each tool has a stable, shareable path.
 function initPageRouting() {
-    const pageId = getPageIdFromPath(window.location.pathname);
+    const params = new URLSearchParams(window.location.search);
+    const embeddedPageId = window.self !== window.top && params.get('embed') === '1'
+        ? params.get('page')
+        : null;
+    const pageId = embeddedPageId || getPageIdFromPath(window.location.pathname);
     const tab = document.querySelector('.tab-btn[data-page="' + pageId + '"]');
     showPage(pageId, tab, { fromHistory: true });
 
