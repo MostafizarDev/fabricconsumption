@@ -248,5 +248,30 @@ function copyFooterShareLink(button){
       searchInput?.addEventListener('input',updateToolFilters);
     })();
   </script>
+
+  <script id="home-motion-enhancements">
+    (function () {
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealTargets = document.querySelectorAll(
+        '.home-trust-strip, .tools-heading, .tool-filters, .reference-tool-card, .how-section .section-heading, .step-card, .benefits-copy, .benefit-list article, .audience-section .section-heading, .audience-grid span, .home-final-cta, .home-footer'
+      );
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealTargets.forEach(function (element) { element.classList.add('is-visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries, activeObserver) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          activeObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+      revealTargets.forEach(function (element) {
+        element.classList.add('home-reveal');
+        observer.observe(element);
+      });
+    })();
+  </script>
+
 </body>
 </html>
