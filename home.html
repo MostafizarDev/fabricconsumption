@@ -41,7 +41,7 @@ body { transition: background-color 220ms ease, color 220ms ease; }
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css?v=20261127-logo-letterspacing-v6">
-  <link rel="stylesheet" href="/css/home.css?v=20261127-home-readability-v2">
+  <link rel="stylesheet" href="/css/home.css?v=20261129-reference-motion-v1">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -53,7 +53,7 @@ body { transition: background-color 220ms ease, color 220ms ease; }
   </script>
 </head>
 <body class="home-page">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">Skip to content</a>\n  <div class="home-scroll-progress" aria-hidden="true"><span id="home-scroll-progress-bar"></span></div>
   <header class="home-header">
     <div class="home-header-inner">
       <a class="home-brand" href="/" aria-label="Fabric Consumption home">
@@ -251,9 +251,9 @@ function copyFooterShareLink(button){
 
   <script id="home-motion-enhancements">
     (function () {
-      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;\n      var progress = document.getElementById('home-scroll-progress-bar');\n      function updateProgress(){if(!progress)return;var max=document.documentElement.scrollHeight-window.innerHeight;var value=max>0?(window.scrollY/max)*100:0;progress.style.width=Math.max(0,Math.min(100,value))+'%';}\n      window.addEventListener('scroll',updateProgress,{passive:true});\n      updateProgress();
       var revealTargets = document.querySelectorAll(
-        '.home-trust-strip, .tools-heading, .tool-filters, .reference-tool-card, .how-section .section-heading, .step-card, .benefits-copy, .benefit-list article, .audience-section .section-heading, .audience-grid span, .home-final-cta, .home-footer'
+        '.home-trust-strip, .trust-items>div, .workspace-preview-card, .tools-heading, .tool-filters, .reference-tool-card, .how-section .section-heading, .step-card, .benefits-copy, .benefit-list article, .audience-section .section-heading, .audience-grid span, .home-final-cta'
       );
       if (reduceMotion || !('IntersectionObserver' in window)) {
         revealTargets.forEach(function (element) { element.classList.add('is-visible'); });
