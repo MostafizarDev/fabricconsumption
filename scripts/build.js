@@ -42,7 +42,7 @@ function replaceFooterBlock(html, replacement, sourceFile) {
 
 function injectPageTransition(html) {
   if (html.includes('id="fc-page-transition"')) {
-    return html.replace(/<style\\b[^>]*id=["']fc-page-transition["'][^>]*>[\\s\\S]*?<\\/style>/i, transitionStyle);
+    return html.replace(/<style\b[^>]*id=["']fc-page-transition["'][^>]*>[\s\S]*?<\/style>/i, transitionStyle);
   }
   const headStart = html.toLowerCase().indexOf("<head");
   if (headStart < 0) throw new Error("Head element not found while injecting page transition");
@@ -52,13 +52,13 @@ function injectPageTransition(html) {
 }
 
 function activateInitialWorkspace(html, expectedId, sourceFile) {
-  const openingTag = new RegExp('<(?:div|section)\\\\b(?=[^>]*\\\\bid=["\\\\']' + expectedId + '["\\\\'])[^>]*>', 'i');
-  const match = html.match(openingTag);
-  if (!match) throw new Error(`Initial workspace ${expectedId} not found in ${sourceFile}`);
-  const updated = match[0].replace(/\\\\bclass=(["'])(.*?)\\\\1/i, (whole, quote, classes) => {
-    const clean = classes.split(/\\\\s+/).filter(name => name !== "active");
+  const match = [...html.matchAll(/<(?:div|section)\b[^>]*>/gi)]
+    .find(([tag]) => tag.includes(\`id="\${expectedId}"\`));
+  if (!match) throw new Error(\`Initial workspace \${expectedId} not found in \${sourceFile}\`);
+  const updated = match[0].replace(/\bclass=(["'])(.*?)\1/i, (whole, quote, classes) => {
+    const clean = classes.split(/\s+/).filter(name => name !== "active");
     clean.push("active");
-    return `class=${quote}${clean.join(" ")}${quote}`;
+    return \`class=\${quote}\${clean.join(" ")}\${quote}\`;
   });
   return html.replace(match[0], updated);
 }
