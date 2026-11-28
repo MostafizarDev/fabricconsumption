@@ -9655,3 +9655,82 @@ body > .tab-bar .tab-btn {
     max-height: 44px;
   }
 }
+
+/* ==========================================
+   NAVIGATION STABILITY — FINAL NORMALIZATION
+   ========================================== */
+body > .tab-bar {
+  position: sticky;
+  top: 66px;
+  z-index: 99;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  height: 46px;
+  min-height: 46px;
+  max-height: 46px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+body > .tab-bar::-webkit-scrollbar { display: none; }
+body > .tab-bar .tab-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: max-content;
+  min-width: max-content;
+  height: 46px;
+  min-height: 46px;
+  max-height: 46px;
+  padding: 0 14px;
+  white-space: nowrap;
+  line-height: 1;
+  transition: none;
+  animation: none;
+}
+body > .tab-bar .tab-btn > svg,
+body > .tab-bar .tab-btn > i {
+  display: block;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+}
+body > .tab-bar .tab-btn::after {
+  transition: none;
+  animation: none;
+}
+body > header,
+body > header .logo,
+body > header .theme-toggle {
+  flex-shrink: 0;
+}
+body > header .theme-toggle {
+  transition: none;
+}
+@media (max-width: 760px) {
+  body > header { height: 62px; min-height: 62px; max-height: 62px; }
+  body > .tab-bar {
+    top: 62px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    scroll-behavior: auto;
+  }
+  body > .tab-bar .tab-btn {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    padding: 0 12px;
+  }
+}
