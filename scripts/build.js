@@ -23,19 +23,19 @@ const pageTransitionHead = "<style id=\"fc-page-transition\">\nhtml { background
 function replaceFooterBlock(html, replacement, sourceFile) {
   const start = html.indexOf('<div class="site-footer"');
   if (start < 0) throw new Error(`Footer not found in ${sourceFile}`);
-  const tags = /<div\\b[^>]*>|<\\/div>/gi;
+  const tags = /<div\b[^>]*>|<\/div>/gi;
   tags.lastIndex = start;
   let depth = 0;
   let match;
   let end = -1;
   while ((match = tags.exec(html))) {
-    if (/^<div\\b/i.test(match[0])) depth++;
+    if (/^<div\b/i.test(match[0])) depth++;
     else depth--;
     if (depth === 0) { end = tags.lastIndex; break; }
   }
   if (end < 0) throw new Error(`Footer markup is unbalanced in ${sourceFile}`);
   const trailing = html.slice(end);
-  const scriptMatch = trailing.match(/^\\s*<script>\\s*if \\(typeof window\\.copyFooterShareLink[\\s\\S]*?<\\/script>/);
+  const scriptMatch = trailing.match(/^\s*<script>\s*if \(typeof window\.copyFooterShareLink[\s\S]*?<\/script>/);
   if (scriptMatch) end += scriptMatch[0].length;
   return html.slice(0, start) + replacement + html.slice(end);
 }
@@ -134,10 +134,10 @@ for (const folder of folders) {
       validateDedicatedPage(html, expectedWorkspacePages[name], `${folder}/${name}`);
       validatePageScripts(html, name);
     }
-    if (!/<header\\b[\\s\\S]*?<\\/header>/i.test(html)) {
+    if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
     }
-    html = html.replace(/<header\\b[\\s\\S]*?<\\/header>/i, header);
+    html = html.replace(/<header\b[\s\S]*?<\/header>/i, header);
     html = replaceFooterBlock(html, footer, sourceFile);
 
     // Set the correct navigation tab in the generated HTML before first paint.
