@@ -505,3 +505,6 @@
  .home-page .home-reveal{opacity:1!important;transform:none!important;transition:none!important}
  .home-page .reference-tool-card,.home-page .step-card,.home-page .benefit-list article,.home-page .audience-grid span{transition:none!important}
 }
+
+.home-page .home-scroll-progress{position:fixed;inset:0 0 auto;height:2px;z-index:120;pointer-events:none;background:transparent}
+.home-page .home-scroll-progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#2563eb,#078ed0,#38bdf8);box-shadow:0 0 9px #38bdf866;transition:width .08s linear}
