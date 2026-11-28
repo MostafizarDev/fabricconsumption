@@ -185,7 +185,7 @@ for (const folder of folders) {
       }
     }
 
-    html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261127-shared-layout-v1");
+    html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261128-stable-nav-layout-v1");
     html = injectPageTransition(html);
     fs.writeFileSync(outputFile, html, "utf8");
     processed++;
