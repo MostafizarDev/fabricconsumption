@@ -18,7 +18,7 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   fs.cpSync(source, destination, { recursive: true });
 }
 
-const pageTransitionHead = "<style id=\"fc-page-transition\">\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n</style>\n<script id=\"fc-theme-early\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>";
+const transitionStyle = `<style id="fc-page-transition">\n@view-transition { navigation: auto; }\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n::view-transition-old(root) { animation: fc-page-out 140ms ease-out both; }\n::view-transition-new(root) { animation: fc-page-in 180ms ease-out both; }\n@keyframes fc-page-out { to { opacity: 0; } }\n@keyframes fc-page-in { from { opacity: 0; } to { opacity: 1; } }\n@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }\n</style>`;\n\nconst pageTransitionHead = transitionStyle + "\\n<script id=\\"fc-theme-early\\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>";
 
 function replaceFooterBlock(html, replacement, sourceFile) {
   const start = html.indexOf('<div class="site-footer"');
@@ -41,12 +41,26 @@ function replaceFooterBlock(html, replacement, sourceFile) {
 }
 
 function injectPageTransition(html) {
-  if (html.includes('id="fc-page-transition"')) return html;
+  if (html.includes('id="fc-page-transition"')) {
+    return html.replace(/<style\\b[^>]*id=["']fc-page-transition["'][^>]*>[\\s\\S]*?<\\/style>/i, transitionStyle);
+  }
   const headStart = html.toLowerCase().indexOf("<head");
   if (headStart < 0) throw new Error("Head element not found while injecting page transition");
   const headEnd = html.indexOf(">", headStart);
   if (headEnd < 0) throw new Error("Head opening tag is incomplete");
   return html.slice(0, headEnd + 1) + "\n" + pageTransitionHead + "\n" + html.slice(headEnd + 1);
+}
+
+function activateInitialWorkspace(html, expectedId, sourceFile) {
+  const openingTag = new RegExp('<(?:div|section)\\\\b(?=[^>]*\\\\bid=["\\\\']' + expectedId + '["\\\\'])[^>]*>', 'i');
+  const match = html.match(openingTag);
+  if (!match) throw new Error(`Initial workspace ${expectedId} not found in ${sourceFile}`);
+  const updated = match[0].replace(/\\\\bclass=(["'])(.*?)\\\\1/i, (whole, quote, classes) => {
+    const clean = classes.split(/\\\\s+/).filter(name => name !== "active");
+    clean.push("active");
+    return `class=${quote}${clean.join(" ")}${quote}`;
+  });
+  return html.replace(match[0], updated);
 }
 
 const expectedWorkspacePages = {
@@ -133,6 +147,7 @@ for (const folder of folders) {
     if (folder === "pages" && expectedWorkspacePages[name]) {
       validateDedicatedPage(html, expectedWorkspacePages[name], `${folder}/${name}`);
       validatePageScripts(html, name);
+      html = activateInitialWorkspace(html, expectedWorkspacePages[name], `${folder}/${name}`);
     }
     if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
@@ -158,7 +173,13 @@ for (const folder of folders) {
     processed++;
   }
 }
+const homeFile = path.join(output, "home.html");
+if (fs.existsSync(homeFile)) {
+  const homeHtml = injectPageTransition(fs.readFileSync(homeFile, "utf8"));
+  fs.writeFileSync(homeFile, homeHtml, "utf8");
+}
+
 if (processed !== 19) {
   throw new Error(`Expected 19 workspace/information pages; built ${processed}`);
 }
-console.log(`Built ${processed} pages with one shared workspace header and footer.`);
+console.log(`Built ${processed} pages with initial workspace visibility and cross-document transitions.`);
