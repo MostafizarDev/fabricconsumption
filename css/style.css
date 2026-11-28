@@ -9589,3 +9589,69 @@ body.dark-mode #page-contact .contact-person-links a:hover{
   width:18px;
   height:18px;
 }
+
+/* ==========================================
+   STABLE WORKSPACE HEADER + TOOL NAVIGATION
+   Keep both top bars at fixed dimensions while
+   calculator pages and web fonts finish loading.
+   ========================================== */
+body > header {
+  box-sizing: border-box;
+  height: 66px;
+  min-height: 66px;
+  max-height: 66px;
+  flex: 0 0 66px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+body > header .logo,
+body > header .theme-toggle {
+  flex-shrink: 0;
+}
+
+body > .tab-bar {
+  box-sizing: border-box;
+  height: 46px;
+  min-height: 46px;
+  max-height: 46px;
+  flex: 0 0 46px;
+  position: sticky;
+  top: 66px;
+  z-index: 99;
+  align-items: stretch;
+}
+
+body > .tab-bar .tab-btn {
+  box-sizing: border-box;
+  height: 46px;
+  min-height: 46px;
+  max-height: 46px;
+  flex: 0 0 auto;
+  line-height: 1;
+  transition-property: color, background-color, border-color;
+}
+
+@media (max-width: 760px) {
+  body > header {
+    height: 62px;
+    min-height: 62px;
+    max-height: 62px;
+    flex-basis: 62px;
+  }
+
+  body > .tab-bar {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    flex-basis: 44px;
+    top: 62px;
+  }
+
+  body > .tab-bar .tab-btn {
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+  }
+}
