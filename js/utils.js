@@ -287,8 +287,12 @@ function showPage(pageId, btn, routeOptions = {}) {
 
     // Keep browser URL, refresh, bookmarks, and browser back/forward in sync.
     if (!routeOptions.fromHistory && route && window.location.pathname !== route) {
-        const method = routeOptions.replace ? 'replaceState' : 'pushState';
-        window.history[method]({ pageId }, '', route);
+        if (window.self !== window.top) {
+            window.parent.postMessage({ type: 'fc-workspace-route', pageId }, window.location.origin);
+        } else {
+            const method = routeOptions.replace ? 'replaceState' : 'pushState';
+            window.history[method]({ pageId }, '', route);
+        }
     }
 
     const pageTitle = FC_PAGE_TITLES[pageId] || 'Garment Calculator Suite';
