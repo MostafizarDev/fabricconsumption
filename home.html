@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
 <style id="fc-page-transition">
-html { background: #f0f4f8; }
+html { background: #f0f4f8; transition: background-color 220ms ease, color 220ms ease; }
 html.dark-mode { background: #0b1120; color-scheme: dark; }
 html:not(.dark-mode) { color-scheme: light; }
 html.dark-mode body { background: #0b1120; }
+body { transition: background-color 220ms ease, color 220ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  html, body { transition: none; }
+}
 </style>
 <script id="fc-theme-early">
 (function () {
@@ -211,6 +215,8 @@ function copyFooterShareLink(button){
       const saved = localStorage.getItem('fc-theme');
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       function applyTheme(dark) {
+        // Keep the root canvas and body synchronized when the theme changes.
+        document.documentElement.classList.toggle('dark-mode', dark);
         body.classList.toggle('dark-mode', dark);
         if (toggle) {
           toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');

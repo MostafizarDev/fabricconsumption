@@ -20,10 +20,14 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
 
 const transitionStyle = `<style id="fc-page-transition">
 /* Keep the browser canvas on the correct theme while a dedicated page loads. */
-html { background: #f0f4f8; }
+html { background: #f0f4f8; transition: background-color 220ms ease, color 220ms ease; }
 html.dark-mode { background: #0b1120; color-scheme: dark; }
 html:not(.dark-mode) { color-scheme: light; }
 html.dark-mode body { background: #0b1120; }
+body { transition: background-color 220ms ease, color 220ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  html, body { transition: none; }
+}
 </style>`;
 
 const pageTransitionHead = [

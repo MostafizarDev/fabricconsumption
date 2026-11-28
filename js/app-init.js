@@ -448,6 +448,8 @@ function initTheme() {
 }
 
 function applyTheme(isDark) {
+    // Keep the browser canvas and page body on the same theme during live toggles.
+    document.documentElement.classList.toggle('dark-mode', isDark);
     document.body.classList.toggle('dark-mode', isDark);
     localStorage.setItem('fc-theme', isDark ? 'dark' : 'light');
 
