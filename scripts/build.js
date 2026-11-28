@@ -92,7 +92,7 @@ html.fc-embedded-workspace main { padding-top: 0; }
 </script>`;
   const headEnd = html.toLowerCase().indexOf('</head>');
   if (headEnd < 0) throw new Error('Head close tag not found for embedded workspace');
-  return html.slice(0, headEnd) + embedStyle + '\\n' + embedScript + '\\n' + html.slice(headEnd);
+  return html.slice(0, headEnd) + embedStyle + '\n' + embedScript + '\n' + html.slice(headEnd);
 }
 
 function extractMeta(html, selector) {
@@ -117,7 +117,7 @@ function buildWorkspaceShells() {
     ['myformulas', '/my-formulas', 'my-workspace.html', 'myformulas']
   ];
   const source = fs.readFileSync(path.join(output, 'pages/knit-garments.html'), 'utf8');
-  const navMatch = source.match(/<nav\\b[^>]*class=["'][^"']*\\btab-bar\\b[^"']*["'][^>]*>[\\s\\S]*?<\\/nav>/i);
+  const navMatch = source.match(/<nav\b[^>]*class=["'][^"']*\btab-bar\b[^"']*["'][^>]*>[\s\S]*?<\/nav>/i);
   if (!navMatch) throw new Error('Workspace navigation not found for persistent shell');
   const navMarkup = navMatch[0];
   const workspaceDir = path.join(output, 'workspace');
@@ -126,18 +126,19 @@ function buildWorkspaceShells() {
   const metadata = {};
   for (const [id, route, file, pageId] of routeDefinitions) {
     const pageHtml = fs.readFileSync(path.join(output, 'pages', file), 'utf8');
-    const headMatch = pageHtml.match(/<head\\b[^>]*>([\\s\\S]*?)<\\/head>/i);
+    const headMatch = pageHtml.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i);
     if (!headMatch) throw new Error('Page head not found for ' + file);
-    const title = extractMeta(pageHtml, /<title[^>]*>([\\s\\S]*?)<\\/title>/i);
-    const description = extractMeta(pageHtml, /<meta\\s+name=["']description["']\\s+content=["']([^"']*)["']/i);
+    const title = extractMeta(pageHtml, /<title[^>]*>([\s\S]*?)<\/title>/i);
+    const description = extractMeta(pageHtml, /<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i);
     metadata[id] = { route, title, description, file, pageId };
   }
 
   for (const [id, route, file, pageId] of routeDefinitions) {
     const pageHtml = fs.readFileSync(path.join(output, 'pages', file), 'utf8');
-    const head = pageHtml.match(/<head\\b[^>]*>([\\s\\S]*?)<\\/head>/i)[1];
-    let nav = navMarkup.replace(/\\sclass=["']tab-btn active["']/g, ' class="tab-btn"');
-    nav = nav.replace(new RegExp('class=["']tab-btn["'](?=[^>]*data-page=["']' + (['knitprice','fob'].includes(pageId) ? 'pricing' : pageId) + '["'])'), 'class="tab-btn active"');
+    const head = pageHtml.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)[1];
+    let nav = navMarkup.replace(/\sclass=["']tab-btn active["']/g, ' class="tab-btn"');
+    const navPageId = ['knitprice', 'fob'].includes(pageId) ? 'pricing' : pageId;
+    nav = nav.replace(new RegExp('<button class="tab-btn"(?=[^>]*data-page="' + navPageId + '")'), '<button class="tab-btn active"');
     const config = JSON.stringify(metadata);
     const shellScript = `<script id="fc-workspace-navigation">
 (function () {
@@ -248,10 +249,10 @@ body.fc-workspace-shell > .tab-bar { flex:0 0 auto; position:relative; top:auto;
   body.fc-workspace-shell > header { flex-basis:60px; }
 }
 </style>`;
-    const shell = '<!DOCTYPE html>\\n<html lang="en">\\n<head>' + head + shellCss + '</head>\\n<body class="fc-workspace-shell">' +
+    const shell = '<!DOCTYPE html>\n<html lang="en">\n<head>' + head + shellCss + '</head>\n<body class="fc-workspace-shell">' +
       header + nav + '<div class="fc-workspace-frame"><iframe id="workspace-content" title="Garment calculator workspace" loading="eager"></iframe></div>' +
-      shellScript + '</body>\\n</html>';
-    const slug = route.replace(/^\\//, '').replace(/[^a-z0-9]+/gi, '-') || 'home';
+      shellScript + '</body>\n</html>';
+    const slug = route.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '-') || 'home';
     fs.writeFileSync(path.join(workspaceDir, slug + '.html'), shell, 'utf8');
   }
   return routeDefinitions.length;
