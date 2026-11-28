@@ -9296,3 +9296,20 @@ body.dark-mode .contact-person-link.contact-gmail-link>svg{background:#fff;borde
 body.dark-mode .contact-person-link.brand-facebook:hover{background:rgba(24,119,242,.16);color:#60a5fa}
 body.dark-mode .contact-person-link.brand-whatsapp:hover{background:rgba(37,211,102,.12);color:#86efac}
 body.dark-mode .contact-person-link.brand-telegram:hover{background:rgba(34,158,217,.14);color:#7dd3fc}
+
+
+/* Contact team social controls reuse the exact footer icon button system */
+.contact-profile-social{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:14px}
+.contact-profile-social .footer-social-btn{width:34px;height:34px;min-width:34px;min-height:34px;padding:0;flex:0 0 34px}
+.contact-profile-social .footer-social-btn svg{width:16px;height:16px;display:block}
+.contact-profile-social .footer-social-btn.gmail:hover{background:#ea4335;border-color:#ea4335}
+.contact-profile-social .footer-social-btn.phone:hover{background:#64748b;border-color:#64748b}
+.contact-profile-social .footer-social-btn.link:hover,
+.contact-profile-social .footer-social-btn.portfolio:hover{background:#31506f;border-color:#7dd3fc}
+.contact-profile-social .footer-copy-status{min-width:72px;font-size:10px}
+body.dark-mode .contact-profile-social .footer-social-btn{background:#12243a;border-color:#30465f;color:#cbd5e1}
+body.dark-mode .contact-profile-social .footer-social-btn.facebook:hover{background:#1877f2;border-color:#1877f2;color:#fff}
+body.dark-mode .contact-profile-social .footer-social-btn.whatsapp:hover{background:#25d366;border-color:#25d366;color:#fff}
+body.dark-mode .contact-profile-social .footer-social-btn.x:hover{background:#111827;border-color:#64748b;color:#fff}
+body.dark-mode .contact-profile-social .footer-social-btn.telegram:hover{background:#229ed9;border-color:#229ed9;color:#fff}
+body.dark-mode .contact-profile-social .footer-social-btn.linkedin:hover{background:#0a66c2;border-color:#0a66c2;color:#fff}
