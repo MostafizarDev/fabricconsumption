@@ -9589,3 +9589,78 @@ body.dark-mode #page-contact .contact-person-links a:hover{
   width:18px;
   height:18px;
 }
+
+
+/* Stable workspace navigation sizing — prevent header and tool tabs from flex-shrinking between pages. */
+body > header {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 66px;
+  min-height: 66px;
+  flex-shrink: 0;
+}
+body > header .logo {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  min-width: max-content;
+}
+body > header .logo-image {
+  flex: 0 0 38px;
+}
+body > header .logo-wordmark {
+  flex: 0 0 auto;
+  min-width: max-content;
+}
+body > header .header-url {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+body > header .theme-toggle {
+  flex: 0 0 38px;
+  width: 38px;
+  min-width: 38px;
+}
+.tab-bar {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 46px;
+  min-height: 46px;
+  flex-shrink: 0;
+  align-items: stretch;
+}
+.tab-bar .tab-btn {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-width: max-content;
+  min-height: 46px;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  body > header {
+    height: 62px;
+    min-height: 62px;
+  }
+  body > header .logo-image {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+  }
+  body > header .logo-wordmark {
+    font-size: 14px;
+  }
+  body > header .logo-wordmark small {
+    font-size: 7px;
+    letter-spacing: 2.2px;
+  }
+  .tab-bar {
+    height: 44px;
+    min-height: 44px;
+    top: 62px;
+  }
+  .tab-bar .tab-btn {
+    min-height: 44px;
+  }
+}
