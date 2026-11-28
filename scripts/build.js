@@ -58,9 +58,30 @@ function replaceFooterBlock(html, replacement, sourceFile) {
   return html.slice(0, start) + replacement + html.slice(end);
 }
 
+function stabilizeFontLoading(html) {
+  // Prevent late Google Font swaps from resizing the shared header after first paint.
+  html = html.replace(
+    /(fonts\\.googleapis\\.com\\/css2?\\?[^"'<>]*?)display=swap/gi,
+    "$1display=optional"
+  );
+
+  if (/fonts\\.googleapis\\.com\\/css2?/i.test(html) &&
+      !/<link\\b[^>]*rel=["']preconnect["'][^>]*href=["']https:\\/\\/fonts\\.googleapis\\.com["']/i.test(html)) {
+    const preconnect = '<link rel="preconnect" href="https://fonts.googleapis.com">\\n' +
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+    html = html.replace(
+      /(<link\\b[^>]*href=["']https:\\/\\/fonts\\.googleapis\\.com\\/css2?[^"']*["'][^>]*>)/i,
+      preconnect + "\\n$1"
+    );
+  }
+
+  return html;
+}
+
 function injectPageTransition(html) {
+  html = stabilizeFontLoading(html);
   if (html.includes('id="fc-page-transition"')) {
-    return html.replace(/<style\b[^>]*id=["']fc-page-transition["'][^>]*>[\s\S]*?<\/style>/i, transitionStyle);
+    return html.replace(/<style\\b[^>]*id=["']fc-page-transition["'][^>]*>[\\s\\S]*?<\\/style>/i, transitionStyle);
   }
   const headStart = html.toLowerCase().indexOf("<head");
   if (headStart < 0) throw new Error("Head element not found while injecting page transition");
@@ -185,7 +206,7 @@ for (const folder of folders) {
       }
     }
 
-    html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261128-stable-nav-layout-v1");
+    html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261128-font-layout-stable-v2");
     html = injectPageTransition(html);
     fs.writeFileSync(outputFile, html, "utf8");
     processed++;
