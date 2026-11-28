@@ -9267,3 +9267,32 @@ body.dark-mode .contact-person-link>svg{background:#17334b;color:#7dd3fc}
 body.dark-mode .contact-person-link:hover{background:#172f46;color:#7dd3fc}
 body.dark-mode .contact-copy-feedback{color:#6ee7b7}
 @media(max-width:600px){.contact-person-bio{min-height:0}.contact-person-link{font-size:10px}}
+
+
+/* Contact profile social icons — match the compact circular footer icon style */
+.contact-person-links{gap:8px}
+.contact-person-link{gap:11px;min-height:42px;padding:5px 8px;border-radius:22px}
+.contact-person-link>svg{width:34px;height:34px;flex:0 0 34px;padding:8px;border-radius:50%;background:#172b42;color:#dce8f5}
+.contact-person-link.brand-facebook>svg{background:#1877f2;color:#fff;padding:8px}
+.contact-person-link.brand-whatsapp>svg{background:#25d366;color:#fff;padding:8px}
+.contact-person-link.brand-x>svg{background:#182536;color:#fff;padding:8px}
+.contact-person-link.brand-telegram>svg{background:#229ed9;color:#fff;padding:8px}
+.contact-person-link.brand-linktree>svg{background:#2861a9;color:#fff;padding:8px}
+.contact-person-link.brand-portfolio>svg{background:#334155;color:#fff;padding:8px}
+.contact-person-link.contact-gmail-link>svg{padding:6px;background:#fff;border:1px solid #e4eaf0}
+.contact-person-link.brand-facebook:hover{background:rgba(24,119,242,.09);color:#1877f2}
+.contact-person-link.brand-whatsapp:hover{background:rgba(37,211,102,.1);color:#168344}
+.contact-person-link.brand-x:hover{background:rgba(100,116,139,.12);color:#111827}
+.contact-person-link.brand-telegram:hover{background:rgba(34,158,217,.1);color:#1687bd}
+.contact-person-link.contact-gmail-link:hover{background:rgba(234,67,53,.07);color:#c5221f}
+.contact-person-link.contact-gmail-link:hover>svg{border-color:#f1b8b2}
+.contact-copy-feedback{display:inline-block;margin-left:7px;color:#059669;font-size:9px;font-style:normal;font-weight:800}
+body.dark-mode .contact-person-link>svg{background:#263a52;color:#e2e8f0}
+body.dark-mode .contact-person-link.brand-facebook>svg{background:#1877f2;color:#fff}
+body.dark-mode .contact-person-link.brand-whatsapp>svg{background:#25d366;color:#fff}
+body.dark-mode .contact-person-link.brand-x>svg{background:#182536;color:#fff}
+body.dark-mode .contact-person-link.brand-telegram>svg{background:#229ed9;color:#fff}
+body.dark-mode .contact-person-link.contact-gmail-link>svg{background:#fff;border-color:#e4eaf0}
+body.dark-mode .contact-person-link.brand-facebook:hover{background:rgba(24,119,242,.16);color:#60a5fa}
+body.dark-mode .contact-person-link.brand-whatsapp:hover{background:rgba(37,211,102,.12);color:#86efac}
+body.dark-mode .contact-person-link.brand-telegram:hover{background:rgba(34,158,217,.14);color:#7dd3fc}
