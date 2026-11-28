@@ -8,7 +8,7 @@ const output = path.join(root, "dist");
 // directly into its own child directory causes ERR_FS_CP_EINVAL in Node.js.
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
-const excluded = new Set([".git", ".vercel", "node_modules", "dist", "components", "scripts"]);
+const excluded = new Set([".git", ".vercel", "node_modules", "dist", "scripts"]);
 for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   if (excluded.has(entry.name)) continue;
   const source = path.join(root, entry.name);
@@ -140,4 +140,4 @@ for (const folder of folders) {
 if (processed !== 19) {
   throw new Error(`Expected 19 workspace/information pages; built ${processed}`);
 }
-console.log(`Built ${processed} pages with one shared workspace header and footer.`);
+console.log(`Built ${processed} pages with page-local header and footer markup.`);
