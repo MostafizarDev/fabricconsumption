@@ -18,7 +18,20 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   fs.cpSync(source, destination, { recursive: true });
 }
 
-const transitionStyle = `<style id="fc-page-transition">\n@view-transition { navigation: auto; }\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n::view-transition-old(root) { animation: fc-page-out 140ms ease-out both; }\n::view-transition-new(root) { animation: fc-page-in 180ms ease-out both; }\n@keyframes fc-page-out { to { opacity: 0; } }\n@keyframes fc-page-in { from { opacity: 0; } to { opacity: 1; } }\n@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }\n</style>`;\n\nconst pageTransitionHead = [
+const transitionStyle = `<style id="fc-page-transition">
+@view-transition { navigation: auto; }
+html { background: #f0f4f8; }
+html.dark-mode { background: #0b1120; color-scheme: dark; }
+html:not(.dark-mode) { color-scheme: light; }
+html.dark-mode body { background: #0b1120; }
+::view-transition-old(root) { animation: fc-page-out 140ms ease-out both; }
+::view-transition-new(root) { animation: fc-page-in 180ms ease-out both; }
+@keyframes fc-page-out { to { opacity: 0; } }
+@keyframes fc-page-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+</style>`;
+
+const pageTransitionHead = [
   transitionStyle,
   '<script id="fc-theme-early">',
   '(function () {',
