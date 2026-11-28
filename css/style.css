@@ -9270,63 +9270,136 @@ header .logo .logo-wordmark small{
 }
 
 
-/* ==========================================
-   WORKSPACE HEADER & TOOL NAV — REFINED UI
-   ========================================== */
+/* ==========================================================================
+   WORKSPACE SHELL — HEADER, TOOL NAVIGATION & BRAND
+   Keep shared workspace layout rules in one place. Calculator-specific rules
+   remain scoped to their own page sections below.
+   ========================================================================== */
+
 body > header {
   height: 66px;
-  /* Align the logo bar's inner content with the footer's centered 1440px layout and 34px inner padding. */
   padding: 0 max(34px, calc((100% - 1440px) / 2 + 34px));
+  display: flex;
+  align-items: center;
   gap: 20px;
   background: #0b1425;
-  border-bottom: 1px solid rgba(148,163,184,.14);
-  box-shadow: 0 5px 18px rgba(2,8,23,.18);
+  border-bottom: 1px solid rgba(148, 163, 184, .14);
+  box-shadow: 0 5px 18px rgba(2, 8, 23, .18);
 }
-body > header .logo { gap: 12px; height: 100%; }
+
+body > header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: auto;
+  min-width: 0;
+  height: 100%;
+  flex: 0 0 auto;
+}
+
 body > header .logo-image {
-  width: 40px; height: 40px; flex-basis: 40px;
-  padding: 2px; border-radius: 11px;
-  background: rgba(59,130,246,.12);
-}
-body > header .logo-wordmark {
-  font-size: 16px; letter-spacing: -.45px; line-height: 1.05;
-}
-body > header .logo-wordmark small {
   display: block;
-  margin-top: 5px;
-  font-size: 8px;
-  letter-spacing: 2.5px;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+body > header .logo-wordmark {
+  display: block;
+  width: max-content;
+  min-width: 0;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -.55px;
+  line-height: 1.1;
   white-space: nowrap;
 }
+
+body > header .logo-wordmark strong {
+  color: #60a5fa;
+  font-weight: 800;
+}
+
+body > header .logo-wordmark small {
+  display: block;
+  width: max-content;
+  max-width: none;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+  word-spacing: normal;
+}
+
 body > header .header-url {
-  padding: 7px 11px; border: 1px solid rgba(148,163,184,.13);
-  border-radius: 7px; color: #8191aa; font-size: 10px;
-  letter-spacing: .25px; background: rgba(30,41,59,.42);
+  margin-left: auto;
+  padding: 7px 11px;
+  border: 1px solid rgba(148, 163, 184, .13);
+  border-radius: 7px;
+  background: rgba(30, 41, 59, .42);
+  color: #8191aa;
+  font-size: 10px;
+  letter-spacing: .25px;
 }
+
 body > header .theme-toggle {
-  width: 38px; height: 38px; flex: 0 0 38px;
-  border: 1px solid rgba(148,163,184,.24);
-  border-radius: 10px; background: rgba(30,41,59,.72);
-  color: #cbd5e1; transition: background .18s ease,border-color .18s ease,transform .18s ease;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  margin-left: 0;
+  border: 1px solid rgba(148, 163, 184, .24);
+  border-radius: 10px;
+  background: rgba(30, 41, 59, .72);
+  color: #cbd5e1;
+  transition: none;
 }
+
 body > header .theme-toggle:hover {
-  background: rgba(51,65,85,.9); border-color: rgba(96,165,250,.55);
-  transform: translateY(-1px);
+  border-color: rgba(96, 165, 250, .55);
+  background: rgba(51, 65, 85, .9);
+  transform: none;
 }
+
+/* One-row navigation: labels never shrink; touch users can swipe horizontally. */
 .tab-bar {
+  position: sticky;
   top: 66px;
-  min-height: 46px;
+  z-index: 99;
+  display: flex;
+  flex-wrap: nowrap;
   align-items: stretch;
   gap: 4px;
-  padding: 0 clamp(10px, 1.8vw, 26px);
+  min-height: 46px;
+  padding: 0 max(34px, calc((100% - 1440px) / 2 + 34px));
+  overflow-x: auto;
+  overflow-y: hidden;
   background: #172338;
-  border-bottom: 1px solid rgba(148,163,184,.12);
-  box-shadow: 0 4px 12px rgba(2,8,23,.10);
+  border-bottom: 1px solid rgba(148, 163, 184, .12);
+  box-shadow: 0 4px 12px rgba(2, 8, 23, .10);
   overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+  white-space: nowrap;
 }
+
+.tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
 .tab-btn {
   position: relative;
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -9334,196 +9407,102 @@ body > header .theme-toggle:hover {
   padding: 0 13px;
   border: 0;
   border-radius: 8px 8px 0 0;
+  background: transparent;
   color: #a9b8cc;
   font-size: 12px;
   font-weight: 550;
   letter-spacing: .05px;
-  transition: color .18s ease, background .18s ease;
+  white-space: nowrap;
+  transition: none;
 }
-.tab-btn > svg, .tab-btn > i {
-  width: 15px; height: 15px; flex: 0 0 15px;
+
+.tab-btn > svg,
+.tab-btn > i {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
   opacity: .86;
 }
+
 .tab-btn:hover {
+  background: rgba(148, 163, 184, .08);
   color: #f1f5f9;
-  background: rgba(148,163,184,.08);
 }
+
 .tab-btn.active {
-  color: #7dd3fc;
-  background: rgba(14,165,233,.10);
   border-bottom: 0;
-}
-.tab-btn.active::after {
-  content: "";
-  position: absolute;
-  left: 10px; right: 10px; bottom: 0;
-  height: 2px; border-radius: 2px 2px 0 0;
-  background: #38bdf8;
-  box-shadow: 0 0 10px rgba(56,189,248,.22);
-}
-@media (max-width: 760px) {
-  body > header { height: 62px; padding: 0 16px; gap: 10px; }
-  body > header .logo-image { width: 36px; height: 36px; flex-basis: 36px; }
-  body > header .logo-wordmark { font-size: 14px; }
-  body > header .logo-wordmark small { font-size: 7px; letter-spacing: 1.6px; }
-  body > header .header-url { display: none; }
-  .tab-bar { top: 62px; min-height: 44px; padding: 0 8px; gap: 3px; }
-  .tab-btn { min-height: 44px; padding: 0 11px; font-size: 11px; }
-}
-
-/* Homepage-matched brand lockup for calculator workspaces */
-body > header .logo { gap: 10px; }
-body > header .logo-image {
-  width: 38px; height: 38px; flex-basis: 38px;
-  padding: 0; border-radius: 0; background: transparent;
-}
-body > header .logo-wordmark {
-  font-size: 17px; font-weight: 800; letter-spacing: -.55px; line-height: 1.1;
-}
-body > header .logo-wordmark strong { color: #60a5fa; font-weight: 800; }
-body > header .logo-wordmark small {
-  display: block; margin-top: 5px; color: #94a3b8;
-  font-size: 8px; font-weight: 700; letter-spacing: 2px; line-height: 1.2;
-}
-@media (max-width: 760px) {
-  body > header .logo-image { width: 36px; height: 36px; flex-basis: 36px; }
-  body > header .logo-wordmark { font-size: 14px; }
-  body > header .logo-wordmark small { font-size: 7px; letter-spacing: 1.6px; }
-}
-
-
-/* Match the work-page subtitle width to the homepage wordmark */
-body > header .logo-wordmark { min-width: 0; }
-body > header .logo-wordmark small {
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  text-align: justify;
-  text-align-last: justify;
-  letter-spacing: 2.8px;
-  line-height: 1.35;
-  margin-top: 5px;
-}
-@media (max-width: 760px) {
-  body > header .logo-wordmark small { letter-spacing: 2.2px; }
-}
-
-
-/* Work-page tagline: match reference image 1 — tracked letters, natural word gaps */
-body > header .logo-wordmark small {
-  display: block;
-  width: max-content;
-  max-width: none;
-  white-space: nowrap;
-  text-align: left;
-  text-align-last: auto;
-  letter-spacing: 4px;
-  word-spacing: 0;
-  margin-top: 5px;
-}
-@media (max-width: 760px) {
-  body > header .logo-wordmark small { letter-spacing: 2.2px; }
-}
-
-/* Responsive calculator navigation:
-   Keep every tool tab on one horizontal row on narrow screens.
-   Users can swipe/scroll sideways without shrinking labels or hiding tools. */
-.tab-bar {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  touch-action: pan-x pan-y;
-}
-.tab-bar::-webkit-scrollbar {
-  display: none;
-}
-.tab-btn {
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-.tab-btn.active {
+  background: rgba(14, 165, 233, .10);
   color: #38bdf8;
-  border-bottom-color: #38bdf8;
 }
+
+.tab-btn.active::after {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  left: 10px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, .22);
+  content: "";
+}
+
 .tab-btn:focus-visible {
   outline: 2px solid #38bdf8;
   outline-offset: -2px;
 }
-@media (max-width: 768px) {
-  .tab-bar {
-    gap: 3px;
-    scroll-snap-type: x proximity;
-  }
-  .tab-btn {
-    scroll-snap-align: start;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
 
-/* Tool navigation alignment and responsive swipe:
-   Align the top navigation content with the same centered 1440px layout and 34px
-   inner spacing used by the footer. Preserve one-row swipe navigation on small screens. */
-.tab-bar {
-  box-sizing: border-box;
-  padding-left: max(34px, calc((100% - 1440px) / 2 + 34px));
-  padding-right: max(34px, calc((100% - 1440px) / 2 + 34px));
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  touch-action: pan-x pan-y;
-}
-.tab-bar::-webkit-scrollbar {
-  display: none;
-}
-.tab-btn {
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-.tab-btn.active {
-  color: #38bdf8;
-}
-@media (max-width: 768px) {
+@media (max-width: 760px) {
+  body > header {
+    height: 62px;
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  body > header .logo-image {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  body > header .logo-wordmark {
+    font-size: 14px;
+  }
+
+  body > header .logo-wordmark small {
+    font-size: 7px;
+    letter-spacing: 2.2px;
+  }
+
+  body > header .header-url {
+    display: none;
+  }
+
   .tab-bar {
-    padding-left: 16px;
+    top: 62px;
+    min-height: 44px;
+    gap: 3px;
     padding-right: 16px;
-    gap: 3px;
-    scroll-snap-type: x proximity;
+    padding-left: 16px;
   }
+
   .tab-btn {
-    scroll-snap-align: start;
+    min-height: 44px;
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: 11px;
   }
 }
 
-/* Final logo subtitle correction:
-   Keep normal word spacing; increase only the spacing between individual letters. */
-body > header .logo-wordmark {
-  width: max-content !important;
+/* Respect reduced-motion preferences and avoid animated horizontal tab jumps. */
+@media (prefers-reduced-motion: reduce) {
+  .tab-bar,
+  .tab-btn,
+  body > header .theme-toggle {
+    scroll-behavior: auto;
+    transition: none;
+  }
 }
-body > header .logo-wordmark small {
-  display: block !important;
-  width: max-content !important;
-  max-width: none !important;
-  box-sizing: border-box;
-  white-space: nowrap !important;
-  text-align: left !important;
-  text-align-last: left !important;
-  word-spacing: normal !important;
-  letter-spacing: 2.8px !important;
-}
-
 
 /* Contact page: icon-only team contact links */
 #page-contact .contact-person-links{
