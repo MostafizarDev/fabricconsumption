@@ -61,17 +61,17 @@ function replaceFooterBlock(html, replacement, sourceFile) {
 function stabilizeFontLoading(html) {
   // Prevent late Google Font swaps from resizing the shared header after first paint.
   html = html.replace(
-    /(fonts\\.googleapis\\.com\\/css2?\\?[^"'<>]*?)display=swap/gi,
+    /(fonts\.googleapis\.com\/css2?\?[^"'<>]*?)display=swap/gi,
     "$1display=optional"
   );
 
-  if (/fonts\\.googleapis\\.com\\/css2?/i.test(html) &&
-      !/<link\\b[^>]*rel=["']preconnect["'][^>]*href=["']https:\\/\\/fonts\\.googleapis\\.com["']/i.test(html)) {
-    const preconnect = '<link rel="preconnect" href="https://fonts.googleapis.com">\\n' +
+  if (/fonts\.googleapis\.com\/css2?/i.test(html) &&
+      !/<link\b[^>]*rel=["']preconnect["'][^>]*href=["']https:\/\/fonts\.googleapis\.com["']/i.test(html)) {
+    const preconnect = '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
       '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
     html = html.replace(
-      /(<link\\b[^>]*href=["']https:\\/\\/fonts\\.googleapis\\.com\\/css2?[^"']*["'][^>]*>)/i,
-      preconnect + "\\n$1"
+      /(<link\b[^>]*href=["']https:\/\/fonts\.googleapis\.com\/css2?[^"']*["'][^>]*>)/i,
+      preconnect + "\n$1"
     );
   }
 
