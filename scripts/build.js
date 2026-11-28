@@ -3,8 +3,6 @@ const path = require("node:path");
 
 const root = process.cwd();
 const output = path.join(root, "dist");
-const header = fs.readFileSync(path.join(root, "components/workspace-header.html"), "utf8").trim();
-const footer = fs.readFileSync(path.join(root, "components/workspace-footer.html"), "utf8").trim();
 
 // Copy each project entry into dist individually. Copying the project root
 // directly into its own child directory causes ERR_FS_CP_EINVAL in Node.js.
@@ -27,23 +25,6 @@ function injectPageTransition(html) {
   const headEnd = html.indexOf(">", headStart);
   if (headEnd < 0) throw new Error("Head opening tag is incomplete");
   return html.slice(0, headEnd + 1) + "\n" + pageTransitionHead + "\n" + html.slice(headEnd + 1);
-}
-
-function replaceFooterBlock(html, replacement, file) {
-  const start = html.indexOf('<div class="site-footer"');
-  if (start < 0) throw new Error(`Footer wrapper not found in ${file}`);
-  const tags = /<\/?div\b[^>]*>/gi;
-  tags.lastIndex = start;
-  let depth = 0;
-  let match;
-  while ((match = tags.exec(html))) {
-    if (/^<div\b/i.test(match[0])) depth++;
-    else if (/^<\/div/i.test(match[0])) depth--;
-    if (depth === 0) {
-      return html.slice(0, start) + replacement + html.slice(tags.lastIndex);
-    }
-  }
-  throw new Error(`Footer wrapper is not balanced in ${file}`);
 }
 
 const expectedWorkspacePages = {
@@ -134,8 +115,9 @@ for (const folder of folders) {
     if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
     }
-    html = html.replace(/<header\b[\s\S]*?<\/header>/i, header);
-    html = replaceFooterBlock(html, footer, sourceFile);
+    if (!/<div class="site-footer"[\s\S]*?<\/div>/i.test(html)) {
+      throw new Error(`Footer wrapper not found in ${folder}/${name}`);
+    }
 
     // Set the correct navigation tab in the generated HTML before first paint.
     // Source page templates historically mark Knit Garments active on every page,
