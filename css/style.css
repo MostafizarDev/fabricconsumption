@@ -9334,3 +9334,31 @@ body.dark-mode .contact-round-social:hover{color:#fff}
 body.dark-mode .contact-round-social.gmail:hover{background:#fff;color:#ea4335}
 body.dark-mode .contact-social-status{color:#94a3b8}
 @media(max-width:600px){.contact-round-socials{gap:8px}.contact-round-social{width:38px;height:38px;flex-basis:38px}}
+
+
+/* Final Contact team spacing and circular brand-colour hover refinement */
+#page-contact .contact-person-top{margin-bottom:9px}
+#page-contact .contact-person-bio{min-height:0;margin-bottom:8px;line-height:1.65}
+#page-contact .contact-round-socials{display:flex!important;align-items:center;flex-wrap:wrap;gap:9px;margin-top:8px;padding-top:9px;border-top:1px solid #edf1f5}
+#page-contact .contact-round-socials .contact-round-social{box-sizing:border-box!important;display:inline-flex!important;align-items:center;justify-content:center;width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;flex:0 0 40px!important;padding:0!important;border:1px solid #d7dce2!important;border-radius:50%!important;background:#fff!important;color:#111827!important;line-height:1}
+#page-contact .contact-round-socials .contact-round-social svg{display:block;width:19px;height:19px;fill:currentColor}
+#page-contact .contact-round-socials .contact-round-social:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(15,23,42,.12)}
+#page-contact .contact-round-socials .contact-round-social.whatsapp:hover{color:#25d366!important;border-color:#25d366!important;background:#f0fdf4!important}
+#page-contact .contact-round-socials .contact-round-social.gmail:hover{color:#ea4335!important;border-color:#ea4335!important;background:#fff!important}
+#page-contact .contact-round-socials .contact-round-social.facebook:hover{color:#1877f2!important;border-color:#1877f2!important;background:#eff6ff!important}
+#page-contact .contact-round-socials .contact-round-social.x:hover{color:#000!important;border-color:#111827!important;background:#f3f4f6!important}
+#page-contact .contact-round-socials .contact-round-social.website:hover{color:#2563eb!important;border-color:#2563eb!important;background:#eff6ff!important}
+#page-contact .contact-round-socials .contact-round-social.linktree:hover{color:#16a34a!important;border-color:#16a34a!important;background:#f0fdf4!important}
+#page-contact .contact-round-socials .contact-round-social.phone:hover{color:#16a34a!important;border-color:#16a34a!important;background:#f0fdf4!important}
+#page-contact .contact-round-socials .contact-round-social.telegram:hover{color:#229ed9!important;border-color:#229ed9!important;background:#effaff!important}
+body.dark-mode #page-contact .contact-round-socials{border-color:#2b4057}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social{background:#111f31!important;border-color:#475569!important;color:#f8fafc!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.whatsapp:hover{color:#25d366!important;background:#10291d!important;border-color:#25d366!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.gmail:hover{color:#ea4335!important;background:#211b1b!important;border-color:#ea4335!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.facebook:hover{color:#60a5fa!important;background:#14243d!important;border-color:#1877f2!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.x:hover{color:#fff!important;background:#0b0f16!important;border-color:#64748b!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.website:hover{color:#60a5fa!important;background:#14243d!important;border-color:#2563eb!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.linktree:hover{color:#4ade80!important;background:#10291d!important;border-color:#16a34a!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.phone:hover{color:#4ade80!important;background:#10291d!important;border-color:#16a34a!important}
+body.dark-mode #page-contact .contact-round-socials .contact-round-social.telegram:hover{color:#7dd3fc!important;background:#10283a!important;border-color:#229ed9!important}
+@media(max-width:600px){#page-contact .contact-person-bio{margin-bottom:7px}#page-contact .contact-round-socials{gap:8px;margin-top:7px;padding-top:8px}}
