@@ -9247,3 +9247,23 @@ body.dark-mode #page-contact .contact-person-links a:hover{
   width:18px;
   height:18px;
 }
+
+
+/* Contact page refresh: equal team presentation, clear brand icons and copyable email */
+.contact-person-bio{min-height:76px}
+.contact-person-links{gap:7px}
+.contact-person-link{display:flex;align-items:center;gap:10px;min-width:0;width:100%;padding:7px 8px;border:0;border-radius:9px;background:transparent;color:#31516d;text-decoration:none;text-align:left;font:650 11px Inter,Arial,sans-serif;overflow-wrap:anywhere;cursor:pointer;transition:background .18s,color .18s}
+.contact-person-link>svg{width:30px;height:30px;flex:0 0 30px;padding:7px;border-radius:9px;background:#edf7fc;color:#087eaa}
+.contact-person-link small{display:block;margin-bottom:2px;color:#8492a3;font-size:9px;font-weight:650}
+.contact-person-link:hover{background:#f1f8fc;color:#0284c7}
+.contact-copy-email{font:650 11px Inter,Arial,sans-serif}
+.contact-copy-feedback{display:inline-block;margin-left:7px;color:#059669;font-size:9px;font-style:normal;font-weight:800}
+.contact-community{margin-top:20px}
+.contact-community-actions{gap:12px}
+.contact-community-icon-btn{width:76px;min-height:74px;border-radius:12px;font-size:10px}
+.contact-community-icon-btn svg{width:27px;height:27px}
+body.dark-mode .contact-person-link{color:#c4d8e9}
+body.dark-mode .contact-person-link>svg{background:#17334b;color:#7dd3fc}
+body.dark-mode .contact-person-link:hover{background:#172f46;color:#7dd3fc}
+body.dark-mode .contact-copy-feedback{color:#6ee7b7}
+@media(max-width:600px){.contact-person-bio{min-height:0}.contact-person-link{font-size:10px}}
