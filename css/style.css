@@ -9362,3 +9362,14 @@ body.dark-mode #page-contact .contact-round-socials .contact-round-social.linktr
 body.dark-mode #page-contact .contact-round-socials .contact-round-social.phone:hover{color:#4ade80!important;background:#10291d!important;border-color:#16a34a!important}
 body.dark-mode #page-contact .contact-round-socials .contact-round-social.telegram:hover{color:#7dd3fc!important;background:#10283a!important;border-color:#229ed9!important}
 @media(max-width:600px){#page-contact .contact-person-bio{margin-bottom:7px}#page-contact .contact-round-socials{gap:8px;margin-top:7px;padding-top:8px}}
+
+
+/* Contact page: slightly smaller round icons with more breathing room below bios */
+#page-contact .contact-person-bio{margin-bottom:13px}
+#page-contact .contact-round-socials{gap:10px;margin-top:11px;padding-top:11px}
+#page-contact .contact-round-socials .contact-round-social{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;flex-basis:36px!important}
+#page-contact .contact-round-socials .contact-round-social svg{width:17px;height:17px}
+@media(max-width:600px){
+  #page-contact .contact-person-bio{margin-bottom:11px}
+  #page-contact .contact-round-socials{gap:9px;margin-top:10px;padding-top:10px}
+}
