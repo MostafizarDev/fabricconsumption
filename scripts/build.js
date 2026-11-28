@@ -81,7 +81,7 @@ function stabilizeFontLoading(html) {
 function injectPageTransition(html) {
   html = stabilizeFontLoading(html);
   if (html.includes('id="fc-page-transition"')) {
-    return html.replace(/<style\\b[^>]*id=["']fc-page-transition["'][^>]*>[\\s\\S]*?<\\/style>/i, transitionStyle);
+    return html.replace(/<style\b[^>]*id=["']fc-page-transition["'][^>]*>[\s\S]*?<\/style>/i, transitionStyle);
   }
   const headStart = html.toLowerCase().indexOf("<head");
   if (headStart < 0) throw new Error("Head element not found while injecting page transition");
