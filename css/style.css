@@ -9313,3 +9313,24 @@ body.dark-mode .contact-profile-social .footer-social-btn.whatsapp:hover{backgro
 body.dark-mode .contact-profile-social .footer-social-btn.x:hover{background:#111827;border-color:#64748b;color:#fff}
 body.dark-mode .contact-profile-social .footer-social-btn.telegram:hover{background:#229ed9;border-color:#229ed9;color:#fff}
 body.dark-mode .contact-profile-social .footer-social-btn.linkedin:hover{background:#0a66c2;border-color:#0a66c2;color:#fff}
+
+
+/* Contact team: monochrome original brand marks in round buttons, brand colour on hover */
+.contact-round-socials{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.contact-round-social{width:40px;height:40px;flex:0 0 40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #d7dce2;border-radius:50%;background:#fff;color:#111827;text-decoration:none;cursor:pointer;transition:color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.contact-round-social svg{width:19px;height:19px;display:block;fill:currentColor}
+.contact-round-social:hover{transform:translateY(-3px);box-shadow:0 5px 13px rgba(15,23,42,.13);color:#fff}
+.contact-round-social.whatsapp:hover{background:#25d366;border-color:#25d366}
+.contact-round-social.gmail:hover{background:#fff;border-color:#ea4335;color:#ea4335}
+.contact-round-social.facebook:hover{background:#1877f2;border-color:#1877f2}
+.contact-round-social.x:hover{background:#000;border-color:#000}
+.contact-round-social.website:hover{background:#0f172a;border-color:#0f172a}
+.contact-round-social.linktree:hover{background:#43e660;border-color:#43e660;color:#101010}
+.contact-round-social.phone:hover{background:#16a34a;border-color:#16a34a}
+.contact-round-social.telegram:hover{background:#229ed9;border-color:#229ed9}
+.contact-social-status{min-width:80px;color:#64748b;font-size:10px;font-weight:650}
+body.dark-mode .contact-round-social{background:#111827;border-color:#475569;color:#f8fafc}
+body.dark-mode .contact-round-social:hover{color:#fff}
+body.dark-mode .contact-round-social.gmail:hover{background:#fff;color:#ea4335}
+body.dark-mode .contact-social-status{color:#94a3b8}
+@media(max-width:600px){.contact-round-socials{gap:8px}.contact-round-social{width:38px;height:38px;flex-basis:38px}}
