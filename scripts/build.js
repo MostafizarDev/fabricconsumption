@@ -63,6 +63,200 @@ function replaceFooterBlock(html, replacement, sourceFile) {
   return html.slice(0, start) + replacement + html.slice(end);
 }
 
+
+function injectEmbeddedWorkspace(html) {
+  const embedStyle = `<style id="fc-embedded-workspace-style">
+html.fc-embedded-workspace, html.fc-embedded-workspace body { min-height: 100%; height: auto; }
+html.fc-embedded-workspace body { overflow-x: hidden; overflow-y: auto; }
+html.fc-embedded-workspace body > header,
+html.fc-embedded-workspace .tab-bar { display: none !important; }
+html.fc-embedded-workspace main { padding-top: 0; }
+</style>`;
+  const embedScript = `<script id="fc-embedded-workspace-init">
+(function () {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    if (window.self === window.top || params.get('embed') !== '1') return;
+    document.documentElement.classList.add('fc-embedded-workspace');
+    window.addEventListener('message', function (event) {
+      if (event.origin !== window.location.origin || !event.data) return;
+      if (event.data.type === 'fc-theme') {
+        var dark = event.data.theme === 'dark';
+        document.documentElement.classList.toggle('dark-mode', dark);
+        document.body.classList.toggle('dark-mode', dark);
+        try { localStorage.setItem('fc-theme', dark ? 'dark' : 'light'); } catch (error) {}
+      }
+    });
+  } catch (error) {}
+})();
+</script>`;
+  const headEnd = html.toLowerCase().indexOf('</head>');
+  if (headEnd < 0) throw new Error('Head close tag not found for embedded workspace');
+  return html.slice(0, headEnd) + embedStyle + '\\n' + embedScript + '\\n' + html.slice(headEnd);
+}
+
+function extractMeta(html, selector) {
+  const match = html.match(selector);
+  return match ? match[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"') : '';
+}
+
+function buildWorkspaceShells() {
+  const routeDefinitions = [
+    ['marker', '/Marker-Consumption', 'marker-consumption.html', 'marker'],
+    ['knit', '/knit-garments', 'knit-garments.html', 'knit'],
+    ['knitpant', '/knit-pant', 'knit-pant.html', 'knitpant'],
+    ['woven', '/woven-shirt', 'woven-shirt.html', 'woven'],
+    ['booking', '/booking-sheet', 'booking-sheet.html', 'booking'],
+    ['pricing', '/pricing-costing', 'pricing-costing.html', 'pricing'],
+    ['knitprice', '/pricing-costing/knit-price', 'pricing-costing.html', 'knitprice'],
+    ['fob', '/pricing-costing/fob-costing', 'pricing-costing.html', 'fob'],
+    ['zipper', '/zipper', 'zipper.html', 'zipper'],
+    ['trims', '/trims', 'trims.html', 'trims'],
+    ['sizeratio', '/size-ratio', 'size-ratio.html', 'sizeratio'],
+    ['converter', '/converter', 'unit-converter.html', 'converter'],
+    ['myformulas', '/my-formulas', 'my-workspace.html', 'myformulas']
+  ];
+  const source = fs.readFileSync(path.join(output, 'pages/knit-garments.html'), 'utf8');
+  const navMatch = source.match(/<nav\\b[^>]*class=["'][^"']*\\btab-bar\\b[^"']*["'][^>]*>[\\s\\S]*?<\\/nav>/i);
+  if (!navMatch) throw new Error('Workspace navigation not found for persistent shell');
+  const navMarkup = navMatch[0];
+  const workspaceDir = path.join(output, 'workspace');
+  fs.mkdirSync(workspaceDir, { recursive: true });
+
+  const metadata = {};
+  for (const [id, route, file, pageId] of routeDefinitions) {
+    const pageHtml = fs.readFileSync(path.join(output, 'pages', file), 'utf8');
+    const headMatch = pageHtml.match(/<head\\b[^>]*>([\\s\\S]*?)<\\/head>/i);
+    if (!headMatch) throw new Error('Page head not found for ' + file);
+    const title = extractMeta(pageHtml, /<title[^>]*>([\\s\\S]*?)<\\/title>/i);
+    const description = extractMeta(pageHtml, /<meta\\s+name=["']description["']\\s+content=["']([^"']*)["']/i);
+    metadata[id] = { route, title, description, file, pageId };
+  }
+
+  for (const [id, route, file, pageId] of routeDefinitions) {
+    const pageHtml = fs.readFileSync(path.join(output, 'pages', file), 'utf8');
+    const head = pageHtml.match(/<head\\b[^>]*>([\\s\\S]*?)<\\/head>/i)[1];
+    let nav = navMarkup.replace(/\\sclass=["']tab-btn active["']/g, ' class="tab-btn"');
+    nav = nav.replace(new RegExp('class=["']tab-btn["'](?=[^>]*data-page=["']' + (['knitprice','fob'].includes(pageId) ? 'pricing' : pageId) + '["'])'), 'class="tab-btn active"');
+    const config = JSON.stringify(metadata);
+    const shellScript = `<script id="fc-workspace-navigation">
+(function () {
+  var routes = ${config};
+  var currentId = ${JSON.stringify(id)};
+  var frame = document.getElementById('workspace-content');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+  var themeButton = document.getElementById('theme-toggle');
+
+  function setActive(pageId) {
+    var navId = pageId === 'knitprice' || pageId === 'fob' ? 'pricing' : pageId;
+    tabs.forEach(function (tab) {
+      var active = tab.getAttribute('data-page') === navId;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-current', active ? 'page' : 'false');
+    });
+  }
+
+  function applyTheme(dark, notifyFrame) {
+    document.documentElement.classList.toggle('dark-mode', dark);
+    document.body.classList.toggle('dark-mode', dark);
+    try { localStorage.setItem('fc-theme', dark ? 'dark' : 'light'); } catch (error) {}
+    if (themeButton) {
+      themeButton.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeButton.setAttribute('title', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeButton.innerHTML = dark
+        ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>'
+        : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.7 8.7 0 1 0 20.2 15.4Z"/></svg>';
+    }
+    if (notifyFrame && frame.contentWindow) {
+      frame.contentWindow.postMessage({ type: 'fc-theme', theme: dark ? 'dark' : 'light' }, window.location.origin);
+    }
+  }
+
+  function updateMetadata(item) {
+    if (!item) return;
+    document.title = item.title;
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute('content', item.description);
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', 'https://fabricconsumption.vercel.app' + item.route);
+    var ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', item.title);
+    var ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', item.description);
+    var ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', 'https://fabricconsumption.vercel.app' + item.route);
+  }
+
+  function loadPage(pageId, pushState) {
+    var item = routes[pageId];
+    if (!item) return;
+    currentId = pageId;
+    if (pushState && window.location.pathname !== item.route) {
+      window.history.pushState({ workspacePage: pageId }, '', item.route);
+    }
+    setActive(pageId);
+    updateMetadata(item);
+    frame.src = '/pages/' + item.file + '?embed=1&page=' + encodeURIComponent(item.pageId);
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var pageId = this.getAttribute('data-page');
+      if (pageId && routes[pageId]) loadPage(pageId, true);
+    });
+  });
+
+  window.addEventListener('popstate', function () {
+    var match = Object.keys(routes).find(function (key) { return routes[key].route === window.location.pathname; });
+    if (match) loadPage(match, false);
+  });
+
+  window.addEventListener('message', function (event) {
+    if (event.origin !== window.location.origin || !event.data || event.data.type !== 'fc-workspace-route') return;
+    var pageId = event.data.pageId;
+    var item = routes[pageId];
+    if (!item) return;
+    currentId = pageId;
+    if (window.location.pathname !== item.route) window.history.pushState({ workspacePage: pageId }, '', item.route);
+    setActive(pageId);
+    updateMetadata(item);
+  });
+
+  if (themeButton) themeButton.addEventListener('click', function () {
+    applyTheme(!document.documentElement.classList.contains('dark-mode'), true);
+  });
+  frame.addEventListener('load', function () {
+    applyTheme(document.documentElement.classList.contains('dark-mode'), true);
+  });
+
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem('fc-theme'); } catch (error) {}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(savedTheme ? savedTheme === 'dark' : prefersDark, false);
+  setActive(currentId);
+  frame.src = '/pages/' + routes[currentId].file + '?embed=1&page=' + encodeURIComponent(routes[currentId].pageId);
+})();
+</script>`;
+    const shellCss = `<style id="fc-workspace-shell-style">
+html, body { width:100%; height:100%; min-height:100%; margin:0; overflow:hidden; }
+body.fc-workspace-shell { display:flex; flex-direction:column; }
+body.fc-workspace-shell > header { flex:0 0 68px; position:relative; top:auto; }
+body.fc-workspace-shell > .tab-bar { flex:0 0 auto; position:relative; top:auto; z-index:10; }
+.fc-workspace-frame { flex:1 1 auto; min-height:0; width:100%; overflow:hidden; }
+.fc-workspace-frame iframe { display:block; width:100%; height:100%; min-height:0; border:0; background:transparent; }
+@media (max-width:600px) {
+  body.fc-workspace-shell > header { flex-basis:60px; }
+}
+</style>`;
+    const shell = '<!DOCTYPE html>\\n<html lang="en">\\n<head>' + head + shellCss + '</head>\\n<body class="fc-workspace-shell">' +
+      header + nav + '<div class="fc-workspace-frame"><iframe id="workspace-content" title="Garment calculator workspace" loading="eager"></iframe></div>' +
+      shellScript + '</body>\\n</html>';
+    const slug = route.replace(/^\\//, '').replace(/[^a-z0-9]+/gi, '-') || 'home';
+    fs.writeFileSync(path.join(workspaceDir, slug + '.html'), shell, 'utf8');
+  }
+  return routeDefinitions.length;
+}
+
 function injectPageTransition(html) {
   if (html.includes('id="fc-page-transition"')) {
     return html.replace(/<style\b[^>]*id=["']fc-page-transition["'][^>]*>[\s\S]*?<\/style>/i, transitionStyle);
@@ -192,6 +386,7 @@ for (const folder of folders) {
 
     html = html.replace(/\/css\/style\.css\?v=[^"' ]+/g, "/css/style.css?v=20261127-shared-layout-v1");
     html = injectPageTransition(html);
+    if (folder === "pages" && expectedWorkspacePages[name]) html = injectEmbeddedWorkspace(html);
     fs.writeFileSync(outputFile, html, "utf8");
     processed++;
   }
@@ -202,7 +397,8 @@ if (fs.existsSync(homeFile)) {
   fs.writeFileSync(homeFile, homeHtml, "utf8");
 }
 
+const workspaceShellCount = buildWorkspaceShells();
 if (processed !== 19) {
   throw new Error(`Expected 19 workspace/information pages; built ${processed}`);
 }
-console.log(`Built ${processed} pages with initial workspace visibility and cross-document transitions.`);
+console.log(`Built ${processed} pages and ${workspaceShellCount} persistent workspace shells.`);
