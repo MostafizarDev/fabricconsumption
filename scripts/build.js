@@ -93,14 +93,25 @@ html.fc-embedded-workspace main { padding-top: 0; }
       '/converter': 'converter',
       '/my-formulas': 'myformulas'
     };
+    var standaloneRoutes = new Set([
+      '/', '/about', '/contact', '/privacy-policy',
+      '/terms-of-use', '/disclaimer', '/faq'
+    ]);
     document.addEventListener('click', function (event) {
       var link = event.target.closest && event.target.closest('a[href]');
       if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       var target;
       try { target = new URL(link.href, window.location.href); } catch (error) { return; }
-      if (target.origin !== window.location.origin || !workspaceRoutes[target.pathname]) return;
-      event.preventDefault();
-      window.parent.postMessage({ type: 'fc-workspace-route', pageId: workspaceRoutes[target.pathname] }, window.location.origin);
+      if (target.origin !== window.location.origin) return;
+      if (workspaceRoutes[target.pathname]) {
+        event.preventDefault();
+        window.parent.postMessage({ type: 'fc-workspace-route', pageId: workspaceRoutes[target.pathname] }, window.location.origin);
+        return;
+      }
+      if (standaloneRoutes.has(target.pathname)) {
+        event.preventDefault();
+        window.parent.location.assign(target.href);
+      }
     });
     window.addEventListener('message', function (event) {
       if (event.origin !== window.location.origin || !event.data) return;
@@ -387,6 +398,15 @@ for (const folder of folders) {
       validateDedicatedPage(html, expectedWorkspacePages[name], `${folder}/${name}`);
       validatePageScripts(html, name);
       html = activateInitialWorkspace(html, expectedWorkspacePages[name], `${folder}/${name}`);
+    }
+    // Help & FAQ is an information page, not a calculator workspace: keep its
+    // single branded header but hide the calculator navigation bar.
+    if (folder === "pages" && name === "help-faq.html") {
+      const headEnd = html.toLowerCase().indexOf("</head>");
+      if (headEnd < 0) throw new Error("Head close tag not found in pages/help-faq.html");
+      html = html.slice(0, headEnd) +
+        '<style id="fc-information-page-layout">body > .tab-bar { display:none !important; }</style>\n' +
+        html.slice(headEnd);
     }
     if (!/<header\b[\s\S]*?<\/header>/i.test(html)) {
       throw new Error(`Header not found in ${folder}/${name}`);
