@@ -108,8 +108,8 @@ function buildWorkspaceShells() {
     ['woven', '/woven-shirt', 'woven-shirt.html', 'woven'],
     ['booking', '/booking-sheet', 'booking-sheet.html', 'booking'],
     ['pricing', '/pricing-costing', 'pricing-costing.html', 'pricing'],
-    ['knitprice', '/pricing-costing/knit-price', 'pricing-costing.html', 'knitprice'],
-    ['fob', '/pricing-costing/fob-costing', 'pricing-costing.html', 'fob'],
+    ['knitprice', '/pricing-costing/knit-price', 'pricing-costing.html', 'knitprice', 'knit-fabric-cost.html'],
+    ['fob', '/pricing-costing/fob-costing', 'pricing-costing.html', 'fob', 'fob-costing.html'],
     ['zipper', '/zipper', 'zipper.html', 'zipper'],
     ['trims', '/trims', 'trims.html', 'trims'],
     ['sizeratio', '/size-ratio', 'size-ratio.html', 'sizeratio'],
@@ -124,8 +124,8 @@ function buildWorkspaceShells() {
   fs.mkdirSync(workspaceDir, { recursive: true });
 
   const metadata = {};
-  for (const [id, route, file, pageId] of routeDefinitions) {
-    const pageHtml = fs.readFileSync(path.join(output, 'pages', file), 'utf8');
+  for (const [id, route, file, pageId, seoFile = file] of routeDefinitions) {
+    const pageHtml = fs.readFileSync(path.join(output, 'pages', seoFile), 'utf8');
     const headMatch = pageHtml.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i);
     if (!headMatch) throw new Error('Page head not found for ' + file);
     const title = extractMeta(pageHtml, /<title[^>]*>([\s\S]*?)<\/title>/i);
@@ -133,8 +133,8 @@ function buildWorkspaceShells() {
     metadata[id] = { route, title, description, file, pageId };
   }
 
-  for (const [id, route, file, pageId] of routeDefinitions) {
-    const pageHtml = fs.readFileSync(path.join(output, 'pages', file), 'utf8');
+  for (const [id, route, file, pageId, seoFile = file] of routeDefinitions) {
+    const pageHtml = fs.readFileSync(path.join(output, 'pages', seoFile), 'utf8');
     const head = pageHtml.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)[1];
     let nav = navMarkup.replace(/\sclass=["']tab-btn active["']/g, ' class="tab-btn"');
     const navPageId = ['knitprice', 'fob'].includes(pageId) ? 'pricing' : pageId;
