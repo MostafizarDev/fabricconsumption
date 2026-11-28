@@ -180,3 +180,113 @@
  .home-page .reference-tool-card .tool-card-content b{font-size:13px}
  .home-page .reference-tool-card .tool-card-content p{font-size:10px}
 }
+
+
+/* Brand-aligned motion refresh: subtle, purposeful and accessible. */
+.home-page{
+  --home-blue:#078ed0;
+  --home-cyan:#38bdf8;
+}
+.home-page.dark-mode{
+  --home-blue:#38bdf8;
+  --home-cyan:#38bdf8;
+}
+.home-page .home-hero{
+  background:
+    radial-gradient(ellipse at 78% 18%,rgba(56,189,248,.16),transparent 38%),
+    radial-gradient(ellipse at 8% 90%,rgba(7,142,208,.16),transparent 36%),
+    linear-gradient(125deg,#0f172a 0%,#102d4b 58%,#123d5c 100%);
+  isolation:isolate;
+}
+.home-page .home-hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.18;
+  background-image:radial-gradient(rgba(186,230,253,.55) .7px,transparent .7px);
+  background-size:23px 23px;
+  mask-image:linear-gradient(90deg,transparent,#000 45%,#000);
+  animation:home-grid-drift 28s linear infinite;
+}
+.home-page .hero-copy{animation:home-copy-enter .8s cubic-bezier(.2,.7,.2,1) both}
+.home-page .hero-visual{animation:home-visual-enter .95s .12s cubic-bezier(.2,.7,.2,1) both}
+.home-page .workspace-preview{
+  animation:home-preview-float 7s ease-in-out 1s infinite;
+  transform-origin:50% 50%;
+}
+.home-page .workspace-preview-card{
+  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
+}
+.home-page .workspace-preview-card:hover{
+  transform:translateY(-4px);
+  border-color:#8bd8f7;
+  box-shadow:0 9px 22px rgba(7,142,208,.12);
+}
+.home-page .preview-icon{transition:transform .28s ease,background .28s ease}
+.home-page .workspace-preview-card:hover .preview-icon{transform:rotate(-7deg) scale(1.08);background:#d5f1ff}
+.home-page .btn-primary,.home-page .btn-secondary,.home-page .btn-light,.home-page .home-header-cta{
+  transition:transform .22s ease,background-color .22s ease,box-shadow .22s ease;
+}
+.home-page .btn-primary:hover,.home-page .btn-secondary:hover,.home-page .btn-light:hover,.home-page .home-header-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 9px 22px rgba(2,132,199,.2);
+}
+.home-page .reference-tool-card{
+  position:relative;
+  overflow:hidden;
+  transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s ease,box-shadow .28s ease;
+}
+.home-page .reference-tool-card:before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:3px;
+  background:linear-gradient(180deg,#078ed0,#38bdf8);
+  transform:scaleY(0);
+  transform-origin:bottom;
+  transition:transform .28s ease;
+}
+.home-page .reference-tool-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 14px 30px rgba(15,23,42,.09);
+}
+.home-page .reference-tool-card:hover:before{transform:scaleY(1)}
+.home-page .reference-tool-card .tool-icon{
+  transition:transform .28s ease,background-color .28s ease,color .28s ease;
+}
+.home-page .reference-tool-card:hover .tool-icon{transform:translateY(-2px) rotate(-5deg)}
+.home-page .tool-filter{transition:color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease}
+.home-page .tool-filter:hover{transform:translateY(-1px);border-color:#8bd8f7}
+.home-page .step-card,.home-page .benefit-list article,.home-page .audience-grid span{
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.home-page .step-card:hover,.home-page .benefit-list article:hover,.home-page .audience-grid span:hover{
+  transform:translateY(-3px);
+  border-color:#9bdcf5;
+  box-shadow:0 10px 24px rgba(15,23,42,.06);
+}
+.home-page .home-reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1);
+}
+.home-page .home-reveal.is-visible{opacity:1;transform:translateY(0)}
+.home-page .reference-tool-card.home-reveal:nth-child(3n+2){transition-delay:.07s}
+.home-page .reference-tool-card.home-reveal:nth-child(3n){transition-delay:.14s}
+.home-page .steps-grid .home-reveal:nth-child(2){transition-delay:.1s}
+.home-page .steps-grid .home-reveal:nth-child(3){transition-delay:.2s}
+@keyframes home-copy-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes home-visual-enter{from{opacity:0;transform:translateX(22px) scale(.98)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes home-preview-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes home-grid-drift{from{background-position:0 0}to{background-position:92px 46px}}
+@media(max-width:720px){
+  .home-page .workspace-preview{animation-duration:8s}
+  .home-page .home-reveal{transform:translateY(15px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-page .home-hero:after,.home-page .hero-copy,.home-page .hero-visual,.home-page .workspace-preview{animation:none!important}
+  .home-page .home-reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .home-page .reference-tool-card,.home-page .step-card,.home-page .benefit-list article,.home-page .audience-grid span{transition:none!important}
+}
