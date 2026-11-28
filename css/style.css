@@ -7639,12 +7639,10 @@ body.dark-mode #page-booking #bk-size-note{
 }
 
 
-/* Booking Sheet workspace: increase overall content width by 1 inch (96 CSS px) */
+/* Keep Booking Sheet aligned with the same workspace width as every calculator page. */
 #page-booking{
-  max-width:1296px;
-}
-@media(max-width:1328px){
-  #page-booking{max-width:100%}
+  width:100%;
+  max-width:1200px;
 }
 
 
