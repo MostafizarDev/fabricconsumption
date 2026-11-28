@@ -18,7 +18,7 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   fs.cpSync(source, destination, { recursive: true });
 }
 
-const pageTransitionHead = "<style id=\"fc-page-transition\">\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n</style>\n<script id=\"fc-theme-early\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>"
+const pageTransitionHead = "<style id=\"fc-page-transition\">\nhtml { background: #f0f4f8; }\nhtml.dark-mode { background: #0b1120; color-scheme: dark; }\nhtml:not(.dark-mode) { color-scheme: light; }\nhtml.dark-mode body { background: #0b1120; }\n</style>\n<script id=\"fc-theme-early\">\n(function () {\n  try {\n    var savedTheme = localStorage.getItem('fc-theme');\n    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;\n    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.documentElement.classList.add('dark-mode');\n  } catch (error) {}\n})();\n</script>";
 
 function injectPageTransition(html) {
   if (html.includes('id="fc-page-transition"')) return html;
